@@ -1,10 +1,7 @@
-# Użyj oficjalnego obrazu Ubuntu 22.04 jako podstawy
 FROM ubuntu:22.04
 
-# Ustaw zmienne środowiskowe, aby uniknąć interaktywnych zapytań
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Zainstaluj wymagane pakiety
 RUN apt-get update && apt-get install -y \
     curl \
     gnupg2 \
@@ -41,32 +38,14 @@ RUN apt-get update && apt-get install -y \
     libhyphen0 \
     libflite1 \
     libgles2-mesa-dev \
-    libx264-dev \
+    libx264-dev \    
     && rm -rf /var/lib/apt/lists/*
 
-# Zainstaluj Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs
 
-# Ustaw katalog roboczy
 WORKDIR /usr/src/app
 
-# Kopiuj plik package.json
-COPY package.json ./
-
-# Instalacja zależności
-RUN npm install
-
-# Instalacja najnowszej wersji npm
-RUN npm install -g npm@latest
-
-# Kopiuj resztę aplikacji
-COPY . .
-
-# Expose port 3000 dla aplikacji React
 EXPOSE 3000
 
-# Uruchom aplikację React w trybie deweloperskim
 CMD ["sh"]
-
-
