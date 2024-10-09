@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
       }}
     >
       <Typography variant="body2">
-        © {new Date().getFullYear()} Moja Aplikacja. Wszelkie prawa zastrzeżone.
+        HR-APP {new Date().getFullYear()} Moja Aplikacja. Wszelkie prawa zastrzeżone.
       </Typography>
     </Box>
   );
