@@ -1,6 +1,7 @@
 import { Button, Menu, MenuItem, Link } from "@mui/material";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const menuItems = [
   { label: "Companies", href: "/manage/companies/list", key: "companies" },
@@ -47,7 +48,7 @@ const ManageListNavigation: React.FC = () => {
           backgroundColor: open || selectedMenuItem ? "rgba(0, 0, 0, 0.1)" : "transparent", // Podświetlenie, gdy menu jest otwarte lub coś wybrane
         }}
       >
-        Manage
+        <DashboardIcon /> Manage
       </Button>
 
       <Menu

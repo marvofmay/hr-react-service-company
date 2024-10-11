@@ -18,7 +18,10 @@ const Navigation: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <AppBar position="static" color="primary">
+    <AppBar 
+      position="static" 
+      sx={{ backgroundColor: "#1A237E" }}
+    >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <Link href="/" color="inherit" underline="none">
           <Typography>HR APP</Typography>

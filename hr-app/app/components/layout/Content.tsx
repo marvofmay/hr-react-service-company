@@ -42,18 +42,17 @@ const Content: React.FC<ContentProps> = ({ children }) => {
       <Paper
         elevation={3}
         sx={{
-          padding: '14px',
+          padding: '5px',
           borderRadius: '8px',
           backgroundColor: colors.common.white,
           boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
+          display: 'block', // Zmieniono na 'block', aby uniknąć wyśrodkowania
+          width: '100%',   // Zajmowanie całej szerokości
+          maxWidth: 'none', // Brak ograniczenia szerokości
         }}
       >
         <Card sx={{ borderRadius: '8px', boxShadow: 'none', width: '100%' }}>
-          <CardContent sx={{ padding: '10px', display: 'flex', flexDirection: 'column' }}>
+          <CardContent sx={{ padding: '3px', display: 'block' }}> {/* Zmieniono flex na block */}
             {children}
           </CardContent>
         </Card>
