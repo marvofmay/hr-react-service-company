@@ -38,3 +38,46 @@ test('should show correct breadcrumb text after clicking on links', async ({ pag
     await expect(lastBreadcrumbItem).toHaveText(expectedText);
   }
 });
+
+
+test('dropdown displays after clicking the Manage button', async ({ page }) => {
+  await page.click('button:has-text("Manage")');
+  await expect(page.locator('text=Companies')).toBeVisible();
+  await expect(page.locator('text=Roles')).toBeVisible();
+  await expect(page.locator('text=Employees')).toBeVisible();
+});
+
+test('dropdown displays after clicking the Settings button', async ({ page }) => {
+  await page.click('button:has-text("Settings")');
+  await expect(page.locator('text=Companies')).toBeVisible();
+  await expect(page.locator('text=Roles')).toBeVisible();
+  await expect(page.locator('text=Employees')).toBeVisible();
+});
+
+test('dropdown displays after clicking the Manage button and click Companies', async ({ page }) => {
+  await page.click('button:has-text("Manage")');
+  await expect(page.locator('text=Companies')).toBeVisible();
+  await page.click('a:text("Companies")');
+  await expect(page.locator('text="Companies list"')).toBeVisible();
+});
+
+test('dropdown displays after clicking the Manage button and click Employess', async ({ page }) => {
+  await page.click('button:has-text("Manage")');
+  await expect(page.locator('text=Employees')).toBeVisible();
+  await page.click('a:text("Employees")');
+  await expect(page.locator('text="Employees list"')).toBeVisible();  
+});
+
+test('dropdown displays after clicking the Manage button and click Roles', async ({ page }) => {
+  await page.click('button:has-text("Manage")');
+  await expect(page.locator('text=Roles')).toBeVisible();
+  await page.click('a:text("Roles")');
+  await expect(page.locator('text="Roles list"')).toBeVisible();  
+});
+
+test('dropdown displays after clicking the Settings button and click Companies', async ({ page }) => {
+  await page.click('button:has-text("Settings")');
+  await expect(page.locator('text=Companies')).toBeVisible();
+  await page.click('a:text("Companies")');
+  await expect(page.locator('text="Companies settings"')).toBeVisible();
+});
