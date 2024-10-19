@@ -4,6 +4,7 @@ import "./public/globals.css";
 import Navigaton from './components/layout/Navigation';
 import Content from "./components/layout/Content";
 import Footer from "./components/layout/Footer";
+import { UserProvider } from './context/UserContext';
 
 const geistSans = localFont({
   src: "./public/fonts/GeistVF.woff",
@@ -26,9 +27,11 @@ const RootLayout = ({ children, }: Readonly<{children: React.ReactNode;}>) => {
   return (
     <html lang="en">   
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Navigaton />
-        <Content children={children} />
-        <Footer />
+        <UserProvider>  
+          <Navigaton />
+          <Content children={children} />
+          <Footer />
+        </UserProvider>
       </body>
     </html>
   );
