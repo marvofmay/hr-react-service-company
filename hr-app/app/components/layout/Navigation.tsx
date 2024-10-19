@@ -4,9 +4,13 @@ import { AppBar, Toolbar, Typography, Button, Link } from "@mui/material";
 import { usePathname } from "next/navigation";
 import ManageListNavigation from "../manage/navigation/List";
 import SettingsListNavigation from "../settings/navigation/List";
+import UserProfileNavigation from "../user/UserProfileNavigation"
 
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
+import LoginIcon from '@mui/icons-material/Login';
+
+import { useState, useEffect } from "react";
 
 const navLinks = [
   { href: "/", label: "HR APP", activePath: "/", icon: <HomeIcon /> },
@@ -16,6 +20,14 @@ const navLinks = [
 
 const Navigation: React.FC = () => {
   const pathname = usePathname();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Sprawdzanie, czy użytkownik jest zalogowany (może być na podstawie tokena, ciasteczka, itp.)
+    const userIsAuthenticated = true; // zastąp swoją logiką
+    setIsLoggedIn(userIsAuthenticated);
+  }, []);
+
 
   return (
     <AppBar 
@@ -35,7 +47,7 @@ const Navigation: React.FC = () => {
               color="inherit"
               underline="none"
               sx={{
-                backgroundColor: pathname.startsWith(link.activePath) ? "rgba(0, 0, 0, 0.1)" : "transparent",
+                backgroundColor: pathname.startsWith(link.activePath) ? "rgba(255, 255, 255, 0.3)" : "transparent",
                 padding: 0,
                 borderRadius: "2px",
               }}
@@ -45,6 +57,25 @@ const Navigation: React.FC = () => {
           ))}      
           <ManageListNavigation />
           <SettingsListNavigation />
+
+          {isLoggedIn ? (
+            <UserProfileNavigation />
+          ) : (
+            <Link 
+              href="/login" 
+              color="inherit" 
+              underline="none"
+              sx={{
+                backgroundColor: pathname.startsWith('/login') ? "rgba(255, 255, 255, 0.3)" : "transparent", // Jaśniejsze tło dla lepszego kontrastu
+                color: pathname.startsWith('/login') ? "#fff" : "inherit", // Biały tekst na aktywnym przycisku
+                padding: 0,
+                borderRadius: "2px",
+              }}                         
+            >
+              <Button color="inherit"><LoginIcon />Login</Button>
+            </Link>
+          )}
+
         </div>
       </Toolbar>
     </AppBar>

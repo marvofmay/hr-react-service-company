@@ -1,15 +1,15 @@
 import { Button, Menu, MenuItem, Link } from "@mui/material";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import Person2Icon from '@mui/icons-material/Person2';
 
 const menuItems = [
-  { label: "Companies", href: "/manage/companies/list", key: "companies" },
-  { label: "Employees", href: "/manage/employees/list", key: "employees" },
-  { label: "Roles", href: "/manage/roles/list", key: "roles" },
+  { label: "Settings", href: "/user/settings", key: "companies" },
+  { label: "Data", href: "/user/data", key: "employees" },
+  { label: "Logout", href: "/user/logout", key: "roles" },
 ];
 
-const ManageListNavigation: React.FC = () => {
+const UserProfileNavigation: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const pathname = usePathname();
@@ -37,18 +37,17 @@ const ManageListNavigation: React.FC = () => {
   }, [pathname]);
 
   return (
-    <>
-      {/* Przycisk „Manage” */}
+    <>   
       <Button
         color="inherit"
         aria-controls="manage-menu"
         aria-haspopup="true"
         onClick={handleMenuOpen}
         sx={{
-          backgroundColor: open || selectedMenuItem ? "rgba(255, 255, 255, 0.3)" : "transparent", // Podświetlenie, gdy menu jest otwarte lub coś wybrane
+          backgroundColor: open || selectedMenuItem ? "rgba(255, 255, 255, 0.3)" : "transparent",
         }}
       >
-        <DashboardIcon /> Manage
+        <Person2Icon /> User profile
       </Button>
 
       <Menu
@@ -60,7 +59,6 @@ const ManageListNavigation: React.FC = () => {
           "aria-labelledby": "manage-button",
         }}
       >
-        {/* Opcje w rozwijanym menu renderowane dynamicznie */}
         {menuItems.map((item) => (
           <MenuItem
             key={item.key}
@@ -79,4 +77,4 @@ const ManageListNavigation: React.FC = () => {
   );
 };
 
-export default ManageListNavigation;
+export default UserProfileNavigation;

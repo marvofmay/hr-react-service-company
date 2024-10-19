@@ -45,7 +45,7 @@ const SettingsListNavigation: React.FC = () => {
         aria-haspopup="true"
         onClick={handleMenuOpen}
         sx={{
-          backgroundColor: open || selectedMenuItem ? "rgba(0, 0, 0, 0.1)" : "transparent", // Podświetlenie, gdy menu jest otwarte lub coś wybrane
+          backgroundColor: open || selectedMenuItem ? "rgba(255, 255, 255, 0.3)" : "transparent", // Podświetlenie, gdy menu jest otwarte lub coś wybrane
         }}
       >
         <SettingsIcon /> Settings
