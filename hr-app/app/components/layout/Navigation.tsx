@@ -11,6 +11,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from '@mui/icons-material/Login';
 
 import { useState, useEffect } from "react";
+import { useUser } from "../../context/UserContext"; // Zaktualizuj ścieżkę do UserProvider
 
 const navLinks = [
     { href: "/", label: "HR APP", activePath: "/", icon: <HomeIcon /> },
@@ -20,23 +21,15 @@ const navLinks = [
 
 const Navigation: React.FC = () => {
     const pathname = usePathname();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-	
-    useEffect(() => {
-        // Sprawdzanie, czy użytkownik jest zalogowany (może być na podstawie tokena, ciasteczka, itp.)
-        const userIsAuthenticated = false; // zastąp swoją logiką
-        setIsLoggedIn(userIsAuthenticated);
-    }, []);
-
+	//odkomentuj jeśli podepniesz backend
+	//const { isAuthenticated } = useUser();
+    const { isAuthenticated } = {isAuthenticated: false}; 
 
     return (
-        <AppBar 
-            position="static" 
-            sx={{ backgroundColor: "#1A237E" }}
-        >
+        <AppBar position="static" sx={{ backgroundColor: "#1A237E" }}>
             <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Link href="/" color="inherit" underline="none">
-		  			<Typography>HR APP</Typography>
+                    <Typography>HR APP</Typography>
                 </Link>
                 <div style={{ display: "flex", gap: "16px" }}>
                     {navLinks.slice(1).map((link) => (
@@ -50,13 +43,15 @@ const Navigation: React.FC = () => {
                                 padding: 0,
                                 borderRadius: "2px",
                             }}
-                        >              
+                        >
                             <Button color="inherit">{link.icon} {link.label}</Button>
                         </Link>
-                    ))}      
-                    <ManageListNavigation />
-                    <SettingsListNavigation />
-                    {isLoggedIn ? (
+                    ))}
+                    {/* Renderuj ManageListNavigation tylko, jeśli użytkownik jest zalogowany */}
+                    {isAuthenticated && <ManageListNavigation />}
+                    {/* Renderuj SettingsListNavigation tylko, jeśli użytkownik jest zalogowany */}
+                    {isAuthenticated && <SettingsListNavigation />}
+                    {isAuthenticated ? (
                         <UserProfileNavigation />
                     ) : (
                         <Link 
@@ -64,8 +59,8 @@ const Navigation: React.FC = () => {
                             color="inherit" 
                             underline="none"
                             sx={{
-                                backgroundColor: pathname.startsWith('/login') ? "rgba(255, 255, 255, 0.3)" : "transparent", // Jaśniejsze tło dla lepszego kontrastu
-                                color: pathname.startsWith('/login') ? "#fff" : "inherit", // Biały tekst na aktywnym przycisku
+                                backgroundColor: pathname.startsWith('/login') ? "rgba(255, 255, 255, 0.3)" : "transparent",
+                                color: pathname.startsWith('/login') ? "#fff" : "inherit",
                                 padding: 0,
                                 borderRadius: "2px",
                             }}                         
@@ -73,8 +68,8 @@ const Navigation: React.FC = () => {
                             <Button color="inherit"><LoginIcon />Login</Button>
                         </Link>
                     )}
-        		</div>
-	  		</Toolbar>
+                </div>
+            </Toolbar>
         </AppBar>
     );
 };
