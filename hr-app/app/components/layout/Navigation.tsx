@@ -11,7 +11,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from '@mui/icons-material/Login';
 
 import { useState, useEffect } from "react";
-import { useUser } from "../../context/UserContext"; // Zaktualizuj ścieżkę do UserProvider
+import { useUser } from "../../context/UserContext";
 
 const navLinks = [
     { href: "/", label: "HR APP", activePath: "/", icon: <HomeIcon /> },
@@ -23,7 +23,7 @@ const Navigation: React.FC = () => {
     const pathname = usePathname();
 	//odkomentuj jeśli podepniesz backend
 	//const { isAuthenticated } = useUser();
-    const { isAuthenticated } = {isAuthenticated: false}; 
+    const { isAuthenticated } = {isAuthenticated: true}; 
 
     return (
         <AppBar position="static" sx={{ backgroundColor: "#1A237E" }}>
@@ -46,10 +46,8 @@ const Navigation: React.FC = () => {
                         >
                             <Button color="inherit">{link.icon} {link.label}</Button>
                         </Link>
-                    ))}
-                    {/* Renderuj ManageListNavigation tylko, jeśli użytkownik jest zalogowany */}
-                    {isAuthenticated && <ManageListNavigation />}
-                    {/* Renderuj SettingsListNavigation tylko, jeśli użytkownik jest zalogowany */}
+                    ))}                
+                    {isAuthenticated && <ManageListNavigation />}                  
                     {isAuthenticated && <SettingsListNavigation />}
                     {isAuthenticated ? (
                         <UserProfileNavigation />
