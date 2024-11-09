@@ -7,6 +7,7 @@ const menuItems = [
     { label: "Companies", href: "/manage/companies/list", key: "companies" },
     { label: "Employees", href: "/manage/employees/list", key: "employees" },
     { label: "Roles", href: "/manage/roles/list", key: "roles" },
+    { label: "Industries", href: "/manage/industries/list", key: "industries" },
 ];
 
 const ManageListNavigation: React.FC = () => {
