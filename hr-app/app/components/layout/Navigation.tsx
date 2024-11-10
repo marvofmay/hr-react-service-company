@@ -9,9 +9,7 @@ import UserProfileNavigation from "../user/UserProfileNavigation"
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from '@mui/icons-material/Login';
-
-import { useState, useEffect } from "react";
-import { useUser } from "../../context/UserContext";
+;
 
 const navLinks = [
     { href: "/", label: "HR APP", activePath: "/", icon: <HomeIcon /> },
@@ -21,9 +19,9 @@ const navLinks = [
 
 const Navigation: React.FC = () => {
     const pathname = usePathname();
-	//odkomentuj jeśli podepniesz backend
-	//const { isAuthenticated } = useUser();
-    const { isAuthenticated } = {isAuthenticated: true}; 
+    //odkomentuj jeśli podepniesz backend
+    //const { isAuthenticated } = useUser();
+    const { isAuthenticated } = { isAuthenticated: true };
 
     return (
         <AppBar position="static" sx={{ backgroundColor: "#1A237E" }}>
@@ -46,22 +44,22 @@ const Navigation: React.FC = () => {
                         >
                             <Button color="inherit">{link.icon} {link.label}</Button>
                         </Link>
-                    ))}                
-                    {isAuthenticated && <ManageListNavigation />}                  
+                    ))}
+                    {isAuthenticated && <ManageListNavigation />}
                     {isAuthenticated && <SettingsListNavigation />}
                     {isAuthenticated ? (
                         <UserProfileNavigation />
                     ) : (
-                        <Link 
-                            href="/login" 
-                            color="inherit" 
+                        <Link
+                            href="/login"
+                            color="inherit"
                             underline="none"
                             sx={{
                                 backgroundColor: pathname.startsWith('/login') ? "rgba(255, 255, 255, 0.3)" : "transparent",
                                 color: pathname.startsWith('/login') ? "#fff" : "inherit",
                                 padding: 0,
                                 borderRadius: "2px",
-                            }}                         
+                            }}
                         >
                             <Button color="inherit"><LoginIcon />Login</Button>
                         </Link>
