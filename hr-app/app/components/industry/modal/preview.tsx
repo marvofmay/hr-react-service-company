@@ -11,7 +11,6 @@ interface IndustryPreviewModalProps {
 const IndustryPreviewModal: React.FC<IndustryPreviewModalProps> = ({ open, selectedIndustry, onClose }) => {
     return (
         <Dialog open={open} onClose={onClose}>
-            {/* Nagłówek */}
             <DialogTitle sx={{ backgroundColor: '#1A237E', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 Preview Industry
             </DialogTitle>
