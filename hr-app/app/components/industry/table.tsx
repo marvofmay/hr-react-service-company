@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Table
 import { Preview, Edit, Delete, Add } from '@mui/icons-material';
 import Industry from '../../types/Industry';
 import fakeIndustries from '../../fake_data/Industries';
-import IndustryPreviewModal from './modal/preview';
+import PreviewIndustryModal from './modal/preview';
 import CreateIndustryModal from './modal/create';
 import EditIndustryModal from './modal/edit';
 import DeleteIndustryModal from './modal/delete';
@@ -148,7 +148,7 @@ const IndustriesTable = () => {
 
             {industries.length > 0 && <TablePagination rowsPerPageOptions={[5, 10, 25, 50, 100]} component="div" count={industries.length} rowsPerPage={pageSize} page={pageIndex} onPageChange={(event, newPage) => setPageIndex(newPage)} onRowsPerPageChange={handlePageSizeChange} />}
 
-            {modalType === 'preview' && <IndustryPreviewModal
+            {modalType === 'preview' && <PreviewIndustryModal
                 open={true}
                 selectedIndustry={selectedIndustry}
                 onClose={closeModal}

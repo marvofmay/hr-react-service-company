@@ -1,31 +1,31 @@
 import React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
-import Industry from '../../../types/Industry';
+import Role from '../../../types/Role';
 
-interface PreviewIndustryModalProps {
+interface PreviewRoleModalProps {
     open: boolean;
-    selectedIndustry: Industry | null;
+    selectedRole: Role | null;
     onClose: () => void;
 }
 
-const PreviewIndustryModal: React.FC<PreviewIndustryModalProps> = ({ open, selectedIndustry, onClose }) => {
+const PreviewRoleModal: React.FC<PreviewRoleModalProps> = ({ open, selectedRole, onClose }) => {
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle sx={{ backgroundColor: '#1A237E', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                Preview Industry
+                Preview Role
             </DialogTitle>
 
             <DialogContent sx={{ marginTop: '10px', padding: '20px' }}>
-                {selectedIndustry ? (
+                {selectedRole ? (
                     <div>
-                        <p><strong>UUID:</strong> {selectedIndustry.uuid}</p>
-                        <p><strong>Name:</strong> {selectedIndustry.name}</p>
-                        <p><strong>Description:</strong> {selectedIndustry.description}</p>
-                        <p><strong>Created At:</strong> {selectedIndustry.created_at}</p>
-                        <p><strong>Updated At:</strong> {selectedIndustry.updated_at}</p>
+                        <p><strong>UUID:</strong> {selectedRole.uuid}</p>
+                        <p><strong>Name:</strong> {selectedRole.name}</p>
+                        <p><strong>Description:</strong> {selectedRole.description}</p>
+                        <p><strong>Created At:</strong> {selectedRole.created_at}</p>
+                        <p><strong>Updated At:</strong> {selectedRole.updated_at}</p>
                     </div>
                 ) : (
-                    <p>No industry selected.</p>
+                    <p>No role selected.</p>
                 )}
             </DialogContent>
 
@@ -38,4 +38,4 @@ const PreviewIndustryModal: React.FC<PreviewIndustryModalProps> = ({ open, selec
     );
 };
 
-export default PreviewIndustryModal;
+export default PreviewRoleModal;

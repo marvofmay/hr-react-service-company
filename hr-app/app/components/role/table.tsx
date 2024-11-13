@@ -3,18 +3,21 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Table
 import { Preview, Edit, Delete, Add } from '@mui/icons-material';
 import Role from '../../types/Role';
 import fakeRoles from '../../fake_data/Roles';
-
+import CreateRoleModal from './modal/create';
+import EditRoleModal from './modal/edit';
+import PreviewRoleModal from './modal/preview';
+import DeleteRoleModal from './modal/delete';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
-const IndustriesTable = () => {
+const RolesTable = () => {
     const [roles, setRoles] = useState<Role[]>([]);
     const [pageSize, setPageSize] = useState(5);
     const [pageIndex, setPageIndex] = useState(0);
     const [sortBy, setSortBy] = useState('name');
     const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
     const [modalType, setModalType] = useState<string | null>(null);
-    const [selectedIndustry, setSelectedRole] = useState<Role | null>(null);
+    const [selectedRole, setSelectedRole] = useState<Role | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -153,26 +156,26 @@ const IndustriesTable = () => {
                 onRowsPerPageChange={handlePageSizeChange}
             />}
 
-            {modalType === 'preview' && <IndustryPreviewModal
+            {modalType === 'preview' && <PreviewRoleModal
                 open={true}
-                selectedIndustry={selectedIndustry}
+                selectedRole={selectedRole}
                 onClose={closeModal}
             />}
 
-            {modalType === 'create' && <CreateIndustryModal
+            {modalType === 'create' && <CreateRoleModal
                 open={true}
                 onClose={closeModal}
-                onAddIndustry={role => { handleAdd(role); closeModal(); }}
+                onAddRole={role => { handleAdd(role); closeModal(); }}
             />}
 
-            {modalType === 'edit' && <EditIndustryModal
+            {modalType === 'edit' && <EditRoleModal
                 open={true}
                 role={selectedRole}
                 onClose={closeModal}
                 onSave={handleUpdate}
             />}
 
-            {modalType === 'delete' && <DeleteIndustryModal
+            {modalType === 'delete' && <DeleteRoleModal
                 open={true}
                 selectedRole={selectedRole}
                 onClose={closeModal}
@@ -182,4 +185,4 @@ const IndustriesTable = () => {
     );
 };
 
-export default IndustriesTable;
+export default RolesTable;
