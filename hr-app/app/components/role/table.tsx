@@ -1,44 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination, IconButton, Button, Box, CircularProgress } from '@mui/material';
 import { Preview, Edit, Delete, Add } from '@mui/icons-material';
-import Industry from '../../types/Industry';
-import fakeIndustries from '../../fake_data/Industries';
-import IndustryPreviewModal from './modal/preview';
-import CreateIndustryModal from './modal/create';
-import EditIndustryModal from './modal/edit';
-import DeleteIndustryModal from './modal/delete';
+import Role from '../../types/Role';
+import fakeRoles from '../../fake_data/Roles';
 
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
 const IndustriesTable = () => {
-    const [industries, setIndustries] = useState<Industry[]>([]);
+    const [roles, setRoles] = useState<Role[]>([]);
     const [pageSize, setPageSize] = useState(5);
     const [pageIndex, setPageIndex] = useState(0);
     const [sortBy, setSortBy] = useState('name');
     const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
     const [modalType, setModalType] = useState<string | null>(null);
-    const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
+    const [selectedIndustry, setSelectedRole] = useState<Role | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchIndustries = async () => {
+        const fetchRoles = async () => {
             setIsLoading(true);
             setError(null);
             try {
                 // Faktyczne wywołanie API tutaj
-                // const response = await axios.get('/api/industries', { params: { pageSize, pageIndex, sortBy, sortDirection } });
-                // setIndustries(response.data);
-                setIndustries(fakeIndustries);
+                // const response = await axios.get('/api/roles', { params: { pageSize, pageIndex, sortBy, sortDirection } });
+                // setRoles(response.data);
+                setRoles(fakeRoles);
             } catch (error) {
-                setError("Error fetching industries");
+                setError("Error fetching roles");
             } finally {
                 setIsLoading(false);
             }
         };
 
-        fetchIndustries();
+        fetchRoles();
     }, [pageIndex, pageSize, sortBy, sortDirection]);
 
     const handleSort = (column: string) => {
@@ -47,41 +43,42 @@ const IndustriesTable = () => {
         setSortDirection(direction);
     };
 
-    const openModal = (type: string, industry: Industry | null = null) => {
+    const openModal = (type: string, role: Role | null = null) => {
         setModalType(type);
-        setSelectedIndustry(industry);
+        setSelectedRole(role);
     };
 
     const closeModal = () => {
         setModalType(null);
-        setSelectedIndustry(null);
+        setSelectedRole(null);
     };
 
     const handlePageSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPageSize(Number(event.target.value));
     };
 
-    const handleAdd = (industry: Industry) => {
+    const handleAdd = (role: Role) => {
         // ToDo: obsłuż dodawanie na backendzie
-        industry.uuid = `${industries.length + 1}`;
-        setIndustries([...industries, industry])
+        role.uuid = `${roles.length + 1}`;
+        setRoles([...roles, role])
+        console.log(roles);
     }
 
-    const handleDelete = (industryToDelete: Industry) => {
+    const handleDelete = (roleToDelete: Role) => {
         // ToDo: obsłuż usuwanie na backendzie
-        setIndustries(industries.filter(industry => industry.uuid !== industryToDelete.uuid));
+        setRoles(roles.filter(role => role.uuid !== roleToDelete.uuid));
     };
 
-    const handleUpdateIndustry = (updatedIndustry: Industry) => {
+    const handleUpdate = (updatedRole: Role) => {
         // ToDo: obsłuż aktualizację na backendzie
-        setIndustries(prevIndustries => prevIndustries.map(industry => (industry.uuid === updatedIndustry.uuid ? updatedIndustry : industry)));
+        setRoles(prevRoles => prevRoles.map(role => (role.uuid === updatedRole.uuid ? updatedRole : role)));
     };
 
     return (
         <div>
             <Box display="flex" justifyContent="flex-end" marginBottom={2}>
                 <Button variant="contained" color="success" startIcon={<Add />} onClick={() => openModal('create')}>
-                    Add Industry
+                    Add Role
                 </Button>
             </Box>
 
@@ -93,7 +90,7 @@ const IndustriesTable = () => {
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{error}</div>
                 </Box>
-            ) : industries.length === 0 && !isLoading ? ( // Dodajemy sprawdzenie, czy nie trwa ładowanie
+            ) : roles.length === 0 && !isLoading ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>No data</div>
                 </Box>
@@ -105,7 +102,7 @@ const IndustriesTable = () => {
                                 <TableCell
                                     sortDirection={sortBy === 'id' ? sortDirection : false}
                                     onClick={() => handleSort('id')}
-                                    sx={{ padding: '4px 8px' }} // Zmniejszenie paddingu
+                                    sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'id'} direction={sortBy === 'id' ? sortDirection : 'asc'}>
                                         #
@@ -114,7 +111,7 @@ const IndustriesTable = () => {
                                 <TableCell
                                     sortDirection={sortBy === 'name' ? sortDirection : false}
                                     onClick={() => handleSort('name')}
-                                    sx={{ padding: '4px 8px' }} // Zmniejszenie paddingu
+                                    sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'name'} direction={sortBy === 'name' ? sortDirection : 'asc'}>
                                         Name
@@ -127,17 +124,17 @@ const IndustriesTable = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {industries.map((industry, index) => (
+                            {roles.map((role, index) => (
                                 <TableRow key={index}>
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.name}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.description}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.created_at}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.updated_at}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{role.name}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{role.description}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{role.created_at}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{role.updated_at}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
-                                        <IconButton onClick={() => openModal('preview', industry)}><Preview /></IconButton>
-                                        <IconButton onClick={() => openModal('edit', industry)}><Edit /></IconButton>
-                                        <IconButton onClick={() => openModal('delete', industry)}><Delete /></IconButton>
+                                        <IconButton onClick={() => openModal('preview', role)}><Preview /></IconButton>
+                                        <IconButton onClick={() => openModal('edit', role)}><Edit /></IconButton>
+                                        <IconButton onClick={() => openModal('delete', role)}><Delete /></IconButton>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -146,7 +143,15 @@ const IndustriesTable = () => {
                 </TableContainer>
             )}
 
-            {industries.length > 0 && <TablePagination rowsPerPageOptions={[5, 10, 25, 50, 100]} component="div" count={industries.length} rowsPerPage={pageSize} page={pageIndex} onPageChange={(event, newPage) => setPageIndex(newPage)} onRowsPerPageChange={handlePageSizeChange} />}
+            {roles.length > 0 && <TablePagination
+                rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                component="div"
+                count={roles.length}
+                rowsPerPage={pageSize}
+                page={pageIndex}
+                onPageChange={(event, newPage) => setPageIndex(newPage)}
+                onRowsPerPageChange={handlePageSizeChange}
+            />}
 
             {modalType === 'preview' && <IndustryPreviewModal
                 open={true}
@@ -157,21 +162,21 @@ const IndustriesTable = () => {
             {modalType === 'create' && <CreateIndustryModal
                 open={true}
                 onClose={closeModal}
-                onAddIndustry={industry => { handleAdd(industry); closeModal(); }}
+                onAddIndustry={role => { handleAdd(role); closeModal(); }}
             />}
 
             {modalType === 'edit' && <EditIndustryModal
                 open={true}
-                industry={selectedIndustry}
+                role={selectedRole}
                 onClose={closeModal}
-                onSave={handleUpdateIndustry}
+                onSave={handleUpdate}
             />}
 
             {modalType === 'delete' && <DeleteIndustryModal
                 open={true}
-                selectedIndustry={selectedIndustry}
+                selectedRole={selectedRole}
                 onClose={closeModal}
-                onDeleteConfirm={(industry) => { handleDelete(industry); closeModal(); }}
+                onDeleteConfirm={(role) => { handleDelete(role); closeModal(); }}
             />}
         </div>
     );
