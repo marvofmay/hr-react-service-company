@@ -16,7 +16,6 @@ type SortDirection = 'asc' | 'desc' | undefined;
 
 const RolesTable = () => {
     const [localRoles, setLocalRoles] = useState<Role[] | null>([]);
-    const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(5);
     const [pageIndex, setPageIndex] = useState(0);
     const [sortBy, setSortBy] = useState('name');
@@ -24,7 +23,7 @@ const RolesTable = () => {
     const [modalType, setModalType] = useState<string | null>(null);
     const [selectedRole, setSelectedRole] = useState<Role | null>(null);
 
-    const { data, isLoading, error } = useRolesQuery(page, pageSize, pageIndex, sortBy, sortDirection);
+    const { data, isLoading, error } = useRolesQuery(pageSize, pageIndex, sortBy, sortDirection);
     const { mutate: addRoleMutate, isSuccess: isAddSuccess, error: isAddError } = useAddRoleMutation();
     const { mutate: updateRoleMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdateRoleMutation();
     const { mutate: deleteRoleMutate, isSuccess: isDeleteSuccess, error: isDeleteError } = useDeleteRoleMutation();
