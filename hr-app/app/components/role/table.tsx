@@ -157,7 +157,7 @@ const RolesTable = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {localRoles.map((role, index) => (
+                            {localRoles?.map((role, index) => (
                                 <TableRow key={role.uuid}>
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.name}</TableCell>
