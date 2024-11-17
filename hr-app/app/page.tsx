@@ -17,7 +17,7 @@ const Home: React.FC = () => {
                     height={38}
                     priority
                 />
-        
+
                 {/* Użycie operatora warunkowego do renderowania treści */}
                 {!isAuthenticated ? (
                     <p>Nie jesteś zalogowany.</p>

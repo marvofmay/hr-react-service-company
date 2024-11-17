@@ -1,6 +1,6 @@
 import React from 'react';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import Position from '../../../types/Position';
+import DeleteConfirmModal from '../../modal/deleteConfirm';
 
 interface DeletePositionModalProps {
     open: boolean;
@@ -18,18 +18,14 @@ const DeletePositionModal: React.FC<DeletePositionModalProps> = ({ open, selecte
     };
 
     return (
-        <Dialog open={open} onClose={onClose}>
-            <DialogTitle>Confirm Deletion</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    Are you sure you want to delete the position "{selectedPosition?.name}"? This action cannot be undone.
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={onClose} color="primary">Cancel</Button>
-                <Button onClick={handleDelete} color="error" variant="contained">Delete</Button>
-            </DialogActions>
-        </Dialog>
+        <DeleteConfirmModal
+            open={open}
+            selectedItem={selectedPosition}
+            onClose={onClose}
+            onDeleteConfirm={handleDelete}
+            title="Confirm Position Deletion"
+            description={`Are you sure you want to delete this position: ${selectedPosition?.name} ?`}
+        />
     );
 };
 
