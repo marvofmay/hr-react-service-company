@@ -9,7 +9,7 @@ import UserProfileNavigation from "../user/UserProfileNavigation"
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from '@mui/icons-material/Login';
-;
+import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 
 const navLinks = [
     { href: "/", label: "HR APP", activePath: "/", icon: <HomeIcon /> },
@@ -47,6 +47,7 @@ const Navigation: React.FC = () => {
                     ))}
                     {isAuthenticated && <ManageListNavigation />}
                     {isAuthenticated && <SettingsListNavigation />}
+                    {isAuthenticated && <button><CircleNotificationsIcon /></button>}
                     {isAuthenticated ? (
                         <UserProfileNavigation />
                     ) : (

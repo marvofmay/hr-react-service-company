@@ -6,6 +6,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 const menuItems = [
     { label: "Companies", href: "/manage/companies/list", key: "companies" },
     { label: "Employees", href: "/manage/employees/list", key: "employees" },
+    { label: "Positions", href: "/manage/positions/list", key: "positions" },
     { label: "Roles", href: "/manage/roles/list", key: "roles" },
     { label: "Industries", href: "/manage/industries/list", key: "industries" },
 ];
@@ -29,9 +30,10 @@ const ManageListNavigation: React.FC = () => {
         handleMenuClose();
     };
 
-    // Ustaw wybrany element menu na podstawie ścieżki URL
+
     useEffect(() => {
         const matchedItem = menuItems.find(item => pathname.includes(item.href));
+
         if (matchedItem) {
             setSelectedMenuItem(matchedItem.key);
         }
@@ -39,14 +41,13 @@ const ManageListNavigation: React.FC = () => {
 
     return (
         <>
-            {/* Przycisk „Manage” */}
             <Button
                 color="inherit"
                 aria-controls="manage-menu"
                 aria-haspopup="true"
                 onClick={handleMenuOpen}
                 sx={{
-                    backgroundColor: open || selectedMenuItem ? "rgba(255, 255, 255, 0.3)" : "transparent", // Podświetlenie, gdy menu jest otwarte lub coś wybrane
+                    backgroundColor: open || selectedMenuItem ? "rgba(255, 255, 255, 0.3)" : "transparent",
                 }}
             >
                 <DashboardIcon /> Manage
@@ -61,7 +62,6 @@ const ManageListNavigation: React.FC = () => {
                     "aria-labelledby": "manage-button",
                 }}
             >
-                {/* Opcje w rozwijanym menu renderowane dynamicznie */}
                 {menuItems.map((item) => (
                     <MenuItem
                         key={item.key}
