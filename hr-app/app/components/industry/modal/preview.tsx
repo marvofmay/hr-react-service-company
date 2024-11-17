@@ -1,6 +1,6 @@
 import React from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
 import Industry from '../../../types/Industry';
+import Preview from '../../modal/preview';
 
 interface PreviewIndustryModalProps {
     open: boolean;
@@ -10,31 +10,18 @@ interface PreviewIndustryModalProps {
 
 const PreviewIndustryModal: React.FC<PreviewIndustryModalProps> = ({ open, selectedIndustry, onClose }) => {
     return (
-        <Dialog open={open} onClose={onClose}>
-            <DialogTitle sx={{ backgroundColor: '#1A237E', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                Preview Industry
-            </DialogTitle>
-
-            <DialogContent sx={{ marginTop: '10px', padding: '20px' }}>
-                {selectedIndustry ? (
-                    <div>
-                        <p><strong>UUID:</strong> {selectedIndustry.uuid}</p>
-                        <p><strong>Name:</strong> {selectedIndustry.name}</p>
-                        <p><strong>Description:</strong> {selectedIndustry.description}</p>
-                        <p><strong>Created At:</strong> {selectedIndustry.created_at}</p>
-                        <p><strong>Updated At:</strong> {selectedIndustry.updated_at}</p>
-                    </div>
-                ) : (
-                    <p>No industry selected.</p>
-                )}
-            </DialogContent>
-
-            <DialogActions>
-                <Button onClick={onClose} sx={{ backgroundColor: '#1A237E', color: 'white', fontWeight: 'bold' }}>
-                    Close
-                </Button>
-            </DialogActions>
-        </Dialog>
+        <Preview
+            open={open}
+            title="Preview Industry"
+            details={{
+                UUID: selectedIndustry?.uuid || 'N/A',
+                Name: selectedIndustry?.name || 'N/A',
+                Description: selectedIndustry?.description || 'N/A',
+                'Created At': selectedIndustry?.created_at || 'N/A',
+                'Updated At': selectedIndustry?.updated_at || 'N/A',
+            }}
+            onClose={onClose}
+        />
     );
 };
 
