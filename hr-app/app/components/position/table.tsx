@@ -37,7 +37,7 @@ const PositionsTable = () => {
     useEffect(() => {
         if (isAddSuccess) {
             closeModal();
-            toast.success('Nowa stanowisko została dodana.');
+            toast.success('Nowe stanowisko zostało dodane.');
         }
         if (isAddError) {
             closeModal();
@@ -48,7 +48,7 @@ const PositionsTable = () => {
     useEffect(() => {
         if (isUpdateSuccess) {
             closeModal();
-            toast.success('Rola została zaktualizowana.');
+            toast.success('Stanowisko zostało zaktualizowane.');
         }
         if (isUpdateError) {
             toast.error('Błąd podczas aktualizacji stanowiska.');
