@@ -58,7 +58,7 @@ const PositionsTable = () => {
     useEffect(() => {
         if (isDeleteSuccess) {
             closeModal();
-            toast.success('Rola została usunięta.');
+            toast.success('Stanowisko zostało usunięte.');
         }
         if (isDeleteError) {
             closeModal();

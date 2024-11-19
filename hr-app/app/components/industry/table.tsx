@@ -58,7 +58,7 @@ const IndustriesTable = () => {
     useEffect(() => {
         if (isDeleteSuccess) {
             closeModal();
-            toast.success('Przemysł została usunięty.');
+            toast.success('Przemysł został usunięty.');
         }
         if (isDeleteError) {
             closeModal();
