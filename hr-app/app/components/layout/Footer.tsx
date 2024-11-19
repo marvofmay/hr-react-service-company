@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
             }}
         >
             <Typography variant="body2">
-        HR-APP {new Date().getFullYear()} Moja Aplikacja. Wszelkie prawa zastrzeżone.
+                HR-APP {new Date().getFullYear()} Aplikacja dla celów nauki NextJs / React.
             </Typography>
         </Box>
     );

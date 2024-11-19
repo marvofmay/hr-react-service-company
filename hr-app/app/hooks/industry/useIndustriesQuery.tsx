@@ -5,7 +5,7 @@ import fakeIndustries from '../../fake_data/Industries';
 type SortDirection = 'asc' | 'desc' | undefined;
 
 const fetchIndustries = async (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection): Promise<Industry[]> => {
-    // Tutaj można dodać prawdziwe wywołanie API
+    // ToDo: dodać wywołanie endpointa z enpoitna API
     // const response = await axios.get('/api/industries', { params: { pageSize, pageIndex, sortBy, sortDirection } });
     // return response.data;
 

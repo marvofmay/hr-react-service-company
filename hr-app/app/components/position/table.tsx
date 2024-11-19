@@ -2,44 +2,69 @@ import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination, IconButton, Button, Box, CircularProgress } from '@mui/material';
 import { Preview, Edit, Delete, Add } from '@mui/icons-material';
 import Position from '../../types/Position';
-import fakePositions from '../../fake_data/Positions';
-import PreviewPositionModal from './modal/preview';
 import CreatePositionModal from './modal/create';
 import EditPositionModal from './modal/edit';
+import PreviewPositionModal from './modal/preview';
 import DeletePositionModal from './modal/delete';
-
+import usePositionsQuery from '../../hooks/position/usePositionsQuery';
+import useAddPositionMutation from '@/app/hooks/position/useAddPositionMutation';
+import useUpdatePositionMutation from '@/app/hooks/position/useUpdatePositionMutation';
+import useDeletePositionMutation from '@/app/hooks/position/useDeletePositionMutation';
+import { toast } from 'react-toastify';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
 const PositionsTable = () => {
-    const [positions, setPositions] = useState<Position[]>([]);
+    const [localPositions, setLocalPositions] = useState<Position[] | null>([]);
     const [pageSize, setPageSize] = useState(5);
     const [pageIndex, setPageIndex] = useState(0);
     const [sortBy, setSortBy] = useState('name');
     const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
     const [modalType, setModalType] = useState<string | null>(null);
     const [selectedPosition, setSelectedPosition] = useState<Position | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+
+    const { data, isLoading, error } = usePositionsQuery(pageSize, pageIndex, sortBy, sortDirection);
+    const { mutate: addPositionMutate, isSuccess: isAddSuccess, error: isAddError } = useAddPositionMutation();
+    const { mutate: updatePositionMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdatePositionMutation();
+    const { mutate: deletePositionMutate, isSuccess: isDeleteSuccess, error: isDeleteError } = useDeletePositionMutation();
 
     useEffect(() => {
-        const fetchPositions = async () => {
-            setIsLoading(true);
-            setError(null);
-            try {
-                // Faktyczne wywołanie API tutaj
-                // const response = await axios.get('/api/positions', { params: { pageSize, pageIndex, sortBy, sortDirection } });
-                // setPositions(response.data);
-                setPositions(fakePositions);
-            } catch (error) {
-                setError("Error fetching positions");
-            } finally {
-                setIsLoading(false);
-            }
-        };
+        if (data) {
+            setLocalPositions(data);
+        }
+    }, [data]);
 
-        fetchPositions();
-    }, [pageIndex, pageSize, sortBy, sortDirection]);
+    useEffect(() => {
+        if (isAddSuccess) {
+            closeModal();
+            toast.success('Nowa stanowisko została dodana.');
+        }
+        if (isAddError) {
+            closeModal();
+            toast.success('Błąd podczas dodawania stanowiska.');
+        }
+    }, [isAddSuccess, isAddError]);
+
+    useEffect(() => {
+        if (isUpdateSuccess) {
+            closeModal();
+            toast.success('Rola została zaktualizowana.');
+        }
+        if (isUpdateError) {
+            toast.error('Błąd podczas aktualizacji stanowiska.');
+        }
+    }, [isUpdateSuccess, isUpdateError]);
+
+    useEffect(() => {
+        if (isDeleteSuccess) {
+            closeModal();
+            toast.success('Rola została usunięta.');
+        }
+        if (isDeleteError) {
+            closeModal();
+            toast.success('Błąd podczas usuwania stanowiska.');
+        }
+    }, [isDeleteSuccess, isDeleteError]);
 
     const handleSort = (column: string) => {
         const direction = sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc';
@@ -62,19 +87,23 @@ const PositionsTable = () => {
     };
 
     const handleAdd = (position: Position) => {
-        // ToDo: obsłuż dodawanie na backendzie
-        position.uuid = `${positions.length + 1}`;
-        setPositions([...positions, position])
-    }
-
-    const handleDelete = (positionToDelete: Position) => {
-        // ToDo: obsłuż usuwanie na backendzie
-        setPositions(positions.filter(position => position.uuid !== positionToDelete.uuid));
+        addPositionMutate(position);
     };
 
-    const handleUpdatePosition = (updatedPosition: Position) => {
-        // ToDo: obsłuż aktualizację na backendzie
-        setPositions(prevPositions => prevPositions.map(position => (position.uuid === updatedPosition.uuid ? updatedPosition : position)));
+    const handleDelete = (positionToDelete: Position) => {
+        deletePositionMutate(positionToDelete, {
+            onSuccess: (currentPositions) => {
+                setLocalPositions(currentPositions);
+            }
+        });
+    };
+
+    const handleUpdate = (updatedPosition: Position) => {
+        updatePositionMutate(updatedPosition, {
+            onSuccess: (currentPositions) => {
+                setLocalPositions(currentPositions);
+            }
+        });
     };
 
     return (
@@ -91,9 +120,9 @@ const PositionsTable = () => {
                 </Box>
             ) : error ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                    <div>{error}</div>
+                    <div>something went wrong :(</div>
                 </Box>
-            ) : positions.length === 0 && !isLoading ? (
+            ) : localPositions && localPositions.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>No data</div>
                 </Box>
@@ -127,8 +156,8 @@ const PositionsTable = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {positions.map((position, index) => (
-                                <TableRow key={index}>
+                            {localPositions?.map((position, index) => (
+                                <TableRow key={position.uuid}>
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{position.name}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{position.description}</TableCell>
@@ -146,7 +175,15 @@ const PositionsTable = () => {
                 </TableContainer>
             )}
 
-            {positions.length > 0 && <TablePagination rowsPerPageOptions={[5, 10, 25, 50, 100]} component="div" count={positions.length} rowsPerPage={pageSize} page={pageIndex} onPageChange={(event, newPage) => setPageIndex(newPage)} onRowsPerPageChange={handlePageSizeChange} />}
+            {localPositions && localPositions.length > 0 && <TablePagination
+                rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                component="div"
+                count={localPositions.length}
+                rowsPerPage={pageSize}
+                page={pageIndex}
+                onPageChange={(event, newPage) => setPageIndex(newPage)}
+                onRowsPerPageChange={handlePageSizeChange}
+            />}
 
             {modalType === 'preview' && <PreviewPositionModal
                 open={true}
@@ -157,24 +194,25 @@ const PositionsTable = () => {
             {modalType === 'create' && <CreatePositionModal
                 open={true}
                 onClose={closeModal}
-                onAddPosition={position => { handleAdd(position); closeModal(); }}
+                onAddPosition={position => { handleAdd(position); }}
             />}
 
             {modalType === 'edit' && <EditPositionModal
                 open={true}
                 position={selectedPosition}
                 onClose={closeModal}
-                onSave={handleUpdatePosition}
+                onSave={handleUpdate}
             />}
 
             {modalType === 'delete' && <DeletePositionModal
                 open={true}
                 selectedPosition={selectedPosition}
                 onClose={closeModal}
-                onDeleteConfirm={(position) => { handleDelete(position); closeModal(); }}
+                onDeleteConfirm={(position) => { handleDelete(position); }}
             />}
         </div>
     );
 };
 
 export default PositionsTable;
+
