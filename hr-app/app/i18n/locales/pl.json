@@ -1,0 +1,62 @@
+{
+    "industry": {
+        "modal": {
+            "add": {
+                "title": "Dodaj przemysł"
+            },
+            "edit": {
+                "title": "Edycja danych przemysłu"
+            },
+            "delete": {
+                "title": "Potwierdzenie usunięcia przemysłu"
+            }
+        },
+        "button": {
+            "addNew": "Dodaj przemysł"
+        },
+        "addNew": {
+            "success": "Nowy przemysł został dodany",
+            "error": "Błąd podczas dodawania przemysłu"
+        }
+    },
+    "welcome": {
+        "message": "Witaj w aplikacji React"
+    },
+    "message": {
+        "somethingWentWrong": "coś poszło nie tak"
+    },
+    "button": {
+        "cancel": "Anuluj",
+        "submit": "Wyślij",
+        "delete": "Usuń",
+        "close": "Zamknij",
+        "add": "Dodaj",
+        "save": "Zapisz"
+    },
+    "modal": {
+        "title": {
+            "details": "",
+            "edit": "",
+            "add": ""
+        }
+    },
+    "actions": "akcje",
+    "details": "szczegóły",
+    "name": "nazwa",
+    "description": "opis",
+    "createdAt": "utworzono",
+    "updatedAt": "zaktualizowano",
+    "deletedAt": "usunięto",
+    "active": "aktywny",
+    "login": "zaloguj",
+    "logout": "wyloguj",
+    "userData": "dane użytkownika",
+    "list": "lista",
+    "navigation": {
+        "home": "",
+        "info": "",
+        "manage": "zarządzanie",
+        "settings": "ustawienia",
+        "userProfile": "profil użytkownika"
+    }
+}

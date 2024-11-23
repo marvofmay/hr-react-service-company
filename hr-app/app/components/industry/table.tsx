@@ -11,6 +11,7 @@ import useAddIndustryMutation from '@/app/hooks/industry/useAddIndustryMutation'
 import useUpdateIndustryMutation from '@/app/hooks/industry/useUpdateIndustryMutation';
 import useDeleteIndustryMutation from '@/app/hooks/industry/useDeleteIndustryMutation';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
@@ -27,6 +28,7 @@ const IndustriesTable = () => {
     const { mutate: addIndustryMutate, isSuccess: isAddSuccess, error: isAddError } = useAddIndustryMutation();
     const { mutate: updateIndustryMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdateIndustryMutation();
     const { mutate: deleteIndustryMutate, isSuccess: isDeleteSuccess, error: isDeleteError } = useDeleteIndustryMutation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
@@ -37,11 +39,11 @@ const IndustriesTable = () => {
     useEffect(() => {
         if (isAddSuccess) {
             closeModal();
-            toast.success('Nowy przemysł została dodany.');
+            toast.success(t('industry.addNew.success'));
         }
         if (isAddError) {
             closeModal();
-            toast.success('Błąd podczas dodawania przemysłu.');
+            toast.success(t('industry.addNew.success'));
         }
     }, [isAddSuccess, isAddError]);
 
@@ -110,7 +112,7 @@ const IndustriesTable = () => {
         <div>
             <Box display="flex" justifyContent="flex-end" marginBottom={2}>
                 <Button variant="contained" color="success" startIcon={<Add />} onClick={() => openModal('create')}>
-                    Add Industry
+                    {t('industry.button.addNew')}
                 </Button>
             </Box>
 
@@ -120,7 +122,7 @@ const IndustriesTable = () => {
                 </Box>
             ) : error ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                    <div>something went wrong :(</div>
+                    <div>{t('message.somethingWentWrong')} :(</div>
                 </Box>
             ) : localIndustries && localIndustries.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">

@@ -3,6 +3,7 @@
 import IndustriesTable from "@/app/components/industry/table";
 import { Box } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import '../../../i18n/i18n';
 
 export default function IndustriesList() {
     const queryClient = new QueryClient();
