@@ -50,21 +50,21 @@ const IndustriesTable = () => {
     useEffect(() => {
         if (isUpdateSuccess) {
             closeModal();
-            toast.success('Przemysł został zaktualizowany.');
+            toast.success(t('industry.update.success'));
         }
         if (isUpdateError) {
-            toast.error('Błąd podczas aktualizacji przemysłu.');
+            toast.error(t('industry.update.error'));
         }
     }, [isUpdateSuccess, isUpdateError]);
 
     useEffect(() => {
         if (isDeleteSuccess) {
             closeModal();
-            toast.success('Przemysł został usunięty.');
+            toast.success(t('industry.delete.success'));
         }
         if (isDeleteError) {
             closeModal();
-            toast.success('Błąd podczas usuwania przemysłu.');
+            toast.success(t('industry.delete.error'));
         }
     }, [isDeleteSuccess, isDeleteError]);
 
@@ -126,7 +126,7 @@ const IndustriesTable = () => {
                 </Box>
             ) : localIndustries && localIndustries.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                    <div>No data</div>
+                    <div>{t('noData')}</div>
                 </Box>
             ) : (
                 <TableContainer>
@@ -148,13 +148,13 @@ const IndustriesTable = () => {
                                     sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'name'} direction={sortBy === 'name' ? sortDirection : 'asc'}>
-                                        Name
+                                        {t('industry.table.column.name')}
                                     </TableSortLabel>
                                 </TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Description</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Created At</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Updated At</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Actions</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('industry.table.column.description')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('industry.table.column.createdAt')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('industry.table.column.updatedAt')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('industry.table.column.actions')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

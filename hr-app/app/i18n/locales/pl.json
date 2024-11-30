@@ -1,29 +1,91 @@
 {
     "industry": {
+        "list": {
+            "title": "Lista branż"
+        },
         "modal": {
             "add": {
-                "title": "Dodaj przemysł"
+                "title": "Dodaj branże"
             },
             "edit": {
-                "title": "Edycja danych przemysłu"
+                "title": "Edycja danych branży"
             },
             "delete": {
-                "title": "Potwierdzenie usunięcia przemysłu"
+                "title": "Potwierdzenie usunięcia branży"
             }
         },
         "button": {
-            "addNew": "Dodaj przemysł"
+            "addNew": "Dodaj branże"
         },
         "addNew": {
-            "success": "Nowy przemysł został dodany",
-            "error": "Błąd podczas dodawania przemysłu"
+            "success": "Nowa branża została dodana",
+            "error": "Błąd podczas dodawania branży"
+        },
+        "update": {
+            "success": "Branża została zaktualizowana",
+            "error": "Nioczekiwany błąd podczas aktualizacji branży"
+        },
+        "delete": {
+            "success": "Branża została usunięta",
+            "error": "Nioczekiwany błąd podczas usuwania branży"
+        },
+        "table": {
+            "column": {
+                "name": "nazwa",
+                "description": "opis",
+                "createdAt": "utworzono",
+                "updatedAt": "zaktualizowano",
+                "deletedAt": "usunięto",
+                "actions": "akcje"
+            }
+        }
+    },
+    "employee": {
+        "list": {
+            "title": "Lista pracowników"
+        },
+        "modal": {
+            "add": {
+                "title": "Dodaj pracownika"
+            },
+            "edit": {
+                "title": "Edycja danych pracownika"
+            },
+            "delete": {
+                "title": "Potwierdzenie usunięcia pracownika"
+            }
+        },
+        "button": {
+            "addNew": "Dodaj pracownika"
+        },
+        "addNew": {
+            "success": "Nowy pracownik został dodany",
+            "error": "Błąd podczas dodawania pracownika"
+        },
+        "update": {
+            "success": "Dane pracownika został zaktualizowane",
+            "error": "Nioczekiwany błąd podczas aktualizacji pracownika"
+        },
+        "delete": {
+            "success": "Pracownik został usunięty",
+            "error": "Nioczekiwany błąd podczas usuwania pracownika"
+        },
+        "table": {
+            "column": {
+                "name": "nazwa",
+                "description": "opis",
+                "createdAt": "utworzono",
+                "updatedAt": "zaktualizowano",
+                "deletedAt": "usunięto",
+                "actions": "akcje"
+            }
         }
     },
     "welcome": {
         "message": "Witaj w aplikacji React"
     },
     "message": {
-        "somethingWentWrong": "coś poszło nie tak"
+        "somethingWentWrong": "Coś poszło nie tak"
     },
     "button": {
         "cancel": "Anuluj",
@@ -52,9 +114,15 @@
     "logout": "wyloguj",
     "userData": "dane użytkownika",
     "list": "lista",
+    "companies": "firmy",
+    "employess": "pracownicy",
+    "positions": "stanowiska",
+    "roles": "role",
+    "industries": "branże",
+    "noData": "brak danych",
     "navigation": {
-        "home": "",
-        "info": "",
+        "home": "home",
+        "info": "inforamacje",
         "manage": "zarządzanie",
         "settings": "ustawienia",
         "userProfile": "profil użytkownika"
