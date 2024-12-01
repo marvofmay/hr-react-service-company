@@ -1,14 +1,26 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import en from './locales/en.json';
-import pl from './locales/pl.json';
+import navigationPL from './locales/pl/navigation.json';
+import commonPL from './locales/pl/common.json';
+import industryPL from './locales/pl/industry.json';
+import rolePL from './locales/pl/role.json';
+import positionPL from './locales/pl/position.json';
+import employeePL from './locales/pl/employee.json';
 
 const resources = {
     en: {
         translation: en
     },
     pl: {
-        translation: pl
+        translation: {
+            common: commonPL,
+            navigation: navigationPL,
+            industry: industryPL,
+            role: rolePL,
+            position: positionPL,
+            employee: employeePL,
+        }
     },
 };
 

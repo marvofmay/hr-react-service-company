@@ -1,0 +1,28 @@
+{
+    "welcome": {
+        "message": "Witaj w aplikacji React"
+    },
+    "message": {
+        "somethingWentWrong": "Coś poszło nie tak"
+    },
+    "button": {
+        "cancel": "Anuluj",
+        "submit": "Wyślij",
+        "delete": "Usuń",
+        "close": "Zamknij",
+        "add": "Dodaj",
+        "save": "Zapisz"
+    },
+    "actions": "akcje",
+    "details": "szczegóły",
+    "name": "nazwa",
+    "description": "opis",
+    "createdAt": "utworzono",
+    "updatedAt": "zaktualizowano",
+    "deletedAt": "usunięto",
+    "active": "aktywny",
+    "login": "zaloguj",
+    "userData": "dane użytkownika",
+    "list": "lista",
+    "noData": "brak dostępnych danych"
+}

@@ -11,6 +11,9 @@ import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from '@mui/icons-material/Login';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 
+import '../../i18n/i18n';
+import { useTranslation } from 'react-i18next';
+
 const navLinks = [
     { href: "/", label: "HR APP", activePath: "/", icon: <HomeIcon /> },
     { href: "/home", label: "Home", activePath: "/home", icon: <HomeIcon /> },
@@ -22,6 +25,7 @@ const Navigation: React.FC = () => {
     //odkomentuj jeśli podepniesz backend
     //const { isAuthenticated } = useUser();
     const { isAuthenticated } = { isAuthenticated: true };
+    const { t } = useTranslation();
 
     return (
         <AppBar position="static" sx={{ backgroundColor: "#1A237E" }}>
@@ -42,7 +46,7 @@ const Navigation: React.FC = () => {
                                 borderRadius: "2px",
                             }}
                         >
-                            <Button color="inherit">{link.icon} {link.label}</Button>
+                            <Button color="inherit">{link.icon} {t(`navigation.${link.label.toLowerCase()}`)}</Button>
                         </Link>
                     ))}
                     {isAuthenticated && <ManageListNavigation />}
@@ -62,7 +66,7 @@ const Navigation: React.FC = () => {
                                 borderRadius: "2px",
                             }}
                         >
-                            <Button color="inherit"><LoginIcon />Login</Button>
+                            <Button color="inherit"><LoginIcon />{t('login')}</Button>
                         </Link>
                     )}
                 </div>

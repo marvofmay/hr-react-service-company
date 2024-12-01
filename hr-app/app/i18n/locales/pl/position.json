@@ -1,0 +1,41 @@
+{
+    "list": {
+        "title": "Lista stanowisk"
+    },
+    "modal": {
+        "add": {
+            "title": "Dodaj stanowisko"
+        },
+        "edit": {
+            "title": "Edycja danych stanowiska"
+        },
+        "delete": {
+            "title": "Potwierdzenie usunięcia stanowiska"
+        }
+    },
+    "button": {
+        "addNew": "Dodaj stanowisko"
+    },
+    "addNew": {
+        "success": "Nowe stanowisko zostało dodane",
+        "error": "Błąd podczas dodawania stanowiska"
+    },
+    "update": {
+        "success": "Stanowisko zostało zaktualizowane",
+        "error": "Nioczekiwany błąd podczas aktualizacji stanowiska"
+    },
+    "delete": {
+        "success": "Stanowisko zostało usunięte",
+        "error": "Nioczekiwany błąd podczas usuwania stanowiska"
+    },
+    "table": {
+        "column": {
+            "name": "nazwa",
+            "description": "opis",
+            "createdAt": "utworzono",
+            "updatedAt": "zaktualizowano",
+            "deletedAt": "usunięto",
+            "actions": "akcje"
+        }
+    }
+}

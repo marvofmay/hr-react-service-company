@@ -1,0 +1,14 @@
+{
+    "home": "strona główna",
+    "info": "inforamacje",
+    "manage": "zarządzanie",
+    "settings": "ustawienia",
+    "userProfile": "profil użytkownika",
+    "companies": "firmy",
+    "employees": "pracownicy",
+    "positions": "stanowiska",
+    "roles": "role",
+    "industries": "branże",
+    "userData": "dane",
+    "logout": "wyloguj"
+}

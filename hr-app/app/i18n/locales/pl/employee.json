@@ -1,0 +1,41 @@
+{
+    "list": {
+        "title": "Lista pracowników"
+    },
+    "modal": {
+        "add": {
+            "title": "Dodaj pracownika"
+        },
+        "edit": {
+            "title": "Edycja danych pracownika"
+        },
+        "delete": {
+            "title": "Potwierdzenie usunięcia pracownika"
+        }
+    },
+    "button": {
+        "addNew": "Dodaj pracownika"
+    },
+    "addNew": {
+        "success": "Nowy pracownik został dodany",
+        "error": "Błąd podczas dodawania pracownika"
+    },
+    "update": {
+        "success": "Dane pracownika został zaktualizowane",
+        "error": "Nioczekiwany błąd podczas aktualizacji pracownika"
+    },
+    "delete": {
+        "success": "Pracownik został usunięty",
+        "error": "Nioczekiwany błąd podczas usuwania pracownika"
+    },
+    "table": {
+        "column": {
+            "name": "nazwa",
+            "description": "opis",
+            "createdAt": "utworzono",
+            "updatedAt": "zaktualizowano",
+            "deletedAt": "usunięto",
+            "actions": "akcje"
+        }
+    }
+}

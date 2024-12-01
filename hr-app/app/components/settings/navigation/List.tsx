@@ -2,6 +2,8 @@ import { Button, Menu, MenuItem, Link } from "@mui/material";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import SettingsIcon from "@mui/icons-material/Settings"
+import '../../../i18n/i18n';
+import { useTranslation } from 'react-i18next';
 
 const menuItems = [
     { label: "Companies", href: "/settings/companies", key: "companies" },
@@ -28,6 +30,8 @@ const SettingsListNavigation: React.FC = () => {
         handleMenuClose();
     };
 
+    const { t } = useTranslation();
+
     // Ustaw wybrany element menu na podstawie ścieżki URL
     useEffect(() => {
         const matchedItem = menuItems.find(item => pathname.includes(item.href));
@@ -38,7 +42,7 @@ const SettingsListNavigation: React.FC = () => {
 
     return (
         <>
-            {/* Przycisk „Settings” */}     
+            {/* Przycisk „Settings” */}
             <Button
                 color="inherit"
                 aria-controls="manage-menu"
@@ -48,7 +52,7 @@ const SettingsListNavigation: React.FC = () => {
                     backgroundColor: open || selectedMenuItem ? "rgba(255, 255, 255, 0.3)" : "transparent", // Podświetlenie, gdy menu jest otwarte lub coś wybrane
                 }}
             >
-                <SettingsIcon /> Settings
+                <SettingsIcon /> {t('navigation.settings')}
             </Button>
 
             <Menu
@@ -71,7 +75,7 @@ const SettingsListNavigation: React.FC = () => {
                             backgroundColor: selectedMenuItem === item.key ? "rgba(0, 0, 0, 0.1)" : "transparent",
                         }}
                     >
-                        {item.label}
+                        {t(`navigation.${item.label.toLowerCase()}`)}
                     </MenuItem>
                 ))}
             </Menu>

@@ -1,0 +1,41 @@
+{
+    "list": {
+        "title": "Lista ról"
+    },
+    "modal": {
+        "add": {
+            "title": "Dodaj role"
+        },
+        "edit": {
+            "title": "Edycja roli"
+        },
+        "delete": {
+            "title": "Potwierdzenie usunięcia roli"
+        }
+    },
+    "button": {
+        "addNew": "Dodaj role"
+    },
+    "addNew": {
+        "success": "Nowa rola została dodana",
+        "error": "Błąd podczas dodawania roli"
+    },
+    "update": {
+        "success": "Rola zostało zaktualizowane",
+        "error": "Nioczekiwany błąd podczas aktualizacji roli"
+    },
+    "delete": {
+        "success": "Rola zostało usunięte",
+        "error": "Nioczekiwany błąd podczas usuwania roli"
+    },
+    "table": {
+        "column": {
+            "name": "nazwa",
+            "description": "opis",
+            "createdAt": "utworzono",
+            "updatedAt": "zaktualizowano",
+            "deletedAt": "usunięto",
+            "actions": "akcje"
+        }
+    }
+}

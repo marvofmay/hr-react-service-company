@@ -3,6 +3,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Industry from '../../../types/Industry';
+import '../../../i18n/i18n';
+import { useTranslation } from 'react-i18next';
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Name is required'),
@@ -16,6 +18,8 @@ interface AddIndustryModalProps {
 }
 
 const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAddIndustry }) => {
+    const { t } = useTranslation();
+
     const initialValues: Industry = {
         uuid: '',
         name: '',
@@ -34,7 +38,7 @@ const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAd
     return (
         <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
             <DialogTitle sx={{ backgroundColor: '#1A237E', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                Add New Industry
+                {t('industry.modal.add.title')}
             </DialogTitle>
             <Formik
                 initialValues={initialValues}
@@ -47,7 +51,7 @@ const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAd
                             <Field
                                 as={TextField}
                                 name="name"
-                                label="Name"
+                                label={t('industry.form.field.name')}
                                 fullWidth
                                 margin="normal"
                                 error={touched.name && Boolean(errors.name)}
@@ -57,7 +61,7 @@ const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAd
                             <Field
                                 as={TextField}
                                 name="description"
-                                label="Description"
+                                label={t('industry.form.field.description')}
                                 fullWidth
                                 margin="normal"
                                 multiline
@@ -68,10 +72,10 @@ const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAd
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={onClose} variant="contained" sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}>
-                                Cancel
+                                {t('common.button.cancel')}
                             </Button>
                             <Button type="submit" variant="contained" sx={{ backgroundColor: '#1A237E', color: 'white', fontWeight: 'bold' }}>
-                                Add
+                                {t('common.button.save')}
                             </Button>
                         </DialogActions>
                     </Form>
