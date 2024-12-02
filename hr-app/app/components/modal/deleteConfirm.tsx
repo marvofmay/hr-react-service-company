@@ -1,5 +1,7 @@
 import React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
+import '../../i18n/i18n';
+import { useTranslation } from 'react-i18next';
 
 interface DeleteConfirmModalProps<T> {
     open: boolean;
@@ -25,6 +27,8 @@ const DeleteConfirmModal = <T,>({
         onClose();
     };
 
+    const { t } = useTranslation();
+
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle
@@ -48,10 +52,10 @@ const DeleteConfirmModal = <T,>({
                     variant="contained"
                     sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}
                 >
-                    Cancel
+                    {t('common.button.cancel')}
                 </Button>
                 <Button onClick={handleDelete} color="error" variant="contained">
-                    Delete
+                    {t('common.button.delete')}
                 </Button>
             </DialogActions>
         </Dialog>

@@ -13,7 +13,8 @@
             "title": "Edycja danych branży"
         },
         "delete": {
-            "title": "Potwierdzenie usunięcia branży"
+            "title": "Potwierdzenie usunięcia branży",
+            "question": "Czy na pewno chcesz usunąc branżę"
         }
     },
     "button": {

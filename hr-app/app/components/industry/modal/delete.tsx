@@ -1,6 +1,8 @@
 import React from 'react';
 import Industry from '../../../types/Industry';
 import DeleteConfirmModal from '../../modal/deleteConfirm';
+import '../../../i18n/i18n';
+import { useTranslation } from 'react-i18next';
 
 interface DeleteIndustryModalProps {
     open: boolean;
@@ -17,14 +19,16 @@ const DeleteIndustryModal: React.FC<DeleteIndustryModalProps> = ({ open, selecte
         onClose();
     };
 
+    const { t } = useTranslation();
+
     return (
         <DeleteConfirmModal
             open={open}
             selectedItem={selectedIndustry}
             onClose={onClose}
             onDeleteConfirm={handleDelete}
-            title="Confirm Industry Deletion"
-            description={`Are you sure you want to delete this industry: ${selectedIndustry?.name} ?`}
+            title={t('industry.modal.delete.title')}
+            description={`${t('industry.modal.delete.question')}: ${selectedIndustry?.name} ?`}
         />
     );
 };

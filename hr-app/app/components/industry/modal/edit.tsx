@@ -3,6 +3,8 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } 
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Industry from '../../../types/Industry';
+import '../../../i18n/i18n';
+import { useTranslation } from 'react-i18next';
 
 interface EditIndustryModalProps {
     open: boolean;
@@ -17,10 +19,12 @@ const validationSchema = Yup.object({
 });
 
 const EditIndustryModal: React.FC<EditIndustryModalProps> = ({ open, onClose, industry, onSave }) => {
+    const { t } = useTranslation();
+
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle sx={{ backgroundColor: '#1A237E', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                Edit Industry
+                {t('industry.modal.edit.title')}
             </DialogTitle>
             <Formik
                 initialValues={{
@@ -42,7 +46,7 @@ const EditIndustryModal: React.FC<EditIndustryModalProps> = ({ open, onClose, in
                                 as={TextField}
                                 fullWidth
                                 name="name"
-                                label="Name"
+                                label={t('industry.form.field.name')}
                                 variant="outlined"
                                 margin="dense"
                                 onChange={handleChange}
@@ -53,7 +57,7 @@ const EditIndustryModal: React.FC<EditIndustryModalProps> = ({ open, onClose, in
                                 as={TextField}
                                 fullWidth
                                 name="description"
-                                label="Description"
+                                label={t('industry.form.field.description')}
                                 variant="outlined"
                                 margin="dense"
                                 onChange={handleChange}
@@ -63,10 +67,10 @@ const EditIndustryModal: React.FC<EditIndustryModalProps> = ({ open, onClose, in
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={onClose} sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }} variant="contained">
-                                Cancel
+                                {t('common.button.cancel')}
                             </Button>
                             <Button type="submit" sx={{ backgroundColor: '#1A237E', color: 'white', fontWeight: 'bold' }} variant="contained">
-                                Save
+                                {t('common.button.save')}
                             </Button>
                         </DialogActions>
                     </Form>
