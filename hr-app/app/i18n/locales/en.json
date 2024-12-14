@@ -1,0 +1,20 @@
+{
+    "industry": {
+        "modal": {
+            "title": "Add New Industry"
+        },
+        "button": {
+            "add": "Add Industry"
+        },
+        "add": {
+            "success": "A new industry has been added",
+            "error": "Error adding industry"
+        }
+    },
+    "welcome": {
+        "message": "Welcome to React application"
+    },
+    "message": {
+        "somethingWentWrong": "something went wrong"
+    }
+}

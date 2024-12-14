@@ -4,51 +4,75 @@ import { AppBar, Toolbar, Typography, Button, Link } from "@mui/material";
 import { usePathname } from "next/navigation";
 import ManageListNavigation from "../manage/navigation/List";
 import SettingsListNavigation from "../settings/navigation/List";
-
+import UserProfileNavigation from "../user/UserProfileNavigation"
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
+import LoginIcon from '@mui/icons-material/Login';
+import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
+import { useTranslation } from 'react-i18next';
+import { APP_NAME } from '../../utility/constans';
 
 const navLinks = [
-  { href: "/", label: "HR APP", activePath: "/", icon: <HomeIcon /> },
-  { href: "/home", label: "Home", activePath: "/home", icon: <HomeIcon /> },
-  { href: "/info", label: "Info", activePath: "/info", icon: <InfoIcon /> },
+    { href: "/", label: { APP_NAME }, activePath: "/", icon: <HomeIcon /> },
+    { href: "/home", label: "Home", activePath: "/home", icon: <HomeIcon /> },
+    { href: "/info", label: "Info", activePath: "/info", icon: <InfoIcon /> },
 ];
 
 const Navigation: React.FC = () => {
-  const pathname = usePathname();
+    const pathname = usePathname();
 
-  return (
-    <AppBar 
-      position="static" 
-      sx={{ backgroundColor: "#1A237E" }}
-    >
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <Link href="/" color="inherit" underline="none">
-          <Typography>HR APP</Typography>
-        </Link>
+    //odkomentuj jeśli podepniesz backend
+    //const { isAuthenticated } = useUser();
 
-        <div style={{ display: "flex", gap: "16px" }}>
-          {navLinks.slice(1).map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              color="inherit"
-              underline="none"
-              sx={{
-                backgroundColor: pathname.startsWith(link.activePath) ? "rgba(0, 0, 0, 0.1)" : "transparent",
-                padding: 0,
-                borderRadius: "2px",
-              }}
-            >              
-              <Button color="inherit">{link.icon} {link.label}</Button>
-            </Link>
-          ))}      
-          <ManageListNavigation />
-          <SettingsListNavigation />
-        </div>
-      </Toolbar>
-    </AppBar>
-  );
+    const { isAuthenticated } = { isAuthenticated: true };
+    const { t } = useTranslation();
+
+    return (
+        <AppBar position="static" sx={{ backgroundColor: "#34495e" }}>
+            <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Link href="/" color="inherit" underline="none">
+                    <Typography>{APP_NAME}</Typography>
+                </Link>
+                <div style={{ display: "flex", gap: "16px" }}>
+                    {navLinks.slice(1).map((link) => (
+                        <Link
+                            key={link.href}
+                            href={link.href}
+                            color="inherit"
+                            underline="none"
+                            sx={{
+                                backgroundColor: pathname.startsWith(link.activePath) ? "rgba(255, 255, 255, 0.3)" : "transparent",
+                                padding: 0,
+                                borderRadius: "2px",
+                            }}
+                        >
+                            <Button color="inherit">{link.icon} {t(`navigation.${link.label.toLowerCase()}`)}</Button>
+                        </Link>
+                    ))}
+                    {isAuthenticated && <ManageListNavigation />}
+                    {isAuthenticated && <SettingsListNavigation />}
+                    {isAuthenticated && <button><CircleNotificationsIcon /></button>}
+                    {isAuthenticated ? (
+                        <UserProfileNavigation />
+                    ) : (
+                        <Link
+                            href="/login"
+                            color="inherit"
+                            underline="none"
+                            sx={{
+                                backgroundColor: pathname.startsWith('/login') ? "rgba(255, 255, 255, 0.3)" : "transparent",
+                                color: pathname.startsWith('/login') ? "#fff" : "inherit",
+                                padding: 0,
+                                borderRadius: "2px",
+                            }}
+                        >
+                            <Button color="inherit"><LoginIcon />{t('login')}</Button>
+                        </Link>
+                    )}
+                </div>
+            </Toolbar>
+        </AppBar>
+    );
 };
 
 export default Navigation;

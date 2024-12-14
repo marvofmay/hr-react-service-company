@@ -1,11 +1,18 @@
+"use client";
+
+import '../../../i18n/i18n';
+import { useTranslation } from 'react-i18next';
+
 const EmployeesList: React.FC = () => {
-  return (
-    <div className="grid grid-rows-[10px_1fr_10px] min-h-screen p-1 pb-1 sm:p-1 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <text>Employees list</text>
-      </main>
-    </div>
-  );
+    const { t } = useTranslation();
+
+    return (
+        <div className="grid grid-rows-[10px_1fr_10px] min-h-screen p-1 pb-1 sm:p-1 font-[family-name:var(--font-geist-sans)]">
+            <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+                <text>{t('employee.list.title')}</text>
+            </main>
+        </div>
+    );
 }
 
 export default EmployeesList;

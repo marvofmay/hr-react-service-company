@@ -1,0 +1,54 @@
+{
+    "list": {
+        "title": "Lista branż"
+    },
+    "modal": {
+        "add": {
+            "title": "Dodaj branże"
+        },
+        "preview": {
+            "title": "Podgląd danych branży"
+        },
+        "edit": {
+            "title": "Edycja danych branży"
+        },
+        "delete": {
+            "title": "Potwierdzenie usunięcia branży",
+            "question": "Czy na pewno chcesz usunąć branżę"
+        }
+    },
+    "button": {
+        "add": "Dodaj branże"
+    },
+    "add": {
+        "success": "Nowa branża została dodana",
+        "error": "Błąd podczas dodawania branży"
+    },
+    "update": {
+        "success": "Branża została zaktualizowana",
+        "error": "Nioczekiwany błąd podczas aktualizacji branży"
+    },
+    "delete": {
+        "success": "Branża została usunięta",
+        "error": "Nioczekiwany błąd podczas usuwania branży"
+    },
+    "table": {
+        "column": {
+            "name": "nazwa",
+            "description": "opis",
+            "createdAt": "utworzono",
+            "updatedAt": "zaktualizowano",
+            "deletedAt": "usunięto",
+            "actions": "akcje"
+        }
+    },
+    "form": {
+        "field": {
+            "name": "nazwa",
+            "description": "opis",
+            "createdAt": "utworzono",
+            "updatedAt": "zaktualizowano",
+            "deletedAt": "usunięto"
+        }
+    }
+}
