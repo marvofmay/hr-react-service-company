@@ -1,6 +1,7 @@
 import React from 'react';
 import Position from '../../../types/Position';
 import DeleteConfirmModal from '../../modal/deleteConfirm';
+import { useTranslation } from 'react-i18next';
 
 interface DeletePositionModalProps {
     open: boolean;
@@ -10,6 +11,8 @@ interface DeletePositionModalProps {
 }
 
 const DeletePositionModal: React.FC<DeletePositionModalProps> = ({ open, selectedPosition, onClose, onDeleteConfirm }) => {
+    const { t } = useTranslation();
+
     const handleDelete = () => {
         if (selectedPosition) {
             onDeleteConfirm(selectedPosition);
@@ -23,8 +26,8 @@ const DeletePositionModal: React.FC<DeletePositionModalProps> = ({ open, selecte
             selectedItem={selectedPosition}
             onClose={onClose}
             onDeleteConfirm={handleDelete}
-            title="Confirm Position Deletion"
-            description={`Are you sure you want to delete this position: ${selectedPosition?.name} ?`}
+            title={t('position.modal.delete.title')}
+            description={`${t('position.modal.delete.question')}: ${selectedPosition?.name} ?`}
         />
     );
 };

@@ -3,11 +3,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Position from '../../../types/Position';
-
-const validationSchema = Yup.object({
-    name: Yup.string().required('Name is required'),
-    description: Yup.string(),
-});
+import { useTranslation } from 'react-i18next';
 
 interface AddPositionModalProps {
     open: boolean;
@@ -16,6 +12,13 @@ interface AddPositionModalProps {
 }
 
 const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAddPosition }) => {
+    const { t } = useTranslation();
+
+    const validationSchema = Yup.object({
+        name: Yup.string().required(t('validation.fieldIsRequired')),
+        description: Yup.string(),
+    });
+
     const initialValues: Position = {
         uuid: '',
         name: '',
@@ -34,8 +37,8 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-            <DialogTitle sx={{ backgroundColor: '#1A237E', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                Add New Position
+            <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                {t('position.modal.add.title')}
             </DialogTitle>
             <Formik
                 initialValues={initialValues}
@@ -48,7 +51,7 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
                             <Field
                                 as={TextField}
                                 name="name"
-                                label="Name"
+                                label={t('position.form.field.name')}
                                 fullWidth
                                 margin="normal"
                                 error={touched.name && Boolean(errors.name)}
@@ -58,7 +61,7 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
                             <Field
                                 as={TextField}
                                 name="description"
-                                label="Description"
+                                label={t('position.form.field.description')}
                                 fullWidth
                                 margin="normal"
                                 multiline
@@ -69,10 +72,10 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={onClose} variant="contained" sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}>
-                                Cancel
+                                {t('common.button.cancel')}
                             </Button>
-                            <Button type="submit" variant="contained" sx={{ backgroundColor: '#1A237E', color: 'white', fontWeight: 'bold' }}>
-                                Add
+                            <Button type="submit" variant="contained" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}>
+                                {t('common.button.save')}
                             </Button>
                         </DialogActions>
                     </Form>

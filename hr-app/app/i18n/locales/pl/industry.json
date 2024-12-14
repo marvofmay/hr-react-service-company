@@ -14,13 +14,13 @@
         },
         "delete": {
             "title": "Potwierdzenie usunięcia branży",
-            "question": "Czy na pewno chcesz usunąc branżę"
+            "question": "Czy na pewno chcesz usunąć branżę"
         }
     },
     "button": {
-        "addNew": "Dodaj branże"
+        "add": "Dodaj branże"
     },
-    "addNew": {
+    "add": {
         "success": "Nowa branża została dodana",
         "error": "Błąd podczas dodawania branży"
     },

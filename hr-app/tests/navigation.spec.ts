@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { APP_NAME } from '../../hr-app/app/utility/constans';
 
 const baseUrl = 'http://localhost:3000';
 
@@ -7,11 +8,11 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('has text', async ({ page }) => {
-    const headerHRApp = page.getByRole('banner').getByRole('link', { name: 'HR APP' });
+    const headerHRApp = page.getByRole('banner').getByRole('link', { name: APP_NAME });
     await expect(headerHRApp).toBeVisible();
 
-    const breadcrumbHRApp = page.getByLabel('breadcrumb').getByRole('link', { name: 'HR APP' });
-    await expect(breadcrumbHRApp).toBeVisible();  
+    const breadcrumbHRApp = page.getByLabel('breadcrumb').getByRole('link', { name: APP_NAME });
+    await expect(breadcrumbHRApp).toBeVisible();
 });
 
 
@@ -65,14 +66,14 @@ test('dropdown displays after clicking the Manage button and click Employess', a
     await page.click('button:has-text("Manage")');
     await expect(page.locator('text=Employees')).toBeVisible();
     await page.click('a:text("Employees")');
-    await expect(page.locator('text="Employees list"')).toBeVisible();  
+    await expect(page.locator('text="Employees list"')).toBeVisible();
 });
 
 test('dropdown displays after clicking the Manage button and click Roles', async ({ page }) => {
     await page.click('button:has-text("Manage")');
     await expect(page.locator('text=Roles')).toBeVisible();
     await page.click('a:text("Roles")');
-    await expect(page.locator('text="Roles list"')).toBeVisible();  
+    await expect(page.locator('text="Roles list"')).toBeVisible();
 });
 
 test('dropdown displays after clicking the Settings button and click Companies', async ({ page }) => {

@@ -10,13 +10,14 @@
             "title": "Edycja danych pracownika"
         },
         "delete": {
-            "title": "Potwierdzenie usunięcia pracownika"
+            "title": "Potwierdzenie usunięcia pracownika",
+            "question": "Czy na pewno chcesz usunąć pracownika"
         }
     },
     "button": {
-        "addNew": "Dodaj pracownika"
+        "add": "Dodaj pracownika"
     },
-    "addNew": {
+    "add": {
         "success": "Nowy pracownik został dodany",
         "error": "Błąd podczas dodawania pracownika"
     },

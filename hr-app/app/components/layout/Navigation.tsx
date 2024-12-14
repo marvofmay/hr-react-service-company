@@ -5,33 +5,33 @@ import { usePathname } from "next/navigation";
 import ManageListNavigation from "../manage/navigation/List";
 import SettingsListNavigation from "../settings/navigation/List";
 import UserProfileNavigation from "../user/UserProfileNavigation"
-
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from '@mui/icons-material/Login';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
-
-import '../../i18n/i18n';
 import { useTranslation } from 'react-i18next';
+import { APP_NAME } from '../../utility/constans';
 
 const navLinks = [
-    { href: "/", label: "HR APP", activePath: "/", icon: <HomeIcon /> },
+    { href: "/", label: { APP_NAME }, activePath: "/", icon: <HomeIcon /> },
     { href: "/home", label: "Home", activePath: "/home", icon: <HomeIcon /> },
     { href: "/info", label: "Info", activePath: "/info", icon: <InfoIcon /> },
 ];
 
 const Navigation: React.FC = () => {
     const pathname = usePathname();
+
     //odkomentuj jeśli podepniesz backend
     //const { isAuthenticated } = useUser();
+
     const { isAuthenticated } = { isAuthenticated: true };
     const { t } = useTranslation();
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: "#1A237E" }}>
+        <AppBar position="static" sx={{ backgroundColor: "#34495e" }}>
             <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Link href="/" color="inherit" underline="none">
-                    <Typography>HR APP</Typography>
+                    <Typography>{APP_NAME}</Typography>
                 </Link>
                 <div style={{ display: "flex", gap: "16px" }}>
                     {navLinks.slice(1).map((link) => (

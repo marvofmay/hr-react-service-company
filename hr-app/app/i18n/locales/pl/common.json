@@ -5,6 +5,22 @@
     "message": {
         "somethingWentWrong": "Coś poszło nie tak"
     },
+    "path": {
+        "home": "strona główna",
+        "info": "inforamacje",
+        "manage": "zarządzanie",
+        "settings": "ustawienia",
+        "userProfile": "profil użytkownika",
+        "companies": "firmy",
+        "employees": "pracownicy",
+        "positions": "stanowiska",
+        "roles": "role",
+        "industries": "branże",
+        "userData": "dane",
+        "logout": "wyloguj",
+        "list": "lista",
+        "user": "profil użytkownika"
+    },
     "button": {
         "cancel": "Anuluj",
         "submit": "Wyślij",
@@ -24,5 +40,8 @@
     "login": "zaloguj",
     "userData": "dane użytkownika",
     "list": "lista",
-    "noData": "brak dostępnych danych"
+    "noData": "brak dostępnych danych",
+    "footer": {
+        "info": "Aplikacja do celów edukacyjnych NextJs / React"
+    }
 }

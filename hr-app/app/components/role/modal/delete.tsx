@@ -1,6 +1,7 @@
 import React from 'react';
 import Role from '../../../types/Role';
 import DeleteConfirmModal from '../../modal/deleteConfirm';
+import { useTranslation } from 'react-i18next';
 
 interface DeleteRoleModalProps {
     open: boolean;
@@ -10,6 +11,8 @@ interface DeleteRoleModalProps {
 }
 
 const DeleteRoleModal: React.FC<DeleteRoleModalProps> = ({ open, selectedRole, onClose, onDeleteConfirm }) => {
+    const { t } = useTranslation();
+
     const handleDelete = () => {
         if (selectedRole) {
             onDeleteConfirm(selectedRole);
@@ -23,8 +26,8 @@ const DeleteRoleModal: React.FC<DeleteRoleModalProps> = ({ open, selectedRole, o
             selectedItem={selectedRole}
             onClose={onClose}
             onDeleteConfirm={handleDelete}
-            title="Confirm Role Deletion"
-            description={`Are you sure you want to delete this role: ${selectedRole?.name} ?`}
+            title={t('role.modal.delete.title')}
+            description={`${t('role.modal.delete.question')}: ${selectedRole?.name} ?`}
         />
     );
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import Industry from '../../../types/Industry';
 import DeleteConfirmModal from '../../modal/deleteConfirm';
-import '../../../i18n/i18n';
 import { useTranslation } from 'react-i18next';
 
 interface DeleteIndustryModalProps {

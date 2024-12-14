@@ -4,19 +4,23 @@
     },
     "modal": {
         "add": {
-            "title": "Dodaj role"
+            "title": "Dodaj rolę"
         },
         "edit": {
             "title": "Edycja roli"
         },
+        "preview": {
+            "title": "Podgląd danych roli"
+        },
         "delete": {
-            "title": "Potwierdzenie usunięcia roli"
+            "title": "Potwierdzenie usunięcia roli",
+            "question": "Czy na pewno chcesz usunąć rolę"
         }
     },
     "button": {
-        "addNew": "Dodaj role"
+        "add": "Dodaj rolę"
     },
-    "addNew": {
+    "add": {
         "success": "Nowa rola została dodana",
         "error": "Błąd podczas dodawania roli"
     },
@@ -36,6 +40,15 @@
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto",
             "actions": "akcje"
+        }
+    },
+    "form": {
+        "field": {
+            "name": "nazwa",
+            "description": "opis",
+            "createdAt": "utworzono",
+            "updatedAt": "zaktualizowano",
+            "deletedAt": "usunięto"
         }
     }
 }

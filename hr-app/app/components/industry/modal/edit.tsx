@@ -3,7 +3,6 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } 
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Industry from '../../../types/Industry';
-import '../../../i18n/i18n';
 import { useTranslation } from 'react-i18next';
 
 interface EditIndustryModalProps {
@@ -13,17 +12,17 @@ interface EditIndustryModalProps {
     onSave: (updatedIndustry: Industry) => void;
 }
 
-const validationSchema = Yup.object({
-    name: Yup.string().required('Name is required'),
-    description: Yup.string().optional(),
-});
-
 const EditIndustryModal: React.FC<EditIndustryModalProps> = ({ open, onClose, industry, onSave }) => {
     const { t } = useTranslation();
 
+    const validationSchema = Yup.object({
+        name: Yup.string().required(t('validation.fieldIsRequired')),
+        description: Yup.string(),
+    });
+
     return (
         <Dialog open={open} onClose={onClose}>
-            <DialogTitle sx={{ backgroundColor: '#1A237E', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
+            <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 {t('industry.modal.edit.title')}
             </DialogTitle>
             <Formik
@@ -52,6 +51,7 @@ const EditIndustryModal: React.FC<EditIndustryModalProps> = ({ open, onClose, in
                                 onChange={handleChange}
                                 error={touched.name && Boolean(errors.name)}
                                 helperText={touched.name && errors.name}
+                                required
                             />
                             <Field
                                 as={TextField}
@@ -69,7 +69,7 @@ const EditIndustryModal: React.FC<EditIndustryModalProps> = ({ open, onClose, in
                             <Button onClick={onClose} sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }} variant="contained">
                                 {t('common.button.cancel')}
                             </Button>
-                            <Button type="submit" sx={{ backgroundColor: '#1A237E', color: 'white', fontWeight: 'bold' }} variant="contained">
+                            <Button type="submit" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }} variant="contained">
                                 {t('common.button.save')}
                             </Button>
                         </DialogActions>

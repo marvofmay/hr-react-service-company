@@ -11,6 +11,7 @@ import useAddPositionMutation from '@/app/hooks/position/useAddPositionMutation'
 import useUpdatePositionMutation from '@/app/hooks/position/useUpdatePositionMutation';
 import useDeletePositionMutation from '@/app/hooks/position/useDeletePositionMutation';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
@@ -27,6 +28,7 @@ const PositionsTable = () => {
     const { mutate: addPositionMutate, isSuccess: isAddSuccess, error: isAddError } = useAddPositionMutation();
     const { mutate: updatePositionMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdatePositionMutation();
     const { mutate: deletePositionMutate, isSuccess: isDeleteSuccess, error: isDeleteError } = useDeletePositionMutation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
@@ -110,7 +112,7 @@ const PositionsTable = () => {
         <div>
             <Box display="flex" justifyContent="flex-end" marginBottom={2}>
                 <Button variant="contained" color="success" startIcon={<Add />} onClick={() => openModal('create')}>
-                    Add Position
+                    {t('position.button.add')}
                 </Button>
             </Box>
 
@@ -120,11 +122,11 @@ const PositionsTable = () => {
                 </Box>
             ) : error ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                    <div>something went wrong :(</div>
+                    <div>{t('common.message.somethingWentWrong')} :(</div>
                 </Box>
             ) : localPositions && localPositions.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                    <div>No data</div>
+                    <div>{t('common.noData')}</div>
                 </Box>
             ) : (
                 <TableContainer>
@@ -146,13 +148,13 @@ const PositionsTable = () => {
                                     sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'name'} direction={sortBy === 'name' ? sortDirection : 'asc'}>
-                                        Name
+                                        {t('position.table.column.name')}
                                     </TableSortLabel>
                                 </TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Description</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Created At</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Updated At</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Actions</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('position.table.column.description')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('position.table.column.createdAt')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('position.table.column.updatedAt')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}> {t('position.table.column.actions')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

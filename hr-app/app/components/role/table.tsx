@@ -11,6 +11,7 @@ import useAddRoleMutation from '@/app/hooks/role/useAddRoleMutation';
 import useUpdateRoleMutation from '@/app/hooks/role/useUpdateRoleMutation';
 import useDeleteRoleMutation from '@/app/hooks/role/useDeleteRoleMutation';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
@@ -27,6 +28,7 @@ const RolesTable = () => {
     const { mutate: addRoleMutate, isSuccess: isAddSuccess, error: isAddError } = useAddRoleMutation();
     const { mutate: updateRoleMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdateRoleMutation();
     const { mutate: deleteRoleMutate, isSuccess: isDeleteSuccess, error: isDeleteError } = useDeleteRoleMutation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
@@ -37,32 +39,32 @@ const RolesTable = () => {
     useEffect(() => {
         if (isAddSuccess) {
             closeModal();
-            toast.success('Nowa rola została dodana.');
+            toast.success(t('role.add.sucess'));
         }
         if (isAddError) {
             closeModal();
-            toast.success('Błąd podczas dodawania roli.');
+            toast.success('role.add.error');
         }
     }, [isAddSuccess, isAddError]);
 
     useEffect(() => {
         if (isUpdateSuccess) {
             closeModal();
-            toast.success('Rola została zaktualizowana.');
+            toast.success(t('role.update.sucess'));
         }
         if (isUpdateError) {
-            toast.error('Błąd podczas aktualizacji roli.');
+            toast.error(t('role.update.error'));
         }
     }, [isUpdateSuccess, isUpdateError]);
 
     useEffect(() => {
         if (isDeleteSuccess) {
             closeModal();
-            toast.success('Rola została usunięta.');
+            toast.success(t('role.delete.sucess'));
         }
         if (isDeleteError) {
             closeModal();
-            toast.success('Błąd podczas usuwania roli.');
+            toast.success(t('role.delete.error'));
         }
     }, [isDeleteSuccess, isDeleteError]);
 
@@ -110,7 +112,7 @@ const RolesTable = () => {
         <div>
             <Box display="flex" justifyContent="flex-end" marginBottom={2}>
                 <Button variant="contained" color="success" startIcon={<Add />} onClick={() => openModal('create')}>
-                    Add Role
+                    {t('role.button.add')}
                 </Button>
             </Box>
 
@@ -120,11 +122,11 @@ const RolesTable = () => {
                 </Box>
             ) : error ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                    <div>something went wrong :(</div>
+                    <div>{t('common.message.somethingWentWrong')} :(</div>
                 </Box>
             ) : localRoles && localRoles.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                    <div>No data</div>
+                    <div>{t('common.noData')}</div>
                 </Box>
             ) : (
                 <TableContainer>
@@ -146,13 +148,13 @@ const RolesTable = () => {
                                     sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'name'} direction={sortBy === 'name' ? sortDirection : 'asc'}>
-                                        Name
+                                        {t('role.table.column.name')}
                                     </TableSortLabel>
                                 </TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Description</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Created At</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Updated At</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>Actions</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('role.table.column.description')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('role.table.column.createdAt')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('role.table.column.updatedAt')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('role.table.column.actions')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

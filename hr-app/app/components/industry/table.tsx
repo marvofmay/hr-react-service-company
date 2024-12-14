@@ -39,11 +39,11 @@ const IndustriesTable = () => {
     useEffect(() => {
         if (isAddSuccess) {
             closeModal();
-            toast.success(t('industry.addNew.success'));
+            toast.success(t('industry.add.success'));
         }
         if (isAddError) {
             closeModal();
-            toast.success(t('industry.addNew.success'));
+            toast.success(t('industry.add.error'));
         }
     }, [isAddSuccess, isAddError]);
 
@@ -112,7 +112,7 @@ const IndustriesTable = () => {
         <div>
             <Box display="flex" justifyContent="flex-end" marginBottom={2}>
                 <Button variant="contained" color="success" startIcon={<Add />} onClick={() => openModal('create')}>
-                    {t('industry.button.addNew')}
+                    {t('industry.button.add')}
                 </Button>
             </Box>
 

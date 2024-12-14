@@ -3,13 +3,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Industry from '../../../types/Industry';
-import '../../../i18n/i18n';
 import { useTranslation } from 'react-i18next';
-
-const validationSchema = Yup.object({
-    name: Yup.string().required('Name is required'),
-    description: Yup.string(),
-});
 
 interface AddIndustryModalProps {
     open: boolean;
@@ -19,6 +13,11 @@ interface AddIndustryModalProps {
 
 const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAddIndustry }) => {
     const { t } = useTranslation();
+
+    const validationSchema = Yup.object({
+        name: Yup.string().required(t('validation.fieldIsRequired')),
+        description: Yup.string(),
+    });
 
     const initialValues: Industry = {
         uuid: '',
@@ -37,7 +36,7 @@ const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAd
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-            <DialogTitle sx={{ backgroundColor: '#1A237E', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
+            <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 {t('industry.modal.add.title')}
             </DialogTitle>
             <Formik
@@ -74,7 +73,7 @@ const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAd
                             <Button onClick={onClose} variant="contained" sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}>
                                 {t('common.button.cancel')}
                             </Button>
-                            <Button type="submit" variant="contained" sx={{ backgroundColor: '#1A237E', color: 'white', fontWeight: 'bold' }}>
+                            <Button type="submit" variant="contained" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}>
                                 {t('common.button.save')}
                             </Button>
                         </DialogActions>

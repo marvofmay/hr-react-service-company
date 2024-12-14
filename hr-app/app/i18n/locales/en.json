@@ -4,9 +4,9 @@
             "title": "Add New Industry"
         },
         "button": {
-            "addNew": "Add Industry"
+            "add": "Add Industry"
         },
-        "addNew": {
+        "add": {
             "success": "A new industry has been added",
             "error": "Error adding industry"
         }
