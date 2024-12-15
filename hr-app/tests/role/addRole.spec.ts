@@ -36,12 +36,13 @@ test('dropdown displays after clicking the Manage button and click Roles', async
     await expect(page.locator(`text="${capitalizeFirstLetter(rolesList)}"`)).toBeVisible();
 });
 
-test('Dodawanie nowej roli', async ({ page }) => {
+test('Add new role', async ({ page }) => {
     await page.click(`button:has-text("${manage.toUpperCase()}")`);
     await expect(page.locator(`text=${roles}`)).toBeVisible();
     await page.click(`a:text("${roles}")`);
 
     const addRoleButton = page.locator('button:has-text("Dodaj rolę")');
-    await expect(addRoleButton).toHaveCount(1)
-    await page.click('button:has-text("Dodaj rolę")');
+    await expect(addRoleButton).toHaveCount(1);
+    page.on('dialog', dialog => dialog.accept());
+    await addRoleButton.click();
 });
