@@ -7,7 +7,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "test": "playwright test --reporter=list"
+        "test": "playwright test --reporter=list",
+        "test-headed": "playwright test --headed"
     },
     "dependencies": {
         "@emotion/react": "^11.13.3",
