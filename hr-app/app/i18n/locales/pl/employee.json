@@ -6,6 +6,9 @@
         "add": {
             "title": "Dodaj pracownika"
         },
+        "preview": {
+            "title": "Podgląd danych pracownika"
+        },
         "edit": {
             "title": "Edycja danych pracownika"
         },
@@ -31,12 +34,26 @@
     },
     "table": {
         "column": {
-            "name": "nazwa",
-            "description": "opis",
+            "firstName": "imię",
+            "lastName": "nazwisko",
             "createdAt": "utworzono",
+            "active": "aktywny",
+            "employeeUUID": "UUID przełożonego",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto",
             "actions": "akcje"
+        }
+    },
+    "form": {
+        "field": {
+            "firstName": "imię",
+            "lastName": "nazwisko",
+            "active": "aktywny",
+            "employeeUUID": "UUID przełożonego",
+            "employeeSuperior": "bezpośredni przełożony",
+            "createdAt": "utworzono",
+            "updatedAt": "zaktualizowano",
+            "deletedAt": "usunięto"
         }
     }
 }

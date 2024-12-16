@@ -39,11 +39,11 @@ const RolesTable = () => {
     useEffect(() => {
         if (isAddSuccess) {
             closeModal();
-            toast.success(t('role.add.sucess'));
+            toast.success(t('role.add.success'));
         }
         if (isAddError) {
             closeModal();
-            toast.success('role.add.error');
+            toast.success(t('role.add.error'));
         }
     }, [isAddSuccess, isAddError]);
 

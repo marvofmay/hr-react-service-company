@@ -3,7 +3,6 @@
 import RolesTable from "@/app/components/role/table";
 import { Box } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import '../../../i18n/i18n';
 import { useTranslation } from 'react-i18next';
 
 const RolesList: React.FC = () => {

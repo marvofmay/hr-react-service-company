@@ -57,7 +57,7 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({ open, onClose, role, onSa
                                 as={TextField}
                                 fullWidth
                                 name="description"
-                                label={t('role.form.field.ndescription')}
+                                label={t('role.form.field.description')}
                                 variant="outlined"
                                 margin="dense"
                                 onChange={handleChange}

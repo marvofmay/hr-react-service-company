@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 interface PreviewProps {
     open: boolean;
     title: string;
-    details: { [key: string]: string | number | null };
+    details: { [key: string]: string | number | null | boolean | React.JSX.Element };
     onClose: () => void;
 }
 
