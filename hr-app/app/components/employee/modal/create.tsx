@@ -37,9 +37,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
     const initialValues: Employee = {
         uuid: '',
         companyUUID: '',
-        company: '',
         departmentUUID: '',
-        department: '',
         employeeUUID: '',
         positionUUID: '',
         contractTypeUUID: '',
@@ -392,7 +390,6 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         fullWidth
                                         margin="normal"
                                         multiline
-                                        rows={3}
                                         error={touched.postcode && Boolean(errors.postcode)}
                                         helperText={touched.postcode && errors.postcode}
                                         required

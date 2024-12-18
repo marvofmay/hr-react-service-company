@@ -39,9 +39,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
     const initialValues: Employee = {
         uuid: employee?.uuid || '',
         companyUUID: employee?.companyUUID || '',
-        company: employee?.company || '',
         departmentUUID: employee?.departmentUUID || '',
-        department: employee?.department || '',
         employeeUUID: employee?.employeeUUID || '',
         positionUUID: employee?.positionUUID || '',
         contractTypeUUID: employee?.contractTypeUUID || '',

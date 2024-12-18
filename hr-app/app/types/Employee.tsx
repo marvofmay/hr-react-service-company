@@ -1,12 +1,13 @@
 export default interface Employee {
     uuid: string;
     companyUUID: string | null;
-    company: string | null;
+    company?: string | null;
     departmentUUID: string | null;
-    department: string | null;
+    department?: string | null;
     employeeUUID: string | null;
-    employeeSuperior: string | null;
+    employeeSuperior?: string | null;
     roleUUID: string;
+    role?: string;
     firstName: string;
     lastName: string;
     birth: string;
@@ -15,9 +16,9 @@ export default interface Employee {
     employmentFrom: string;
     employmentTo: string | null;
     positionUUID: string;
-    position: string;
+    position?: string;
     contractTypeUUID: string,
-    contractType: string,
+    contractType?: string,
     active: boolean;
     country: string;
     city: string;
