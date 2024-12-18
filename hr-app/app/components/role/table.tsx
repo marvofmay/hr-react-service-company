@@ -163,8 +163,8 @@ const RolesTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.name}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.description}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{role.created_at}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{role.updated_at}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{role.createdAt}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{role.updatedAt}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
                                         <IconButton onClick={() => openModal('preview', role)}><Preview /></IconButton>
                                         <IconButton onClick={() => openModal('edit', role)}><Edit /></IconButton>

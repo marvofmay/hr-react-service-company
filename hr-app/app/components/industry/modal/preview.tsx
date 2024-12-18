@@ -20,8 +20,8 @@ const PreviewIndustryModal: React.FC<PreviewIndustryModalProps> = ({ open, selec
                 UUID: selectedIndustry?.uuid || 'N/D',
                 [t('industry.form.field.name')]: selectedIndustry?.name || 'N/D',
                 [t('industry.form.field.description')]: selectedIndustry?.description || 'N/D',
-                [t('industry.form.field.createdAt')]: selectedIndustry?.created_at || 'N/D',
-                [t('industry.form.field.updatedAt')]: selectedIndustry?.updated_at || 'N/D',
+                [t('industry.form.field.createdAt')]: selectedIndustry?.createdAt || 'N/D',
+                [t('industry.form.field.updatedAt')]: selectedIndustry?.updatedAt || 'N/D',
             }}
             onClose={onClose}
         />

@@ -1,9 +1,8 @@
 export default interface Industry {
-    uuid: string; 
-    name: string; 
-    description: string;  
-    created_at: string;   
-    updated_at: string;   
-    deleted_at: string | null;
-  }
-  
+    uuid: string;
+    name: string;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt: string | null;
+}

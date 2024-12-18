@@ -20,8 +20,8 @@ const PreviewPositionModal: React.FC<PreviewPositionModalProps> = ({ open, selec
                 UUID: selectedPosition?.uuid || 'N/D',
                 [t('position.form.field.name')]: selectedPosition?.name || 'N/D',
                 [t('position.form.field.description')]: selectedPosition?.description || 'N/D',
-                [t('position.form.field.createdAt')]: selectedPosition?.created_at || 'N/D',
-                [t('position.form.field.updatedAt')]: selectedPosition?.updated_at || 'N/D',
+                [t('position.form.field.createdAt')]: selectedPosition?.createdAt || 'N/D',
+                [t('position.form.field.updatedAt')]: selectedPosition?.updatedAt || 'N/D',
             }}
             onClose={onClose}
         />

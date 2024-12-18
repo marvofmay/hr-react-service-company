@@ -163,8 +163,8 @@ const IndustriesTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{industry.name}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{industry.description}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.created_at}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.updated_at}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.createdAt}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.updatedAt}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
                                         <IconButton onClick={() => openModal('preview', industry)}><Preview /></IconButton>
                                         <IconButton onClick={() => openModal('edit', industry)}><Edit /></IconButton>

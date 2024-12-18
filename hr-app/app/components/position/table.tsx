@@ -163,8 +163,8 @@ const PositionsTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{position.name}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{position.description}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{position.created_at}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{position.updated_at}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{position.createdAt}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{position.updatedAt}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
                                         <IconButton onClick={() => openModal('preview', position)}><Preview /></IconButton>
                                         <IconButton onClick={() => openModal('edit', position)}><Edit /></IconButton>

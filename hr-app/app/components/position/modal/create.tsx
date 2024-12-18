@@ -24,9 +24,9 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
         name: '',
         description: '',
         active: true,
-        created_at: '',
-        updated_at: '',
-        deleted_at: null
+        createdAt: '',
+        updatedAt: '',
+        deletedAt: null
     };
 
     const handleSubmit = (values: Position, { resetForm }: any) => {

@@ -23,9 +23,9 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
         uuid: '',
         name: '',
         description: '',
-        created_at: '',
-        updated_at: '',
-        deleted_at: null
+        createdAt: '',
+        updatedAt: '',
+        deletedAt: null
     };
 
     const handleSubmit = (values: Role, { resetForm }: any) => {

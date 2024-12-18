@@ -20,8 +20,8 @@ const PreviewRoleModal: React.FC<PreviewRoleModalProps> = ({ open, selectedRole,
                 UUID: selectedRole?.uuid || 'N/D',
                 [t('role.form.field.name')]: selectedRole?.name || 'N/D',
                 [t('role.form.field.description')]: selectedRole?.description || 'N/D',
-                [t('role.form.field.createdAt')]: selectedRole?.created_at || 'N/D',
-                [t('role.form.field.updatedAt')]: selectedRole?.updated_at || 'N/D',
+                [t('role.form.field.createdAt')]: selectedRole?.createdAt || 'N/D',
+                [t('role.form.field.updatedAt')]: selectedRole?.updatedAt || 'N/D',
             }}
             onClose={onClose}
         />

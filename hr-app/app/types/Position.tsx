@@ -3,7 +3,7 @@ export default interface Position {
     name: string;
     description: string;
     active: boolean;
-    created_at: string;
-    updated_at: string;
-    deleted_at: string | null;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt: string | null;
 }

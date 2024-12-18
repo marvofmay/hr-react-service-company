@@ -23,9 +23,9 @@ const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAd
         uuid: '',
         name: '',
         description: '',
-        created_at: '',
-        updated_at: '',
-        deleted_at: null
+        createdAt: '',
+        updatedAt: '',
+        deletedAt: null
     };
 
     const handleSubmit = (values: Industry, { resetForm }: any) => {
