@@ -27,7 +27,7 @@ const DeleteIndustryModal: React.FC<DeleteIndustryModalProps> = ({ open, selecte
             onClose={onClose}
             onDeleteConfirm={handleDelete}
             title={t('industry.modal.delete.title')}
-            description={`${t('industry.modal.delete.question')}: ${selectedIndustry?.name} ?`}
+            description={`${t('industry.modal.delete.question')}: ${selectedIndustry?.name}?`}
         />
     );
 };

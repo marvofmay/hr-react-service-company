@@ -6,11 +6,11 @@ export default interface Company {
     companyUUID: string | null;
     fullName: string;
     shortName: string | null;
-    description: string | null;
     nip: string;
     regon: string;
-    industry: Industry | null;
-    logo: File | null;
+    description: string | null;
+    // industry: Industry | null;
+    // logo: File | null;
     active: boolean;
     createdAt: string;
     updatedAt: string;

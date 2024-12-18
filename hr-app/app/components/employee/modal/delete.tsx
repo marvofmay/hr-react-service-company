@@ -27,7 +27,7 @@ const DeleteEmployeeModal: React.FC<DeleteEmployeeModalProps> = ({ open, selecte
             onClose={onClose}
             onDeleteConfirm={handleDelete}
             title={t('employee.modal.delete.title')}
-            description={`${t('employee.modal.delete.question')}: ${selectedEmployee?.firstName} ${selectedEmployee?.lastName} ?`}
+            description={`${t('employee.modal.delete.question')}: ${selectedEmployee?.firstName} ${selectedEmployee?.lastName}?`}
         />
     );
 };

@@ -92,9 +92,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
         //     .required(t('validation.fieldIsRequired')),
     });
 
-    // Filtruj pracowników: aktywni i różni od edytowanego pracownika
-    const filteredEmployees = fakeEmployees.filter(
-        (emp) => emp.uuid !== employee?.uuid && emp.active
+    const filteredEmployees = fakeEmployees.filter(emp => emp.uuid !== employee?.uuid && emp.active
     );
 
     const handleSubmit = (values: Employee) => {
@@ -154,7 +152,6 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
                                         onChange={handleChange}
                                         fullWidth
                                         margin="normal"
-                                        multiline
                                         error={touched.lastName && Boolean(errors.lastName)}
                                         helperText={touched.lastName && errors.lastName}
                                         required
@@ -419,7 +416,6 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
                                         value={values.postcode}
                                         fullWidth
                                         margin="normal"
-                                        multiline
                                         error={touched.postcode && Boolean(errors.postcode)}
                                         helperText={touched.postcode && errors.postcode}
                                         required
@@ -431,7 +427,6 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
                                         value={values.address}
                                         fullWidth
                                         margin="normal"
-                                        multiline
                                         error={touched.address && Boolean(errors.address)}
                                         helperText={touched.address && errors.address}
                                         required
@@ -512,98 +507,6 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
             </Formik>
         </Dialog>
     );
-
-    // return (
-    //     <Dialog open={open} onClose={onClose}>
-    //         <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
-    //             {t('employee.modal.edit.title')}
-    //         </DialogTitle>
-    //         <Formik
-    //             initialValues={{
-    //                 employeeUUID: employee?.employeeUUID || '',
-    //                 firstName: employee?.firstName || '',
-    //                 lastName: employee?.lastName || '',
-    //                 active: employee?.active || false,
-    //             }}
-    //             validationSchema={validationSchema}
-    //             onSubmit={(values) => {
-    //                 if (employee) {
-    //                     onSave({ ...employee, ...values });
-    //                     onClose();
-    //                 }
-    //             }}
-    //         >
-    //             {({ values, errors, touched, handleChange }) => (
-    //                 <Form>
-    //                     <DialogContent>
-    //                         <Field
-    //                             as={TextField}
-    //                             fullWidth
-    //                             name="firstName"
-    //                             label={t('employee.form.field.name')}
-    //                             variant="outlined"
-    //                             margin="dense"
-    //                             onChange={handleChange}
-    //                             value={values.firstName}
-    //                             error={touched.firstName && Boolean(errors.firstName)}
-    //                             helperText={touched.firstName && errors.firstName}
-    //                             required
-    //                         />
-    //                         <Field
-    //                             as={TextField}
-    //                             fullWidth
-    //                             name="lastName"
-    //                             label={t('employee.form.field.lastName')}
-    //                             variant="outlined"
-    //                             margin="dense"
-    //                             onChange={handleChange}
-    //                             value={values.lastName}
-    //                             error={touched.lastName && Boolean(errors.lastName)}
-    //                             helperText={touched.lastName && errors.lastName}
-    //                         />
-
-    //                         <FormControl fullWidth variant="outlined" margin="dense" error={touched.employeeUUID && Boolean(errors.employeeUUID)}>
-    //                             <InputLabel>{t('employee.form.field.employeeUUID')}</InputLabel>
-    //                             <Field
-    //                                 as={Select}
-    //                                 name="employeeUUID"
-    //                                 value={values.employeeUUID}
-    //                                 onChange={handleChange}
-    //                                 label={t('employee.form.field.employeeSuperior')}
-    //                             >
-    //                                 {filteredEmployees.map((emp) => (
-    //                                     <MenuItem key={emp.uuid} value={emp.uuid}>
-    //                                         {emp.firstName} {emp.lastName}
-    //                                     </MenuItem>
-    //                                 ))}
-    //                             </Field>
-    //                         </FormControl>
-    //                         <FormControlLabel
-    //                             control={
-    //                                 <Field
-    //                                     as={Checkbox}
-    //                                     name="active"
-    //                                     color="primary"
-    //                                     onChange={handleChange}
-    //                                     checked={values.active}
-    //                                 />
-    //                             }
-    //                             label={t('employee.form.field.active')}
-    //                         />
-    //                     </DialogContent>
-    //                     <DialogActions>
-    //                         <Button onClick={onClose} sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }} variant="contained">
-    //                             {t('common.button.cancel')}
-    //                         </Button>
-    //                         <Button type="submit" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }} variant="contained">
-    //                             {t('common.button.save')}
-    //                         </Button>
-    //                     </DialogActions>
-    //                 </Form>
-    //             )}
-    //         </Formik>
-    //     </Dialog>
-    // );
 };
 
 export default EditEmployeeModal;

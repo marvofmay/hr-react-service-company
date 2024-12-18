@@ -37,8 +37,11 @@
     },
     "table": {
         "column": {
-            "name": "nazwa",
-            "description": "opis",
+            "fullName": "nazwa",
+            "shortName": "nazwa skrócona",
+            "nip": "nip",
+            "regon": "regon",
+            "active": "aktywna",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto",
@@ -47,11 +50,19 @@
     },
     "form": {
         "field": {
-            "name": "nazwa",
+            "fullName": "nazwa",
+            "shortName": "nazwa skrócona",
+            "nip": "nip",
+            "regon": "regon",
             "description": "opis",
+            "active": "aktywna",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto"
+        },
+        "box": {
+            "mainData": "dane podstawowe",
+            "systemData": "dane systemowe"
         }
     }
 }

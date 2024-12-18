@@ -17,7 +17,7 @@ const useAddEmployeeMutation = () => {
     return useMutation({
         mutationFn: addEmployee,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['roles'] });
+            queryClient.invalidateQueries({ queryKey: ['employees'] });
         },
         onError: (error) => {
             console.error(t('employee.add.error'), error);

@@ -142,7 +142,6 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         label={t('employee.form.field.lastName')}
                                         fullWidth
                                         margin="normal"
-                                        multiline
                                         error={touched.lastName && Boolean(errors.lastName)}
                                         helperText={touched.lastName && errors.lastName}
                                         required
@@ -389,7 +388,6 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         label={t('employee.form.field.postcode')}
                                         fullWidth
                                         margin="normal"
-                                        multiline
                                         error={touched.postcode && Boolean(errors.postcode)}
                                         helperText={touched.postcode && errors.postcode}
                                         required
@@ -400,7 +398,6 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         label={t('employee.form.field.address')}
                                         fullWidth
                                         margin="normal"
-                                        multiline
                                         error={touched.address && Boolean(errors.address)}
                                         helperText={touched.address && errors.address}
                                         required

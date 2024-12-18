@@ -1,6 +1,6 @@
 "use client";
 
-//import ECompanyTable from "@/app/components/company/table";
+import CompaniesTable from "@/app/components/company/table";
 import { Box } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +16,7 @@ export default function CompaniesList() {
                     <Box width="90%">
                         <text>{t('company.list.title')}</text>
                         <QueryClientProvider client={queryClient}>
-                            {/* <EmployeesTable /> */}
+                            <CompaniesTable />
                         </QueryClientProvider>
                     </Box>
                 </Box>

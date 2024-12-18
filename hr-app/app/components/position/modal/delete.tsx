@@ -27,7 +27,7 @@ const DeletePositionModal: React.FC<DeletePositionModalProps> = ({ open, selecte
             onClose={onClose}
             onDeleteConfirm={handleDelete}
             title={t('position.modal.delete.title')}
-            description={`${t('position.modal.delete.question')}: ${selectedPosition?.name} ?`}
+            description={`${t('position.modal.delete.question')}: ${selectedPosition?.name}?`}
         />
     );
 };
