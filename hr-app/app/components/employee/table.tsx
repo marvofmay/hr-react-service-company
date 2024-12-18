@@ -52,7 +52,7 @@ const EmployeesTable = () => {
     useEffect(() => {
         if (isUpdateSuccess) {
             closeModal();
-            toast.success(t('employee.update.sucess'));
+            toast.success(t('employee.update.success'));
         }
         if (isUpdateError) {
             toast.error(t('employee.update.error'));
@@ -96,7 +96,7 @@ const EmployeesTable = () => {
 
     const handleDelete = (employeeToDelete: Employee) => {
         deleteEmployeeMutate(employeeToDelete, {
-            onSuccess: (currentEmployees) => {
+            onSuccess: (currentEmployees: Employee[]) => {
                 setLocalEmployees(currentEmployees);
             }
         });
@@ -104,7 +104,7 @@ const EmployeesTable = () => {
 
     const handleUpdate = (updatedEmployee: Employee) => {
         updateEmployeeMutate(updatedEmployee, {
-            onSuccess: (currentEmployees) => {
+            onSuccess: (currentEmployees: Employee[]) => {
                 setLocalEmployees(currentEmployees);
             }
         });
@@ -138,7 +138,7 @@ const EmployeesTable = () => {
                                 <TableCell
                                     sortDirection={sortBy === 'id' ? sortDirection : false}
                                     onClick={() => handleSort('id')}
-                                    sx={{ padding: '4px 8px' }}
+                                    sx={{ padding: '2px 4px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'id'} direction={sortBy === 'id' ? sortDirection : 'asc'}>
                                         #
@@ -162,8 +162,13 @@ const EmployeesTable = () => {
                                         {t('employee.table.column.lastName')}
                                     </TableSortLabel>
                                 </TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.employeeUUID')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.companyFullName')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.departmentFullName')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.employeeSuperior')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.position')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.contractType')}</TableCell>
                                 <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.active')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.roleUUID')}</TableCell>
                                 <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.createdAt')}</TableCell>
                                 <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.updatedAt')}</TableCell>
                                 <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.actions')}</TableCell>
@@ -175,10 +180,15 @@ const EmployeesTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{employee.firstName}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{employee.lastName}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.employeeUUID ?? '---'}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.company}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.department}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.employeeSuperior ?? '---'}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.position}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.contractType}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
                                         {employee.active ? (<CheckCircleIcon color="success" fontSize="small" />) : (<CancelIcon color="error" fontSize="small" />)}
                                     </TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.roleUUID ?? '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{employee.createdAt}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{employee.updatedAt}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>

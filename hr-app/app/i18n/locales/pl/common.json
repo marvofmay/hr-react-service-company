@@ -45,5 +45,6 @@
     "noData": "brak dostępnych danych",
     "footer": {
         "info": "Aplikacja do celów edukacyjnych NextJs / React"
-    }
+    },
+    "addAnotherPhoneNumber": "Dodaj kolejny numer telefonu"
 }

@@ -6,6 +6,9 @@
         "add": {
             "title": "Dodaj rolę"
         },
+        "preview": {
+            "title": "Podgląd danych roli"
+        },
         "edit": {
             "title": "Edycja roli"
         },

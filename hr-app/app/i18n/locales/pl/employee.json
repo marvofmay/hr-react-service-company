@@ -25,7 +25,7 @@
         "error": "Błąd podczas dodawania pracownika"
     },
     "update": {
-        "success": "Dane pracownika został zaktualizowane",
+        "success": "Dane pracownika zostały zaktualizowane",
         "error": "Nioczekiwany błąd podczas aktualizacji pracownika"
     },
     "delete": {
@@ -34,11 +34,22 @@
     },
     "table": {
         "column": {
+            "companyFullName": "firma",
+            "companyShortName": "firma (nazwa skrócona)",
+            "departmentFullName": "oddział",
+            "departmentShortName": "oddział (nazwa skrócona)",
             "firstName": "imię",
             "lastName": "nazwisko",
-            "createdAt": "utworzono",
             "active": "aktywny",
+            "positionUUID": "UUID stanowiska",
+            "position": "stanowisko",
+            "contractTypeUUID": "UUID formy zatrudnieinia",
+            "contractType": "forma zatrudnieinia",
+            "employeeSuperior": "bezpośredni przełożonego",
             "employeeUUID": "UUID przełożonego",
+            "roleUUID": "UUID roli",
+            "role": "rola",
+            "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto",
             "actions": "akcje"
@@ -46,14 +57,37 @@
     },
     "form": {
         "field": {
-            "firstName": "imię",
-            "lastName": "nazwisko",
-            "active": "aktywny",
+            "company": "firma",
+            "department": "oddział",
             "employeeUUID": "UUID przełożonego",
             "employeeSuperior": "bezpośredni przełożony",
+            "position": "stanowisko",
+            "positionUUID": "UUID stanowiska",
+            "contractTypeUUID": "UUID formy zatrudnieinia",
+            "contractType": "forma zatrudnieinia",
+            "role": "rola w serwisie",
+            "roleUUID": "UUID roli w serwisie",
+            "firstName": "imię",
+            "lastName": "nazwisko",
+            "birth": "data urodzenia",
+            "employmentFrom": "zatrudnienie od",
+            "employmentTo": "zatrudnienie do",
+            "phone": "telefon",
+            "email": "adres email",
+            "active": "aktywny",
+            "country": "kraj",
+            "city": "miasto",
+            "postcode": "kd pocztowy",
+            "address": "adres",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto"
+        },
+        "box": {
+            "personalData": "dane osobowe",
+            "employmentData": "dane zatrudnienia",
+            "addressData": "dane adresowe",
+            "systemData": "dane systemowe"
         }
     }
 }
