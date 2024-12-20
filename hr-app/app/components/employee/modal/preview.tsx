@@ -16,7 +16,7 @@ const PreviewEmployeeModal: React.FC<PreviewEmployeeModalProps> = ({ open, selec
     const { t } = useTranslation();
 
     const employeeSuperior = fakeEmployees.find(
-        (emp) => emp.uuid === selectedEmployee?.employeeUUID && emp.active
+        (emp) => emp.uuid === selectedEmployee?.employeeSuperior?.uuid && emp.active
     );
 
     return (
@@ -28,27 +28,28 @@ const PreviewEmployeeModal: React.FC<PreviewEmployeeModalProps> = ({ open, selec
                 UUID: selectedEmployee?.uuid || 'N/D',
                 [t('employee.form.field.firstName')]: selectedEmployee?.firstName || 'N/D',
                 [t('employee.form.field.lastName')]: selectedEmployee?.lastName || 'N/D',
-                [t('employee.form.field.birth')]: selectedEmployee?.birth || 'N/D',
+                [t('employee.form.field.pesel')]: selectedEmployee?.pesel || 'N/D',
                 [t('employee.form.field.email')]: selectedEmployee?.email || 'N/D',
                 [t('employee.form.field.phone')]: selectedEmployee?.phone && selectedEmployee?.phone.length > 0
                     ? selectedEmployee.phone.join(', ')
                     : 'N/D',
 
-                [t('employee.form.field.company')]: selectedEmployee?.companyUUID || 'N/D',
-                [t('employee.form.field.department')]: selectedEmployee?.departmentUUID || 'N/D',
+                [t('employee.form.field.company')]: selectedEmployee?.company?.uuid || 'N/D',
+                [t('employee.form.field.department')]: selectedEmployee?.department?.uuid || 'N/D',
+                [t('employee.form.field.externalUUID')]: selectedEmployee?.externalUUID || 'N/D',
                 [t('employee.form.field.employeeSuperior')]: employeeSuperior ? `${employeeSuperior.firstName} ${employeeSuperior.lastName} (${employeeSuperior.uuid})` : 'N/D',
                 [t('employee.form.field.employmentFrom')]: selectedEmployee?.employmentFrom || 'N/D',
                 [t('employee.form.field.employmentTo')]: selectedEmployee?.employmentTo || 'N/D',
-                [t('employee.form.field.position')]: selectedEmployee?.positionUUID || 'N/D',
-                [t('employee.form.field.contractType')]: selectedEmployee?.contractTypeUUID || 'N/D',
+                [t('employee.form.field.position')]: selectedEmployee?.position?.uuid || 'N/D',
+                [t('employee.form.field.contractType')]: selectedEmployee?.contractType?.uuid || 'N/D',
                 [t('employee.form.field.active')]: selectedEmployee?.active === true ? (<CheckCircleIcon color="success" fontSize="small" />) : selectedEmployee?.active === false ? (<CancelIcon color="error" fontSize="small" />) : 'N/D',
 
-                [t('employee.form.field.country')]: selectedEmployee?.country || 'N/D',
-                [t('employee.form.field.city')]: selectedEmployee?.city || 'N/D',
-                [t('employee.form.field.postcode')]: selectedEmployee?.postcode || 'N/D',
-                [t('employee.form.field.address')]: selectedEmployee?.address || 'N/D',
+                [t('employee.form.field.country')]: selectedEmployee?.address?.country || 'N/D',
+                [t('employee.form.field.city')]: selectedEmployee?.address?.city || 'N/D',
+                [t('employee.form.field.postcode')]: selectedEmployee?.address?.postcode || 'N/D',
+                [t('employee.form.field.street')]: selectedEmployee?.address?.street || 'N/D',
 
-                [t('employee.form.field.role')]: selectedEmployee?.roleUUID || 'N/D',
+                [t('employee.form.field.role')]: selectedEmployee?.role?.uuid || 'N/D',
                 [t('employee.form.field.createdAt')]: selectedEmployee?.createdAt || 'N/D',
                 [t('employee.form.field.updatedAt')]: selectedEmployee?.updatedAt || 'N/D',
                 [t('employee.form.field.updatedAt')]: selectedEmployee?.deletedAt || 'N/D',

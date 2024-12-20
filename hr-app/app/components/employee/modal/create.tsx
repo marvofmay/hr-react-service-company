@@ -3,6 +3,12 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, C
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Employee from '../../../types/Employee';
+import fakeCompanies from '../../../fake_data/Companies';
+import fakeDepartments from '../../../fake_data/Departments';
+import fakeEmployees from '../../../fake_data/Employees';
+import fakePositions from '../../../fake_data/Positions';
+import fakeContractTypes from '../../../fake_data/ContractTypes';
+import fakeRoles from '../../../fake_data/Roles';
 import { useTranslation } from 'react-i18next';
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
@@ -36,24 +42,46 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
 
     const initialValues: Employee = {
         uuid: '',
-        companyUUID: '',
-        departmentUUID: '',
-        employeeUUID: '',
-        positionUUID: '',
-        contractTypeUUID: '',
+        externalUUID: '',
+        company: {
+            uuid: '',
+            name: '',
+        },
+        department: {
+            uuid: '',
+            name: '',
+        },
+        employeeSuperior: {
+            uuid: '',
+            firstName: '',
+            lastName: '',
+        },
+        position: {
+            uuid: '',
+            name: '',
+        },
+        contractType: {
+            uuid: '',
+            name: '',
+        },
         firstName: '',
         lastName: '',
-        birth: '',
+        pesel: '',
         email: '',
         phone: [""],
         employmentFrom: '',
         employmentTo: '',
         active: false,
-        country: '',
-        city: '',
-        postcode: '',
-        address: '',
-        roleUUID: '',
+        address: {
+            country: '',
+            city: '',
+            postcode: '',
+            street: '',
+        },
+        role: {
+            uuid: '',
+            name: '',
+        },
         createdAt: '',
         updatedAt: '',
         deletedAt: '',
@@ -62,18 +90,30 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
     const validationSchema = Yup.object({
         firstName: Yup.string().required(t('validation.fieldIsRequired')),
         lastName: Yup.string().required(t('validation.fieldIsRequired')),
-        birth: Yup.string().required(t('validation.fieldIsRequired')),
+        pesel: Yup.string().required(t('validation.fieldIsRequired')),
         email: Yup.string().required(t('validation.fieldIsRequired')),
-        companyUUID: Yup.string().required(t('validation.fieldIsRequired')),
-        departmentUUID: Yup.string().required(t('validation.fieldIsRequired')),
+        company: Yup.object().shape({
+            uuid: Yup.string().required(t('validation.fieldIsRequired')),
+        }),
+        department: Yup.object().shape({
+            uuid: Yup.string().required(t('validation.fieldIsRequired')),
+        }),
         employmentFrom: Yup.string().required(t('validation.fieldIsRequired')),
-        positionUUID: Yup.string().required(t('validation.fieldIsRequired')),
-        roleUUID: Yup.string().required(t('validation.fieldIsRequired')),
-        country: Yup.string().required(t('validation.fieldIsRequired')),
-        city: Yup.string().required(t('validation.fieldIsRequired')),
-        postcode: Yup.string().required(t('validation.fieldIsRequired')),
-        address: Yup.string().required(t('validation.fieldIsRequired')),
-        contractTypeUUID: Yup.string().required(t('validation.fieldIsRequired')),
+        position: Yup.object().shape({
+            uuid: Yup.string().required(t('validation.fieldIsRequired')),
+        }),
+        role: Yup.object().shape({
+            uuid: Yup.string().required(t('validation.fieldIsRequired')),
+        }),
+        address: Yup.object().shape({
+            country: Yup.string().required(t('validation.fieldIsRequired')),
+            city: Yup.string().required(t('validation.fieldIsRequired')),
+            postcode: Yup.string().required(t('validation.fieldIsRequired')),
+            street: Yup.string().required(t('validation.fieldIsRequired')),
+        }),
+        contractType: Yup.object().shape({
+            uuid: Yup.string().required(t('validation.fieldIsRequired')),
+        }),
         // phone: Yup.array()
         //     .min(1, "At least one phone number is required")
         //     .of(
@@ -149,13 +189,13 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                     <Field
                                         as={TextField}
                                         type="date"
-                                        name="birth"
-                                        label={t('employee.form.field.birth')}
+                                        name="pesel"
+                                        label={t('employee.form.field.pesel')}
                                         fullWidth
                                         margin="normal"
                                         InputLabelProps={{ shrink: true }}
-                                        error={touched.birth && Boolean(errors.birth)}
-                                        helperText={touched.birth && errors.birth}
+                                        error={touched.pesel && Boolean(errors.pesel)}
+                                        helperText={touched.pesel && errors.pesel}
                                         required
                                     />
                                     <Field
@@ -192,7 +232,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                                     }}
                                                     error={touched.phone && index === 0 && Boolean(errors.phone?.[index])}
                                                     helperText={touched.phone && index === 0 && errors.phone?.[index]}
-                                                    required={index === 0}
+                                                //required={index === 0}
                                                 />
                                                 {index > 0 && (
                                                     <IconButton
@@ -234,46 +274,48 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         as={TextField}
                                         select
                                         fullWidth
-                                        name="companyUUID"
+                                        name="company.uuid"
                                         label={t('employee.form.field.company')}
                                         variant="outlined"
                                         margin="normal"
-                                        error={touched.companyUUID && Boolean(errors.companyUUID)}
-                                        helperText={touched.companyUUID && errors.companyUUID}
+                                        error={touched?.company?.uuid && Boolean(errors?.company?.uuid)}
+                                        helperText={touched?.company?.uuid && errors?.company?.uuid}
                                         required
                                     >
-                                        <MenuItem value="1">Company 1</MenuItem>
-                                        <MenuItem value="2">Company 2</MenuItem>
-                                        <MenuItem value="3">Company 3</MenuItem>
+                                        {fakeCompanies.map(company => <MenuItem key={company.uuid} value={company.uuid}>{company.fullName}</MenuItem>)}
                                     </Field>
                                     <Field
                                         as={TextField}
                                         select
                                         fullWidth
-                                        name="departmentUUID"
+                                        name="department.uuid"
                                         label={t('employee.form.field.department')}
                                         variant="outlined"
                                         margin="normal"
-                                        error={touched.departmentUUID && Boolean(errors.departmentUUID)}
-                                        helperText={touched.departmentUUID && errors.departmentUUID}
+                                        error={touched?.department?.uuid && Boolean(errors?.department?.uuid)}
+                                        helperText={touched?.department?.uuid && errors.department?.uuid}
                                         required
                                     >
-                                        <MenuItem value="1">Oddział 1</MenuItem>
-                                        <MenuItem value="2">Oddział 2</MenuItem>
-                                        <MenuItem value="3">Oddział 3</MenuItem>
+                                        {fakeDepartments.map(department => <MenuItem key={department.uuid} value={department.uuid}>{department.name}</MenuItem>)}
                                     </Field>
+                                    <Field
+                                        as={TextField}
+                                        name="externalUUID"
+                                        label={t('employee.form.field.externalUUID')}
+                                        fullWidth
+                                        margin="normal"
+                                        InputLabelProps={{ shrink: true }}
+                                    />
                                     <Field
                                         as={TextField}
                                         select
                                         fullWidth
-                                        name="employeeUUID"
+                                        name="employeeSuperior.uuid"
                                         label={t('employee.form.field.employeeSuperior')}
                                         variant="outlined"
                                         margin="normal"
                                     >
-                                        <MenuItem value="1">Employee 1</MenuItem>
-                                        <MenuItem value="2">Employee 2</MenuItem>
-                                        <MenuItem value="3">Employee 3</MenuItem>
+                                        {fakeEmployees.map(employee => <MenuItem key={employee.uuid} value={employee.uuid}>{employee.lastName} {employee.firstName}</MenuItem>)}
                                     </Field>
                                     <Field
                                         as={TextField}
@@ -300,43 +342,29 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         as={TextField}
                                         select
                                         fullWidth
-                                        name="positionUUID"
+                                        name="position.uuid"
                                         label={t('employee.form.field.position')}
                                         variant="outlined"
                                         margin="normal"
-                                        error={touched.positionUUID && Boolean(errors.positionUUID)}
-                                        helperText={touched.positionUUID && errors.positionUUID}
+                                        error={touched?.position?.uuid && Boolean(errors?.position?.uuid)}
+                                        helperText={touched?.position?.uuid && errors?.position?.uuid}
                                         required
                                     >
-                                        <MenuItem value="1">Position 1</MenuItem>
-                                        <MenuItem value="2">Position 2</MenuItem>
-                                        <MenuItem value="3">Position 3</MenuItem>
+                                        {fakePositions.map(position => <MenuItem key={position.uuid} value={position.uuid}>{position.name}</MenuItem>)}
                                     </Field>
                                     <Field
                                         as={TextField}
                                         select
                                         fullWidth
-                                        name="contractTypeUUID"
+                                        name="contractType.uuid"
                                         label={t('employee.form.field.contractType')}
                                         variant="outlined"
                                         margin="normal"
-                                        error={touched.contractTypeUUID && Boolean(errors.contractTypeUUID)}
-                                        helperText={touched.contractTypeUUID && errors.contractTypeUUID}
+                                        error={touched?.contractType?.uuid && Boolean(errors.contractType?.uuid)}
+                                        helperText={touched?.contractType?.uuid && errors.contractType?.uuid}
                                     >
-                                        <MenuItem value="1">contractType 1</MenuItem>
-                                        <MenuItem value="2">contractType 2</MenuItem>
-                                        <MenuItem value="3">contractType 3</MenuItem>
+                                        {fakeContractTypes.map(contractType => <MenuItem key={contractType.uuid} value={contractType.uuid}>{contractType.name}</MenuItem>)}
                                     </Field>
-                                    <FormControlLabel
-                                        control={
-                                            <Field
-                                                as={Checkbox}
-                                                name="active"
-                                                color="primary"
-                                            />
-                                        }
-                                        label={t('employee.form.field.active')}
-                                    />
                                 </Box>
 
                                 {/* Kolumna 3 */}
@@ -354,12 +382,12 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         as={TextField}
                                         select
                                         fullWidth
-                                        name="country"
+                                        name="address.country"
                                         label={t('employee.form.field.country')}
                                         variant="outlined"
                                         margin="normal"
-                                        error={touched.country && Boolean(errors.country)}
-                                        helperText={touched.country && errors.country}
+                                        error={touched?.address?.country && Boolean(errors?.address?.country)}
+                                        helperText={touched?.address?.country && errors?.address?.country}
                                         required
                                     >
                                         <MenuItem value="1">Polska</MenuItem>
@@ -370,12 +398,12 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         as={TextField}
                                         select
                                         fullWidth
-                                        name="city"
+                                        name="address.city"
                                         label={t('employee.form.field.city')}
                                         variant="outlined"
                                         margin="normal"
-                                        error={touched.city && Boolean(errors.city)}
-                                        helperText={touched.city && errors.city}
+                                        error={touched?.address?.city && Boolean(errors?.address?.city)}
+                                        helperText={touched?.address?.city && errors?.address?.city}
                                         required
                                     >
                                         <MenuItem value="1">Gdańsk</MenuItem>
@@ -384,22 +412,22 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                     </Field>
                                     <Field
                                         as={TextField}
-                                        name="postcode"
+                                        name="address.postcode"
                                         label={t('employee.form.field.postcode')}
                                         fullWidth
                                         margin="normal"
-                                        error={touched.postcode && Boolean(errors.postcode)}
-                                        helperText={touched.postcode && errors.postcode}
+                                        error={touched?.address?.postcode && Boolean(errors?.address?.postcode)}
+                                        helperText={touched?.address?.postcode && errors?.address?.postcode}
                                         required
                                     />
                                     <Field
                                         as={TextField}
-                                        name="address"
-                                        label={t('employee.form.field.address')}
+                                        name="address.street"
+                                        label={t('employee.form.field.street')}
                                         fullWidth
                                         margin="normal"
-                                        error={touched.address && Boolean(errors.address)}
-                                        helperText={touched.address && errors.address}
+                                        error={touched?.address?.street && Boolean(errors?.address?.street)}
+                                        helperText={touched?.address?.street && errors?.address?.street}
                                         required
                                     />
                                 </Box>
@@ -418,21 +446,29 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         as={TextField}
                                         select
                                         fullWidth
-                                        name="roleUUID"
+                                        name="role.uuid"
                                         label={t('employee.form.field.role')}
                                         variant="outlined"
                                         margin="normal"
-                                        error={touched.roleUUID && Boolean(errors.roleUUID)}
-                                        helperText={touched.roleUUID && errors.roleUUID}
+                                        error={touched?.role?.uuid && Boolean(errors?.role?.uuid)}
+                                        helperText={touched?.role?.uuid && errors?.role?.uuid}
                                         required
                                     >
-                                        <MenuItem value="1">role 1</MenuItem>
-                                        <MenuItem value="2">role 2</MenuItem>
-                                        <MenuItem value="3">role 3</MenuItem>
+                                        {fakeRoles.map(role => <MenuItem key={role.uuid} value={role.uuid}>{role.name}</MenuItem>)}
                                     </Field>
+                                    <FormControlLabel
+                                        control={
+                                            <Field
+                                                as={Checkbox}
+                                                name="active"
+                                                color="primary"
+                                            />
+                                        }
+                                        label={t('employee.form.field.active')}
+                                    />
                                     <Field
                                         as={TextField}
-                                        type="date"
+                                        type="datetime-local"
                                         name="createdAt"
                                         label={t('employee.form.field.createdAt')}
                                         fullWidth
@@ -441,7 +477,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                     />
                                     <Field
                                         as={TextField}
-                                        type="date"
+                                        type="datetime-local"
                                         name="updatedAt"
                                         label={t('employee.form.field.updatedAt')}
                                         fullWidth
@@ -450,7 +486,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                     />
                                     <Field
                                         as={TextField}
-                                        type="date"
+                                        type="datetime-local"
                                         name="deletedAt"
                                         label={t('employee.form.field.deletedAt')}
                                         fullWidth

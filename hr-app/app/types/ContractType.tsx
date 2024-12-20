@@ -1,9 +1,8 @@
-export default interface Position {
+export default interface ContractType {
     uuid: string;
     name: string;
     description?: string;
-    active?: boolean;
     createdAt?: string;
-    updatedAt?: string;
+    updatedAt?: string | null;
     deletedAt?: string | null;
 }

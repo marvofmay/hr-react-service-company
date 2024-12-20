@@ -21,7 +21,7 @@ export default interface File {
     originalName: string;
     hashedName: string;
     extension: string;
-    created_at: string;
-    updated_at: string;
-    deleted_at: string | null;
+    createdAt?: string;
+    updatedAt?: string;
+    deletedAt?: string | null;
 }

@@ -41,6 +41,7 @@
             "shortName": "nazwa skrócona",
             "nip": "nip",
             "regon": "regon",
+            "industry": "branża",
             "active": "aktywna",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
@@ -55,13 +56,21 @@
             "nip": "nip",
             "regon": "regon",
             "description": "opis",
+            "industry": "branża",
             "active": "aktywna",
+            "country": "kraj",
+            "city": "miasto",
+            "postcode": "kd pocztowy",
+            "street": "ulica",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto"
         },
         "box": {
-            "mainData": "dane podstawowe",
+            "mainData": "podstawowe dane",
+            "addressData": "dane adresowe",
+            "additionalData": "dodatkowe dane",
+            "departmentsData": "departamenty",
             "systemData": "dane systemowe"
         }
     }

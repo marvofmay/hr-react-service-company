@@ -1,30 +1,37 @@
+import Address from "./Address";
+import ContractType from "./ContractType";
+import Position from "./Position";
+import Role from "./Role";
+
 export default interface Employee {
     uuid: string;
-    companyUUID: string | null;
-    company?: string | null;
-    departmentUUID: string | null;
-    department?: string | null;
-    employeeUUID: string | null;
-    employeeSuperior?: string | null;
-    roleUUID: string;
-    role?: string;
+    externalUUID?: string | null;
+    company: {
+        uuid: string;
+        name: string;
+    };
+    department: {
+        uuid: string;
+        name: string;
+    };
+    employeeSuperior: {
+        uuid: string | null;
+        firstName: string | null;
+        lastName: string | null;
+    }
     firstName: string;
     lastName: string;
-    birth: string;
+    pesel: string;
     email: string;
     phone: string[];
     employmentFrom: string;
     employmentTo: string | null;
-    positionUUID: string;
-    position?: string;
-    contractTypeUUID: string,
-    contractType?: string,
+    position: Position;
+    contractType: ContractType;
+    role: Role;
     active: boolean;
-    country: string;
-    city: string;
-    postcode: string;
-    address: string;
-    createdAt: string;
-    updatedAt: string;
-    deletedAt: string | null;
+    address: Address;
+    createdAt?: string;
+    updatedAt?: string;
+    deletedAt?: string | null;
 }

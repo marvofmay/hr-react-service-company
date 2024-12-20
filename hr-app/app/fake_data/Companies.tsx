@@ -9,11 +9,20 @@ const companies: Company[] = [
         description: null,
         nip: '1234567890',
         regon: '0987654321',
-        industry: null,
-        logo: null,
+        industry: {
+            uuid: '1',
+            name: 'Technology'
+        },
+        //logo: null,
         active: true,
-        createdAt: '2024-10-27 12:00:00',
-        updatedAt: '2024-10-27 12:00:00',
+        address: {
+            country: 'U.S.A.',
+            city: 'New York',
+            postcode: '12-123',
+            street: 'wwewe'
+        },
+        createdAt: '2024-10-27T12:00:00',
+        updatedAt: '2024-10-27T12:00:00',
         deletedAt: null,
     },
     {
@@ -24,11 +33,20 @@ const companies: Company[] = [
         description: null,
         nip: '2345678901',
         regon: '1234567890',
-        industry: null,
-        logo: null,
+        industry: {
+            uuid: '1',
+            name: 'Technology'
+        },
+        //logo: null,
         active: true,
-        createdAt: '2024-10-27 12:00:00',
-        updatedAt: '2024-10-27 12:00:00',
+        address: {
+            country: 'U.S.A.',
+            city: 'New York',
+            postcode: '12-123',
+            street: 'wwewe'
+        },
+        createdAt: '2024-10-27T12:10:00',
+        updatedAt: '2024-10-27T12:10:00',
         deletedAt: null,
     },
 ];
