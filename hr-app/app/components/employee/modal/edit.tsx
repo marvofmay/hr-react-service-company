@@ -375,9 +375,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
                                         helperText={touched?.position?.uuid && errors?.position?.uuid}
                                         required
                                     >
-                                        <MenuItem value="1">Position 1</MenuItem>
-                                        <MenuItem value="2">Position 2</MenuItem>
-                                        <MenuItem value="3">Position 3</MenuItem>
+                                        {fakePositions.map(position => <MenuItem key={position.uuid} value={position.uuid}>{position.name}</MenuItem>)}
                                     </Field>
                                     <Field
                                         as={TextField}
@@ -390,9 +388,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
                                         error={touched?.contractType?.uuid && Boolean(errors?.contractType?.uuid)}
                                         helperText={touched?.contractType?.uuid && errors?.contractType?.uuid}
                                     >
-                                        <MenuItem value="1">contractType 1</MenuItem>
-                                        <MenuItem value="2">contractType 2</MenuItem>
-                                        <MenuItem value="3">contractType 3</MenuItem>
+                                        {fakeContractTypes.map(contractType => <MenuItem key={contractType.uuid} value={contractType.uuid}>{contractType.name}</MenuItem>)}
                                     </Field>
                                     <FormControlLabel
                                         control={
@@ -500,9 +496,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
                                         helperText={touched?.role?.uuid && errors?.role?.uuid}
                                         required
                                     >
-                                        <MenuItem value="1">role 1</MenuItem>
-                                        <MenuItem value="2">role 2</MenuItem>
-                                        <MenuItem value="3">role 3</MenuItem>
+                                        {fakeRoles.map(role => <MenuItem key={role.uuid} value={role.uuid}>{role.name}</MenuItem>)}
                                     </Field>
                                     <Field
                                         as={TextField}
