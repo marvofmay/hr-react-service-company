@@ -1,20 +1,24 @@
 import Address from './Address';
 
 export default interface Department {
-    uuid: string;
-    company: {
-        uuid: string;
-        name: string;
-    }
+    uuid: string | null;
+    name: string | null;
+    // company?: {
+    //     uuid: string | null;
+    //     name: string | null;
+    // }
     departmentSuperior: {
         uuid: string | null;
         name: string | null;
     }
-    name: string;
+    index?: number;
     description: string | null;
     address: Address;
+    phone: string | null;
+    email: string | null;
+    web: string | null;
     active: boolean;
     createdAt?: string;
-    updatedAt?: string;
+    updatedAt?: string | null;
     deletedAt?: string | null;
 }

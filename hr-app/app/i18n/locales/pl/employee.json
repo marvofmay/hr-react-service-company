@@ -79,7 +79,7 @@
             "active": "aktywny",
             "country": "kraj",
             "city": "miasto",
-            "postcode": "kd pocztowy",
+            "postcode": "kod pocztowy",
             "street": "ulica",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",

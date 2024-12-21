@@ -196,7 +196,6 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
                                     />
                                     <Field
                                         as={TextField}
-                                        type="date"
                                         name="pesel"
                                         label={t('employee.form.field.pesel')}
                                         value={values.pesel}

@@ -46,5 +46,7 @@
     "footer": {
         "info": "Aplikacja do celów edukacyjnych NextJs / React"
     },
-    "addAnotherPhoneNumber": "Dodaj kolejny numer telefonu"
+    "addAnotherPhoneNumber": "kolejny numer telefonu",
+    "addAnotherEmail": "kolejny email",
+    "addAnotherWeb": "kolejna strona www"
 }

@@ -4,6 +4,7 @@ import en from './locales/en.json';
 import navigationPL from './locales/pl/navigation.json';
 import commonPL from './locales/pl/common.json';
 import companyPL from './locales/pl/company.json';
+import departmentPL from './locales/pl/department.json';
 import industryPL from './locales/pl/industry.json';
 import rolePL from './locales/pl/role.json';
 import positionPL from './locales/pl/position.json';
@@ -19,6 +20,7 @@ const resources = {
             common: commonPL,
             navigation: navigationPL,
             company: companyPL,
+            department: departmentPL,
             industry: industryPL,
             role: rolePL,
             position: positionPL,

@@ -1,0 +1,73 @@
+{
+    "list": {
+        "title": "Lista departamentów"
+    },
+    "settings": {
+        "title": "Ustawienia departamentów"
+    },
+    "modal": {
+        "add": {
+            "title": "Dodaj departament"
+        },
+        "preview": {
+            "title": "Podgląd danych departamentu"
+        },
+        "edit": {
+            "title": "Edycja danych departamentu"
+        },
+        "delete": {
+            "title": "Potwierdzenie usunięcia departamentu",
+            "question": "Czy na pewno chcesz usunąć departament"
+        }
+    },
+    "button": {
+        "add": "Dodaj departament",
+        "remove": "Usuń departament"
+    },
+    "add": {
+        "success": "Nowy departament została dodana",
+        "error": "Błąd podczas dodawania departamentu"
+    },
+    "update": {
+        "success": "Departament została zaktualizowana",
+        "error": "Nioczekiwany błąd podczas aktualizacji departamentu"
+    },
+    "delete": {
+        "success": "Departament został usunięty",
+        "error": "Nioczekiwany błąd podczas usuwania departamentu"
+    },
+    "table": {
+        "column": {
+            "name": "nazwa",
+            "active": "aktywny",
+            "createdAt": "utworzono",
+            "updatedAt": "zaktualizowano",
+            "deletedAt": "usunięto",
+            "actions": "akcje"
+        }
+    },
+    "form": {
+        "field": {
+            "name": "nazwa",
+            "description": "opis",
+            "active": "aktywny",
+            "country": "kraj",
+            "city": "miasto",
+            "postcode": "kod pocztowy",
+            "street": "ulica",
+            "phone": "telefon",
+            "email": "email",
+            "web": "strona www",
+            "createdAt": "utworzono",
+            "updatedAt": "zaktualizowano",
+            "deletedAt": "usunięto",
+            "actions": "akcje"
+        },
+        "box": {
+            "mainData": "podstawowe dane",
+            "addressData": "dane adresowe",
+            "additionalData": "dodatkowe dane",
+            "systemData": "dane systemowe"
+        }
+    }
+}

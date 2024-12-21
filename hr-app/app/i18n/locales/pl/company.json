@@ -60,8 +60,11 @@
             "active": "aktywna",
             "country": "kraj",
             "city": "miasto",
-            "postcode": "kd pocztowy",
+            "postcode": "kod pocztowy",
             "street": "ulica",
+            "phone": "telefon",
+            "email": "email",
+            "web": "strona www",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto"

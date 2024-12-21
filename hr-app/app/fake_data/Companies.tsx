@@ -11,7 +11,7 @@ const companies: Company[] = [
         regon: '0987654321',
         industry: {
             uuid: '1',
-            name: 'Technology'
+            name: 'Technology',
         },
         //logo: null,
         active: true,
@@ -19,8 +19,12 @@ const companies: Company[] = [
             country: 'U.S.A.',
             city: 'New York',
             postcode: '12-123',
-            street: 'wwewe'
+            street: 'wwewe',
         },
+        phone: [""],
+        email: [""],
+        web: [""],
+        departments: [],
         createdAt: '2024-10-27T12:00:00',
         updatedAt: '2024-10-27T12:00:00',
         deletedAt: null,
@@ -35,7 +39,7 @@ const companies: Company[] = [
         regon: '1234567890',
         industry: {
             uuid: '1',
-            name: 'Technology'
+            name: 'Technology',
         },
         //logo: null,
         active: true,
@@ -43,10 +47,42 @@ const companies: Company[] = [
             country: 'U.S.A.',
             city: 'New York',
             postcode: '12-123',
-            street: 'wwewe'
+            street: 'wwewe',
         },
+        phone: [""],
+        email: [""],
+        web: [""],
+        departments: [],
         createdAt: '2024-10-27T12:10:00',
         updatedAt: '2024-10-27T12:10:00',
+        deletedAt: null,
+    },
+    {
+        uuid: '3',
+        companyUUID: null,
+        fullName: 'Code LTD',
+        shortName: 'Code',
+        description: null,
+        nip: '234567',
+        regon: '1234567890',
+        industry: {
+            uuid: '3',
+            name: 'Education'
+        },
+        //logo: null,
+        active: true,
+        address: {
+            country: 'England',
+            city: 'London',
+            postcode: '11-334',
+            street: 'Oxford 43'
+        },
+        phone: [""],
+        email: [""],
+        web: [""],
+        departments: [],
+        createdAt: '2024-12-20T12:45:00',
+        updatedAt: '2024-12-20T12:45:00',
         deletedAt: null,
     },
 ];

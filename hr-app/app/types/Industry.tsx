@@ -3,6 +3,6 @@ export default interface Industry {
     name: string;
     description?: string;
     createdAt?: string;
-    updatedAt?: string;
+    updatedAt?: string | null;
     deletedAt?: string | null;
 }

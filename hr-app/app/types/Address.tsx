@@ -3,7 +3,4 @@ export default interface Address {
     city: string,
     postcode: string,
     street: string,
-    createdAt?: string;
-    updatedAt?: string;
-    deletedAt?: string | null;
 }

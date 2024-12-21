@@ -154,6 +154,7 @@ const CompaniesTable = () => {
                                     </TableSortLabel>
                                 </TableCell>
                                 <TableCell sx={{ padding: '4px 8px' }}>{t('company.table.column.industry')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('company.table.column.departments')}</TableCell>
                                 <TableCell sx={{ padding: '4px 8px' }}>{t('company.table.column.active')}</TableCell>
                                 <TableCell sx={{ padding: '4px 8px' }}>{t('company.table.column.createdAt')}</TableCell>
                                 <TableCell sx={{ padding: '4px 8px' }}>{t('company.table.column.updatedAt')}</TableCell>
@@ -166,6 +167,7 @@ const CompaniesTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{company.fullName}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{company.industry?.name}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{company.departments?.length}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
                                         {company.active ? (<CheckCircleIcon color="success" fontSize="small" />) : (<CancelIcon color="error" fontSize="small" />)}
                                     </TableCell>

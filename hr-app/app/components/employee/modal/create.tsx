@@ -92,13 +92,13 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
         lastName: Yup.string().required(t('validation.fieldIsRequired')),
         pesel: Yup.string().required(t('validation.fieldIsRequired')),
         email: Yup.string().required(t('validation.fieldIsRequired')),
+        employmentFrom: Yup.string().required(t('validation.fieldIsRequired')),
         company: Yup.object().shape({
             uuid: Yup.string().required(t('validation.fieldIsRequired')),
         }),
         department: Yup.object().shape({
             uuid: Yup.string().required(t('validation.fieldIsRequired')),
         }),
-        employmentFrom: Yup.string().required(t('validation.fieldIsRequired')),
         position: Yup.object().shape({
             uuid: Yup.string().required(t('validation.fieldIsRequired')),
         }),
@@ -188,7 +188,6 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                     />
                                     <Field
                                         as={TextField}
-                                        type="date"
                                         name="pesel"
                                         label={t('employee.form.field.pesel')}
                                         fullWidth
@@ -244,6 +243,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                                     </IconButton>
                                                 )}
                                             </Box>
+
                                         ))}
 
                                         {phones.length < MAX_PHONE_FIELDS && (
