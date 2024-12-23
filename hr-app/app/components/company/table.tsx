@@ -103,6 +103,7 @@ const CompaniesTable = () => {
     };
 
     const handleUpdate = (updatedCompany: Company) => {
+        console.log('handleUpdate', updatedCompany);
         updateCompanyMutate(updatedCompany, {
             onSuccess: (currentCompanies: Company[]) => {
                 setLocalCompanies(currentCompanies);

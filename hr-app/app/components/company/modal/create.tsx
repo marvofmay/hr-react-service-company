@@ -8,6 +8,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import EditIcon from '@mui/icons-material/Edit';
 import fakeIdustries from "@/app/fake_data/Industries";
+import fakeCompanies from "@/app/fake_data/Companies";
 import CreateDepartmentModal from "@/app/components/department/modal/create";
 import Department from '@/app/types/Department';
 
@@ -22,7 +23,10 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
 
     const initialValues: Company = {
         uuid: '',
-        companyUUID: '',
+        companySuperior: {
+            uuid: '',
+            name: '',
+        },
         fullName: '',
         shortName: '',
         nip: '',
@@ -42,15 +46,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
         phone: [""],
         email: [""],
         web: [""],
-        departments: [{
-            uuid: '',
-            departmentSuperior: {
-                uuid: '',
-                name: ''
-            },
-            name: '',
-            description: '',
-        }],
+        departments: [],
         createdAt: new Date().toISOString().slice(0, 19).replace('T', ' '),
         updatedAt: '',
         deletedAt: '',
@@ -67,9 +63,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
 
     const [departments, setDepartments] = useState<Department[]>([]);
     const [isDepartmentModalOpen, setDepartmentModalOpen] = useState(false);
-
     const [editingDepartment, setEditingDepartment] = useState<Department | null>(null);
-
 
     const handleAddPhone = (values: any, setFieldValue: any) => {
         if (values.phone.length < MAX_PHONE_FIELDS) {
@@ -130,6 +124,16 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
         setDepartmentModalOpen(false);
     };
 
+    const handleEditDepartment = (index: number) => {
+        const departmentToEdit = departments[index];
+        setEditingDepartment({ ...departmentToEdit, index });
+        setDepartmentModalOpen(true);
+    };
+
+    const handleRemoveDepartment = (index: number) => {
+        setDepartments(prev => prev.filter((_, i) => i !== index));
+    };
+
     const validationSchema = Yup.object({
         fullName: Yup.string().required(t('validation.fieldIsRequired')),
         nip: Yup.string().required(t('validation.fieldIsRequired')),
@@ -145,18 +149,11 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
         }),
     });
 
-    const handleEditDepartment = (index: number) => {
-        const departmentToEdit = departments[index];
-        setEditingDepartment({ ...departmentToEdit, index });
-        setDepartmentModalOpen(true);
-    };
-
-    const handleRemoveDepartment = (index: number) => {
-        setDepartments(prev => prev.filter((_, i) => i !== index));
-    };
-
     const handleSubmit = (values: Company, { resetForm }: any) => {
-        const companyData = { ...values, departments };
+        const companyData = {
+            ...values,
+            departments: departments || [],
+        };
         onAddCompany(companyData);
         resetForm();
         onClose();
@@ -257,6 +254,17 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                             error={touched.description && Boolean(errors.description)}
                                             helperText={touched.description && errors.description}
                                         />
+                                        <Field
+                                            as={TextField}
+                                            select
+                                            fullWidth
+                                            name="companySuperior.uuid"
+                                            label={t('company.form.field.companySuperior')}
+                                            variant="outlined"
+                                            margin="normal"
+                                        >
+                                            {fakeCompanies.map(company => <MenuItem key={company.uuid} value={company.uuid}>{company.fullName}</MenuItem>)}
+                                        </Field>
                                     </Box>
                                     {/* Kolumna 2 */}
                                     <Box sx={{
@@ -281,9 +289,9 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                             helperText={touched?.address?.country && errors?.address?.country}
                                             required
                                         >
-                                            <MenuItem value="1">Polska</MenuItem>
-                                            <MenuItem value="2">Anglia</MenuItem>
-                                            <MenuItem value="3">Niemcy</MenuItem>
+                                            <MenuItem value="Polska">Polska</MenuItem>
+                                            <MenuItem value="Anglia">Anglia</MenuItem>
+                                            <MenuItem value="Niemcy">Niemcy</MenuItem>
                                         </Field>
                                         <Field
                                             as={TextField}
@@ -297,9 +305,9 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                             helperText={touched?.address?.city && errors?.address?.city}
                                             required
                                         >
-                                            <MenuItem value="1">Gdańsk</MenuItem>
-                                            <MenuItem value="2">Sopot</MenuItem>
-                                            <MenuItem value="3">Gdynia</MenuItem>
+                                            <MenuItem value="Gdańsk">Gdańsk</MenuItem>
+                                            <MenuItem value="Sopot">Sopot</MenuItem>
+                                            <MenuItem value="Gdynia">Gdynia</MenuItem>
                                         </Field>
                                         <Field
                                             as={TextField}
@@ -554,6 +562,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                                 />
                                             }
                                             label={t('company.form.field.active')}
+                                            checked={values.active}
                                         />
                                         <Field
                                             as={TextField}
@@ -599,7 +608,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
             </Dialog>
             <CreateDepartmentModal
                 open={isDepartmentModalOpen}
-                onClose={() => setDepartmentModalOpen(false)}
+                onClose={() => { setDepartmentModalOpen(false); setEditingDepartment(null); }}
                 onAddDepartment={department => { handleAddOrUpdateDepartment(department); }}
                 initialData={editingDepartment}
             />

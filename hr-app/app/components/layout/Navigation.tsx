@@ -9,6 +9,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from '@mui/icons-material/Login';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
+import EmailIcon from '@mui/icons-material/Email';
 import { useTranslation } from 'react-i18next';
 import { APP_NAME } from '../../utility/constans';
 
@@ -52,6 +53,7 @@ const Navigation: React.FC = () => {
                     {isAuthenticated && <ManageListNavigation />}
                     {isAuthenticated && <SettingsListNavigation />}
                     {isAuthenticated && <button><CircleNotificationsIcon /></button>}
+                    {isAuthenticated && <button><EmailIcon /></button>}
                     {isAuthenticated ? (
                         <UserProfileNavigation />
                     ) : (

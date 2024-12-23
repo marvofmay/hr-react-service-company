@@ -39,6 +39,7 @@
     "table": {
         "column": {
             "name": "nazwa",
+            "departmentSuperior": "oddział \"matka\"",
             "active": "aktywny",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
@@ -50,6 +51,7 @@
         "field": {
             "name": "nazwa",
             "description": "opis",
+            "departmentSuperior": "oddział \"matka\"",
             "active": "aktywny",
             "country": "kraj",
             "city": "miasto",

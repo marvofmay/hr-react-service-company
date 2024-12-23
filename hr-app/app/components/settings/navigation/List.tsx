@@ -9,6 +9,7 @@ const menuItems = [
     { label: "Companies", href: "/settings/companies", key: "companies" },
     { label: "Employees", href: "/settings/employees", key: "employees" },
     { label: "Roles", href: "/settings/roles", key: "roles" },
+    { label: "Notifications", href: "/settings/notifications", key: "notifications" },
 ];
 
 const SettingsListNavigation: React.FC = () => {
@@ -42,19 +43,17 @@ const SettingsListNavigation: React.FC = () => {
 
     return (
         <>
-            {/* Przycisk „Settings” */}
             <Button
                 color="inherit"
                 aria-controls="manage-menu"
                 aria-haspopup="true"
                 onClick={handleMenuOpen}
                 sx={{
-                    backgroundColor: open || selectedMenuItem ? "rgba(255, 255, 255, 0.3)" : "transparent", // Podświetlenie, gdy menu jest otwarte lub coś wybrane
+                    backgroundColor: open || selectedMenuItem ? "rgba(255, 255, 255, 0.3)" : "transparent",
                 }}
             >
                 <SettingsIcon /> {t('navigation.settings')}
             </Button>
-
             <Menu
                 id="manage-menu"
                 anchorEl={anchorEl}
@@ -64,7 +63,6 @@ const SettingsListNavigation: React.FC = () => {
                     "aria-labelledby": "manage-button",
                 }}
             >
-                {/* Opcje w rozwijanym menu renderowane dynamicznie */}
                 {menuItems.map((item) => (
                     <MenuItem
                         key={item.key}

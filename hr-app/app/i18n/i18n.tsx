@@ -10,6 +10,7 @@ import rolePL from './locales/pl/role.json';
 import positionPL from './locales/pl/position.json';
 import employeePL from './locales/pl/employee.json';
 import validationPL from './locales/pl/validation.json';
+import notificationPL from './locales/pl/notification.json';
 
 const resources = {
     en: {
@@ -26,6 +27,7 @@ const resources = {
             position: positionPL,
             employee: employeePL,
             validation: validationPL,
+            notification: notificationPL
         }
     },
 };

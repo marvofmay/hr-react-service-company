@@ -20,6 +20,9 @@ const departments: Department[] = [
             postcode: "11-222",
             street: "Wiejska 4b/12"
         },
+        phone: '123-123-123',
+        email: 'example@email.com',
+        web: 'https://example.com',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         deletedAt: null,
@@ -43,6 +46,9 @@ const departments: Department[] = [
             postcode: "12-123",
             street: "Cich 4/14"
         },
+        phone: '123-123-123',
+        email: 'example@email.com',
+        web: 'https://example.com',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         deletedAt: null,
@@ -66,6 +72,9 @@ const departments: Department[] = [
             postcode: "11-333",
             street: "Stolarska 14b/3"
         },
+        phone: '123-123-123',
+        email: 'example@email.com',
+        web: 'https://example.com',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         deletedAt: null,

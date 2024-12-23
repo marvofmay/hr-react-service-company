@@ -7,6 +7,7 @@ const updateCompany = async (updatedCompany: Company): Promise<Company[]> => {
     const updatedCompanies = fakeCompanies.map(company =>
         company.uuid === updatedCompany.uuid ? updatedCompany : company
     );
+    console.log('updatedCompanies', updatedCompany);
 
     return updatedCompanies;
 };

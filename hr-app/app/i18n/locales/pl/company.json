@@ -56,6 +56,7 @@
             "nip": "nip",
             "regon": "regon",
             "description": "opis",
+            "companySuperior": "firma \"matka\"",
             "industry": "branża",
             "active": "aktywna",
             "country": "kraj",

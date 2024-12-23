@@ -1,20 +1,14 @@
 import File from './File';
 import Industry from './Industry';
 import Address from './Address';
-
-interface Department {
-    uuid: string | null;
-    departmentSuperior: {
-        uuid: string | null;
-        name: string | null;
-    },
-    name: string | null;
-    description: string | null;
-};
+import Department from './Department';
 
 export default interface Company {
     uuid: string;
-    companyUUID?: string | null;
+    companySuperior: {
+        uuid: string | null;
+        name: string | null;
+    },
     fullName?: string;
     shortName?: string | null;
     nip?: string;

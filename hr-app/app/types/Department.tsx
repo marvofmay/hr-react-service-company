@@ -1,12 +1,12 @@
 import Address from './Address';
 
 export default interface Department {
-    uuid: string | null;
+    uuid: string;
     name: string | null;
-    // company?: {
-    //     uuid: string | null;
-    //     name: string | null;
-    // }
+    company?: {
+        uuid: string | null;
+        name: string | null;
+    }
     departmentSuperior: {
         uuid: string | null;
         name: string | null;

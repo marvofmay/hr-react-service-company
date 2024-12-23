@@ -4,6 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import Department from '@/app/types/Department';
+import fakeDepartments from '@/app/fake_data/Departments';
 
 interface AddDepartmentModalProps {
     open: boolean;
@@ -25,14 +26,16 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
             street: Yup.string().required(t('validation.fieldIsRequired')),
         }),
         phone: Yup.string().required(t('validation.fieldIsRequired')),
+        email: Yup.string().email('Podaj poprawny adres e-mail'),
+        web: Yup.string().url('Podaj poprawny adres URL'),
     });
 
     const initialValues: Department = initialData || {
         uuid: '',
-        // company: {
-        //     uuid: '',
-        //     name: '',
-        // },
+        company: {
+            uuid: '',
+            name: '',
+        },
         departmentSuperior: {
             uuid: '',
             name: '',
@@ -60,12 +63,6 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
         onClose();
     };
 
-    const handleClose = (resetForm: () => void) => {
-        console.log(1123);
-        resetForm();
-        onClose();
-    };
-
     return (
         <Dialog open={open} onClose={onClose} fullWidth maxWidth="lg">
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
@@ -76,7 +73,7 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                {({ errors, touched, resetForm }) => (
+                {({ errors, touched, values, resetForm }) => (
                     <Form noValidate>
                         <DialogContent>
                             <Box
@@ -115,6 +112,17 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
                                         error={touched.description && Boolean(errors.description)}
                                         helperText={touched.description && errors.description}
                                     />
+                                    <Field
+                                        as={TextField}
+                                        select
+                                        fullWidth
+                                        name="departmentSuperior.uuid"
+                                        label={t('department.form.field.departmentSuperior')}
+                                        variant="outlined"
+                                        margin="normal"
+                                    >
+                                        {fakeDepartments.map(department => <MenuItem key={department.uuid} value={department.uuid}>{department.name}</MenuItem>)}
+                                    </Field>
                                 </Box>
                                 <Box sx={{
                                     border: '1px solid #ccc',
@@ -138,9 +146,9 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
                                         helperText={touched?.address?.country && errors?.address?.country}
                                         required
                                     >
-                                        <MenuItem value="1">Polska</MenuItem>
-                                        <MenuItem value="2">Anglia</MenuItem>
-                                        <MenuItem value="3">Niemcy</MenuItem>
+                                        <MenuItem value="Polska">Polska</MenuItem>
+                                        <MenuItem value="Anglia">Anglia</MenuItem>
+                                        <MenuItem value="Niemcy">Niemcy</MenuItem>
                                     </Field>
                                     <Field
                                         as={TextField}
@@ -154,9 +162,9 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
                                         helperText={touched?.address?.city && errors?.address?.city}
                                         required
                                     >
-                                        <MenuItem value="1">Gdańsk</MenuItem>
-                                        <MenuItem value="2">Sopot</MenuItem>
-                                        <MenuItem value="3">Gdynia</MenuItem>
+                                        <MenuItem value="Gdańsk">Gdańsk</MenuItem>
+                                        <MenuItem value="Sopot">Sopot</MenuItem>
+                                        <MenuItem value="Gdynia">Gdynia</MenuItem>
                                     </Field>
                                     <Field
                                         as={TextField}
@@ -212,6 +220,7 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
                                     <Field
                                         as={TextField}
                                         name="web"
+                                        type="url"
                                         label={t('department.form.field.web')}
                                         fullWidth
                                         margin="normal"
@@ -238,6 +247,7 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
                                             />
                                         }
                                         label={t('department.form.field.active')}
+                                        checked={values.active}
                                     />
                                     <Field
                                         as={TextField}
@@ -270,14 +280,13 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
                             </Box>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={() => handleClose(resetForm)} variant="contained" sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}>
+                            <Button onClick={onClose} variant="contained" sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}>
                                 {t('common.button.cancel')}
                             </Button>
                             <Button type="submit" variant="contained" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}>
                                 {t('common.button.save')}
                             </Button>
                         </DialogActions>
-
                     </Form>
                 )}
             </Formik>

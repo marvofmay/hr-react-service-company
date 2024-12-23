@@ -10,5 +10,6 @@
     "roles": "role",
     "industries": "branże",
     "userData": "dane",
-    "logout": "wyloguj"
+    "logout": "wyloguj",
+    "notifications": "powiadomienia"
 }
