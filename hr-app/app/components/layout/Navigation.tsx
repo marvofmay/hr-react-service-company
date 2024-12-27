@@ -1,7 +1,7 @@
 "use client";
 
 import { AppBar, Toolbar, Typography, Button, Link } from "@mui/material";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import ManageListNavigation from "../manage/navigation/List";
 import SettingsListNavigation from "../settings/navigation/List";
 import UserProfileNavigation from "../user/UserProfileNavigation"
@@ -21,11 +21,9 @@ const navLinks = [
 
 const Navigation: React.FC = () => {
     const pathname = usePathname();
+    const router = useRouter(); // Hook useRouter
 
-    //odkomentuj jeśli podepniesz backend
-    //const { isAuthenticated } = useUser();
-
-    const { isAuthenticated } = { isAuthenticated: true };
+    const { isAuthenticated } = { isAuthenticated: true }; // przykład autoryzacji
     const { t } = useTranslation();
 
     return (
@@ -35,14 +33,14 @@ const Navigation: React.FC = () => {
                     <Typography>{APP_NAME}</Typography>
                 </Link>
                 <div style={{ display: "flex", gap: "16px" }}>
-                    {navLinks.slice(1).map((link) => (
+                    {navLinks.slice(1).map(link => (
                         <Link
                             key={link.href}
                             href={link.href}
                             color="inherit"
                             underline="none"
                             sx={{
-                                backgroundColor: pathname.startsWith(link.activePath) ? "rgba(255, 255, 255, 0.3)" : "transparent",
+                                backgroundColor: pathname === link.activePath ? "rgba(255, 255, 255, 0.3)" : "transparent", // dokładne porównanie ścieżki
                                 padding: 0,
                                 borderRadius: "2px",
                             }}
@@ -52,7 +50,21 @@ const Navigation: React.FC = () => {
                     ))}
                     {isAuthenticated && <ManageListNavigation />}
                     {isAuthenticated && <SettingsListNavigation />}
-                    {isAuthenticated && <button><CircleNotificationsIcon /></button>}
+                    {isAuthenticated && <Link
+                        key="/notifications"
+                        href="/notifications"
+                        color="inherit"
+                        underline="none"
+                        sx={{
+                            backgroundColor: pathname === "/notifications" ? "rgba(255, 255, 255, 0.3)" : "transparent", // dokładne porównanie ścieżki
+                            padding: 0,
+                            borderRadius: "2px",
+                        }}
+                    >
+                        <Button color="inherit"><CircleNotificationsIcon /> </Button>
+                    </Link>
+                    }
+
                     {isAuthenticated && <button><EmailIcon /></button>}
                     {isAuthenticated ? (
                         <UserProfileNavigation />
@@ -62,8 +74,8 @@ const Navigation: React.FC = () => {
                             color="inherit"
                             underline="none"
                             sx={{
-                                backgroundColor: pathname.startsWith('/login') ? "rgba(255, 255, 255, 0.3)" : "transparent",
-                                color: pathname.startsWith('/login') ? "#fff" : "inherit",
+                                backgroundColor: pathname === '/login' ? "rgba(255, 255, 255, 0.3)" : "transparent", // dokładne porównanie ścieżki
+                                color: pathname === '/login' ? "#fff" : "inherit",
                                 padding: 0,
                                 borderRadius: "2px",
                             }}

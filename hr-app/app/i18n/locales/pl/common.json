@@ -19,7 +19,8 @@
         "userData": "dane",
         "logout": "wyloguj",
         "list": "lista",
-        "user": "profil użytkownika"
+        "user": "profil użytkownika",
+        "notifications": "powiadomienia"
     },
     "button": {
         "cancel": "Anuluj",

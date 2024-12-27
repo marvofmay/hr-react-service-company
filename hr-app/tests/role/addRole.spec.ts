@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { capitalizeFirstLetter } from '@/app/utility/stringMethod';
 
 const baseUrl = 'http://localhost:3000';
 
@@ -15,10 +16,6 @@ const companiesList = 'lista firm';
 const employeesList = 'lista pracowników';
 const rolesList = 'lista ról';
 const positionsList = 'lista stanowisk';
-
-const capitalizeFirstLetter = (phrase: string) => {
-    return phrase.charAt(0).toUpperCase() + phrase.slice(1);
-}
 
 test.beforeEach(async ({ page }) => {
     await page.goto(baseUrl);

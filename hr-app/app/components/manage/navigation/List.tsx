@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import '../../../i18n/i18n';
 import { useTranslation } from 'react-i18next';
+import { lowercaseFirstLetter } from '@/app/utility/stringMethod';
 
 const menuItems = [
     { label: "Companies", href: "/manage/companies/list", key: "companies" },
@@ -11,6 +12,7 @@ const menuItems = [
     { label: "Positions", href: "/manage/positions/list", key: "positions" },
     { label: "Roles", href: "/manage/roles/list", key: "roles" },
     { label: "Industries", href: "/manage/industries/list", key: "industries" },
+    { label: "ContractTypes", href: "/manage/contractypes/list", key: "contractypes" },
 ];
 
 const ManageListNavigation: React.FC = () => {
@@ -75,7 +77,7 @@ const ManageListNavigation: React.FC = () => {
                             backgroundColor: selectedMenuItem === item.key ? "rgba(0, 0, 0, 0.1)" : "transparent",
                         }}
                     >
-                        {t(`navigation.${item.label.toLowerCase()}`)}
+                        {t(`navigation.${lowercaseFirstLetter(item.label)}`)}
                     </MenuItem>
                 ))}
             </Menu>
