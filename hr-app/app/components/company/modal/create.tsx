@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, MenuItem, FormControlLabel, Box, IconButton, Typography } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -11,11 +11,28 @@ import fakeIdustries from "@/app/fake_data/Industries";
 import fakeCompanies from "@/app/fake_data/Companies";
 import CreateDepartmentModal from "@/app/components/department/modal/create";
 import Department from '@/app/types/Department';
+import { TreeViewBaseItem } from '@mui/x-tree-view/models';
+import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
+import { TreeItem2, TreeItem2Props } from '@mui/x-tree-view/TreeItem2';
+import { useTreeItem2Utils } from '@mui/x-tree-view/hooks';
 
 interface AddCompanyModalProps {
     open: boolean;
     onClose: () => void;
     onAddCompany: (newCompany: Company) => void;
+}
+
+type TreeItemWithLabel = {
+    id: string;
+    label: string;
+    secondaryLabel?: string;
+    department: Department;
+};
+
+interface CustomLabelProps {
+    children: string;
+    className: string;
+    secondaryLabel: string;
 }
 
 const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddCompany }) => {
@@ -63,7 +80,111 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
 
     const [departments, setDepartments] = useState<Department[]>([]);
     const [isDepartmentModalOpen, setDepartmentModalOpen] = useState(false);
-    const [editingDepartment, setEditingDepartment] = useState<Department | null>(null);
+    const [editingDepartment, setEditingDepartment] = useState<Department | null | undefined>(null);
+
+    const [treeDepartments, setTreeDepartments] = useState<TreeViewBaseItem<TreeItemWithLabel>[]>([]);
+
+    function CustomLabel({ children, className, secondaryLabel }: CustomLabelProps) {
+        return (
+            <div className={className}>
+                <Typography>{children}</Typography>
+                {secondaryLabel && (
+                    <Typography variant="caption" color="secondary">
+                        {secondaryLabel}
+                    </Typography>
+                )}
+            </div>
+        );
+    }
+
+    const CustomTreeItem = React.forwardRef(function CustomTreeItem(
+        props: TreeItem2Props,
+        ref: React.Ref<HTMLLIElement>,
+    ) {
+        const { publicAPI } = useTreeItem2Utils({
+            itemId: props.itemId,
+            children: props.children,
+        });
+
+        const item = publicAPI.getItem(props.itemId);
+
+        return (
+            <TreeItem2
+                {...props}
+                ref={ref}
+                label={
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <CustomLabel children={item?.label || ''} className="tree-label" secondaryLabel={item?.secondaryLabel || ''} />
+                        <div>
+                            <IconButton onClick={e => {
+                                e.stopPropagation();
+                                handleEditDepartment(item.department);
+                            }} size="small" color="info">
+                                <EditIcon /> --{item.department.uuid}--
+                            </IconButton>
+                            <IconButton onClick={e => {
+                                e.stopPropagation();
+                                handleRemoveDepartment(item.department);
+                            }} size="small" color="error">
+                                <RemoveCircleOutlineIcon />
+                            </IconButton>
+                        </div>
+                    </div>
+                }
+            >
+                {item?.children && item.children.map((child: any) => (
+                    <CustomTreeItem
+                        key={child.id}
+                        itemId={child.id}
+                        label={child.label}
+                    />
+                ))}
+            </TreeItem2 >
+        );
+    });
+
+    const transformDepartmentsToTree = (departments: Department[]): TreeViewBaseItem<TreeItemWithLabel>[] => {
+        const departmentMap: Record<string, TreeViewBaseItem<TreeItemWithLabel>> = {};
+        const rootDepartments: TreeViewBaseItem<TreeItemWithLabel>[] = [];
+
+        console.log('before transformDepartmentsToTree', departments);
+        // Tworzenie mapy departmentMap
+        departments.forEach(department => {
+            // if (department.uuid === '') {
+            //     department.uuid = `new-department-${crypto.randomUUID()}`;
+            // }
+            departmentMap[department.uuid] = {
+                id: department.uuid,
+                label: department.name || '',
+                secondaryLabel: department.description || '',
+                department: department,
+                children: [],
+            };
+        });
+
+        // Przekształcenie danych w strukturę drzewa
+        departments.forEach(department => {
+            const parentId = department.departmentSuperior?.uuid || null;
+            if (parentId && parentId !== '' && departmentMap[parentId]) {
+                // Dodajemy element jako dziecko do rodzica
+                departmentMap[parentId].children?.push(departmentMap[department.uuid]);
+            } else {
+                // Dodajemy element do korzenia, jeśli nie ma rodzica
+                rootDepartments.push(departmentMap[department.uuid]);
+            }
+        });
+
+        console.log('transformDepartmentsToTree', rootDepartments);
+
+        return rootDepartments;
+    };
+
+    useEffect(() => {
+        if (departments.length > 0) {
+            const treeData = transformDepartmentsToTree(departments);
+            setTreeDepartments(treeData);
+        }
+    }, [departments]);
 
     const handleAddPhone = (values: any, setFieldValue: any) => {
         if (values.phone.length < MAX_PHONE_FIELDS) {
@@ -111,27 +232,25 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
     };
 
     const handleAddOrUpdateDepartment = (department: Department) => {
-        if (editingDepartment?.index !== undefined) {
-            setDepartments((prev) =>
-                prev.map((dept, i) =>
-                    i === editingDepartment.index ? { ...dept, ...department } : dept
-                )
-            );
+        if (editingDepartment?.uuid !== undefined) {
+            setDepartments(prev => prev.map(dept => dept.uuid === editingDepartment.uuid ? { ...dept, ...department } : dept));
         } else {
-            setDepartments((prev) => [...prev, department]);
+            department.uuid = `new-department-${crypto.randomUUID()}`;
+            setDepartments(prev => [...prev, department]);
         }
         setEditingDepartment(null);
         setDepartmentModalOpen(false);
     };
 
-    const handleEditDepartment = (index: number) => {
-        const departmentToEdit = departments[index];
-        setEditingDepartment({ ...departmentToEdit, index });
+    const handleEditDepartment = (department: Department) => {
+        setEditingDepartment(department);
         setDepartmentModalOpen(true);
     };
 
-    const handleRemoveDepartment = (index: number) => {
-        setDepartments(prev => prev.filter((_, i) => i !== index));
+    const handleRemoveDepartment = (department: Department) => {
+        setDepartments(prevDepartments =>
+            prevDepartments.filter(dep => dep.uuid !== department.uuid)
+        );
     };
 
     const validationSchema = Yup.object({
@@ -510,7 +629,12 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                         >
                                             {t('department.button.add')}
                                         </Button>
-                                        <ul>
+                                        <RichTreeView
+                                            defaultExpandedItems={['pickers']}
+                                            items={treeDepartments}
+                                            slots={{ item: CustomTreeItem }}
+                                        />
+                                        {/* <ul>
                                             {departments.map((dept, index) => (
                                                 <li
                                                     key={dept.uuid || index}
@@ -539,7 +663,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                                     </IconButton>
                                                 </li>
                                             ))}
-                                        </ul>
+                                        </ul> */}
                                     </Box>
 
                                     {/* Kolumna 5 */}
@@ -611,6 +735,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                 onClose={() => { setDepartmentModalOpen(false); setEditingDepartment(null); }}
                 onAddDepartment={department => { handleAddOrUpdateDepartment(department); }}
                 initialData={editingDepartment}
+                departments={departments}
             />
         </div>
     );

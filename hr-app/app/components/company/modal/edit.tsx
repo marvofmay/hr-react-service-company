@@ -23,6 +23,19 @@ interface EditCompanyModalProps {
     onSave: (updatedCompany: Company) => void;
 }
 
+type TreeItemWithLabel = {
+    id: string;
+    label: string;
+    secondaryLabel?: string;
+    department: Department;
+};
+
+interface CustomLabelProps {
+    children: string;
+    className: string;
+    secondaryLabel: string;
+}
+
 const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, company, onSave }) => {
     const { t } = useTranslation();
 
@@ -40,19 +53,6 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
     const [editingDepartment, setEditingDepartment] = useState<Department | null>(null);
 
     const [treeDepartments, setTreeDepartments] = useState<TreeViewBaseItem<TreeItemWithLabel>[]>([]);
-
-    type TreeItemWithLabel = {
-        id: string;
-        label: string;
-        secondaryLabel?: string;
-        department: Department;
-    };
-
-    interface CustomLabelProps {
-        children: string;
-        className: string;
-        secondaryLabel: string;
-    }
 
     function CustomLabel({ children, className, secondaryLabel }: CustomLabelProps) {
         return (
@@ -90,7 +90,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                 e.stopPropagation();
                                 handleEditDepartment(item.department);
                             }} size="small" color="info">
-                                <EditIcon /> {item?.id}
+                                <EditIcon />
                             </IconButton>
                             <IconButton onClick={e => {
                                 e.stopPropagation();
@@ -121,7 +121,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
         // Tworzenie mapy departmentMap
         departments.forEach(department => {
             if (department.uuid === '') {
-                department.uuid = crypto.randomUUID();
+                department.uuid = `new-department-${crypto.randomUUID()}`;
             }
             departmentMap[department.uuid] = {
                 id: department.uuid,
@@ -660,7 +660,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                 </Box>
                                 <Box
                                     display="grid"
-                                    gridTemplateColumns="1fr" // Pierwsza linia zajmuje całą szerokość
+                                    gridTemplateColumns="1fr"
                                     gap={2}
                                     sx={{
                                         border: '1px solid #ccc',
@@ -674,11 +674,9 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                     }}
                                 >
                                     <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.systemData')}</Typography>
-
-                                    {/* Druga linia z formularzem */}
                                     <Box
                                         display="grid"
-                                        gridTemplateColumns="repeat(4, 1fr)" // Cztery kolumny w drugiej linii
+                                        gridTemplateColumns="repeat(4, 1fr)"
                                         gap={2}
                                     >
                                         <Box>
@@ -753,6 +751,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                 onClose={() => { setDepartmentModalOpen(false); setEditingDepartment(null); }}
                 onAddDepartment={department => { handleAddOrUpdateDepartment(department); }}
                 initialData={editingDepartment}
+                departments={departments}
             />
         </>
     );

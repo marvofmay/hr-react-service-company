@@ -10,10 +10,11 @@ interface AddDepartmentModalProps {
     open: boolean;
     onClose: () => void;
     onAddDepartment: (newDepartment: Department) => void;
-    initialData: Department | null;
+    initialData: Department | null | undefined;
+    departments: Department[] | [];
 }
 
-const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, onAddDepartment, initialData }) => {
+const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, onAddDepartment, initialData, departments }) => {
     const { t } = useTranslation();
 
     const validationSchema = Yup.object({
@@ -121,7 +122,7 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
                                         variant="outlined"
                                         margin="normal"
                                     >
-                                        {fakeDepartments.map(department => <MenuItem key={department.uuid} value={department.uuid}>{department.name}</MenuItem>)}
+                                        {departments.map(department => <MenuItem key={department.uuid} value={department.uuid}>{department.name}</MenuItem>)}
                                     </Field>
                                 </Box>
                                 <Box sx={{
