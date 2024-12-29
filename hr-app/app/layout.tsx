@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./public/globals.css";
 import Navigaton from './components/layout/Navigation';
 import Content from "./components/layout/Content";
 import Footer from "./components/layout/Footer";
 import { UserProvider } from './context/UserContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import "../public/globals.css";
 
 const geistSans = localFont({
-    src: "./public/fonts/GeistVF.woff",
+    src: "../public/fonts/GeistVF.woff",
     variable: "--font-geist-sans",
     weight: "100 900",
 });
 
 const geistMono = localFont({
-    src: "./public/fonts/GeistMonoVF.woff",
+    src: "../public/fonts/GeistMonoVF.woff",
     variable: "--font-geist-mono",
     weight: "100 900",
 });

@@ -1,70 +1,70 @@
 import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination, IconButton, Button, Box, CircularProgress } from '@mui/material';
 import { Preview, Edit, Delete, Add } from '@mui/icons-material';
-import Role from '../../types/Role';
-import CreateRoleModal from './modal/create';
-import EditRoleModal from './modal/edit';
-import PreviewRoleModal from './modal/preview';
-import DeleteRoleModal from './modal/delete';
-import useRolesQuery from '../../hooks/role/useRolesQuery';
-import useAddRoleMutation from '@/app/hooks/role/useAddRoleMutation';
-import useUpdateRoleMutation from '@/app/hooks/role/useUpdateRoleMutation';
-import useDeleteRoleMutation from '@/app/hooks/role/useDeleteRoleMutation';
+import ContractType from '../../types/ContractType';
+import CreateContractTypeModal from './modal/create';
+import EditContractTypeModal from './modal/edit';
+import PreviewContractTypeModal from './modal/preview';
+import DeleteContractTypeModal from './modal/delete';
+import useContractTypesQuery from '../../hooks/contractType/useContractTypesQuery';
+import useAddContractTypeMutation from '@/app/hooks/contractType/useAddContractTypeMutation';
+import useUpdateContractTypeMutation from '@/app/hooks/contractType/useUpdateContractTypeMutation';
+import useDeleteContractTypeMutation from '@/app/hooks/contractType/useDeleteContractTypeMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
-const RolesTable = () => {
-    const [localRoles, setLocalRoles] = useState<Role[] | null>([]);
+const ContractTypesTable = () => {
+    const [localContractTypes, setLocalContractTypes] = useState<ContractType[] | null>([]);
     const [pageSize, setPageSize] = useState(5);
     const [pageIndex, setPageIndex] = useState(0);
     const [sortBy, setSortBy] = useState('name');
     const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
     const [modalType, setModalType] = useState<string | null>(null);
-    const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+    const [selectedContractType, setSelectedContractType] = useState<ContractType | null>(null);
 
-    const { data, isLoading, error } = useRolesQuery(pageSize, pageIndex, sortBy, sortDirection);
-    const { mutate: addRoleMutate, isSuccess: isAddSuccess, error: isAddError } = useAddRoleMutation();
-    const { mutate: updateRoleMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdateRoleMutation();
-    const { mutate: deleteRoleMutate, isSuccess: isDeleteSuccess, error: isDeleteError } = useDeleteRoleMutation();
+    const { data, isLoading, error } = useContractTypesQuery(pageSize, pageIndex, sortBy, sortDirection);
+    const { mutate: addContractTypeMutate, isSuccess: isAddSuccess, error: isAddError } = useAddContractTypeMutation();
+    const { mutate: updateContractTypeMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdateContractTypeMutation();
+    const { mutate: deleteContractTypeMutate, isSuccess: isDeleteSuccess, error: isDeleteError } = useDeleteContractTypeMutation();
     const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
-            setLocalRoles(data);
+            setLocalContractTypes(data);
         }
     }, [data]);
 
     useEffect(() => {
         if (isAddSuccess) {
             closeModal();
-            toast.success(t('role.add.success'));
+            toast.success(t('contractType.add.success'));
         }
         if (isAddError) {
             closeModal();
-            toast.success(t('role.add.error'));
+            toast.success(t('contractType.add.error'));
         }
     }, [isAddSuccess, isAddError]);
 
     useEffect(() => {
         if (isUpdateSuccess) {
             closeModal();
-            toast.success(t('role.update.success'));
+            toast.success(t('contractType.update.success'));
         }
         if (isUpdateError) {
-            toast.error(t('role.update.error'));
+            toast.error(t('contractType.update.error'));
         }
     }, [isUpdateSuccess, isUpdateError]);
 
     useEffect(() => {
         if (isDeleteSuccess) {
             closeModal();
-            toast.success(t('role.delete.success'));
+            toast.success(t('contractType.delete.success'));
         }
         if (isDeleteError) {
             closeModal();
-            toast.success(t('role.delete.error'));
+            toast.success(t('contractType.delete.error'));
         }
     }, [isDeleteSuccess, isDeleteError]);
 
@@ -74,36 +74,36 @@ const RolesTable = () => {
         setSortDirection(direction);
     };
 
-    const openModal = (type: string, role: Role | null = null) => {
+    const openModal = (type: string, ContractType: ContractType | null = null) => {
         setModalType(type);
-        setSelectedRole(role);
+        setSelectedContractType(ContractType);
     };
 
     const closeModal = () => {
         setModalType(null);
-        setSelectedRole(null);
+        setSelectedContractType(null);
     };
 
     const handlePageSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPageSize(Number(event.target.value));
     };
 
-    const handleAdd = (role: Role) => {
-        addRoleMutate(role);
+    const handleAdd = (ContractType: ContractType) => {
+        addContractTypeMutate(ContractType);
     };
 
-    const handleDelete = (roleToDelete: Role) => {
-        deleteRoleMutate(roleToDelete, {
-            onSuccess: (currentRoles) => {
-                setLocalRoles(currentRoles);
+    const handleDelete = (ContractTypeToDelete: ContractType) => {
+        deleteContractTypeMutate(ContractTypeToDelete, {
+            onSuccess: (currentContractTypes: ContractType[]) => {
+                setLocalContractTypes(currentContractTypes);
             }
         });
     };
 
-    const handleUpdate = (updatedRole: Role) => {
-        updateRoleMutate(updatedRole, {
-            onSuccess: (currentRoles) => {
-                setLocalRoles(currentRoles);
+    const handleUpdate = (updatedContractType: ContractType) => {
+        updateContractTypeMutate(updatedContractType, {
+            onSuccess: (currentContractTypes) => {
+                setLocalContractTypes(currentContractTypes);
             }
         });
     };
@@ -112,7 +112,7 @@ const RolesTable = () => {
         <div>
             <Box display="flex" justifyContent="flex-end" marginBottom={2}>
                 <Button variant="contained" color="success" startIcon={<Add />} onClick={() => openModal('create')}>
-                    {t('role.button.add')}
+                    {t('contractType.button.add')}
                 </Button>
             </Box>
 
@@ -124,7 +124,7 @@ const RolesTable = () => {
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.message.somethingWentWrong')} :(</div>
                 </Box>
-            ) : localRoles && localRoles.length === 0 ? (
+            ) : localContractTypes && localContractTypes.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.noData')}</div>
                 </Box>
@@ -148,27 +148,27 @@ const RolesTable = () => {
                                     sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'name'} direction={sortBy === 'name' ? sortDirection : 'asc'}>
-                                        {t('role.table.column.name')}
+                                        {t('contractType.table.column.name')}
                                     </TableSortLabel>
                                 </TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('role.table.column.description')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('role.table.column.createdAt')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('role.table.column.updatedAt')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('role.table.column.actions')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('contractType.table.column.description')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('contractType.table.column.createdAt')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('contractType.table.column.updatedAt')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('contractType.table.column.actions')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {localRoles?.map((role, index) => (
-                                <TableRow key={role.uuid}>
+                            {localContractTypes?.map((contractType, index) => (
+                                <TableRow key={contractType.uuid}>
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{role.name}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{role.description}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{role.createdAt}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{role.updatedAt}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{contractType.name}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{contractType.description}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{contractType.createdAt}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{contractType.updatedAt}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
-                                        <IconButton onClick={() => openModal('preview', role)}><Preview /></IconButton>
-                                        <IconButton onClick={() => openModal('edit', role)}><Edit /></IconButton>
-                                        <IconButton onClick={() => openModal('delete', role)}><Delete /></IconButton>
+                                        <IconButton onClick={() => openModal('preview', contractType)}><Preview /></IconButton>
+                                        <IconButton onClick={() => openModal('edit', contractType)}><Edit /></IconButton>
+                                        <IconButton onClick={() => openModal('delete', contractType)}><Delete /></IconButton>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -177,43 +177,43 @@ const RolesTable = () => {
                 </TableContainer>
             )}
 
-            {localRoles && localRoles.length > 0 && <TablePagination
+            {localContractTypes && localContractTypes.length > 0 && <TablePagination
                 rowsPerPageOptions={[5, 10, 25, 50, 100]}
                 component="div"
-                count={localRoles.length}
+                count={localContractTypes.length}
                 rowsPerPage={pageSize}
                 page={pageIndex}
                 onPageChange={(event, newPage) => setPageIndex(newPage)}
                 onRowsPerPageChange={handlePageSizeChange}
             />}
 
-            {modalType === 'preview' && <PreviewRoleModal
+            {modalType === 'preview' && <PreviewContractTypeModal
                 open={true}
-                selectedRole={selectedRole}
+                selectedContractType={selectedContractType}
                 onClose={closeModal}
             />}
 
-            {modalType === 'create' && <CreateRoleModal
+            {modalType === 'create' && <CreateContractTypeModal
                 open={true}
                 onClose={closeModal}
-                onAddRole={role => { handleAdd(role); }}
+                onAddContractType={ContractType => { handleAdd(ContractType); }}
             />}
 
-            {modalType === 'edit' && <EditRoleModal
+            {modalType === 'edit' && <EditContractTypeModal
                 open={true}
-                role={selectedRole}
+                ContractType={selectedContractType}
                 onClose={closeModal}
                 onSave={handleUpdate}
             />}
 
-            {modalType === 'delete' && <DeleteRoleModal
+            {modalType === 'delete' && <DeleteContractTypeModal
                 open={true}
-                selectedRole={selectedRole}
+                selectedContractType={selectedContractType}
                 onClose={closeModal}
-                onDeleteConfirm={(role) => { handleDelete(role); }}
+                onDeleteConfirm={(ContractType) => { handleDelete(ContractType); }}
             />}
         </div>
     );
 };
 
-export default RolesTable;
+export default ContractTypesTable;

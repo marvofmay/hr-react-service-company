@@ -62,7 +62,7 @@ const EmployeesTable = () => {
     useEffect(() => {
         if (isDeleteSuccess) {
             closeModal();
-            toast.success(t('employee.delete.sucess'));
+            toast.success(t('employee.delete.success'));
         }
         if (isDeleteError) {
             closeModal();

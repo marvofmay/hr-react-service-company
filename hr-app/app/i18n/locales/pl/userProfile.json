@@ -1,0 +1,21 @@
+{
+    "data": {
+        "main": "podstawowe",
+        "title": "dane użytkownika",
+        "address": "adres",
+        "avatar": "zdjęcie profilowe",
+        "additional": "dodatkowe"
+    },
+    "avatar": {
+        "man": "mężczyzna",
+        "woman": "kobieta",
+        "upload": {
+            "label": "zdjęcie",
+            "progress": "postęp",
+            "button": "zapisz",
+            "success": "zdjęcie profilowe zostało pomyślnie zapisane",
+            "error": "zdjęcie profilowe nie zostało zapisane - wystapił nieoczekiwany błąd",
+            "invalidFile": "niepoprawny plik"
+        }
+    }
+}

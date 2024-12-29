@@ -12,6 +12,7 @@ import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import EmailIcon from '@mui/icons-material/Email';
 import { useTranslation } from 'react-i18next';
 import { APP_NAME } from '../../utility/constans';
+import { useUser } from "@/app/context/UserContext";
 
 const navLinks = [
     { href: "/", label: { APP_NAME }, activePath: "/", icon: <HomeIcon /> },
@@ -21,9 +22,7 @@ const navLinks = [
 
 const Navigation: React.FC = () => {
     const pathname = usePathname();
-    const router = useRouter(); // Hook useRouter
-
-    const { isAuthenticated } = { isAuthenticated: true }; // przykład autoryzacji
+    const { user, isAuthenticated } = useUser();
     const { t } = useTranslation();
 
     return (
@@ -40,7 +39,7 @@ const Navigation: React.FC = () => {
                             color="inherit"
                             underline="none"
                             sx={{
-                                backgroundColor: pathname === link.activePath ? "rgba(255, 255, 255, 0.3)" : "transparent", // dokładne porównanie ścieżki
+                                backgroundColor: pathname === link.activePath ? "rgba(255, 255, 255, 0.3)" : "transparent",
                                 padding: 0,
                                 borderRadius: "2px",
                             }}
@@ -56,7 +55,7 @@ const Navigation: React.FC = () => {
                         color="inherit"
                         underline="none"
                         sx={{
-                            backgroundColor: pathname === "/notifications" ? "rgba(255, 255, 255, 0.3)" : "transparent", // dokładne porównanie ścieżki
+                            backgroundColor: pathname === "/notifications" ? "rgba(255, 255, 255, 0.3)" : "transparent",
                             padding: 0,
                             borderRadius: "2px",
                         }}
@@ -74,7 +73,7 @@ const Navigation: React.FC = () => {
                             color="inherit"
                             underline="none"
                             sx={{
-                                backgroundColor: pathname === '/login' ? "rgba(255, 255, 255, 0.3)" : "transparent", // dokładne porównanie ścieżki
+                                backgroundColor: pathname === '/login' ? "rgba(255, 255, 255, 0.3)" : "transparent",
                                 color: pathname === '/login' ? "#fff" : "inherit",
                                 padding: 0,
                                 borderRadius: "2px",

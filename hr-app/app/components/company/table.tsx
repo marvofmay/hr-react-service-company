@@ -12,7 +12,7 @@ import useCompaniesQuery from '../../hooks/company/useCompaniesQuery';
 import useAddCompanyMutation from '@/app/hooks/company/useAddCompanyMutation';
 import useUpdateCompanyMutation from '@/app/hooks/company/useUpdateCompanyMutation';
 import useDeleteCompanyMutation from '@/app/hooks/company/useDeleteCompnayMutation';
-import { toast } from 'react-toastify'; 0
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
@@ -62,7 +62,7 @@ const CompaniesTable = () => {
     useEffect(() => {
         if (isDeleteSuccess) {
             closeModal();
-            toast.success(t('company.delete.sucess'));
+            toast.success(t('company.delete.success'));
         }
         if (isDeleteError) {
             closeModal();

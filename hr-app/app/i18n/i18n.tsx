@@ -11,6 +11,8 @@ import positionPL from './locales/pl/position.json';
 import employeePL from './locales/pl/employee.json';
 import validationPL from './locales/pl/validation.json';
 import notificationPL from './locales/pl/notification.json';
+import contractTypePL from './locales/pl/contractType.json';
+import userProfilePL from './locales/pl/userProfile.json';
 
 const resources = {
     en: {
@@ -27,7 +29,9 @@ const resources = {
             position: positionPL,
             employee: employeePL,
             validation: validationPL,
-            notification: notificationPL
+            notification: notificationPL,
+            contractType: contractTypePL,
+            userProfile: userProfilePL
         }
     },
 };

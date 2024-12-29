@@ -1,4 +1,4 @@
-import ContracType from '../types/ContractType';
+import ContractType from '../types/ContractType';
 
 const contractTypes: ContractType[] = [
     {

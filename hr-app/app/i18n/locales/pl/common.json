@@ -20,7 +20,8 @@
         "logout": "wyloguj",
         "list": "lista",
         "user": "profil użytkownika",
-        "notifications": "powiadomienia"
+        "notifications": "powiadomienia",
+        "contractTypes": "formy zatrudnienia"
     },
     "button": {
         "cancel": "Anuluj",

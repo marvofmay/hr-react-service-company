@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { useUser } from './context/UserContext';
+import { useTranslation } from 'react-i18next';
 
 const Home: React.FC = () => {
+    const { t } = useTranslation();
     const { user, isAuthenticated } = useUser();
 
     return (
@@ -18,9 +20,8 @@ const Home: React.FC = () => {
                     priority
                 />
 
-                {/* Użycie operatora warunkowego do renderowania treści */}
                 {!isAuthenticated ? (
-                    <p>Nie jesteś zalogowany.</p>
+                    <p>{t('common.message.youAreNotLogged')}</p>
                 ) : (
                     <div>
                         <p>Witaj, {user?.firstName} {user?.lastName}</p>

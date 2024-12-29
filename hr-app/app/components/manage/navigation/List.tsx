@@ -12,7 +12,7 @@ const menuItems = [
     { label: "Positions", href: "/manage/positions/list", key: "positions" },
     { label: "Roles", href: "/manage/roles/list", key: "roles" },
     { label: "Industries", href: "/manage/industries/list", key: "industries" },
-    { label: "ContractTypes", href: "/manage/contractypes/list", key: "contractypes" },
+    { label: "ContractTypes", href: "/manage/contractTypes/list", key: "contracttypes" },
 ];
 
 const ManageListNavigation: React.FC = () => {

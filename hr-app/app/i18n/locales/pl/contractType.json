@@ -1,35 +1,35 @@
 {
     "list": {
-        "title": "Lista ról"
+        "title": "Lista form zatrudnienia"
     },
     "modal": {
         "add": {
-            "title": "Dodaj rolę"
+            "title": "Dodaj formę zatrudnienia"
         },
         "preview": {
-            "title": "Podgląd danych roli"
+            "title": "Podgląd danych formy zatrudnienia"
         },
         "edit": {
-            "title": "Edycja roli"
+            "title": "Edycja formy zatrudnienia"
         },
         "delete": {
-            "title": "Potwierdzenie usunięcia roli"
+            "title": "Potwierdzenie usunięcia formy zatrudnienia"
         }
     },
     "button": {
-        "add": "Dodaj rolę"
+        "add": "Dodaj formę zatrudnienia"
     },
     "add": {
-        "success": "Nowa rola została dodana",
-        "error": "Błąd podczas dodawania roli"
+        "success": "Nowa forma zatrudnienia została dodana",
+        "error": "Błąd podczas dodawania formy zatrudnienia"
     },
     "update": {
-        "success": "Rola została zaktualizowane",
-        "error": "Nioczekiwany błąd podczas aktualizacji roli"
+        "success": "Forma zatrudnienia została zaktualizowane",
+        "error": "Nioczekiwany błąd podczas aktualizacji formy zatrudnienia"
     },
     "delete": {
-        "success": "Rola została usunięte",
-        "error": "Nioczekiwany błąd podczas usuwania roli"
+        "success": "Forma zatrudnienia została usunięta",
+        "error": "Nioczekiwany błąd podczas usuwania formy zatrudnienia"
     },
     "table": {
         "column": {
