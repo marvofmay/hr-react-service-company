@@ -1,0 +1,37 @@
+{
+    "task": {
+        "create": "tworzenie",
+        "edit": "edycja",
+        "view": "podgląd",
+        "delete": "usuwanie"
+    },
+    "note": {
+        "create": "tworzenie",
+        "edit": "edycja",
+        "view": "podgląd",
+        "delete": "usuwanie"
+    },
+    "employee": {
+        "create": "tworzenie",
+        "edit": "edycja",
+        "view": "podgląd",
+        "delete": "usuwanie"
+    },
+    "department": {
+        "create": "tworzenie",
+        "edit": "edycja",
+        "view": "podgląd",
+        "delete": "usuwanie"
+    },
+    "company": {
+        "create": "tworzenie",
+        "edit": "edycja",
+        "view": "podgląd",
+        "delete": "usuwanie"
+    },
+    "modal": {
+        "edit": {
+            "title": "Edycja uprawnień roli"
+        }
+    }
+}

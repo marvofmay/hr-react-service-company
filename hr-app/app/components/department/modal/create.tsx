@@ -285,7 +285,7 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
                                 {t('common.button.cancel')}
                             </Button>
                             <Button type="submit" variant="contained" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}>
-                                {t('common.button.save')}
+                                {t('common.button.add')}
                             </Button>
                         </DialogActions>
                     </Form>

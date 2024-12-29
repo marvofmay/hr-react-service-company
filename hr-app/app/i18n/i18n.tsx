@@ -13,6 +13,8 @@ import validationPL from './locales/pl/validation.json';
 import notificationPL from './locales/pl/notification.json';
 import contractTypePL from './locales/pl/contractType.json';
 import userProfilePL from './locales/pl/userProfile.json';
+import permissionPL from './locales/pl/permission.json';
+import modulePL from './locales/pl/module.json';
 
 const resources = {
     en: {
@@ -31,7 +33,9 @@ const resources = {
             validation: validationPL,
             notification: notificationPL,
             contractType: contractTypePL,
-            userProfile: userProfilePL
+            userProfile: userProfilePL,
+            permission: permissionPL,
+            module: modulePL
         }
     },
 };
