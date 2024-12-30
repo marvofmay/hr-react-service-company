@@ -1,9 +1,9 @@
 {
-    "task": "zadanie",
-    "note": "notatka",
-    "employee": "pracownik",
-    "department": "departament",
-    "company": "firma",
+    "tasks": "zadania",
+    "notes": "notatki",
+    "employees": "pracownicy",
+    "departments": "departamenty",
+    "companies": "firmy",
     "calendar": "kalendarz",
-    "notification": "powiadomienia"
+    "notifications": "powiadomienia"
 }

@@ -26,7 +26,6 @@ const Home: React.FC = () => {
                     <div>
                         <p>Witaj, {user?.firstName} {user?.lastName}</p>
                         <p>Email: {user?.email}</p>
-                        <p>Rola: {user?.role}</p>
                     </div>
                 )}
             </main>

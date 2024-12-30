@@ -2,53 +2,52 @@ import Permission from "../types/Permission";
 
 const permissions: Permission[] = [{
     uuid: '1',
-    name: "task.create",
+    name: "tasks.create",
 }, {
     uuid: '2',
-    name: "task.edit",
+    name: "tasks.edit",
 }, {
     uuid: '3',
-    name: "task.view",
+    name: "tasks.view",
 }, {
     uuid: '4',
-    name: "task.delete",
+    name: "tasks.delete",
 }, {
     uuid: '5',
-    name: "note.create",
+    name: "notes.create",
 }, {
     uuid: '6',
-    name: "note.edit",
+    name: "notes.edit",
 }, {
     uuid: '7',
-    name: "note.view",
+    name: "notes.view",
 }, {
     uuid: '8',
-    name: "note.delete",
+    name: "notes.delete",
 }, {
     uuid: '9',
-    name: "company.create",
+    name: "companies.create",
 }, {
     uuid: '10',
-    name: "company.edit",
+    name: "companies.edit",
 }, {
     uuid: '11',
-    name: "company.view",
+    name: "companies.view",
 }, {
     uuid: '12',
-    name: "company.delete",
-},
-    , {
+    name: "companies.delete",
+}, {
     uuid: '13',
-    name: "employee.create",
+    name: "employees.create",
 }, {
     uuid: '14',
-    name: "employee.edit",
+    name: "employees.edit",
 }, {
     uuid: '15',
-    name: "employee.view",
+    name: "employees.view",
 }, {
     uuid: '16',
-    name: "employee.delete",
+    name: "employees.delete",
 }];
 
 export default permissions;

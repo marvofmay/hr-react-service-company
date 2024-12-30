@@ -1,18 +1,36 @@
 "use client";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { useUser } from "@/app/context/UserContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { Box, CircularProgress } from '@mui/material';
 
 const Notifications: React.FC = () => {
     const { t } = useTranslation();
+    const { hasAccessToModule, loading } = useUser();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!loading && !hasAccessToModule("notifications")) {
+            router.replace("/unauthorized");
+        }
+    }, [hasAccessToModule, loading]);
+
+    if (loading) {
+        return (<Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <CircularProgress />
+        </Box>);
+    }
 
     return (
         <div className="grid grid-rows-[10px_1fr_10px] min-h-screen p-1 pb-1 sm:p-1 font-[family-name:var(--font-geist-sans)]">
             <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-                <p>{t('common.path.notifications')}</p>
+                <p>{t("common.path.notifications")}</p>
             </main>
         </div>
     );
-}
+};
 
 export default Notifications;
 

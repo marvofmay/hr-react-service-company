@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import Navigaton from './components/layout/Navigation';
+import Navigation from './components/layout/Navigation';
 import Content from "./components/layout/Content";
 import Footer from "./components/layout/Footer";
 import { UserProvider } from './context/UserContext';
@@ -31,7 +31,7 @@ const RootLayout = ({ children, }: Readonly<{ children: React.ReactNode; }>) => 
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <ToastContainer />
                 <UserProvider>
-                    <Navigaton />
+                    <Navigation />
                     <Content>{children}</Content>
                     <Footer />
                 </UserProvider>

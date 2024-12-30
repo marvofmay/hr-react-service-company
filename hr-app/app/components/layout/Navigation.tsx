@@ -22,7 +22,7 @@ const navLinks = [
 
 const Navigation: React.FC = () => {
     const pathname = usePathname();
-    const { user, isAuthenticated } = useUser();
+    const { user, isAuthenticated, hasPermission, hasAccessToModule } = useUser();
     const { t } = useTranslation();
 
     return (
@@ -49,7 +49,7 @@ const Navigation: React.FC = () => {
                     ))}
                     {isAuthenticated && <ManageListNavigation />}
                     {isAuthenticated && <SettingsListNavigation />}
-                    {isAuthenticated && <Link
+                    {isAuthenticated && hasAccessToModule('notifications') && <Link
                         key="/notifications"
                         href="/notifications"
                         color="inherit"

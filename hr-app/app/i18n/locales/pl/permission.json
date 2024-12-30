@@ -1,29 +1,29 @@
 {
-    "task": {
+    "tasks": {
         "create": "tworzenie",
         "edit": "edycja",
         "view": "podgląd",
         "delete": "usuwanie"
     },
-    "note": {
+    "notes": {
         "create": "tworzenie",
         "edit": "edycja",
         "view": "podgląd",
         "delete": "usuwanie"
     },
-    "employee": {
+    "employees": {
         "create": "tworzenie",
         "edit": "edycja",
         "view": "podgląd",
         "delete": "usuwanie"
     },
-    "department": {
+    "departments": {
         "create": "tworzenie",
         "edit": "edycja",
         "view": "podgląd",
         "delete": "usuwanie"
     },
-    "company": {
+    "companies": {
         "create": "tworzenie",
         "edit": "edycja",
         "view": "podgląd",
