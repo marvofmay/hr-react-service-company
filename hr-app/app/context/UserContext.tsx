@@ -53,7 +53,10 @@ const UserProvider = ({ children }: UserProviderProps) => {
                 role: {
                     uuid: '1',
                     name: 'Role 1',
-                    permissions: [{ uuid: '1', name: 'notifications.create' }],
+                    permissions: [
+                        { uuid: '1', name: 'notifications.create' },
+                        { uuid: '2', name: 'emails.send' }
+                    ],
                 },
                 firstName: 'Emil',
                 lastName: 'Johnson',
@@ -133,7 +136,11 @@ const UserProvider = ({ children }: UserProviderProps) => {
             tasks: 'tasks',
             notes: 'notes',
             employees: 'employees',
+            departments: 'departments',
+            companies: 'companies',
             calendar: 'calendar',
+            settings: 'settings',
+            emails: 'emails',
         };
 
         const basePermission = modulePermissionsMap[moduleName];

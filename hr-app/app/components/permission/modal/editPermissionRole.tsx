@@ -20,8 +20,6 @@ interface EditPermissionRoleModalProps {
 const EditPermissionRoleModal: React.FC<EditPermissionRoleModalProps> = ({ open, onClose, selectedRole, onSave, modules, permissions }) => {
     const { t } = useTranslation();
 
-    console.log('assignedPermissions:', selectedRole?.permissions);
-
     const validationSchema = Yup.object({
         name: Yup.string().required(t('validation.fieldIsRequired')),
         description: Yup.string(),

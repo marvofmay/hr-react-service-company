@@ -21,7 +21,9 @@
         "list": "lista",
         "user": "profil użytkownika",
         "notifications": "powiadomienia",
-        "contractTypes": "formy zatrudnienia"
+        "contractTypes": "formy zatrudnienia",
+        "emails": "emails",
+        "data": "dane"
     },
     "button": {
         "cancel": "Anuluj",

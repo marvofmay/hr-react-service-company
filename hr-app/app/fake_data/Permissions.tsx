@@ -48,6 +48,18 @@ const permissions: Permission[] = [{
 }, {
     uuid: '16',
     name: "employees.delete",
+}, {
+    uuid: '17',
+    name: "departments.create",
+}, {
+    uuid: '18',
+    name: "departments.edit",
+}, {
+    uuid: '19',
+    name: "departments.view",
+}, {
+    uuid: '20',
+    name: "departments.delete",
 }];
 
 export default permissions;
