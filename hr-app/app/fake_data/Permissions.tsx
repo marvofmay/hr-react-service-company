@@ -60,6 +60,15 @@ const permissions: Permission[] = [{
 }, {
     uuid: '20',
     name: "departments.delete",
+}, {
+    uuid: '21',
+    name: 'emails.send'
+}, {
+    uuid: '22',
+    name: 'emails.view'
+}, {
+    uuid: '23',
+    name: 'emails.delete'
 }];
 
 export default permissions;

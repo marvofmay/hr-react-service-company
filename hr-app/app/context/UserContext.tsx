@@ -10,7 +10,7 @@ interface UserContextType {
     logout: () => void;
     isAuthenticated: boolean;
     hasPermission: (permissionName: string) => boolean;
-    hasAccessToModule: (moduleName: string) => boolean;
+    hasAccessToModule: (moduleNames: string[]) => boolean;
     loading: boolean;
 }
 
@@ -55,7 +55,8 @@ const UserProvider = ({ children }: UserProviderProps) => {
                     name: 'Role 1',
                     permissions: [
                         { uuid: '1', name: 'notifications.create' },
-                        { uuid: '2', name: 'emails.send' }
+                        { uuid: '2', name: 'companies.create' },
+                        { uuid: '3', name: 'emails.send' }
                     ],
                 },
                 firstName: 'Emil',
@@ -70,30 +71,30 @@ const UserProvider = ({ children }: UserProviderProps) => {
                 updatedAt: '2024-12-17T07:30:00',
                 deletedAt: null,
             });
-            setLoading(false); // Jeśli nie ma tokenu, ustawiamy loading na false
+            setLoading(false);
         }
     }, []);
 
     const fetchUser = async (token: string, userId: string) => {
-        setLoading(true); // Rozpoczynamy ładowanie
+        setLoading(true);
         try {
             const res = await fetch(`/api/user/${userId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
             const data = await res.json();
-            setUser(data); // Ustawiamy dane użytkownika
+            setUser(data);
             setIsAuthenticated(true);
         } catch (error) {
             console.error(t('common.message.Błąd pobierania danych użytkownika'), error);
             setIsAuthenticated(false);
         } finally {
-            setLoading(false); // Kończymy ładowanie
+            setLoading(false);
         }
     };
 
     const login = async (email: string, password: string) => {
-        setLoading(true); // Rozpoczynamy ładowanie
+        setLoading(true);
         try {
             const res = await fetch('/api/auth/login', {
                 method: 'POST',
@@ -115,7 +116,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
         } catch (error) {
             console.error('Błąd logowania:', error);
         } finally {
-            setLoading(false); // Kończymy ładowanie
+            setLoading(false);
         }
     };
 
@@ -130,7 +131,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
         return user?.role?.permissions?.some(permission => permission.name === permissionName) || false;
     };
 
-    const hasAccessToModule = (moduleName: string): boolean => {
+    const hasAccessToModule = (moduleNames: string[]): boolean => {
         const modulePermissionsMap: { [key: string]: string } = {
             notifications: 'notifications',
             tasks: 'tasks',
@@ -143,12 +144,17 @@ const UserProvider = ({ children }: UserProviderProps) => {
             emails: 'emails',
         };
 
-        const basePermission = modulePermissionsMap[moduleName];
-        if (!basePermission) {
-            return false;
-        }
 
-        return user?.role?.permissions?.some(permission => permission.name.startsWith(`${basePermission}.`)) || false;
+        return moduleNames.some(moduleName => {
+            const basePermission = modulePermissionsMap[moduleName];
+            if (!basePermission) {
+                return false;
+            }
+
+            return user?.role?.permissions?.some(permission =>
+                permission.name.startsWith(`${basePermission}.`)
+            );
+        });
     };
 
     return (

@@ -47,9 +47,9 @@ const Navigation: React.FC = () => {
                             <Button color="inherit">{link.icon} {t(`navigation.${link.label.toLowerCase()}`)}</Button>
                         </Link>
                     ))}
-                    {isAuthenticated && <ManageListNavigation />}
-                    {isAuthenticated && <SettingsListNavigation />}
-                    {isAuthenticated && hasAccessToModule('notifications') && <Link
+                    {isAuthenticated && hasAccessToModule(['companies', 'departments', 'employees', 'positions', 'roles', 'industries', 'contractTypes']) && <ManageListNavigation />}
+                    {isAuthenticated && hasAccessToModule(['companies', 'departments', 'employees', 'positions', 'roles', 'industries', 'contractTypes']) && <SettingsListNavigation />}
+                    {isAuthenticated && hasAccessToModule(['notifications']) && <Link
                         key="/notifications"
                         href="/notifications"
                         color="inherit"
@@ -60,11 +60,11 @@ const Navigation: React.FC = () => {
                             borderRadius: "2px",
                         }}
                     >
-                        <Button color="inherit"><CircleNotificationsIcon /> </Button>
+                        <Button color="inherit"  ><CircleNotificationsIcon /> {t('navigation.notifications')} </Button>
                     </Link>
                     }
 
-                    {isAuthenticated && hasAccessToModule('emails') && <Link
+                    {isAuthenticated && hasAccessToModule(['emails']) && <Link
                         key="/emails"
                         href="/emails"
                         color="inherit"
@@ -75,7 +75,7 @@ const Navigation: React.FC = () => {
                             borderRadius: "2px",
                         }}
                     >
-                        <Button color="inherit"><EmailIcon /> </Button>
+                        <Button color="inherit"><EmailIcon /> {t('navigation.emails')} </Button>
                     </Link>
                     }
                     {isAuthenticated ? (

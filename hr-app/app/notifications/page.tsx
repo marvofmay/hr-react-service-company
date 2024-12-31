@@ -12,7 +12,7 @@ const Notifications: React.FC = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading && !hasAccessToModule("notifications")) {
+        if (!loading && !hasAccessToModule(["notifications"])) {
             router.replace("/unauthorized");
         }
     }, [hasAccessToModule, loading]);

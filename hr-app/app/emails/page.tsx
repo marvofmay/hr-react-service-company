@@ -12,7 +12,7 @@ const Emails: React.FC = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading && !hasAccessToModule("notifications")) {
+        if (!loading && !hasAccessToModule(["emails"])) {
             router.replace("/unauthorized");
         }
     }, [hasAccessToModule, loading]);
