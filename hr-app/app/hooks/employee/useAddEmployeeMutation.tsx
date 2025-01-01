@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Employee from '../../types/Employee';
-import fakeEmployees from '../../fake_data/Employees';
+import fakeEmployees from '../../fakeData/Employees';
 import { useTranslation } from 'react-i18next';
 
 const addEmployee = async (employee: Employee): Promise<Employee[]> => {

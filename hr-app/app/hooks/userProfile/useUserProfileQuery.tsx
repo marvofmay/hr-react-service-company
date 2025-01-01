@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import Employee from '@/app/types/Employee';
-import fakeUserProfiles from '@/app/fake_data/UserProfiles';
+import fakeUserProfiles from '@/app/fakeData/UserProfiles';
 
 const fetchUserProfileData = async (uuid: string): Promise<Employee> => {
     // ToDo: dodać wywołanie endpointa z enpoitna API

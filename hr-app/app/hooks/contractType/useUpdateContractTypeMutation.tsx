@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ContractType from '../../types/ContractType';
-import fakeContractTypes from '../../fake_data/ContractTypes';
+import fakeContractTypes from '../../fakeData/ContractTypes';
 import { useTranslation } from 'react-i18next';
 
 const updateContractType = async (updatedContractType: ContractType): Promise<ContractType[]> => {
@@ -11,7 +11,7 @@ const updateContractType = async (updatedContractType: ContractType): Promise<Co
     return updatedContractTypes;
 };
 
-const useAddContractTypeMutation = () => {
+const useUpdateContractTypeMutation = () => {
     const queryClient = useQueryClient();
     const { t } = useTranslation();
 
@@ -26,4 +26,4 @@ const useAddContractTypeMutation = () => {
     });
 };
 
-export default useAddContractTypeMutation;
+export default useUpdateContractTypeMutation;

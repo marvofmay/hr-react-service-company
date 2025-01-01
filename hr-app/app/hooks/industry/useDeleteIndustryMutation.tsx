@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Industry from '../../types/Industry';
-import fakeIndustries from '../../fake_data/Industries';
+import fakeIndustries from '../../fakeData/Industries';
 
 const deleteIndustry = async (industryToDelete: Industry): Promise<Industry[] | []> => {
     const currentIndustries = fakeIndustries.filter(industry => industry.uuid !== industryToDelete.uuid);

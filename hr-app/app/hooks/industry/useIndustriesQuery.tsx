@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import Industry from '../../types/Industry';
-import fakeIndustries from '../../fake_data/Industries';
+import fakeIndustries from '../../fakeData/Industries';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 

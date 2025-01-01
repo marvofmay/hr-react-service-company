@@ -1,6 +1,6 @@
 "use client";
 
-import ContractTypesTable from "@/app/components/contractType/table";
+import ContractTypesTable from "@/app/components/contractType/Table";
 import { Box } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';

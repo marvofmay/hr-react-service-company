@@ -1,10 +1,10 @@
 import React from 'react';
 import Company from '../../../types/Company';
-import Preview from '../../modal/preview';
+import Preview from '../../modal/Preview';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useTranslation } from 'react-i18next';
-import fakeCompanies from '../../../fake_data/Companies';
+import fakeCompanies from '../../../fakeData/Companies';
 
 interface PreviewCompanyModalProps {
     open: boolean;

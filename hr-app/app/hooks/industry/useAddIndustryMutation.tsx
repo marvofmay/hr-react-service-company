@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Industry from '../../types/Industry';
-import fakeIndustries from '../../fake_data/Industries';
+import fakeIndustries from '../../fakeData/Industries';
 
 const addIndustry = async (industry: Industry): Promise<Industry[]> => {
     const newIndustry = { ...industry, uuid: `${fakeIndustries.length + 1}` };

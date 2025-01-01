@@ -1,10 +1,10 @@
 import React from 'react';
 import Employee from '../../../types/Employee';
-import Preview from '../../modal/preview';
+import Preview from '../../modal/Preview';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useTranslation } from 'react-i18next';
-import fakeEmployees from '../../../fake_data/Employees';
+import fakeEmployees from '../../../fakeData/Employees';
 
 interface PreviewEmployeeModalProps {
     open: boolean;

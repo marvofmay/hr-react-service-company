@@ -1,6 +1,6 @@
 "use client";
 
-import RolesTable from "@/app/components/role/table";
+import RolesTable from "@/app/components/role/Table";
 import { Box } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Company from '../../types/Company';
-import fakeCompanies from '../../fake_data/Companies';
+import fakeCompanies from '../../fakeData/Companies';
 import { useTranslation } from 'react-i18next';
 
 const deleteCompany = async (companyToDelete: Company): Promise<Company[] | []> => {

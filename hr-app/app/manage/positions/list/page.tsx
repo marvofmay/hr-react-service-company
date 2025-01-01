@@ -1,6 +1,6 @@
 "use client";
 
-import PositionsTable from "@/app/components/position/table";
+import PositionsTable from "@/app/components/position/Table";
 import { Box } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';

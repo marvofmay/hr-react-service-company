@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import Employee from '../../types/Employee';
-import fakeEmployees from '../../fake_data/Employees';
+import fakeEmployees from '../../fakeData/Employees';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 

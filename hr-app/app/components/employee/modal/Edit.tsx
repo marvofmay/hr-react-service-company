@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, MenuItem, FormControlLabel, Box, IconButton, Typography } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Checkbox, MenuItem, IconButton, FormControlLabel, Box, Typography } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import Employee from '../../../types/Employee';
-import fakeCompanies from '../../../fake_data/Companies';
-import fakeDepartments from '../../../fake_data/Departments';
-import fakeEmployees from '../../../fake_data/Employees';
-import fakePositions from '../../../fake_data/Positions';
-import fakeContractTypes from '../../../fake_data/ContractTypes';
-import fakeRoles from '../../../fake_data/Roles';
 import { useTranslation } from 'react-i18next';
+import Employee from '../../../types/Employee';
+import fakeCompanies from '../../../fakeData/Companies';
+import fakeDepartments from '../../../fakeData/Departments';
+import fakeEmployees from '../../../fakeData/Employees';
+import fakePositions from '../../../fakeData/Positions';
+import fakeContractTypes from '../../../fakeData/ContractTypes';
+import fakeRoles from '../../../fakeData/Roles';
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
-interface AddEmployeeModalProps {
+interface EditEmployeeModalProps {
     open: boolean;
     onClose: () => void;
-    onAddEmployee: (newEmployee: Employee) => void;
+    employee: Employee | null;
+    onSave: (updatedEmployee: Employee) => void;
 }
 
-const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAddEmployee }) => {
+const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, employee, onSave }) => {
     const { t } = useTranslation();
 
     const MAX_PHONE_FIELDS = 3;
@@ -41,50 +42,50 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
     };
 
     const initialValues: Employee = {
-        uuid: '',
-        externalUUID: '',
+        uuid: employee?.uuid || '',
+        externalUUID: employee?.externalUUID || '',
         company: {
-            uuid: '',
-            name: '',
+            uuid: employee?.company?.uuid || '',
+            name: employee?.company?.name || '',
         },
         department: {
-            uuid: '',
-            name: '',
-        },
-        employeeSuperior: {
-            uuid: '',
-            firstName: '',
-            lastName: '',
+            uuid: employee?.department?.uuid || '',
+            name: employee?.department?.name || '',
         },
         position: {
-            uuid: '',
-            name: '',
+            uuid: employee?.position?.uuid || '',
+            name: employee?.position?.name || '',
         },
         contractType: {
-            uuid: '',
-            name: '',
-        },
-        firstName: '',
-        lastName: '',
-        pesel: '',
-        email: '',
-        phone: [""],
-        employmentFrom: '',
-        employmentTo: '',
-        active: false,
-        address: {
-            country: '',
-            city: '',
-            postcode: '',
-            street: '',
+            uuid: employee?.contractType?.uuid || '',
+            name: employee?.contractType?.name || '',
         },
         role: {
-            uuid: '',
-            name: '',
+            uuid: employee?.role?.uuid || '',
+            name: employee?.role?.name || '',
         },
-        createdAt: '',
-        updatedAt: '',
-        deletedAt: '',
+        employeeSuperior: {
+            uuid: employee?.employeeSuperior.uuid || '',
+            firstName: employee?.employeeSuperior.firstName || '',
+            lastName: employee?.employeeSuperior.lastName || '',
+        },
+        firstName: employee?.firstName || '',
+        lastName: employee?.lastName || '',
+        pesel: employee?.pesel || '',
+        email: employee?.email || '',
+        phone: employee?.phone || [],
+        employmentFrom: employee?.employmentFrom || '',
+        employmentTo: employee?.employmentTo || '',
+        active: employee?.active || false,
+        address: {
+            country: employee?.address?.country || '',
+            city: employee?.address?.city || '',
+            postcode: employee?.address?.postcode || '',
+            street: employee?.address?.street || '',
+        },
+        createdAt: employee?.createdAt || '',
+        updatedAt: employee?.updatedAt || '',
+        deletedAt: employee?.deletedAt || '',
     };
 
     const validationSchema = Yup.object({
@@ -130,23 +131,26 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
         //     .required(t('validation.fieldIsRequired')),
     });
 
-    const handleSubmit = (values: Employee, { resetForm }: any) => {
-        onAddEmployee(values);
-        resetForm();
-        onClose();
-    };
+    const filteredEmployees = fakeEmployees.filter(emp => emp.uuid !== employee?.uuid && emp.active);
+
+    const handleSubmit = (values: Employee) => {
+        if (employee) {
+            onSave({ ...employee, ...values });
+            onClose();
+        }
+    }
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth maxWidth="lg">
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                {t('employee.modal.add.title')}
+                {t('employee.modal.edit.title')}
             </DialogTitle>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                {({ values, errors, touched, setFieldValue }) => (
+                {({ values, errors, touched, setFieldValue, handleChange }) => (
                     <Form noValidate>
                         <DialogContent>
                             <Box
@@ -170,6 +174,8 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         as={TextField}
                                         name="firstName"
                                         label={t('employee.form.field.firstName')}
+                                        value={values.firstName}
+                                        onChange={handleChange}
                                         fullWidth
                                         margin="normal"
                                         error={touched.firstName && Boolean(errors.firstName)}
@@ -180,6 +186,8 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         as={TextField}
                                         name="lastName"
                                         label={t('employee.form.field.lastName')}
+                                        value={values.lastName}
+                                        onChange={handleChange}
                                         fullWidth
                                         margin="normal"
                                         error={touched.lastName && Boolean(errors.lastName)}
@@ -190,6 +198,8 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         as={TextField}
                                         name="pesel"
                                         label={t('employee.form.field.pesel')}
+                                        value={values.pesel}
+                                        onChange={handleChange}
                                         fullWidth
                                         margin="normal"
                                         InputLabelProps={{ shrink: true }}
@@ -202,6 +212,8 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         type="email"
                                         name="email"
                                         label={t('employee.form.field.email')}
+                                        value={values.email}
+                                        onChange={handleChange}
                                         fullWidth
                                         margin="normal"
                                         error={touched.email && Boolean(errors.email)}
@@ -231,7 +243,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                                     }}
                                                     error={touched.phone && index === 0 && Boolean(errors.phone?.[index])}
                                                     helperText={touched.phone && index === 0 && errors.phone?.[index]}
-                                                //required={index === 0}
+                                                    required={index === 0}
                                                 />
                                                 {index > 0 && (
                                                     <IconButton
@@ -243,7 +255,6 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                                     </IconButton>
                                                 )}
                                             </Box>
-
                                         ))}
 
                                         {phones.length < MAX_PHONE_FIELDS && (
@@ -274,8 +285,10 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         as={TextField}
                                         select
                                         fullWidth
-                                        name="company.uuid"
+                                        name="companyUUID"
                                         label={t('employee.form.field.company')}
+                                        value={values.company.uuid}
+                                        onChange={handleChange}
                                         variant="outlined"
                                         margin="normal"
                                         error={touched?.company?.uuid && Boolean(errors?.company?.uuid)}
@@ -290,10 +303,12 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         fullWidth
                                         name="department.uuid"
                                         label={t('employee.form.field.department')}
+                                        value={values.department.uuid}
+                                        onChange={handleChange}
                                         variant="outlined"
                                         margin="normal"
                                         error={touched?.department?.uuid && Boolean(errors?.department?.uuid)}
-                                        helperText={touched?.department?.uuid && errors.department?.uuid}
+                                        helperText={touched?.department?.uuid && errors?.department?.uuid}
                                         required
                                     >
                                         {fakeDepartments.map(department => <MenuItem key={department.uuid} value={department.uuid}>{department.name}</MenuItem>)}
@@ -302,6 +317,8 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         as={TextField}
                                         name="externalUUID"
                                         label={t('employee.form.field.externalUUID')}
+                                        value={values.externalUUID}
+                                        onChange={handleChange}
                                         fullWidth
                                         margin="normal"
                                         InputLabelProps={{ shrink: true }}
@@ -312,10 +329,16 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         fullWidth
                                         name="employeeSuperior.uuid"
                                         label={t('employee.form.field.employeeSuperior')}
+                                        value={values.employeeSuperior.uuid}
+                                        onChange={handleChange}
                                         variant="outlined"
                                         margin="normal"
                                     >
-                                        {fakeEmployees.map(employee => <MenuItem key={employee.uuid} value={employee.uuid}>{employee.lastName} {employee.firstName}</MenuItem>)}
+                                        {filteredEmployees.map((emp) => (
+                                            <MenuItem key={emp.uuid} value={emp.uuid}>
+                                                {emp.firstName} {emp.lastName}
+                                            </MenuItem>
+                                        ))}
                                     </Field>
                                     <Field
                                         as={TextField}
@@ -344,6 +367,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         fullWidth
                                         name="position.uuid"
                                         label={t('employee.form.field.position')}
+                                        value={values.position.uuid}
                                         variant="outlined"
                                         margin="normal"
                                         error={touched?.position?.uuid && Boolean(errors?.position?.uuid)}
@@ -360,11 +384,23 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         label={t('employee.form.field.contractType')}
                                         variant="outlined"
                                         margin="normal"
-                                        error={touched?.contractType?.uuid && Boolean(errors.contractType?.uuid)}
-                                        helperText={touched?.contractType?.uuid && errors.contractType?.uuid}
+                                        error={touched?.contractType?.uuid && Boolean(errors?.contractType?.uuid)}
+                                        helperText={touched?.contractType?.uuid && errors?.contractType?.uuid}
                                     >
                                         {fakeContractTypes.map(contractType => <MenuItem key={contractType.uuid} value={contractType.uuid}>{contractType.name}</MenuItem>)}
                                     </Field>
+                                    <FormControlLabel
+                                        control={
+                                            <Field
+                                                as={Checkbox}
+                                                name="active"
+                                                color="primary"
+                                                onChange={handleChange}
+                                                checked={values.active}
+                                            />
+                                        }
+                                        label={t('employee.form.field.active')}
+                                    />
                                 </Box>
 
                                 {/* Kolumna 3 */}
@@ -384,36 +420,39 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         fullWidth
                                         name="address.country"
                                         label={t('employee.form.field.country')}
+                                        value={values.address.country}
                                         variant="outlined"
                                         margin="normal"
                                         error={touched?.address?.country && Boolean(errors?.address?.country)}
                                         helperText={touched?.address?.country && errors?.address?.country}
                                         required
                                     >
-                                        <MenuItem value="1">Polska</MenuItem>
-                                        <MenuItem value="2">Anglia</MenuItem>
-                                        <MenuItem value="3">Niemcy</MenuItem>
+                                        <MenuItem value="Polska">Polska</MenuItem>
+                                        <MenuItem value="Anglia">Anglia</MenuItem>
+                                        <MenuItem value="Niemcy">Niemcy</MenuItem>
                                     </Field>
                                     <Field
                                         as={TextField}
                                         select
                                         fullWidth
-                                        name="address.city"
+                                        name="city"
                                         label={t('employee.form.field.city')}
+                                        value={values.address.city}
                                         variant="outlined"
                                         margin="normal"
                                         error={touched?.address?.city && Boolean(errors?.address?.city)}
                                         helperText={touched?.address?.city && errors?.address?.city}
                                         required
                                     >
-                                        <MenuItem value="1">Gdańsk</MenuItem>
-                                        <MenuItem value="2">Sopot</MenuItem>
-                                        <MenuItem value="3">Gdynia</MenuItem>
+                                        <MenuItem value="Gdańsk">Gdańsk</MenuItem>
+                                        <MenuItem value="Sopot">Sopot</MenuItem>
+                                        <MenuItem value="Gdynia">Gdynia</MenuItem>
                                     </Field>
                                     <Field
                                         as={TextField}
                                         name="address.postcode"
                                         label={t('employee.form.field.postcode')}
+                                        value={values.address.postcode}
                                         fullWidth
                                         margin="normal"
                                         error={touched?.address?.postcode && Boolean(errors?.address?.postcode)}
@@ -423,7 +462,8 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                     <Field
                                         as={TextField}
                                         name="address.street"
-                                        label={t('employee.form.field.street')}
+                                        label={t('employee.form.field.address')}
+                                        value={values.address.street}
                                         fullWidth
                                         margin="normal"
                                         error={touched?.address?.street && Boolean(errors?.address?.street)}
@@ -448,6 +488,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         fullWidth
                                         name="role.uuid"
                                         label={t('employee.form.field.role')}
+                                        value={values.role.uuid}
                                         variant="outlined"
                                         margin="normal"
                                         error={touched?.role?.uuid && Boolean(errors?.role?.uuid)}
@@ -456,30 +497,23 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                     >
                                         {fakeRoles.map(role => <MenuItem key={role.uuid} value={role.uuid}>{role.name}</MenuItem>)}
                                     </Field>
-                                    <FormControlLabel
-                                        control={
-                                            <Field
-                                                as={Checkbox}
-                                                name="active"
-                                                color="primary"
-                                            />
-                                        }
-                                        label={t('employee.form.field.active')}
-                                    />
                                     <Field
                                         as={TextField}
                                         type="datetime-local"
                                         name="createdAt"
                                         label={t('employee.form.field.createdAt')}
+                                        value={values.createdAt}
                                         fullWidth
                                         margin="normal"
                                         InputLabelProps={{ shrink: true }}
+                                        inputProps={{ step: 1 }}
                                     />
                                     <Field
                                         as={TextField}
                                         type="datetime-local"
                                         name="updatedAt"
                                         label={t('employee.form.field.updatedAt')}
+                                        value={values.updatedAt}
                                         fullWidth
                                         margin="normal"
                                         InputLabelProps={{ shrink: true }}
@@ -489,6 +523,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         type="datetime-local"
                                         name="deletedAt"
                                         label={t('employee.form.field.deletedAt')}
+                                        value={values.deletedAt}
                                         fullWidth
                                         margin="normal"
                                         InputLabelProps={{ shrink: true }}
@@ -511,4 +546,4 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
     );
 };
 
-export default AddEmployeeModal;
+export default EditEmployeeModal;

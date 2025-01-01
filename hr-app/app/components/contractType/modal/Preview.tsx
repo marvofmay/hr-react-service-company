@@ -1,6 +1,6 @@
 import React from 'react';
 import ContractType from '../../../types/ContractType';
-import Preview from '../../modal/preview';
+import Preview from '../../modal/Preview';
 import { useTranslation } from 'react-i18next';
 
 interface PreviewContractTypeModalProps {

@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination, IconButton, Button, Box, CircularProgress } from '@mui/material';
 import { Preview, Edit, Delete, Add, Key } from '@mui/icons-material';
 import Role from '../../types/Role';
-import CreateRoleModal from './modal/create';
-import EditRoleModal from './modal/edit';
-import PreviewRoleModal from './modal/preview';
-import DeleteRoleModal from './modal/delete';
-import EditPermissionRoleModal from '@/app/components/permission/modal/editPermissionRole'
+import CreateRoleModal from './modal/Create';
+import EditRoleModal from './modal/Edit';
+import PreviewRoleModal from './modal/Preview';
+import DeleteRoleModal from './modal/Delete';
+import EditPermissionRoleModal from '@/app/components/permission/modal/EditPermissionRole'
 import useRolesQuery from '../../hooks/role/useRolesQuery';
 import useAddRoleMutation from '@/app/hooks/role/useAddRoleMutation';
 import useUpdateRoleMutation from '@/app/hooks/role/useUpdateRoleMutation';
 import useDeleteRoleMutation from '@/app/hooks/role/useDeleteRoleMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import modules from '@/app/fake_data/Modules';
-import permissions from '@/app/fake_data/Permissions';
+import modules from '@/app/fakeData/Modules';
+import permissions from '@/app/fakeData/Permissions';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 

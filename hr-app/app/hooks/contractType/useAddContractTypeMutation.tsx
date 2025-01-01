@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ContractType from '../../types/ContractType';
-import fakeContractTypes from '../../fake_data/ContractTypes';
+import fakeContractTypes from '../../fakeData/ContractTypes';
 import { useTranslation } from 'react-i18next';
 
 const addContractType = async (contractType: ContractType): Promise<ContractType[]> => {

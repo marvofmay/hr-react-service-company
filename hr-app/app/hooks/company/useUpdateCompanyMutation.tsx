@@ -1,18 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Company from '../../types/Company';
-import fakeCompanies from '../../fake_data/Companies';
+import fakeCompanies from '../../fakeData/Companies';
 import { useTranslation } from 'react-i18next';
 
 const updateCompany = async (updatedCompany: Company): Promise<Company[]> => {
     const updatedCompanies = fakeCompanies.map(company =>
         company.uuid === updatedCompany.uuid ? updatedCompany : company
     );
-    console.log('updatedCompanies', updatedCompany);
 
     return updatedCompanies;
 };
 
-const useAddCompanyMutation = () => {
+const useUpdateCompanyMutation = () => {
     const { t } = useTranslation();
     const queryClient = useQueryClient();
 
@@ -27,4 +26,4 @@ const useAddCompanyMutation = () => {
     });
 };
 
-export default useAddCompanyMutation;
+export default useUpdateCompanyMutation;

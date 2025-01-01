@@ -1,27 +1,29 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import Role from '../../types/Role';
-import fakeIndustries from '../../fake_data/Industries';
+import Industry from '../../types/Industry';
+import fakeIndustries from '../../fakeData/Industries';
+import { useTranslation } from 'react-i18next';
 
-const updateRole = async (updatedRole: Role): Promise<Role[]> => {
+const updateIndustry = async (updatedIndustry: Industry): Promise<Industry[]> => {
     const updatedIndustries = fakeIndustries.map(industry =>
-        industry.uuid === updatedRole.uuid ? updatedRole : industry
+        industry.uuid === updatedIndustry.uuid ? updatedIndustry : industry
     );
 
     return updatedIndustries;
 };
 
-const useAddRoleMutation = () => {
+const useUpdateIndustryMutation = () => {
+    const { t } = useTranslation();
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: updateRole,
+        mutationFn: updateIndustry,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['industries'] });
         },
         onError: (error) => {
-            console.error('Błąd podczas aktualizacji przemysłu:', error);
+            console.error(t('industry.update.error'), error);
         },
     });
 };
 
-export default useAddRoleMutation;
+export default useUpdateIndustryMutation;

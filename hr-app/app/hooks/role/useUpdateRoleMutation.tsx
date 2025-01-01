@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Role from '../../types/Role';
-import fakeRoles from '../../fake_data/Roles';
+import fakeRoles from '../../fakeData/Roles';
 
 const updateRole = async (updatedRole: Role): Promise<Role[]> => {
     const updatedRoles = fakeRoles.map(role =>
@@ -10,7 +10,7 @@ const updateRole = async (updatedRole: Role): Promise<Role[]> => {
     return updatedRoles;
 };
 
-const useAddRoleMutation = () => {
+const useUpdateRoleMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -24,4 +24,4 @@ const useAddRoleMutation = () => {
     });
 };
 
-export default useAddRoleMutation;
+export default useUpdateRoleMutation;

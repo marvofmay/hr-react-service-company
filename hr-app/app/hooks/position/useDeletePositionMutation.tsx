@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Position from '../../types/Position';
-import fakePositions from '../../fake_data/Positions';
+import fakePositions from '../../fakeData/Positions';
 
 const deletePosition = async (positionToDelete: Position): Promise<Position[] | []> => {
     const currentPositions = fakePositions.filter(position => position.uuid !== positionToDelete.uuid);

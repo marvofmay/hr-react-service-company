@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Position from '../../types/Position';
-import fakePositions from '../../fake_data/Positions';
+import fakePositions from '../../fakeData/Positions';
 
 const addPosition = async (position: Position): Promise<Position[]> => {
     const newPosition = { ...position, uuid: `${fakePositions.length + 1}` };

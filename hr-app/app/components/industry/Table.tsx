@@ -1,70 +1,70 @@
 import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination, IconButton, Button, Box, CircularProgress } from '@mui/material';
 import { Preview, Edit, Delete, Add } from '@mui/icons-material';
-import Position from '../../types/Position';
-import CreatePositionModal from './modal/create';
-import EditPositionModal from './modal/edit';
-import PreviewPositionModal from './modal/preview';
-import DeletePositionModal from './modal/delete';
-import usePositionsQuery from '../../hooks/position/usePositionsQuery';
-import useAddPositionMutation from '@/app/hooks/position/useAddPositionMutation';
-import useUpdatePositionMutation from '@/app/hooks/position/useUpdatePositionMutation';
-import useDeletePositionMutation from '@/app/hooks/position/useDeletePositionMutation';
+import Industry from '../../types/Industry';
+import CreateIndustryModal from './modal/Create';
+import EditIndustryModal from './modal/Edit';
+import PreviewIndustryModal from './modal/Preview';
+import DeleteIndustryModal from './modal/Delete';
+import useIndustriesQuery from '../../hooks/industry/useIndustriesQuery';
+import useAddIndustryMutation from '@/app/hooks/industry/useAddIndustryMutation';
+import useUpdateIndustryMutation from '@/app/hooks/industry/useUpdateIndustryMutation';
+import useDeleteIndustryMutation from '@/app/hooks/industry/useDeleteIndustryMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
-const PositionsTable = () => {
-    const [localPositions, setLocalPositions] = useState<Position[] | null>([]);
+const IndustriesTable = () => {
+    const [localIndustries, setLocalIndustries] = useState<Industry[] | null>([]);
     const [pageSize, setPageSize] = useState(5);
     const [pageIndex, setPageIndex] = useState(0);
     const [sortBy, setSortBy] = useState('name');
     const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
     const [modalType, setModalType] = useState<string | null>(null);
-    const [selectedPosition, setSelectedPosition] = useState<Position | null>(null);
+    const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
 
-    const { data, isLoading, error } = usePositionsQuery(pageSize, pageIndex, sortBy, sortDirection);
-    const { mutate: addPositionMutate, isSuccess: isAddSuccess, error: isAddError } = useAddPositionMutation();
-    const { mutate: updatePositionMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdatePositionMutation();
-    const { mutate: deletePositionMutate, isSuccess: isDeleteSuccess, error: isDeleteError } = useDeletePositionMutation();
+    const { data, isLoading, error } = useIndustriesQuery(pageSize, pageIndex, sortBy, sortDirection);
+    const { mutate: addIndustryMutate, isSuccess: isAddSuccess, error: isAddError } = useAddIndustryMutation();
+    const { mutate: updateIndustryMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdateIndustryMutation();
+    const { mutate: deleteIndustryMutate, isSuccess: isDeleteSuccess, error: isDeleteError } = useDeleteIndustryMutation();
     const { t } = useTranslation();
 
     useEffect(() => {
         if (data) {
-            setLocalPositions(data);
+            setLocalIndustries(data);
         }
     }, [data]);
 
     useEffect(() => {
         if (isAddSuccess) {
             closeModal();
-            toast.success('Nowe stanowisko zostało dodane.');
+            toast.success(t('industry.add.success'));
         }
         if (isAddError) {
             closeModal();
-            toast.success('Błąd podczas dodawania stanowiska.');
+            toast.success(t('industry.add.error'));
         }
     }, [isAddSuccess, isAddError]);
 
     useEffect(() => {
         if (isUpdateSuccess) {
             closeModal();
-            toast.success('Stanowisko zostało zaktualizowane.');
+            toast.success(t('industry.update.success'));
         }
         if (isUpdateError) {
-            toast.error('Błąd podczas aktualizacji stanowiska.');
+            toast.error(t('industry.update.error'));
         }
     }, [isUpdateSuccess, isUpdateError]);
 
     useEffect(() => {
         if (isDeleteSuccess) {
             closeModal();
-            toast.success('Stanowisko zostało usunięte.');
+            toast.success(t('industry.delete.success'));
         }
         if (isDeleteError) {
             closeModal();
-            toast.success('Błąd podczas usuwania stanowiska.');
+            toast.success(t('industry.delete.error'));
         }
     }, [isDeleteSuccess, isDeleteError]);
 
@@ -74,36 +74,36 @@ const PositionsTable = () => {
         setSortDirection(direction);
     };
 
-    const openModal = (type: string, position: Position | null = null) => {
+    const openModal = (type: string, industry: Industry | null = null) => {
         setModalType(type);
-        setSelectedPosition(position);
+        setSelectedIndustry(industry);
     };
 
     const closeModal = () => {
         setModalType(null);
-        setSelectedPosition(null);
+        setSelectedIndustry(null);
     };
 
     const handlePageSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPageSize(Number(event.target.value));
     };
 
-    const handleAdd = (position: Position) => {
-        addPositionMutate(position);
+    const handleAdd = (industry: Industry) => {
+        addIndustryMutate(industry);
     };
 
-    const handleDelete = (positionToDelete: Position) => {
-        deletePositionMutate(positionToDelete, {
-            onSuccess: (currentPositions) => {
-                setLocalPositions(currentPositions);
+    const handleDelete = (industryToDelete: Industry) => {
+        deleteIndustryMutate(industryToDelete, {
+            onSuccess: (currentIndustries) => {
+                setLocalIndustries(currentIndustries);
             }
         });
     };
 
-    const handleUpdate = (updatedPosition: Position) => {
-        updatePositionMutate(updatedPosition, {
-            onSuccess: (currentPositions) => {
-                setLocalPositions(currentPositions);
+    const handleUpdate = (updatedIndustry: Industry) => {
+        updateIndustryMutate(updatedIndustry, {
+            onSuccess: (currentIndustries) => {
+                setLocalIndustries(currentIndustries);
             }
         });
     };
@@ -112,7 +112,7 @@ const PositionsTable = () => {
         <div>
             <Box display="flex" justifyContent="flex-end" marginBottom={2}>
                 <Button variant="contained" color="success" startIcon={<Add />} onClick={() => openModal('create')}>
-                    {t('position.button.add')}
+                    {t('industry.button.add')}
                 </Button>
             </Box>
 
@@ -122,11 +122,11 @@ const PositionsTable = () => {
                 </Box>
             ) : error ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                    <div>{t('common.message.somethingWentWrong')} :(</div>
+                    <div>{t('message.somethingWentWrong')} :(</div>
                 </Box>
-            ) : localPositions && localPositions.length === 0 ? (
+            ) : localIndustries && localIndustries.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                    <div>{t('common.noData')}</div>
+                    <div>{t('noData')}</div>
                 </Box>
             ) : (
                 <TableContainer>
@@ -148,27 +148,27 @@ const PositionsTable = () => {
                                     sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'name'} direction={sortBy === 'name' ? sortDirection : 'asc'}>
-                                        {t('position.table.column.name')}
+                                        {t('industry.table.column.name')}
                                     </TableSortLabel>
                                 </TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('position.table.column.description')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('position.table.column.createdAt')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('position.table.column.updatedAt')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}> {t('position.table.column.actions')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('industry.table.column.description')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('industry.table.column.createdAt')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('industry.table.column.updatedAt')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('industry.table.column.actions')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {localPositions?.map((position, index) => (
-                                <TableRow key={position.uuid}>
+                            {localIndustries?.map((industry, index) => (
+                                <TableRow key={industry.uuid}>
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{position.name}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{position.description}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{position.createdAt}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{position.updatedAt}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.name}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.description}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.createdAt}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{industry.updatedAt}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
-                                        <IconButton onClick={() => openModal('preview', position)}><Preview /></IconButton>
-                                        <IconButton onClick={() => openModal('edit', position)}><Edit /></IconButton>
-                                        <IconButton onClick={() => openModal('delete', position)}><Delete /></IconButton>
+                                        <IconButton onClick={() => openModal('preview', industry)}><Preview /></IconButton>
+                                        <IconButton onClick={() => openModal('edit', industry)}><Edit /></IconButton>
+                                        <IconButton onClick={() => openModal('delete', industry)}><Delete /></IconButton>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -177,44 +177,43 @@ const PositionsTable = () => {
                 </TableContainer>
             )}
 
-            {localPositions && localPositions.length > 0 && <TablePagination
+            {localIndustries && localIndustries.length > 0 && <TablePagination
                 rowsPerPageOptions={[5, 10, 25, 50, 100]}
                 component="div"
-                count={localPositions.length}
+                count={localIndustries.length}
                 rowsPerPage={pageSize}
                 page={pageIndex}
                 onPageChange={(event, newPage) => setPageIndex(newPage)}
                 onRowsPerPageChange={handlePageSizeChange}
             />}
 
-            {modalType === 'preview' && <PreviewPositionModal
+            {modalType === 'preview' && <PreviewIndustryModal
                 open={true}
-                selectedPosition={selectedPosition}
+                selectedIndustry={selectedIndustry}
                 onClose={closeModal}
             />}
 
-            {modalType === 'create' && <CreatePositionModal
+            {modalType === 'create' && <CreateIndustryModal
                 open={true}
                 onClose={closeModal}
-                onAddPosition={position => { handleAdd(position); }}
+                onAddIndustry={industry => { handleAdd(industry); }}
             />}
 
-            {modalType === 'edit' && <EditPositionModal
+            {modalType === 'edit' && <EditIndustryModal
                 open={true}
-                position={selectedPosition}
+                industry={selectedIndustry}
                 onClose={closeModal}
                 onSave={handleUpdate}
             />}
 
-            {modalType === 'delete' && <DeletePositionModal
+            {modalType === 'delete' && <DeleteIndustryModal
                 open={true}
-                selectedPosition={selectedPosition}
+                selectedIndustry={selectedIndustry}
                 onClose={closeModal}
-                onDeleteConfirm={(position) => { handleDelete(position); }}
+                onDeleteConfirm={(industry) => { handleDelete(industry); }}
             />}
         </div>
     );
 };
 
-export default PositionsTable;
-
+export default IndustriesTable;

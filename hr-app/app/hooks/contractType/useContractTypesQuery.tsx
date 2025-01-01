@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import ContractType from '../../types/ContractType';
-import fakeContractTypes from '../../fake_data/ContractTypes';
+import fakeContractTypes from '../../fakeData/ContractTypes';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 

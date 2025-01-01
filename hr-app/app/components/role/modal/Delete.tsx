@@ -1,6 +1,6 @@
 import React from 'react';
 import Role from '../../../types/Role';
-import DeleteConfirmModal from '../../modal/deleteConfirm';
+import DeleteConfirmModal from '../../modal/DeleteConfirm';
 import { useTranslation } from 'react-i18next';
 
 interface DeleteRoleModalProps {

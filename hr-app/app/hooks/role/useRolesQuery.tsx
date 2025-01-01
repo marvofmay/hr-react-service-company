@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import Role from '../../types/Role';
-import fakeRoles from '../../fake_data/Roles';
+import fakeRoles from '../../fakeData/Roles';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 

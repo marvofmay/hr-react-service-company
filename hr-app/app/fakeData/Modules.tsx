@@ -11,8 +11,9 @@ const modules: Module[] = [
     { uuid: "2", name: "notes" },
     { uuid: "9", name: "documents" },
     { uuid: "10", name: "trips" },
-    { uuid: "10", name: "requests" },
-    { uuid: "10", name: "substitutions" },
+    { uuid: "11", name: "requests" },
+    { uuid: "12", name: "substitutions" },
+    { uuid: "13", name: "pages" },
 ];
 
 export default modules;

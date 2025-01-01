@@ -1,6 +1,6 @@
 "use client";
 
-import EmployeesTable from "@/app/components/employee/table";
+import EmployeesTable from "@/app/components/employee/Table";
 import { Box } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';

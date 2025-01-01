@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Position from '../../types/Position';
-import fakePositions from '../../fake_data/Positions';
+import fakePositions from '../../fakeData/Positions';
+import { useTranslation } from 'react-i18next';
 
 const updatePosition = async (updatedPosition: Position): Promise<Position[]> => {
     const updatedPositions = fakePositions.map(role =>
@@ -10,7 +11,8 @@ const updatePosition = async (updatedPosition: Position): Promise<Position[]> =>
     return updatedPositions;
 };
 
-const useAddPositionMutation = () => {
+const useUpdatePositionMutation = () => {
+    const { t } = useTranslation();
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -19,9 +21,9 @@ const useAddPositionMutation = () => {
             queryClient.invalidateQueries({ queryKey: ['positions'] });
         },
         onError: (error) => {
-            console.error('Błąd podczas aktualizacji stanowiska:', error);
+            console.error(t('position.update.error'), error);
         },
     });
 };
 
-export default useAddPositionMutation;
+export default useUpdatePositionMutation;
