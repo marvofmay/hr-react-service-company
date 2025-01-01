@@ -17,6 +17,9 @@
             "question": "Czy na pewno chcesz usunąć pracownika"
         }
     },
+    "settings": {
+        "title": "Ustawienia pracowników"
+    },
     "button": {
         "add": "Dodaj pracownika"
     },

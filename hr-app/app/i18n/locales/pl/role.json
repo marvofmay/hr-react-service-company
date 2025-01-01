@@ -16,6 +16,9 @@
             "title": "Potwierdzenie usunięcia roli"
         }
     },
+    "settings": {
+        "title": "Ustawienia ról"
+    },
     "button": {
         "add": "Dodaj rolę"
     },
