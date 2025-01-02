@@ -1,11 +1,6 @@
 import Module from "../types/Module";
 
-const modules: Module[] = [
-    { uuid: "5", name: "companies" },
-    { uuid: "4", name: "departments" },
-    { uuid: "3", name: "employees" },
-    { uuid: "6", name: "notifications" },
-    { uuid: "8", name: "emails" },
+const dashboardModules: Module[] = [
     { uuid: "1", name: "tasks" },
     { uuid: "7", name: "calendar" },
     { uuid: "2", name: "notes" },
@@ -14,7 +9,6 @@ const modules: Module[] = [
     { uuid: "11", name: "requests" },
     { uuid: "12", name: "substitutions" },
     { uuid: "13", name: "feedbacks" },
-    { uuid: "14", name: "pages" },
 ];
 
-export default modules;
+export default dashboardModules;

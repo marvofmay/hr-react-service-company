@@ -1,4 +1,9 @@
 {
+    "notifications": {
+        "view": "podgląd",
+        "delete": "usuwanie",
+        "settings": "ustawienia"
+    },
     "tasks": {
         "create": "tworzenie",
         "edit": "edycja",

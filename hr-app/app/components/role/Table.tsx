@@ -97,7 +97,7 @@ const RolesTable = () => {
 
     const handleDelete = (roleToDelete: Role) => {
         deleteRoleMutate(roleToDelete, {
-            onSuccess: (currentRoles) => {
+            onSuccess: (currentRoles: Role[]) => {
                 setLocalRoles(currentRoles);
             }
         });

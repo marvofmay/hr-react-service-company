@@ -1,0 +1,23 @@
+import { useQuery } from '@tanstack/react-query';
+import Notification from '../../types/Notification';
+import fakeNotifications from '../../fakeData/Notifications';
+
+type SortDirection = 'asc' | 'desc' | undefined;
+
+const fetchNotifications = async (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection): Promise<Notification[]> => {
+    // ToDo: dodać wywołanie endpointa z enpoitna API
+    // const response = await axios.get('/api/notifications', { params: { pageSize, pageIndex, sortBy, sortDirection } });
+    // return response.data;
+
+    // Na razie zwrócimy dane z fakeNotifications
+    return fakeNotifications;
+};
+
+const useNotificationsQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection) => {
+    return useQuery<Notification[]>({
+        queryKey: ['notifications', pageSize, pageIndex, sortBy, sortDirection],
+        queryFn: () => fetchNotifications(pageSize, pageIndex, sortBy, sortDirection),
+    });
+};
+
+export default useNotificationsQuery;

@@ -1,7 +1,7 @@
 "use client";
 
 import { AppBar, Toolbar, Typography, Button, Link } from "@mui/material";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import ManageListNavigation from "../manage/navigation/List";
 import SettingsListNavigation from "../settings/navigation/List";
 import UserProfileNavigation from "../user/UserProfileNavigation"
@@ -16,7 +16,7 @@ import { useUser } from "@/app/context/UserContext";
 
 const navLinks = [
     { href: "/", label: { APP_NAME }, activePath: "/", icon: <HomeIcon /> },
-    { href: "/home", label: "Home", activePath: "/home", icon: <HomeIcon /> },
+    { href: "/", label: "Home", activePath: "/", icon: <HomeIcon /> },
     { href: "/info", label: "Info", activePath: "/info", icon: <InfoIcon /> },
 ];
 

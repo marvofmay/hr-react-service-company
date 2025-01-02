@@ -41,6 +41,37 @@ const UserProvider = ({ children }: UserProviderProps) => {
         if (token && userId) {
             fetchUser(token, userId);
         } else {
+            // setUser({
+            //     uuid: '1',
+            //     externalUUID: '1257-323-12',
+            //     company: { uuid: '1', name: 'Company 1' },
+            //     department: { uuid: '1', name: 'Department 1' },
+            //     employeeSuperior: { uuid: null, firstName: null, lastName: null },
+            //     position: { uuid: '1', name: 'Position 1' },
+            //     contractType: { uuid: '1', name: 'Contract type 1' },
+            //     address: { country: 'Polska', city: 'Gdańsk', postcode: '11-111', street: 'Cicha 2' },
+            //     role: {
+            //         uuid: '1',
+            //         name: 'user',
+            //         permissions: [
+            //             { uuid: '1', name: 'notifications.view' },
+            //             { uuid: '2', name: 'notifications.delete' },
+            //             { uuid: '6', name: 'companies.view' },
+            //             { uuid: '8', name: 'emails.send' },
+            //             { uuid: '9', name: 'emails.view' }],
+            //     },
+            //     firstName: 'Emil',
+            //     lastName: 'Johnson',
+            //     pesel: '72022586569',
+            //     email: 'emil.johnson@email.com',
+            //     phone: ["333-222-111", "111-222-333"],
+            //     employmentFrom: '2009-01-01',
+            //     employmentTo: null,
+            //     active: true,
+            //     createdAt: '2024-06-11T15:30:45',
+            //     updatedAt: '2024-12-17T07:30:00',
+            //     deletedAt: null,
+            // });
             setUser({
                 uuid: '1',
                 externalUUID: '1257-323-12',
@@ -52,11 +83,21 @@ const UserProvider = ({ children }: UserProviderProps) => {
                 address: { country: 'Polska', city: 'Gdańsk', postcode: '11-111', street: 'Cicha 2' },
                 role: {
                     uuid: '1',
-                    name: 'Role 1',
+                    name: 'admin',
                     permissions: [
-                        { uuid: '1', name: 'notifications.create' },
-                        { uuid: '2', name: 'companies.create' },
-                        { uuid: '3', name: 'emails.send' }
+                        { uuid: '1', name: 'notifications.view' },
+                        { uuid: '2', name: 'notifications.delete' },
+                        { uuid: '3', name: 'notifications.settings' },
+                        { uuid: '4', name: 'companies.create' },
+                        { uuid: '5', name: 'companies.edit' },
+                        { uuid: '6', name: 'companies.view' },
+                        { uuid: '7', name: 'companies.delete' },
+                        { uuid: '8', name: 'emails.send' },
+                        { uuid: '9', name: 'emails.view' },
+                        { uuid: '10', name: 'task.create' },
+                        { uuid: '11', name: 'task.edit' },
+                        { uuid: '12', name: 'task.view' },
+                        { uuid: '13', name: 'task.delete' },
                     ],
                 },
                 firstName: 'Emil',

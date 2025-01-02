@@ -75,6 +75,15 @@ const permissions: Permission[] = [{
 }, {
     uuid: '25',
     name: 'pages.info',
+}, {
+    uuid: '26',
+    name: 'notifications.view',
+}, {
+    uuid: '27',
+    name: 'notifications.delete',
+}, {
+    uuid: '28',
+    name: 'notifications.settings',
 }];
 
 export default permissions;

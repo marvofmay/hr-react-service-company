@@ -3,5 +3,34 @@
         "title": "Ustawienia powiadomień",
         "channel": "Kanał",
         "channels": "Kanały"
+    },
+    "button": {
+        "settings": "ustawienia"
+    },
+    "modal": {
+        "settings": {
+            "title": "ustawienia powiadomień"
+        }
+    },
+    "table": {
+        "column": {
+            "title": "tytuł",
+            "message": "wiadomosć",
+            "source": "źródło",
+            "readedAt": "przeczytano",
+            "createdAt": "utworzono",
+            "deletedAt": "usunięto",
+            "actions": "akcje"
+        }
+    },
+    "form": {
+        "field": {
+            "title": "tytuł",
+            "message": "wiadomosć",
+            "readeddAt": "przeczytano",
+            "createdAt": "utworzono",
+            "deletedAt": "usunięto",
+            "actions": "akcje"
+        }
     }
 }

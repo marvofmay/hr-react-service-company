@@ -5,5 +5,10 @@
     "departments": "departamenty",
     "companies": "firmy",
     "calendar": "kalendarz",
-    "notifications": "powiadomienia"
+    "notifications": "powiadomienia",
+    "documents": "dokumenty",
+    "feedbacks": "feedbacks",
+    "trips": "delegacje",
+    "requests": "wnioski pracownicze",
+    "substitutions": "zastępstwa"
 }
