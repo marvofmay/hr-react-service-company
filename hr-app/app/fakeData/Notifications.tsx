@@ -25,7 +25,7 @@ const notifications: Notification[] = [
         source: 'internal',
         active: true,
         status: 'sent',
-        readedAt: null,
+        readedAt: new Date().toISOString(),
         createdAt: new Date().toISOString(),
         deletedAt: null,
     },

@@ -4,7 +4,6 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import Department from '@/app/types/Department';
-import fakeDepartments from '@/app/fakeData/Departments';
 
 interface AddDepartmentModalProps {
     open: boolean;

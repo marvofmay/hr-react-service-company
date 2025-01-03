@@ -10,6 +10,8 @@ import useNotificationsQuery from '../../hooks/notification/useNotificationsQuer
 import useDeleteNotificationMutation from '@/app/hooks/notification/useDeleteNotificationMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
@@ -126,7 +128,7 @@ const NotificationsTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{notification.title}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{notification.source}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{notification.readedAt}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{notification.readedAt ? (<CheckCircleIcon color="success" fontSize="small" />) : (<CancelIcon color="error" fontSize="small" />)}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{notification.createdAt}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
                                         <IconButton onClick={() => openModal('preview', notification)}><Preview /></IconButton>
