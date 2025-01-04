@@ -3,7 +3,10 @@
         "message": "Witaj w aplikacji React"
     },
     "message": {
-        "somethingWentWrong": "Coś poszło nie tak"
+        "somethingWentWrong": "Coś poszło nie tak",
+        "errorWhileTryingToLogIn": "Błąd podczas próby logowania",
+        "errorWhileTryingGetEmployeeData": "Błąd podczas próby pobrania danych pracownika",
+        "tokenIsMissing": "Brak tokenu"
     },
     "path": {
         "home": "strona główna",

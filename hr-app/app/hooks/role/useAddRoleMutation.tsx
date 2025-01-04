@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Role from '../../types/Role';
 import fakeRoles from '../../fakeData/Roles';
+import { useTranslation } from 'react-i18next';
 
 const addRole = async (role: Role): Promise<Role[]> => {
     const newRole = { ...role, uuid: `${fakeRoles.length + 1}` };
@@ -11,6 +12,7 @@ const addRole = async (role: Role): Promise<Role[]> => {
 
 const useAddRoleMutation = () => {
     const queryClient = useQueryClient();
+    const { t } = useTranslation();
 
     return useMutation({
         mutationFn: addRole,
@@ -18,7 +20,7 @@ const useAddRoleMutation = () => {
             queryClient.invalidateQueries({ queryKey: ['roles'] });
         },
         onError: (error) => {
-            console.error('Błąd podczas dodawania roli:', error);
+            console.error(t('role.add.error'), error);
         },
     });
 };

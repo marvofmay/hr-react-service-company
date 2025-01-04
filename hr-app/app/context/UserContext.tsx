@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Employee from '../types/Employee';
 
 interface UserContextType {
-    user: Employee | null;
-    login: (email: string, password: string) => Promise<void>;
+    employee: Employee | null;
+    login: (email: string | FormDataEntryValue, password: string | FormDataEntryValue) => Promise<void>;
     logout: () => void;
     isAuthenticated: boolean;
     hasPermission: (permissionName: string) => boolean;
@@ -31,17 +31,17 @@ interface UserProviderProps {
 
 const UserProvider = ({ children }: UserProviderProps) => {
     const { t } = useTranslation();
-    const [user, setUser] = useState<Employee | null>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(true);
+    const [employee, setEmployee] = useState<Employee | null>(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const userId = localStorage.getItem('userId');
-        if (token && userId) {
-            fetchUser(token, userId);
+        const employeeUUID = localStorage.getItem('employeeUUID');
+        if (token && employeeUUID) {
+            fetchEmployee(token, employeeUUID);
         } else {
-            // setUser({
+            // setEmployee({
             //     uuid: '1',
             //     externalUUID: '1257-323-12',
             //     company: { uuid: '1', name: 'Company 1' },
@@ -52,13 +52,22 @@ const UserProvider = ({ children }: UserProviderProps) => {
             //     address: { country: 'Polska', city: 'Gdańsk', postcode: '11-111', street: 'Cicha 2' },
             //     role: {
             //         uuid: '1',
-            //         name: 'user',
+            //         name: 'admin',
             //         permissions: [
             //             { uuid: '1', name: 'notifications.view' },
             //             { uuid: '2', name: 'notifications.delete' },
+            //             { uuid: '3', name: 'notifications.settings' },
+            //             { uuid: '4', name: 'companies.create' },
+            //             { uuid: '5', name: 'companies.edit' },
             //             { uuid: '6', name: 'companies.view' },
+            //             { uuid: '7', name: 'companies.delete' },
             //             { uuid: '8', name: 'emails.send' },
-            //             { uuid: '9', name: 'emails.view' }],
+            //             { uuid: '9', name: 'emails.view' },
+            //             { uuid: '10', name: 'task.create' },
+            //             { uuid: '11', name: 'task.edit' },
+            //             { uuid: '12', name: 'task.view' },
+            //             { uuid: '13', name: 'task.delete' },
+            //         ],
             //     },
             //     firstName: 'Emil',
             //     lastName: 'Johnson',
@@ -72,7 +81,23 @@ const UserProvider = ({ children }: UserProviderProps) => {
             //     updatedAt: '2024-12-17T07:30:00',
             //     deletedAt: null,
             // });
-            setUser({
+            setLoading(false);
+        }
+    }, []);
+
+    const fetchEmployee = async (token: string, employeeUUID: string | null) => {
+        setLoading(true);
+
+        if (token && token !== 'undefined' && employeeUUID && employeeUUID !== 'undefined') {
+            const res = await fetch(`http://127.0.0.1/api/employees/${employeeUUID}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            const data = await res.json();
+            setEmployee(data);
+            setIsAuthenticated(true);
+        } else if (token && token !== 'undefined') {
+            setEmployee({
                 uuid: '1',
                 externalUUID: '1257-323-12',
                 company: { uuid: '1', name: 'Company 1' },
@@ -112,64 +137,56 @@ const UserProvider = ({ children }: UserProviderProps) => {
                 updatedAt: '2024-12-17T07:30:00',
                 deletedAt: null,
             });
-            setLoading(false);
-        }
-    }, []);
-
-    const fetchUser = async (token: string, userId: string) => {
-        setLoading(true);
-        try {
-            const res = await fetch(`/api/user/${userId}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            const data = await res.json();
-            setUser(data);
             setIsAuthenticated(true);
-        } catch (error) {
-            console.error(t('common.message.Błąd pobierania danych użytkownika'), error);
-            setIsAuthenticated(false);
-        } finally {
             setLoading(false);
+        } else {
+            setIsAuthenticated(false);
+            setLoading(false);
+            throw new Error(t('common.message.errorWhileTryingGetEmployeeData'));
         }
     };
 
-    const login = async (email: string, password: string) => {
+    const login = async (email: string | FormDataEntryValue, password: string | FormDataEntryValue) => {
         setLoading(true);
-        try {
-            const res = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
-            });
 
-            if (!res.ok) {
-                throw new Error(t('common.message.errorWhileTryingToLogIn'));
-            }
+        const res = await fetch('http://127.0.0.1/api/login_check', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password }),
+        });
 
-            const data = await res.json();
-            const { token, userId } = data;
-
-            localStorage.setItem('token', token);
-            localStorage.setItem('userId', userId);
-
-            await fetchUser(token, userId);
-        } catch (error) {
-            console.error('Błąd logowania:', error);
-        } finally {
-            setLoading(false);
+        if (!res.ok) {
+            throw new Error(t('common.message.errorWhileTryingToLogIn'));
         }
+
+        const data = await res.json();
+        const { token, employeeUUID } = data;
+
+        console.log('data from backend', data);
+
+        if (token && token !== 'undefined') {
+            localStorage.setItem('token', token);
+        }
+        if (employeeUUID && employeeUUID !== 'undefined') {
+            localStorage.setItem('employeeUUID', employeeUUID);
+        }
+
+        if (token && token !== 'undefined') {
+            await fetchEmployee(token, employeeUUID);
+        }
+
+        setLoading(false);
     };
 
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
-        setUser(null);
+        setEmployee(null);
         setIsAuthenticated(false);
     };
 
     const hasPermission = (permissionName: string): boolean => {
-        return user?.role?.permissions?.some(permission => permission.name === permissionName) || false;
+        return employee?.role?.permissions?.some(permission => permission.name === permissionName) || false;
     };
 
     const hasAccessToModule = (moduleNames: string[]): boolean => {
@@ -182,7 +199,9 @@ const UserProvider = ({ children }: UserProviderProps) => {
             companies: 'companies',
             calendar: 'calendar',
             settings: 'settings',
+            pages: 'pages',
             emails: 'emails',
+            requests: 'requests',
         };
 
 
@@ -192,14 +211,14 @@ const UserProvider = ({ children }: UserProviderProps) => {
                 return false;
             }
 
-            return user?.role?.permissions?.some(permission =>
+            return employee?.role?.permissions?.some(permission =>
                 permission.name.startsWith(`${basePermission}.`)
             );
         });
     };
 
     return (
-        <UserContext.Provider value={{ user, login, logout, isAuthenticated, hasPermission, hasAccessToModule, loading }}>
+        <UserContext.Provider value={{ employee, login, logout, isAuthenticated, hasPermission, hasAccessToModule, loading }}>
             {children}
         </UserContext.Provider>
     );

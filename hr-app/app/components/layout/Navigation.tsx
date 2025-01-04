@@ -22,7 +22,7 @@ const navLinks = [
 
 const Navigation: React.FC = () => {
     const pathname = usePathname();
-    const { user, isAuthenticated, hasPermission, hasAccessToModule } = useUser();
+    const { isAuthenticated, hasAccessToModule } = useUser();
     const { t } = useTranslation();
 
     return (

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Role from '../../../types/Role';
 import Preview from '../../modal/Preview';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 interface PreviewRoleModalProps {
     open: boolean;
@@ -11,17 +12,46 @@ interface PreviewRoleModalProps {
 
 const PreviewRoleModal: React.FC<PreviewRoleModalProps> = ({ open, selectedRole, onClose }) => {
     const { t } = useTranslation();
+    const [role, setRole] = useState<Role | null>(null);
+
+    useEffect(() => {
+        const fetchRole = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('Token is missing');
+                return;
+            }
+
+            try {
+                const response = await axios.get(`http://127.0.0.1/api/roles/${selectedRole?.uuid}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                if (response?.data.data) {
+                    setRole(response.data.data);
+                }
+            } catch (error) {
+                console.error('Error fetching role by uuid:', error);
+            }
+        };
+
+        if (selectedRole?.uuid) {
+            fetchRole();
+        }
+    }, [selectedRole]);
 
     return (
         <Preview
             open={open}
             title={t('role.modal.preview.title')}
             details={{
-                UUID: selectedRole?.uuid || 'N/D',
-                [t('role.form.field.name')]: selectedRole?.name || 'N/D',
-                [t('role.form.field.description')]: selectedRole?.description || 'N/D',
-                [t('role.form.field.createdAt')]: selectedRole?.createdAt || 'N/D',
-                [t('role.form.field.updatedAt')]: selectedRole?.updatedAt || 'N/D',
+                UUID: role?.uuid || 'N/D',
+                [t('role.form.field.name')]: role?.name || 'N/D',
+                [t('role.form.field.description')]: role?.description || 'N/D',
+                [t('role.form.field.createdAt')]: role?.createdAt || 'N/D',
+                [t('role.form.field.updatedAt')]: role?.updatedAt || 'N/D',
             }}
             onClose={onClose}
         />

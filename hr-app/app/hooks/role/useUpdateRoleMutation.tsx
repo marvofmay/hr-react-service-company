@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Role from '../../types/Role';
 import fakeRoles from '../../fakeData/Roles';
+import { useTranslation } from 'react-i18next';
 
 const updateRole = async (updatedRole: Role): Promise<Role[]> => {
     const updatedRoles = fakeRoles.map(role =>
@@ -12,6 +13,7 @@ const updateRole = async (updatedRole: Role): Promise<Role[]> => {
 
 const useUpdateRoleMutation = () => {
     const queryClient = useQueryClient();
+    const { t } = useTranslation();
 
     return useMutation({
         mutationFn: updateRole,
@@ -19,7 +21,7 @@ const useUpdateRoleMutation = () => {
             queryClient.invalidateQueries({ queryKey: ['roles'] });
         },
         onError: (error) => {
-            console.error('Błąd podczas aktualizacji roli:', error);
+            console.error(t('role.update.error'), error);
         },
     });
 };

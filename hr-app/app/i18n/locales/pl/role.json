@@ -13,7 +13,8 @@
             "title": "Edycja roli"
         },
         "delete": {
-            "title": "Potwierdzenie usunięcia roli"
+            "title": "Potwierdzenie usunięcia roli",
+            "question": "Czy na pewno chcesz usunąć rolę"
         }
     },
     "settings": {

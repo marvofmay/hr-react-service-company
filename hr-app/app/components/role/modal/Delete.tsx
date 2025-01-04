@@ -27,7 +27,7 @@ const DeleteRoleModal: React.FC<DeleteRoleModalProps> = ({ open, selectedRole, o
             onClose={onClose}
             onDeleteConfirm={handleDelete}
             title={t('role.modal.delete.title')}
-            description={`${t('role.modal.delete.question')}: ${selectedRole?.name}?`}
+            description={`${t('role.modal.delete.question')}: "${selectedRole?.name}"?`}
         />
     );
 };

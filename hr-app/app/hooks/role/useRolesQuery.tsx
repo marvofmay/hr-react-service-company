@@ -1,20 +1,46 @@
 import { useQuery } from '@tanstack/react-query';
 import Role from '../../types/Role';
 import fakeRoles from '../../fakeData/Roles';
+import axios from 'axios';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
-const fetchRoles = async (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection): Promise<Role[]> => {
-    // ToDo: dodać wywołanie endpointa z enpoitna API
-    // const response = await axios.get('/api/roles', { params: { pageSize, pageIndex, sortBy, sortDirection } });
-    // return response.data;
+const fetchRoles = async (
+    pageSize: number,
+    pageIndex: number,
+    sortBy: string,
+    sortDirection: SortDirection
+): Promise<Role[]> => {
 
-    // Na razie zwrócimy dane z fakeRoles
-    return fakeRoles;
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        throw new Error('Token is missing');
+    }
+
+    try {
+        const response = await axios.get('http://127.0.0.1/api/roles', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            params: {
+                pageSize,
+                pageIndex,
+                sortBy,
+                sortDirection,
+            },
+        });
+
+        return response.data.data;
+
+    } catch (error) {
+        console.error('Error fetching roles:', error);
+        throw new Error('Error fetching roles');
+    }
 };
 
 const useRolesQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection) => {
-    return useQuery<Role[]>({
+    return useQuery<any>({
         queryKey: ['roles', pageSize, pageIndex, sortBy, sortDirection],
         queryFn: () => fetchRoles(pageSize, pageIndex, sortBy, sortDirection),
     });

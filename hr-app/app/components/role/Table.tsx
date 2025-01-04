@@ -6,7 +6,7 @@ import CreateRoleModal from './modal/Create';
 import EditRoleModal from './modal/Edit';
 import PreviewRoleModal from './modal/Preview';
 import DeleteRoleModal from './modal/Delete';
-import EditPermissionRoleModal from '@/app/components/permission/modal/EditPermissionRole'
+import EditPermissionRoleModal from '@/app/components/permission/modal/EditPermissionRole';
 import useRolesQuery from '../../hooks/role/useRolesQuery';
 import useAddRoleMutation from '@/app/hooks/role/useAddRoleMutation';
 import useUpdateRoleMutation from '@/app/hooks/role/useUpdateRoleMutation';
@@ -19,13 +19,13 @@ import permissions from '@/app/fakeData/Permissions';
 type SortDirection = 'asc' | 'desc' | undefined;
 
 const RolesTable = () => {
-    const [localRoles, setLocalRoles] = useState<Role[] | null>([]);
     const [pageSize, setPageSize] = useState(5);
     const [pageIndex, setPageIndex] = useState(0);
     const [sortBy, setSortBy] = useState('name');
     const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
     const [modalType, setModalType] = useState<string | null>(null);
     const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+    const [localRoles, setLocalRoles] = useState<Role[]>([]); // Dodajemy stan lokalny dla ról
 
     const { data, isLoading, error } = useRolesQuery(pageSize, pageIndex, sortBy, sortDirection);
     const { mutate: addRoleMutate, isSuccess: isAddSuccess, error: isAddError } = useAddRoleMutation();
@@ -34,8 +34,8 @@ const RolesTable = () => {
     const { t } = useTranslation();
 
     useEffect(() => {
-        if (data) {
-            setLocalRoles(data);
+        if (data?.roles) {
+            setLocalRoles(data.roles);
         }
     }, [data]);
 
@@ -127,7 +127,7 @@ const RolesTable = () => {
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.message.somethingWentWrong')} :(</div>
                 </Box>
-            ) : localRoles && localRoles.length === 0 ? (
+            ) : data && data.roles.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.noData')}</div>
                 </Box>
@@ -161,7 +161,7 @@ const RolesTable = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {localRoles?.map((role, index) => (
+                            {localRoles?.map((role, index) => ( // Używamy localRoles zamiast data.roles
                                 <TableRow key={role.uuid}>
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.name}</TableCell>
@@ -181,42 +181,22 @@ const RolesTable = () => {
                 </TableContainer>
             )}
 
-            {localRoles && localRoles.length > 0 && <TablePagination
-                rowsPerPageOptions={[5, 10, 25, 50, 100]}
-                component="div"
-                count={localRoles.length}
-                rowsPerPage={pageSize}
-                page={pageIndex}
-                onPageChange={(event, newPage) => setPageIndex(newPage)}
-                onRowsPerPageChange={handlePageSizeChange}
-            />}
+            {data && data.roles.length > 0 && (
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                    component="div"
+                    count={data.totalRoles}  // Używamy totalRoles z danych
+                    rowsPerPage={pageSize}
+                    page={pageIndex}
+                    onPageChange={(event, newPage) => setPageIndex(newPage)}
+                    onRowsPerPageChange={handlePageSizeChange}
+                />
+            )}
 
-            {modalType === 'preview' && <PreviewRoleModal
-                open={true}
-                selectedRole={selectedRole}
-                onClose={closeModal}
-            />}
-
-            {modalType === 'create' && <CreateRoleModal
-                open={true}
-                onClose={closeModal}
-                onAddRole={role => { handleAdd(role); }}
-            />}
-
-            {modalType === 'edit' && <EditRoleModal
-                open={true}
-                role={selectedRole}
-                onClose={closeModal}
-                onSave={handleUpdate}
-            />}
-
-            {modalType === 'delete' && <DeleteRoleModal
-                open={true}
-                selectedRole={selectedRole}
-                onClose={closeModal}
-                onDeleteConfirm={role => { handleDelete(role); }}
-            />}
-
+            {modalType === 'preview' && <PreviewRoleModal open={true} selectedRole={selectedRole} onClose={closeModal} />}
+            {modalType === 'create' && <CreateRoleModal open={true} onClose={closeModal} onAddRole={role => handleAdd(role)} />}
+            {modalType === 'edit' && <EditRoleModal open={true} role={selectedRole} onClose={closeModal} onSave={handleUpdate} />}
+            {modalType === 'delete' && <DeleteRoleModal open={true} selectedRole={selectedRole} onClose={closeModal} onDeleteConfirm={role => handleDelete(role)} />}
             {modalType === 'permission' && <EditPermissionRoleModal
                 open={true}
                 selectedRole={selectedRole}

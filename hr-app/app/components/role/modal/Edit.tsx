@@ -7,12 +7,12 @@ import { useTranslation } from 'react-i18next';
 
 interface EditRoleModalProps {
     open: boolean;
-    onClose: () => void;
-    role: Role | null;
+    role: any | Role | null;
     onSave: (updatedRole: Role) => void;
+    onClose: () => void;
 }
 
-const EditRoleModal: React.FC<EditRoleModalProps> = ({ open, onClose, role, onSave }) => {
+const EditRoleModal: React.FC<EditRoleModalProps> = ({ open, role, onSave, onClose }) => {
     const { t } = useTranslation();
 
     const validationSchema = Yup.object({
