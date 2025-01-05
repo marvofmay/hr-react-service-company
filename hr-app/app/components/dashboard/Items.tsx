@@ -31,12 +31,13 @@ const Items: React.FC = () => {
                 {fakeDashboardModules.map((module) => (
                     <div
                         key={module.uuid}
-                        className="flex flex-col items-center justify-center w-24 h-24 sm:w-48 sm:h-48 rounded-full bg-[#34495e] hover:bg-[#2c3e50] transition-all shadow-lg cursor-pointer"
+                        className="relative flex flex-col items-center justify-center w-24 h-24 sm:w-48 sm:h-48 rounded-full bg-[#34495e] hover:bg-[#2c3e50] transition-all shadow-lg cursor-pointer group overflow-hidden"
                     >
-                        <div className="text-4xl sm:text-5xl text-white">{moduleIcons[module.name]}</div>
-                        <span className="text-sm sm:text-base text-center mt-2 text-gray-200">
+                        <div className="text-4xl sm:text-5xl text-white z-10 relative">{moduleIcons[module.name]}</div>
+                        <span className="text-sm sm:text-base text-center mt-2 text-gray-200 z-10 relative">
                             {t(`module.${module.name}`)}
                         </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100 transform translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
                     </div>
                 ))}
             </main>

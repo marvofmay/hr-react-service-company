@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import Role from '../../types/Role';
-import fakeRoles from '../../fakeData/Roles';
 import axios from 'axios';
 
 type SortDirection = 'asc' | 'desc' | undefined;
@@ -34,6 +33,10 @@ const fetchRoles = async (
         return response.data.data;
 
     } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+            window.location.href = '/user/logout';
+        }
+
         console.error('Error fetching roles:', error);
         throw new Error('Error fetching roles');
     }
