@@ -117,7 +117,6 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
         const departmentMap: Record<string, TreeViewBaseItem<TreeItemWithLabel>> = {};
         const rootDepartments: TreeViewBaseItem<TreeItemWithLabel>[] = [];
 
-        console.log('before transformDepartmentsToTree', departments);
         // Tworzenie mapy departmentMap
         departments.forEach(department => {
             if (department.uuid === '') {
@@ -143,8 +142,6 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                 rootDepartments.push(departmentMap[department.uuid]);
             }
         });
-
-        console.log('transformDepartmentsToTree', rootDepartments);
 
         return rootDepartments;
     };

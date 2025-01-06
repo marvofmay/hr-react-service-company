@@ -19,7 +19,7 @@ const moduleIcons: Record<string, React.ReactNode> = {
     trips: <FlightIcon fontSize="inherit" color="inherit" />,
     requests: <RequestPageIcon fontSize="inherit" color="inherit" />,
     substitutions: <SwapHorizIcon fontSize="inherit" color="inherit" />,
-    feedbacks: <FeedbackIcon fontSize="inherit" color="inherit" />,
+    feedback: <FeedbackIcon fontSize="inherit" color="inherit" />,
 };
 
 const Items: React.FC = () => {

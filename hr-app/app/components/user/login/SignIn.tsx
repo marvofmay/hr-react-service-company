@@ -146,7 +146,7 @@ export default function SignIn() {
                             variant="h4"
                             sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
                         >
-                            {t('login.title.signIn')}
+                            {t('loginForm.title.signIn')}
                         </Typography>
                         <Box>
                             <Typography sx={{ color: 'red' }}>
@@ -166,7 +166,7 @@ export default function SignIn() {
                             }}
                         >
                             <FormControl>
-                                <FormLabel htmlFor="email">{t('login.label.email')}</FormLabel>
+                                <FormLabel htmlFor="email">{t('loginForm.label.email')}</FormLabel>
                                 <TextField
                                     error={emailError}
                                     helperText={emailErrorMessage}
@@ -185,7 +185,7 @@ export default function SignIn() {
                             </FormControl>
                             <FormControl>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <FormLabel htmlFor="password">{t('login.label.password')}</FormLabel>
+                                    <FormLabel htmlFor="password">{t('loginForm.label.password')}</FormLabel>
                                     <Link
                                         component="button"
                                         type="button"
@@ -193,7 +193,7 @@ export default function SignIn() {
                                         variant="body2"
                                         sx={{ alignSelf: 'baseline' }}
                                     >
-                                        {t('login.question.forgotYourPassword')}
+                                        {t('loginForm.question.forgotYourPassword')}
                                     </Link>
                                 </Box>
                                 <TextField
@@ -213,7 +213,7 @@ export default function SignIn() {
                             </FormControl>
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
+                                label={t('loginForm.button.rememberMe')}
                             />
                             <ForgotPassword open={open} handleClose={handleClose} />
                             <Button
@@ -222,17 +222,17 @@ export default function SignIn() {
                                 variant="contained"
                                 onClick={validateInputs}
                             >
-                                {t('login.button.singIn')}
+                                {t('loginForm.button.singIn')}
                             </Button>
                             <Typography sx={{ textAlign: 'center' }}>
-                                {t('login.question.dontHaveAccount')}
+                                {t('loginForm.question.dontHaveAccount')}
                                 <span>
                                     <Link
                                         href="/register"
                                         variant="body2"
                                         sx={{ alignSelf: 'center' }}
                                     >
-                                        {t('login.button.singUp')}
+                                        {t('loginForm.button.singUp')}
                                     </Link>
                                 </span>
                             </Typography>

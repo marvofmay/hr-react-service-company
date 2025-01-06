@@ -8,7 +8,7 @@ const dashboardModules: Module[] = [
     { uuid: "10", name: "trips" },
     { uuid: "11", name: "requests" },
     { uuid: "12", name: "substitutions" },
-    { uuid: "13", name: "feedbacks" },
+    { uuid: "13", name: "feedback" },
 ];
 
 export default dashboardModules;

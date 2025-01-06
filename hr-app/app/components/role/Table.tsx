@@ -20,12 +20,12 @@ type SortDirection = 'asc' | 'desc' | undefined;
 
 const RolesTable = () => {
     const [pageSize, setPageSize] = useState(5);
-    const [pageIndex, setPageIndex] = useState(0);
+    const [pageIndex, setPageIndex] = useState(1);
     const [sortBy, setSortBy] = useState('name');
     const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
     const [modalType, setModalType] = useState<string | null>(null);
     const [selectedRole, setSelectedRole] = useState<Role | null>(null);
-    const [localRoles, setLocalRoles] = useState<Role[]>([]); // Dodajemy stan lokalny dla ról
+    const [localRoles, setLocalRoles] = useState<Role[]>([]);
 
     const { data, isLoading, error } = useRolesQuery(pageSize, pageIndex, sortBy, sortDirection);
     const { mutate: addRoleMutate, isSuccess: isAddSuccess, error: isAddError } = useAddRoleMutation();
@@ -161,7 +161,7 @@ const RolesTable = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {localRoles?.map((role, index) => ( // Używamy localRoles zamiast data.roles
+                            {localRoles?.map((role, index) => (
                                 <TableRow key={role.uuid}>
                                     <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.name}</TableCell>
@@ -185,9 +185,9 @@ const RolesTable = () => {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25, 50, 100]}
                     component="div"
-                    count={data.totalRoles}  // Używamy totalRoles z danych
+                    count={data.totalRoles}
                     rowsPerPage={pageSize}
-                    page={pageIndex}
+                    page={pageIndex - 1}
                     onPageChange={(event, newPage) => setPageIndex(newPage)}
                     onRowsPerPageChange={handlePageSizeChange}
                 />

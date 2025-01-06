@@ -29,8 +29,8 @@ const RootLayout = ({ children, }: Readonly<{ children: React.ReactNode; }>) => 
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <ToastContainer />
                 <UserProvider>
+                    <ToastContainer />
                     <Navigation />
                     <Content>{children}</Content>
                     <Footer />

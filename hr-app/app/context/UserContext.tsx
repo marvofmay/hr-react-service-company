@@ -38,7 +38,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         const employeeUUID = localStorage.getItem('employeeUUID');
-        if (token && employeeUUID) {
+        if (token) {
             fetchEmployee(token, employeeUUID);
         } else {
             // setEmployee({
@@ -149,7 +149,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
     const login = async (email: string | FormDataEntryValue, password: string | FormDataEntryValue) => {
         setLoading(true);
 
-        const res = await fetch('http://127.0.0.1/api/login_check', {
+        const res = await fetch(`http://127.0.0.1/api/login_check`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),
@@ -161,8 +161,6 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
         const data = await res.json();
         const { token, employeeUUID } = data;
-
-        console.log('data from backend', data);
 
         if (token && token !== 'undefined') {
             localStorage.setItem('token', token);

@@ -174,8 +174,6 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
             }
         });
 
-        console.log('transformDepartmentsToTree', rootDepartments);
-
         return rootDepartments;
     };
 

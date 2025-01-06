@@ -12,13 +12,14 @@ const fetchRoles = async (
 ): Promise<Role[]> => {
 
     const token = localStorage.getItem('token');
+    console.log(pageSize, pageIndex, sortBy, sortDirection);
 
     if (!token) {
         throw new Error('Token is missing');
     }
 
     try {
-        const response = await axios.get('http://127.0.0.1/api/roles', {
+        const response = await axios.get(`http://127.0.0.1/api/roles`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

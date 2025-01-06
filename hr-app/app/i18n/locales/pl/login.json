@@ -1,0 +1,18 @@
+{
+    "title": {
+        "signIn": "logowanie"
+    },
+    "label": {
+        "email": "email",
+        "password": "hasło"
+    },
+    "question": {
+        "forgotYourPassword": "Zapomniałeś hasła?",
+        "dontHaveAccount": "Nie masz konta?"
+    },
+    "button": {
+        "singUp": "zarejestruj",
+        "rememberMe": "zapamiętaj mnie",
+        "singIn": "zaloguj"
+    }
+}
