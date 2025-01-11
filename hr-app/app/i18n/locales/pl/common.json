@@ -32,12 +32,12 @@
         "login": "logowanie"
     },
     "button": {
-        "cancel": "Anuluj",
-        "submit": "Wyślij",
+        "cancel": "anuluj",
+        "submit": "wyślij",
         "delete": "Usuń",
-        "close": "Zamknij",
-        "add": "Dodaj",
-        "save": "Zapisz"
+        "close": "zamknij",
+        "add": "dodaj",
+        "save": "zapisz"
     },
     "yes": "tak",
     "no": "nie",
@@ -54,10 +54,15 @@
     "list": "lista",
     "noData": "brak dostępnych danych",
     "footer": {
-        "info": "Aplikacja do celów edukacyjnych NextJs / React"
+        "info": "aplikacja do celów edukacyjnych NextJs / React"
     },
     "addAnotherPhoneNumber": "kolejny numer telefonu",
     "addAnotherEmail": "kolejny email",
     "addAnotherWeb": "kolejna strona www",
-    "error401": "błąd 401"
+    "error401": "błąd 401",
+    "logout": {
+        "success": {
+            "message": "zostałeś wylogowany"
+        }
+    }
 }

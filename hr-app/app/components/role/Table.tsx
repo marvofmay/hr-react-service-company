@@ -40,17 +40,6 @@ const RolesTable = () => {
     }, [data]);
 
     useEffect(() => {
-        if (isAddSuccess) {
-            closeModal();
-            toast.success(t('role.add.success'));
-        }
-        if (isAddError) {
-            closeModal();
-            toast.success(t('role.add.error'));
-        }
-    }, [isAddSuccess, isAddError]);
-
-    useEffect(() => {
         if (isUpdateSuccess) {
             closeModal();
             toast.success(t('role.update.success'));
@@ -59,17 +48,6 @@ const RolesTable = () => {
             toast.error(t('role.update.error'));
         }
     }, [isUpdateSuccess, isUpdateError]);
-
-    useEffect(() => {
-        if (isDeleteSuccess) {
-            closeModal();
-            toast.success(t('role.delete.success'));
-        }
-        if (isDeleteError) {
-            closeModal();
-            toast.success(t('role.delete.error'));
-        }
-    }, [isDeleteSuccess, isDeleteError]);
 
     const handleSort = (column: string) => {
         const direction = sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc';
@@ -92,14 +70,28 @@ const RolesTable = () => {
     };
 
     const handleAdd = (role: Role) => {
-        addRoleMutate(role);
+        addRoleMutate(role, {
+            onSuccess: (message: string) => {
+                closeModal();
+                toast.success(message);
+            },
+            onError: (error: any) => {
+                closeModal();
+                toast.error(error.message);
+            },
+        });
     };
 
     const handleDelete = (roleToDelete: Role) => {
         deleteRoleMutate(roleToDelete, {
-            onSuccess: (currentRoles: Role[]) => {
-                setLocalRoles(currentRoles);
-            }
+            onSuccess: (message: string) => {
+                closeModal();
+                toast.success(message);
+            },
+            onError: (error: any) => {
+                closeModal();
+                toast.error(error.message);
+            },
         });
     };
 

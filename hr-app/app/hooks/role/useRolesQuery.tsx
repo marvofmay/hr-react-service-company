@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import Role from '../../types/Role';
 import axios from 'axios';
+import { SERVICE_COMPNY_URL } from '@/app/utility/constans';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
@@ -13,13 +14,12 @@ const fetchRoles = async (
 
     const token = localStorage.getItem('token');
     console.log(pageSize, pageIndex, sortBy, sortDirection);
-
     if (!token) {
         throw new Error('Token is missing');
     }
 
     try {
-        const response = await axios.get(`http://127.0.0.1/api/roles`, {
+        const response = await axios.get(`${SERVICE_COMPNY_URL}/api/roles`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

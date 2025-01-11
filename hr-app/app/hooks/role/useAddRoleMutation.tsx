@@ -1,13 +1,36 @@
+import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import Role from '../../types/Role';
-import fakeRoles from '../../fakeData/Roles';
+import Role from '@/app/types/Role';
 import { useTranslation } from 'react-i18next';
+import { SERVICE_COMPNY_URL } from '@/app/utility/constans';
+import { strict } from 'assert';
 
-const addRole = async (role: Role): Promise<Role[]> => {
-    const newRole = { ...role, uuid: `${fakeRoles.length + 1}` };
-    fakeRoles.push(newRole);
+const addRole = async (role: Role, token: string): Promise<string> => {
+    try {
+        const response = await axios.post(
+            `${SERVICE_COMPNY_URL}/api/roles`,
+            {
+                name: role.name,
+                description: role.description,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
 
-    return fakeRoles;
+        return response.data.message;
+    } catch (error: any) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+            window.location.href = '/user/logout';
+        }
+
+        const errorMessage = error.response?.data?.message || 'Unexpected error occurred.';
+
+        throw new Error(errorMessage);
+    }
 };
 
 const useAddRoleMutation = () => {
@@ -15,7 +38,15 @@ const useAddRoleMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: addRole,
+        mutationFn: (role: Role) => {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                throw new Error(t('common.message.tokenIsMissing'));
+            }
+
+            return addRole(role, token);
+        },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['roles'] });
         },
