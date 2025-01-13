@@ -1,7 +1,7 @@
 "use client";
 
 import RolesTable from "@/app/components/role/Table";
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
@@ -14,7 +14,7 @@ const RolesList: React.FC = () => {
             <main>
                 <Box display="flex" justifyContent="center" alignItems="center" >
                     <Box width="90%">
-                        <text>{t('role.list.title')}</text>
+                        <Typography variant="h6" gutterBottom>{t('role.list.title')}</Typography>
                         <QueryClientProvider client={queryClient}>
                             <RolesTable />
                         </QueryClientProvider>

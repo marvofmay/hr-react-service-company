@@ -1,7 +1,7 @@
 "use client";
 
 import PositionsTable from "@/app/components/position/Table";
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
@@ -14,7 +14,7 @@ const PositionsList: React.FC = () => {
             <main>
                 <Box display="flex" justifyContent="center" alignItems="center" >
                     <Box width="90%">
-                        <text>{t('position.list.title')}</text>
+                        <Typography variant="h6" gutterBottom>{t('position.list.title')}</Typography>
                         <QueryClientProvider client={queryClient}>
                             <PositionsTable />
                         </QueryClientProvider>

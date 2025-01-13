@@ -2,21 +2,18 @@ import { useQuery } from '@tanstack/react-query';
 import Role from '../../types/Role';
 import axios from 'axios';
 import { SERVICE_COMPNY_URL } from '@/app/utility/constans';
+import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
 const fetchRoles = async (
+    token: string,
     pageSize: number,
     pageIndex: number,
     sortBy: string,
-    sortDirection: SortDirection
+    sortDirection: SortDirection,
+    phrase: string
 ): Promise<Role[]> => {
-
-    const token = localStorage.getItem('token');
-    console.log(pageSize, pageIndex, sortBy, sortDirection);
-    if (!token) {
-        throw new Error('Token is missing');
-    }
 
     try {
         const response = await axios.get(`${SERVICE_COMPNY_URL}/api/roles`, {
@@ -28,6 +25,7 @@ const fetchRoles = async (
                 pageIndex,
                 sortBy,
                 sortDirection,
+                phrase
             },
         });
 
@@ -38,15 +36,26 @@ const fetchRoles = async (
             window.location.href = '/user/logout';
         }
 
-        console.error('Error fetching roles:', error);
         throw new Error('Error fetching roles');
     }
 };
 
-const useRolesQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection) => {
+const useRolesQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection, phrase: string) => {
+    const { t } = useTranslation();
+
     return useQuery<any>({
-        queryKey: ['roles', pageSize, pageIndex, sortBy, sortDirection],
-        queryFn: () => fetchRoles(pageSize, pageIndex, sortBy, sortDirection),
+        queryKey: ['roles', pageSize, pageIndex, sortBy, sortDirection, phrase],
+        queryFn: async () => {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                throw new Error(t('common.message.tokenIsMissing'));
+            }
+
+            const roles = await fetchRoles(token, pageSize, pageIndex, sortBy, sortDirection, phrase);
+
+            return roles || [];
+        }
     });
 };
 

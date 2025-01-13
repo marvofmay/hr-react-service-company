@@ -202,7 +202,6 @@ const UserProvider = ({ children }: UserProviderProps) => {
             requests: 'requests',
         };
 
-
         return moduleNames.some(moduleName => {
             const basePermission = modulePermissionsMap[moduleName];
             if (!basePermission) {

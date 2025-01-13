@@ -7,7 +7,8 @@
         "errorWhileTryingToLogIn": "Błąd podczas próby logowania",
         "errorWhileTryingGetEmployeeData": "Błąd podczas próby pobrania danych pracownika",
         "tokenIsMissing": "Brak tokenu",
-        "youAreNotLogged": "Nie jesteś zalowowany"
+        "youAreNotLogged": "Nie jesteś zalowowany",
+        "unexpectedErrorOccurred": "Wystąpił nieoczekiwany błąd"
     },
     "path": {
         "home": "strona główna",
@@ -37,7 +38,8 @@
         "delete": "Usuń",
         "close": "zamknij",
         "add": "dodaj",
-        "save": "zapisz"
+        "save": "zapisz",
+        "search": "szukaj"
     },
     "yes": "tak",
     "no": "nie",
@@ -60,6 +62,7 @@
     "addAnotherEmail": "kolejny email",
     "addAnotherWeb": "kolejna strona www",
     "error401": "błąd 401",
+    "enterPhraseToSearch": "wpisz frazę do wyszukania",
     "logout": {
         "success": {
             "message": "zostałeś wylogowany"

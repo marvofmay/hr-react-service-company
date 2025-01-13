@@ -1,7 +1,7 @@
 "use client";
 
 import IndustriesTable from "@/app/components/industry/Table";
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
@@ -14,7 +14,7 @@ export default function IndustriesList() {
             <main>
                 <Box display="flex" justifyContent="center" alignItems="center" >
                     <Box width="90%">
-                        <text>{t('industry.list.title')}</text>
+                        <Typography variant="h6" gutterBottom>{t('industry.list.title')}</Typography>
                         <QueryClientProvider client={queryClient}>
                             <IndustriesTable />
                         </QueryClientProvider>

@@ -22,7 +22,7 @@ const deleteRole = async (roleToDelete: Role, token: string): Promise<string> =>
         if (axios.isAxiosError(error) && error.response?.status === 401) {
             window.location.href = '/user/logout';
         }
-        const errorMessage = error.response?.data?.message || 'Unexpected error occurred.';
+        const errorMessage = error.response?.data?.message;
 
         throw new Error(errorMessage);
     }
