@@ -16,6 +16,7 @@ import userProfilePL from './locales/pl/userProfile.json';
 import permissionPL from './locales/pl/permission.json';
 import modulePL from './locales/pl/module.json';
 import loginPL from './locales/pl/login.json';
+import notesPL from './locales/pl/notes.json';
 
 const resources = {
     en: {
@@ -38,6 +39,7 @@ const resources = {
             permission: permissionPL,
             module: modulePL,
             loginForm: loginPL,
+            notes: notesPL,
         }
     },
 };

@@ -30,7 +30,9 @@
         "emails": "emails",
         "data": "dane",
         "unauthorized": "brak autoryzacji",
-        "login": "logowanie"
+        "login": "logowanie",
+        "module": "moduł",
+        "notes": "notatki"
     },
     "button": {
         "cancel": "anuluj",
@@ -56,7 +58,7 @@
     "list": "lista",
     "noData": "brak dostępnych danych",
     "footer": {
-        "info": "aplikacja do celów edukacyjnych NextJs / React"
+        "info": "aplikacja do celów edukacyjnych NextJs / React / Symfony"
     },
     "addAnotherPhoneNumber": "kolejny numer telefonu",
     "addAnotherEmail": "kolejny email",

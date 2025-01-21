@@ -1,6 +1,6 @@
 const APP_NAME = "HR APP";
 
-const SERVICE_COMPNY_URL = "http://127.0.0.1";
+const SERVICE_COMPNY_URL = "http://127.0.0.1:81";
 
 const LOREM_IPSUM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lobortis elementum egestas. Proin suscipit suscipit tincidunt. Cras iaculis, nibh at laoreet maximus, diam nisl molestie odio, et egestas leo urna ac magna. Fusce tempus lacinia arcu, eget elementum purus varius a. Aenean quis ipsum eleifend, vehicula risus ac, dictum risus. Nam pellentesque quis velit eget sagittis. Praesent commodo nisi a tempor maximus. Donec ex est, fringilla eu interdum at, imperdiet id nibh.
 Nulla luctus scelerisque scelerisque.Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.Aenean cursus, quam id placerat fermentum, est nulla rhoncus libero, eget mollis nunc purus a augue.Ut dapibus erat a varius eleifend.Duis vestibulum est ac dui faucibus, et scelerisque tellus viverra.Suspendisse viverra, turpis quis fringilla efficitur, risus justo efficitur ligula, id efficitur nunc nunc nec erat.Nam ornare libero tellus, id euismod orci lobortis id.

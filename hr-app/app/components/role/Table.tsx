@@ -30,6 +30,7 @@ import { useTranslation } from 'react-i18next';
 import modules from '@/app/fakeData/Modules';
 import permissions from '@/app/fakeData/Permissions';
 import moment from 'moment';
+import { useUser } from "@/app/context/UserContext";
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
@@ -48,6 +49,7 @@ const RolesTable = () => {
     const { mutate: updateRoleMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdateRoleMutation();
     const { mutate: deleteRoleMutate } = useDeleteRoleMutation();
     const { t } = useTranslation();
+    const { hasPermission } = useUser();
 
     useEffect(() => {
         if (data?.roles) {
@@ -145,14 +147,16 @@ const RolesTable = () => {
                         {t('common.button.search')}
                     </Button>
                 </Box>
-                <Button
-                    variant="contained"
-                    color="success"
-                    startIcon={<Add />}
-                    onClick={() => openModal('create')}
-                >
-                    {t('role.button.add')}
-                </Button>
+                {hasPermission("roles.create") &&
+                    <Button
+                        variant="contained"
+                        color="success"
+                        startIcon={<Add />}
+                        onClick={() => openModal('create')}
+                    >
+                        {t('role.button.add')}
+                    </Button>
+                }
             </Box>
 
             {isLoading ? (
@@ -221,10 +225,10 @@ const RolesTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{moment(role.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.updatedAt ? moment(role.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
-                                        <IconButton onClick={() => openModal('preview', role)}><Preview /></IconButton>
-                                        <IconButton onClick={() => openModal('edit', role)}><Edit /></IconButton>
+                                        {hasPermission("roles.preview") && <IconButton onClick={() => openModal('preview', role)}><Preview /></IconButton>}
+                                        {hasPermission("roles.edit") && <IconButton onClick={() => openModal('edit', role)}><Edit /></IconButton>}
                                         <IconButton onClick={() => openModal('permission', role)}><Key /></IconButton>
-                                        <IconButton onClick={() => openModal('delete', role)}><Delete /></IconButton>
+                                        {hasPermission("roles.delete") && <IconButton onClick={() => openModal('delete', role)}><Delete /></IconButton>}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -245,10 +249,10 @@ const RolesTable = () => {
                 />
             )}
 
-            {modalType === 'preview' && <PreviewRoleModal open={true} selectedRole={selectedRole} onClose={closeModal} />}
-            {modalType === 'create' && <CreateRoleModal open={true} onClose={closeModal} onAddRole={role => handleAdd(role)} />}
-            {modalType === 'edit' && <EditRoleModal open={true} role={selectedRole} onClose={closeModal} onSave={handleUpdate} />}
-            {modalType === 'delete' && <DeleteRoleModal open={true} selectedRole={selectedRole} onClose={closeModal} onDeleteConfirm={role => handleDelete(role)} />}
+            {hasPermission("roles.preview") && modalType === 'preview' && <PreviewRoleModal open={true} selectedRole={selectedRole} onClose={closeModal} />}
+            {hasPermission("roles.create") && modalType === 'create' && <CreateRoleModal open={true} onClose={closeModal} onAddRole={role => handleAdd(role)} />}
+            {hasPermission("roles.edit") && modalType === 'edit' && <EditRoleModal open={true} role={selectedRole} onClose={closeModal} onSave={handleUpdate} />}
+            {hasPermission("roles.delete") && modalType === 'delete' && <DeleteRoleModal open={true} selectedRole={selectedRole} onClose={closeModal} onDeleteConfirm={role => handleDelete(role)} />}
             {modalType === 'permission' && <EditPermissionRoleModal
                 open={true}
                 selectedRole={selectedRole}

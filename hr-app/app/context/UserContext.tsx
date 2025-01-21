@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import Employee from '../types/Employee';
+import { SERVICE_COMPNY_URL } from '@/app/utility/constans';
 
 interface UserContextType {
     employee: Employee | null;
@@ -89,7 +90,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
         setLoading(true);
 
         if (token && token !== 'undefined' && employeeUUID && employeeUUID !== 'undefined') {
-            const res = await fetch(`http://127.0.0.1/api/employees/${employeeUUID}`, {
+            const res = await fetch(`${SERVICE_COMPNY_URL}/api/employees/${employeeUUID}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -110,19 +111,32 @@ const UserProvider = ({ children }: UserProviderProps) => {
                     uuid: '1',
                     name: 'admin',
                     permissions: [
-                        { uuid: '1', name: 'notifications.view' },
+                        { uuid: '1', name: 'notifications.preview' },
                         { uuid: '2', name: 'notifications.delete' },
                         { uuid: '3', name: 'notifications.settings' },
-                        { uuid: '4', name: 'companies.create' },
-                        { uuid: '5', name: 'companies.edit' },
-                        { uuid: '6', name: 'companies.view' },
-                        { uuid: '7', name: 'companies.delete' },
-                        { uuid: '8', name: 'emails.send' },
-                        { uuid: '9', name: 'emails.view' },
-                        { uuid: '10', name: 'task.create' },
-                        { uuid: '11', name: 'task.edit' },
-                        { uuid: '12', name: 'task.view' },
-                        { uuid: '13', name: 'task.delete' },
+                        { uuid: '4', name: 'notifications.list' },
+                        { uuid: '5', name: 'companies.create' },
+                        { uuid: '6', name: 'companies.edit' },
+                        { uuid: '7', name: 'companies.preview' },
+                        { uuid: '8', name: 'companies.list' },
+                        { uuid: '9', name: 'companies.delete' },
+                        { uuid: '10', name: 'emails.send' },
+                        { uuid: '11', name: 'emails.preview' },
+                        { uuid: '12', name: 'task.create' },
+                        { uuid: '13', name: 'task.edit' },
+                        { uuid: '14', name: 'task.preview' },
+                        { uuid: '15', name: 'task.delete' },
+                        { uuid: '16', name: 'task.list' },
+                        { uuid: '17', name: 'roles.list' },
+                        { uuid: '18', name: 'roles.create' },
+                        { uuid: '19', name: 'roles.preview' },
+                        { uuid: '20', name: 'roles.edit' },
+                        { uuid: '21', name: 'roles.delete' },
+                        { uuid: '17', name: 'notes.list' },
+                        // { uuid: '18', name: 'notes.create' },
+                        // { uuid: '19', name: 'notes.preview' },
+                        // { uuid: '20', name: 'notes.edit' },
+                        // { uuid: '21', name: 'notes.delete' },
                     ],
                 },
                 firstName: 'Emil',
@@ -142,6 +156,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
         } else {
             setIsAuthenticated(false);
             setLoading(false);
+
             throw new Error(t('common.message.errorWhileTryingGetEmployeeData'));
         }
     };
@@ -149,7 +164,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
     const login = async (email: string | FormDataEntryValue, password: string | FormDataEntryValue) => {
         setLoading(true);
 
-        const res = await fetch(`http://127.0.0.1/api/login_check`, {
+        const res = await fetch(`${SERVICE_COMPNY_URL}/api/login_check`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),
@@ -189,14 +204,15 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
     const hasAccessToModule = (moduleNames: string[]): boolean => {
         const modulePermissionsMap: { [key: string]: string } = {
-            notifications: 'notifications',
             tasks: 'tasks',
             notes: 'notes',
+            roles: 'roles',
             employees: 'employees',
             departments: 'departments',
             companies: 'companies',
-            calendar: 'calendar',
             settings: 'settings',
+            calendar: 'calendar',
+            notifications: 'notifications',
             pages: 'pages',
             emails: 'emails',
             requests: 'requests',
