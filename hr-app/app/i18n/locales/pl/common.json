@@ -7,7 +7,7 @@
         "errorWhileTryingToLogIn": "Błąd podczas próby logowania",
         "errorWhileTryingGetEmployeeData": "Błąd podczas próby pobrania danych pracownika",
         "tokenIsMissing": "Brak tokenu",
-        "youAreNotLogged": "Nie jesteś zalowowany",
+        "youAreNotLogged": "Nie jesteś zalogowany",
         "unexpectedErrorOccurred": "Wystąpił nieoczekiwany błąd"
     },
     "path": {
