@@ -4,6 +4,7 @@ import { useUser } from '../../context/UserContext';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import CenteredMessage from '@/app/components/shared/CenteredMessage';
 
 const Home: React.FC = () => {
     const { t } = useTranslation();
@@ -20,7 +21,7 @@ const Home: React.FC = () => {
         <div className="grid grid-rows-[10px_1fr_10px] min-h-screen p-1 pb-1 sm:p-1 font-[family-name:var(--font-geist-sans)]">
             <main>
                 {!loading && !isAuthenticated ? (
-                    <p>{t('common.message.youAreNotLogged')}</p>
+                    <CenteredMessage message={t('common.message.youAreNotLogged')} />
                 ) : (
                     <>
                         <p>{t('notes.title')}</p>
