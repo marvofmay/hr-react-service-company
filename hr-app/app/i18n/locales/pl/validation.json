@@ -1,3 +1,5 @@
 {
-    "fieldIsRequired": "Pole jest wymagane"
+    "fieldIsRequired": "Pole jest wymagane",
+    "pleaseEnterValidEmailAddress": "Podaj poprawny adres email",
+    "passwordMustBeAtLeast7CharactersLong": "Hasło musi mieć co najmniej 7 znaków"
 }

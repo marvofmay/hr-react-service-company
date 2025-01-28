@@ -1,6 +1,6 @@
 {
     "title": {
-        "signIn": "logowanie"
+        "login": "formularz logowania"
     },
     "label": {
         "email": "email",

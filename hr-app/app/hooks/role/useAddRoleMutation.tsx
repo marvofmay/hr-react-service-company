@@ -22,11 +22,9 @@ const addRole = async (role: Role, token: string): Promise<string> => {
 
         return response.data.message;
     } catch (error: any) {
-        if (axios.isAxiosError(error) && error.response?.status === 401) {
+        if (axios.isAxiosError(error) && error.response?.status !== 200) {
             window.location.href = '/user/logout';
         }
-
-        console.log('error0', error);
 
         throw error;
     }

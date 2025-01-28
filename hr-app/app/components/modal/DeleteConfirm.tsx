@@ -9,6 +9,7 @@ interface DeleteConfirmModalProps<T> {
     onDeleteConfirm: (item: T) => void;
     title: string;
     description: string;
+    errorAPI?: string;
 }
 
 const DeleteConfirmModal = <T,>({
@@ -18,12 +19,12 @@ const DeleteConfirmModal = <T,>({
     onDeleteConfirm,
     title,
     description,
+    errorAPI
 }: DeleteConfirmModalProps<T>) => {
     const handleDelete = () => {
         if (selectedItem) {
             onDeleteConfirm(selectedItem);
         }
-        onClose();
     };
 
     const { t } = useTranslation();
@@ -41,6 +42,11 @@ const DeleteConfirmModal = <T,>({
                 {title}
             </DialogTitle>
             <DialogContent>
+                {errorAPI && (
+                    <div style={{ color: 'red', marginBottom: '1rem' }}>
+                        <strong> {errorAPI}</strong>
+                    </div>
+                )}
                 <DialogContentText sx={{ marginTop: '1rem' }}>
                     {description}
                 </DialogContentText>

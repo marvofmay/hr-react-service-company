@@ -57,16 +57,6 @@ const RolesTable = () => {
         }
     }, [data]);
 
-    useEffect(() => {
-        if (isUpdateSuccess) {
-            closeModal();
-            toast.success(t('role.update.success'));
-        }
-        if (isUpdateError) {
-            toast.error(t('role.update.error'));
-        }
-    }, [isUpdateSuccess, isUpdateError]);
-
     const handleSearch = () => {
         setPhrase(searchPhrase);
     };
@@ -91,39 +81,49 @@ const RolesTable = () => {
         setPageSize(Number(event.target.value));
     };
 
-    const handleAdd = async (role: Role) => {
+    const handleAdd = async (newRole: Role): Promise<void> => {
         return new Promise((resolve, reject) => {
-            addRoleMutate(role, {
+            addRoleMutate(newRole, {
                 onSuccess: (message: string) => {
                     toast.success(message);
-                    resolve('');
+                    resolve();
                 },
                 onError: (error: any) => {
-                    console.log('error2', error);
+                    console.log('error handleAdd', error);
                     reject(error);
                 },
             });
         });
     };
 
-    const handleDelete = (roleToDelete: Role) => {
-        deleteRoleMutate(roleToDelete, {
-            onSuccess: (message: string) => {
-                closeModal();
-                toast.success(message);
-            },
-            onError: (error: any) => {
-                closeModal();
-                toast.error(error.message);
-            },
+    const handleDelete = (roleToDelete: Role): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            deleteRoleMutate(roleToDelete, {
+                onSuccess: (message: string) => {
+                    toast.success(message);
+                    resolve();
+                },
+                onError: (error: any) => {
+                    console.log('error handleDelete', error);
+                    reject(error);
+                },
+            });
         });
     };
 
-    const handleUpdate = (updatedRole: Role) => {
-        updateRoleMutate(updatedRole, {
-            onSuccess: (currentRoles) => {
-                setLocalRoles(currentRoles);
-            }
+    const handleUpdate = (updatedRole: Role): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            updateRoleMutate(updatedRole, {
+                onSuccess: (message: string) => {
+                    toast.success(message);
+
+                    resolve();
+                },
+                onError: (error: any) => {
+                    console.log('error handleUpdate', error);
+                    reject(error);
+                },
+            });
         });
     };
 

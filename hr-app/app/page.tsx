@@ -21,7 +21,6 @@ const Home: React.FC = () => {
                     <>
                         <div>
                             <p>Witaj, {employee?.firstName} {employee?.lastName}</p>
-                            <p>Email: {employee?.email}</p>
                         </div>
                         <Items />
                     </>

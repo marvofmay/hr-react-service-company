@@ -1,4 +1,4 @@
-import type {} from '@mui/material/themeCssVarsAugmentation';
+import type { } from '@mui/material/themeCssVarsAugmentation';
 import { ThemeOptions, PaletteMode } from '@mui/material/styles';
 import { getDesignTokens } from './themePrimitives';
 import {
@@ -18,6 +18,16 @@ export default function getSignUpTheme(mode: PaletteMode): ThemeOptions {
             ...feedbackCustomizations,
             ...navigationCustomizations,
             ...surfacesCustomizations,
-        },
+            MuiButton: {
+                styleOverrides: {
+                    containedPrimary: {
+                        backgroundColor: '#34495e', // Twój niestandardowy kolor
+                        '&:hover': {
+                            backgroundColor: '#2c3e50', // Kolor na hover
+                        },
+                    },
+                },
+            },
+        }
     };
 }

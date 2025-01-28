@@ -116,16 +116,16 @@ export default function SignIn() {
 
         if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
             setEmailError(true);
-            setEmailErrorMessage('Please enter a valid email address.');
+            setEmailErrorMessage(t('validation.pleaseEnterValidEmailAddress'));
             isValid = false;
         } else {
             setEmailError(false);
             setEmailErrorMessage('');
         }
 
-        if (!password.value || password.value.length < 6) {
+        if (!password.value || password.value.length < 7) {
             setPasswordError(true);
-            setPasswordErrorMessage('Password must be at least 6 characters long.');
+            setPasswordErrorMessage(t('validation.passwordMustBeAtLeast7CharactersLong'));
             isValid = false;
         } else {
             setPasswordError(false);
@@ -144,9 +144,14 @@ export default function SignIn() {
                         <Typography
                             component="h1"
                             variant="h4"
-                            sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
+                            sx={{
+                                width: '100%',
+                                fontSize: 'clamp(1.5rem, 8vw, 1.8rem)',
+                                color: '#34495e',
+                                textTransform: 'uppercase',
+                            }}
                         >
-                            {t('loginForm.title.signIn')}
+                            {t('loginForm.title.login')}
                         </Typography>
                         <Box>
                             <Typography sx={{ color: 'red' }}>
@@ -211,10 +216,10 @@ export default function SignIn() {
                                     color={passwordError ? 'error' : 'primary'}
                                 />
                             </FormControl>
-                            <FormControlLabel
+                            {/* <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label={t('loginForm.button.rememberMe')}
-                            />
+                            /> */}
                             <ForgotPassword open={open} handleClose={handleClose} />
                             <Button
                                 type="submit"
@@ -224,7 +229,7 @@ export default function SignIn() {
                             >
                                 {t('loginForm.button.singIn')}
                             </Button>
-                            <Typography sx={{ textAlign: 'center' }}>
+                            {/* <Typography sx={{ textAlign: 'center' }}>
                                 {t('loginForm.question.dontHaveAccount')}
                                 <span>
                                     <Link
@@ -235,7 +240,7 @@ export default function SignIn() {
                                         {t('loginForm.button.singUp')}
                                     </Link>
                                 </span>
-                            </Typography>
+                            </Typography> */}
                         </Box>
                         <Divider />
                     </Card>

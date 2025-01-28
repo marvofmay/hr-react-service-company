@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 interface EditRoleModalProps {
     open: boolean;
     role: any | Role | null;
-    onSave: (updatedRole: Role) => void;
+    onSave: (updatedRole: Role) => Promise<void>;
     onClose: () => void;
 }
 
@@ -20,6 +20,23 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({ open, role, onSave, onClo
         description: Yup.string(),
     });
 
+    const [errorsAPI, setErrorsAPI] = useState<Object>();
+
+    const handleSubmit = async (values: Role) => {
+        try {
+            if (role) {
+                console.log(role);
+                await onSave({ ...role, ...values });
+
+                onClose();
+            }
+        } catch (error: any) {
+            if (error.response?.status === 422) {
+                setErrorsAPI(error.response.data.errors);
+            }
+        }
+    }
+
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
@@ -27,20 +44,29 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({ open, role, onSave, onClo
             </DialogTitle>
             <Formik
                 initialValues={{
+                    uuid: role?.uuid || '',
                     name: role?.name || '',
                     description: role?.description || '',
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values) => {
-                    if (role) {
-                        onSave({ ...role, ...values });
-                        onClose();
-                    }
-                }}
+                onSubmit={handleSubmit}
             >
                 {({ errors, touched, handleChange }) => (
                     <Form>
                         <DialogContent>
+                            {errorsAPI && (
+                                <div style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {Object.entries(errorsAPI).map(([key, value]) => (
+                                        <ul key={key} style={{ marginBottom: '10px' }}>
+                                            <li>
+                                                <span>
+                                                    <strong>{key}:</strong> {value}
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    ))}
+                                </div>
+                            )}
                             <Field
                                 as={TextField}
                                 fullWidth
