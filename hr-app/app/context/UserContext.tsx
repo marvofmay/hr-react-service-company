@@ -95,6 +95,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
             });
 
             const data = await res.json();
+
             setEmployee(data);
             setIsAuthenticated(true);
         } else if (token && token !== 'undefined') {
@@ -111,6 +112,8 @@ const UserProvider = ({ children }: UserProviderProps) => {
                     uuid: '1',
                     name: 'admin',
                     permissions: [
+                        { uuid: '0', name: 'pages.home' },
+                        { uuid: '0', name: 'pages.info' },
                         { uuid: '1', name: 'notifications.preview' },
                         { uuid: '2', name: 'notifications.delete' },
                         { uuid: '3', name: 'notifications.settings' },

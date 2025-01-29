@@ -36,7 +36,7 @@ const fetchRoles = async (
             window.location.href = '/user/logout';
         }
 
-        throw new Error('Error fetching roles');
+        throw error;
     }
 };
 

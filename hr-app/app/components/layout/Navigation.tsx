@@ -16,13 +16,13 @@ import { useUser } from "@/app/context/UserContext";
 
 const navLinks = [
     { href: "/", label: { APP_NAME }, activePath: "/", icon: <HomeIcon /> },
-    { href: "/", label: "Home", activePath: "/", icon: <HomeIcon /> },
-    { href: "/info", label: "Info", activePath: "/info", icon: <InfoIcon /> },
+    { href: "/", label: "Home", activePath: "/", icon: <HomeIcon />, name: 'home' },
+    { href: "/info", label: "Info", activePath: "/info", icon: <InfoIcon />, name: 'info' },
 ];
 
 const Navigation: React.FC = () => {
     const pathname = usePathname();
-    const { isAuthenticated, hasAccessToModule } = useUser();
+    const { isAuthenticated, hasAccessToModule, hasPermission } = useUser();
     const { t } = useTranslation();
 
     return (
@@ -32,7 +32,7 @@ const Navigation: React.FC = () => {
                     <Typography>{APP_NAME}</Typography>
                 </Link>
                 <div style={{ display: "flex", gap: "16px" }}>
-                    {navLinks.slice(1).map(link => (
+                    {navLinks.slice(1).map(link => isAuthenticated && hasPermission(`pages.${link.name}`) && (
                         <Link
                             key={link.href}
                             href={link.href}
