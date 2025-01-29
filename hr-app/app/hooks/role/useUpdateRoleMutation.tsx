@@ -27,8 +27,6 @@ const updateRole = async (updatedRole: Role, token: string): Promise<string> => 
             window.location.href = '/user/logout';
         }
 
-        console.log('error hook updateRole', error);
-
         throw error;
     }
 };
