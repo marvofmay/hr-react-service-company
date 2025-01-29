@@ -3,7 +3,7 @@
 import { useUser } from "@/app/context/UserContext";
 import { useTranslation } from "react-i18next";
 import { Box, CircularProgress } from '@mui/material';
-import CenteredMessage from "../components/shared/CenteredMessage";
+import CenteredMessage from '@/app/components/shared/CenterdeMessage';
 
 const Info: React.FC = () => {
     const { t } = useTranslation();

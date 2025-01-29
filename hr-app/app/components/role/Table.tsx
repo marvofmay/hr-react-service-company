@@ -35,7 +35,7 @@ import { useUser } from "@/app/context/UserContext";
 type SortDirection = 'asc' | 'desc' | undefined;
 
 const RolesTable = () => {
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(10);
     const [pageIndex, setPageIndex] = useState(1);
     const [sortBy, setSortBy] = useState('name');
     const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
@@ -221,7 +221,7 @@ const RolesTable = () => {
                                 <TableRow key={role.uuid}>
                                     <TableCell sx={{ padding: '4px 8px' }}>{(pageIndex - 1) * pageSize + index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.name}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{role.description}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{role.description || '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{moment(role.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.updatedAt ? moment(role.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
@@ -246,6 +246,8 @@ const RolesTable = () => {
                     page={pageIndex - 1}
                     onPageChange={(_, newPage) => setPageIndex(newPage + 1)}
                     onRowsPerPageChange={handlePageSizeChange}
+                    labelRowsPerPage={t('common.rowPerPage')}
+                    labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${t('common.of')} ${count}`}
                 />
             )}
 

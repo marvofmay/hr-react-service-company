@@ -69,5 +69,7 @@
         "success": {
             "message": "zostałeś wylogowany"
         }
-    }
+    },
+    "rowPerPage": "Ilość wierszy na stronę",
+    "of": "z"
 }

@@ -4,7 +4,7 @@ import Items from './components/dashboard/Items';
 import { useUser } from './context/UserContext';
 import { useTranslation } from 'react-i18next';
 import { Box, CircularProgress } from '@mui/material';
-import CenteredMessage from './components/shared/CenteredMessage';
+import CenteredMessage from '@/app/components/shared/CenterdeMessage';
 
 const Home: React.FC = () => {
     const { t } = useTranslation();

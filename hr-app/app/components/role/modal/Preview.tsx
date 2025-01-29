@@ -34,7 +34,7 @@ const PreviewRoleModal: React.FC<PreviewRoleModalProps> = ({ open, selectedRole,
                     setRole(response.data.data);
                 }
             } catch (error) {
-                if (axios.isAxiosError(error) && error.response?.status === 401) {
+                if (axios.isAxiosError(error) && error.response?.status !== 200) {
                     window.location.href = '/user/logout';
                 }
                 console.error('Error fetching role by uuid:', error);
