@@ -43,6 +43,8 @@ const fetchRoles = async (
 const useRolesQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection, phrase: string) => {
     const { t } = useTranslation();
 
+    console.log('get roles:', pageSize, pageIndex, sortBy, sortDirection, 'phrae:', phrase);
+
     return useQuery<any>({
         queryKey: ['roles', pageSize, pageIndex, sortBy, sortDirection, phrase],
         queryFn: async () => {

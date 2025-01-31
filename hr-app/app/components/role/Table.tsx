@@ -35,10 +35,10 @@ import { useUser } from "@/app/context/UserContext";
 type SortDirection = 'asc' | 'desc' | undefined;
 
 const RolesTable = () => {
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(5);
     const [pageIndex, setPageIndex] = useState(1);
-    const [sortBy, setSortBy] = useState('name');
-    const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
+    const [sortBy, setSortBy] = useState('createdAt');
+    const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
     const [searchPhrase, setSearchPhrase] = useState<string>('');
     const [phrase, setPhrase] = useState<string>('');
     const [modalType, setModalType] = useState<string | null>(null);
@@ -47,7 +47,7 @@ const RolesTable = () => {
     const { data, isLoading, error } = useRolesQuery(pageSize, pageIndex, sortBy, sortDirection, phrase);
     const { mutate: addRoleMutate } = useAddRoleMutation();
     const { mutate: updateRoleMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdateRoleMutation();
-    const { mutate: deleteRoleMutate } = useDeleteRoleMutation();
+    const { mutate: deleteRoleMutate } = useDeleteRoleMutation(pageSize, pageIndex, sortBy, sortDirection, phrase, setPageIndex);
     const { t } = useTranslation();
     const { hasPermission } = useUser();
 
@@ -59,6 +59,7 @@ const RolesTable = () => {
 
     const handleSearch = () => {
         setPhrase(searchPhrase);
+        setPageIndex(1);
     };
 
     const handleSort = (column: string) => {
@@ -85,6 +86,7 @@ const RolesTable = () => {
         return new Promise((resolve, reject) => {
             addRoleMutate(newRole, {
                 onSuccess: (message: string) => {
+                    setPageIndex(1);
                     toast.success(message);
                     resolve();
                 },
@@ -120,7 +122,6 @@ const RolesTable = () => {
                     resolve();
                 },
                 onError: (error: any) => {
-                    console.log('error handleUpdate', error);
                     reject(error);
                 },
             });
@@ -136,7 +137,9 @@ const RolesTable = () => {
                         placeholder={t('common.enterPhraseToSearch')}
                         size="small"
                         sx={{ width: '500px' }}
-                        onChange={(e) => setSearchPhrase(e.target.value)}
+                        onChange={(e) => {
+                            setSearchPhrase(e.target.value)
+                        }}
                     />
                     <Button
                         startIcon={<Search />}

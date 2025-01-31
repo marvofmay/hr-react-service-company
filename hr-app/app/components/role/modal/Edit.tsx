@@ -86,6 +86,8 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({ open, role, onSave, onClo
                                 label={t('role.form.field.description')}
                                 variant="outlined"
                                 margin="dense"
+                                multiline
+                                rows={3}
                                 onChange={handleChange}
                                 error={touched.description && Boolean(errors.description)}
                                 helperText={touched.description && errors.description}
