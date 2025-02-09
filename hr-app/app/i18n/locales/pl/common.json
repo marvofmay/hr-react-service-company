@@ -41,7 +41,9 @@
         "close": "zamknij",
         "add": "dodaj",
         "save": "zapisz",
-        "search": "szukaj"
+        "search": "szukaj",
+        "chooseFile": "wskaż plik",
+        "sendFile": "prześlij plik"
     },
     "yes": "tak",
     "no": "nie",
@@ -71,5 +73,6 @@
         }
     },
     "rowPerPage": "Ilość wierszy na stronę",
-    "of": "z"
+    "of": "z",
+    "uploadFile": "Wgraj plik"
 }

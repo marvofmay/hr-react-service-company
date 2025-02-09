@@ -15,13 +15,18 @@
         "delete": {
             "title": "Potwierdzenie usunięcia roli",
             "question": "Czy na pewno chcesz usunąć rolę"
+        },
+        "import": {
+            "title": "Import ról z pliku XLSX"
         }
     },
     "settings": {
         "title": "Ustawienia ról"
     },
     "button": {
-        "add": "Dodaj rolę"
+        "add": "Dodaj rolę",
+        "importFromXLSX": "Importuj z pliku xlsx",
+        "deleteChecked": "Usuń zaznaczone"
     },
     "add": {
         "success": "Nowa rola została dodana",

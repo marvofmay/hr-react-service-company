@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, IconButton } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Role from '../../../types/Role';
 import { useTranslation } from 'react-i18next';
+import CloseIcon from "@mui/icons-material/Close";
 
 interface AddRoleModalProps {
     open: boolean;
@@ -46,6 +47,13 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
         <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 {t('role.modal.add.title')}
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{ color: '#ffffff', position: "absolute", right: 8, top: 8 }}
+                >
+                    <CloseIcon />
+                </IconButton>
             </DialogTitle>
             <Formik
                 initialValues={initialValues}

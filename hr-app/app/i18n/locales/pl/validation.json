@@ -1,5 +1,7 @@
 {
     "fieldIsRequired": "Pole jest wymagane",
     "pleaseEnterValidEmailAddress": "Podaj poprawny adres email",
-    "passwordMustBeAtLeast7CharactersLong": "Hasło musi mieć co najmniej 7 znaków"
+    "passwordMustBeAtLeast7CharactersLong": "Hasło musi mieć co najmniej 7 znaków",
+    "fileIsRequired": "Wymagany jest plik",
+    "invalidFileFormat": "Nieprawidłowy format pliku"
 }
