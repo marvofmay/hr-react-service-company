@@ -225,6 +225,7 @@ const RolesTable = () => {
                         <Button
                             variant="contained"
                             color="error"
+                            startIcon={<Delete />}
                             onClick={() => removeSelected()}
                         >
                             {t('role.button.deleteChecked')}
