@@ -23,6 +23,7 @@ import EditRoleModal from '@/app/components/role/modal/Edit';
 import PreviewRoleModal from '@/app/components/role/modal/Preview';
 import ImportRolesFromXLSXModal from '@/app/components/role/modal/importRolesFromXLSX';
 import DeleteRoleModal from '@/app/components/role/modal/Delete';
+import DeleteMultipleRolesModal from '@/app/components/role/modal/DeleteMultiple';
 import EditPermissionRoleModal from '@/app/components/permission/modal/EditPermissionRole';
 import useRolesQuery from '@/app/hooks/role/useRolesQuery';
 import useAddRoleMutation from '@/app/hooks/role/useAddRoleMutation';
@@ -171,10 +172,21 @@ const RolesTable = () => {
     };
 
     // Usuwa zaznaczone wiersze
-    const removeSelected = () => {
-        //dodać modal potwierdzenia usunięcia
-        console.log(selected);
-        setSelected([]);
+    const handleDeleteMultiple = (rolesToDelete: Role[]): Promise<void> => {
+        console.log('rolesToDelete', rolesToDelete);
+        return new Promise((resolve, reject) => {
+            // deleteMultipleRoleMutate(rolesToDelete, {
+            //     onSuccess: (message: string) => {
+            //         toast.success(message);
+            //         resolve();
+            //     },
+            //     onError: (error: any) => {
+            //         toast.error(t('role.delete.error'));
+
+            //         reject(error);
+            //     },
+            // });
+        });
     };
 
     return (
@@ -226,7 +238,7 @@ const RolesTable = () => {
                             variant="contained"
                             color="error"
                             startIcon={<Delete />}
-                            onClick={() => removeSelected()}
+                            onClick={() => openModal('multipleDelete')}
                         >
                             {t('role.button.deleteChecked')}
                         </Button>
@@ -295,7 +307,15 @@ const RolesTable = () => {
                                         {t('role.table.column.createdAt')}
                                     </TableSortLabel>
                                 </TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('role.table.column.updatedAt')}</TableCell>
+                                <TableCell
+                                    sortDirection={sortBy === 'updatedAt' ? sortDirection : false}
+                                    onClick={() => handleSort('updatedAt')}
+                                    sx={{ padding: '4px 8px' }}
+                                >
+                                    <TableSortLabel active={sortBy === 'updateddAt'} direction={sortBy === 'updatedAt' ? sortDirection : 'asc'}>
+                                        {t('role.table.column.updatedAt')}
+                                    </TableSortLabel>
+                                </TableCell>
                                 <TableCell sx={{ padding: '4px 8px' }}>{t('role.table.column.actions')}</TableCell>
                             </TableRow>
                         </TableHead>
@@ -355,11 +375,6 @@ const RolesTable = () => {
                 role={selectedRole}
                 onClose={closeModal}
                 onSave={handleUpdate} />}
-            {hasPermission("roles.delete") && modalType === 'delete' && <DeleteRoleModal
-                open={true}
-                selectedRole={selectedRole}
-                onClose={closeModal}
-                onDeleteConfirm={role => handleDelete(role)} />}
             {modalType === 'permission' && <EditPermissionRoleModal
                 open={true}
                 selectedRole={selectedRole}
@@ -373,6 +388,17 @@ const RolesTable = () => {
                 onClose={closeModal}
                 onImportRolesFromXLSX={handleImportRolesFromXLSX}
                 allowedTypes={["xlsx"]}
+            />}
+            {hasPermission("roles.delete") && modalType === 'delete' && <DeleteRoleModal
+                open={true}
+                selectedRole={selectedRole}
+                onClose={closeModal}
+                onDeleteConfirm={role => handleDelete(role)} />}
+            {hasPermission("roles.delete") && modalType === 'multipleDelete' && <DeleteMultipleRolesModal
+                open={true}
+                selectedRoles={localRoles.filter(role => selected.includes(role.uuid))}
+                onClose={closeModal}
+                onDeleteMultipleConfirm={roles => handleDeleteMultiple(roles)}
             />}
         </div>
     );
