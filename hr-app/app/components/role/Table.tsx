@@ -280,7 +280,7 @@ const RolesTable = () => {
                                 <TableCell
                                     sortDirection={sortBy === 'description' ? sortDirection : false}
                                     onClick={() => handleSort('description')}
-                                    sx={{ padding: '4px 8px' }}
+                                    sx={{ width: "750px", minWidth: "750px", maxWidth: "750px", padding: "4px 8px" }}
                                 >
                                     <TableSortLabel active={sortBy === 'description'} direction={sortBy === 'description' ? sortDirection : 'asc'}>
                                         {t('role.table.column.description')}
