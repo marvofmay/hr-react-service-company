@@ -263,14 +263,15 @@ const RolesTable = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell sx={{ width: "50px", minWidth: "50px", maxWidth: "50px", padding: "4px 8px" }}
-                                    onChange={toggleSelectAll}
-                                >
-                                    <Checkbox
-                                        checked={allSelected}
+                                {hasPermission("roles.delete") && (
+                                    <TableCell sx={{ width: "50px", minWidth: "50px", maxWidth: "50px", padding: "4px 8px" }}
                                         onChange={toggleSelectAll}
-                                    />
-                                </TableCell>
+                                    >
+                                        <Checkbox
+                                            checked={allSelected}
+                                            onChange={toggleSelectAll}
+                                        />
+                                    </TableCell>)}
                                 <TableCell
                                     sortDirection={sortBy === 'id' ? sortDirection : false}
                                     onClick={() => handleSort('id')}
@@ -322,12 +323,12 @@ const RolesTable = () => {
                         <TableBody>
                             {localRoles?.map((role, index) => (
                                 <TableRow key={role.uuid}>
-                                    <TableCell sx={{ width: "50px", minWidth: "50px", maxWidth: "50px", padding: "4px 8px" }}>
+                                    {hasPermission("roles.delete") && (<TableCell sx={{ width: "50px", minWidth: "50px", maxWidth: "50px", padding: "4px 8px" }}>
                                         <Checkbox
                                             checked={selected.includes(role.uuid)}
                                             onChange={() => toggleSelectRow(role.uuid)}
                                         />
-                                    </TableCell>
+                                    </TableCell>)}
                                     <TableCell sx={{ padding: '4px 8px' }}>{(pageIndex - 1) * pageSize + index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.name}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.description || '-'}</TableCell>

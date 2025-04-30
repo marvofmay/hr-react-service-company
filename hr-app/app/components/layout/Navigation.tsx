@@ -29,7 +29,10 @@ const Navigation: React.FC = () => {
         <AppBar position="static" sx={{ backgroundColor: "#34495e" }}>
             <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Link href="/" color="inherit" underline="none">
-                    <Typography>{APP_NAME}</Typography>
+                    <img src="/icons/hr-app-logo.png" className="logo" alt="Logo" />
+                    {/* <Typography>
+                        {APP_NAME}
+                    </Typography> */}
                 </Link>
                 <div style={{ display: "flex", gap: "16px" }}>
                     {navLinks.slice(1).map(link => isAuthenticated && hasPermission(`pages.${link.name}`) && (

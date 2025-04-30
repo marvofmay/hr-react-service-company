@@ -167,7 +167,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
     const login = async (email: string | FormDataEntryValue, password: string | FormDataEntryValue) => {
         setLoading(true);
 
-        const res = await fetch(`${SERVICE_COMPNY_URL}/api/login_check`, {
+        const res = await fetch(`${SERVICE_COMPNY_URL}/api/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),
