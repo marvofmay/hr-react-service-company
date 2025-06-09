@@ -29,6 +29,7 @@ import useRolesQuery from '@/app/hooks/role/useRolesQuery';
 import useAddRoleMutation from '@/app/hooks/role/useAddRoleMutation';
 import useUpdateRoleMutation from '@/app/hooks/role/useUpdateRoleMutation';
 import useDeleteRoleMutation from '@/app/hooks/role/useDeleteRoleMutation';
+import useDeleteMultipleRoleMutation from '@/app/hooks/role/useDeleteMultipleRoleMutation'
 import useImportRolesFromXLSXMutation from '@/app/hooks/role/importRolesFromXLSXMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -53,15 +54,17 @@ const RolesTable = () => {
     const { mutate: addRoleMutate } = useAddRoleMutation();
     const { mutate: updateRoleMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdateRoleMutation();
     const { mutate: deleteRoleMutate } = useDeleteRoleMutation(pageSize, pageIndex, sortBy, sortDirection, phrase, setPageIndex);
+    const { mutate: deleteMultipleRoleMutate } = useDeleteMultipleRoleMutation(pageSize, pageIndex, sortBy, sortDirection, phrase, setPageIndex);
     const { mutate: importRolesFromXLSXMutate } = useImportRolesFromXLSXMutation();
     const { t } = useTranslation();
     const { hasPermission } = useUser();
     const [selected, setSelected] = useState<string[]>([]);
-    const allSelected = selected.length === data?.roles.length && data?.roles.length > 0;
+    const allSelected = selected.length === data?.items?.length && data?.items?.length > 0;
 
     useEffect(() => {
-        if (data?.roles) {
-            setLocalRoles(data.roles);
+        console.log(data);
+        if (data?.items) {
+            setLocalRoles(data.items);
         }
     }, [data]);
 
@@ -96,12 +99,10 @@ const RolesTable = () => {
                 onSuccess: (message: string) => {
                     setPageIndex(1);
                     toast.success(message);
-
                     resolve();
                 },
                 onError: (error: any) => {
                     toast.error(t('role.add.error'));
-
                     reject(error);
                 },
             });
@@ -173,19 +174,18 @@ const RolesTable = () => {
 
     // Usuwa zaznaczone wiersze
     const handleDeleteMultiple = (rolesToDelete: Role[]): Promise<void> => {
-        console.log('rolesToDelete', rolesToDelete);
         return new Promise((resolve, reject) => {
-            // deleteMultipleRoleMutate(rolesToDelete, {
-            //     onSuccess: (message: string) => {
-            //         toast.success(message);
-            //         resolve();
-            //     },
-            //     onError: (error: any) => {
-            //         toast.error(t('role.delete.error'));
+            deleteMultipleRoleMutate(rolesToDelete, {
+                onSuccess: (message: string) => {
+                    toast.success(message);
+                    resolve();
+                },
+                onError: (error: any) => {
+                    toast.error(t('role.delete.error'));
 
-            //         reject(error);
-            //     },
-            // });
+                    reject(error);
+                },
+            });
         });
     };
 
@@ -254,7 +254,7 @@ const RolesTable = () => {
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.message.somethingWentWrong')} :(</div>
                 </Box>
-            ) : data && data.roles.length === 0 ? (
+            ) : data && data.items?.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.noData')}</div>
                 </Box>
@@ -347,11 +347,11 @@ const RolesTable = () => {
                 </TableContainer>
             )}
 
-            {data && data.roles.length > 0 && (
+            {data && data.items.length > 0 && (
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25, 50, 100]}
                     component="div"
-                    count={data.totalRoles}
+                    count={data.total}
                     rowsPerPage={pageSize}
                     page={pageIndex - 1}
                     onPageChange={(_, newPage) => setPageIndex(newPage + 1)}
