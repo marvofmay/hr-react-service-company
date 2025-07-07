@@ -12,11 +12,16 @@ import fakeRoles from '../../../fakeData/Roles';
 import { useTranslation } from 'react-i18next';
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import { FormikHelpers } from 'formik';
 
 interface AddEmployeeModalProps {
     open: boolean;
     onClose: () => void;
     onAddEmployee: (newEmployee: Employee) => void;
+}
+
+interface FormValues {
+    phone: string[];
 }
 
 const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAddEmployee }) => {
@@ -25,19 +30,25 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
     const MAX_PHONE_FIELDS = 3;
     const [phones, setPhones] = useState([""])
 
-    const handleAddPhone = (values: any, setFieldValue: any) => {
+    const handleAddPhone = (
+        values: FormValues,
+        setFieldValue: FormikHelpers<FormValues>['setFieldValue']
+    ) => {
         if (values.phone.length < MAX_PHONE_FIELDS) {
-            const newPhones = [...values.phone, ""];
+            const newPhones = [...values.phone, ''];
             setPhones(newPhones);
-            setFieldValue("phone", newPhones);
+            setFieldValue('phone', newPhones);
         }
     };
 
-    const handleRemovePhone = (index: number, setFieldValue: any) => {
+    const handleRemovePhone = (
+        index: number,
+        setFieldValue: FormikHelpers<FormValues>['setFieldValue']
+    ) => {
         const updatedPhones = [...phones];
         updatedPhones.splice(index, 1);
         setPhones(updatedPhones);
-        setFieldValue("phone", updatedPhones);
+        setFieldValue('phone', updatedPhones);
     };
 
     const initialValues: Employee = {
@@ -130,9 +141,9 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
         //     .required(t('validation.fieldIsRequired')),
     });
 
-    const handleSubmit = (values: Employee, { resetForm }: any) => {
+    const handleSubmit = (values: Employee, formikHelpers: FormikHelpers<Employee>) => {
         onAddEmployee(values);
-        resetForm();
+        formikHelpers.resetForm();
         onClose();
     };
 

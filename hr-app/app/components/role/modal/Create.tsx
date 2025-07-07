@@ -29,16 +29,23 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
         deletedAt: null,
     };
 
-    const [errorsAPI, setErrorsAPI] = useState<Object>();
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string[]> | null>(null);
 
     const handleSubmit = async (values: Role) => {
         try {
             await onAddRole(values);
-
             onClose();
-        } catch (error: any) {
-            if (error.response?.status === 422) {
-                setErrorsAPI(error.response.data.errors);
+        } catch (error: unknown) {
+            if (
+                typeof error === 'object' &&
+                error !== null &&
+                'response' in error &&
+                typeof (error as { response?: unknown }).response === 'object' &&
+                (error as { response?: { status?: number } }).response?.status === 422
+            ) {
+                setErrorsAPI(
+                    (error as { response: { data: { errors: Record<string, string[]> } } }).response.data.errors
+                );
             }
         }
     };

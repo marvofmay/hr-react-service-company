@@ -45,7 +45,7 @@ const IndustriesTable = () => {
             closeModal();
             toast.success(t('industry.add.error'));
         }
-    }, [isAddSuccess, isAddError]);
+    }, [isAddSuccess, isAddError, t]);
 
     useEffect(() => {
         if (isUpdateSuccess) {
@@ -55,7 +55,7 @@ const IndustriesTable = () => {
         if (isUpdateError) {
             toast.error(t('industry.update.error'));
         }
-    }, [isUpdateSuccess, isUpdateError]);
+    }, [isUpdateSuccess, isUpdateError, t]);
 
     useEffect(() => {
         if (isDeleteSuccess) {
@@ -66,7 +66,7 @@ const IndustriesTable = () => {
             closeModal();
             toast.success(t('industry.delete.error'));
         }
-    }, [isDeleteSuccess, isDeleteError]);
+    }, [isDeleteSuccess, isDeleteError, t]);
 
     const handleSort = (column: string) => {
         const direction = sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc';

@@ -9,6 +9,12 @@ const fetchIndustries = async (pageSize: number, pageIndex: number, sortBy: stri
     // const response = await axios.get('/api/industries', { params: { pageSize, pageIndex, sortBy, sortDirection } });
     // return response.data;
 
+    pageSize = 10;
+    pageIndex = 1;
+    sortBy = 'name';
+    sortDirection = 'desc';
+    console.log(pageIndex, pageSize, sortBy, sortDirection);
+
     // Na razie zwrócimy dane z fakeIndustries
     return fakeIndustries;
 };

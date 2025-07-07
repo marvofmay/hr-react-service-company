@@ -34,7 +34,7 @@ const SettingsNotificationsModal: React.FC<EditNotificationModalProps> = ({ open
             <Formik
                 initialValues={{}}
                 validationSchema={validationSchema}
-                onSubmit={(values) => { }}
+                onSubmit={() => { }}
             >
                 {() => (
                     <Form>
@@ -47,7 +47,6 @@ const SettingsNotificationsModal: React.FC<EditNotificationModalProps> = ({ open
                             >
                                 <Tasks />
                                 <Requests />
-                                {/* Dodaj więcej komponentów, np. Collapse3, Collapse4 */}
                             </Box>
                         </DialogContent>
                         <DialogActions>

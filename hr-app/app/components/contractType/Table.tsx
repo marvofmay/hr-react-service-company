@@ -45,7 +45,7 @@ const ContractTypesTable = () => {
             closeModal();
             toast.success(t('contractType.add.error'));
         }
-    }, [isAddSuccess, isAddError]);
+    }, [isAddSuccess, isAddError, t]);
 
     useEffect(() => {
         if (isUpdateSuccess) {
@@ -55,7 +55,7 @@ const ContractTypesTable = () => {
         if (isUpdateError) {
             toast.error(t('contractType.update.error'));
         }
-    }, [isUpdateSuccess, isUpdateError]);
+    }, [isUpdateSuccess, isUpdateError, t]);
 
     useEffect(() => {
         if (isDeleteSuccess) {
@@ -66,7 +66,7 @@ const ContractTypesTable = () => {
             closeModal();
             toast.success(t('contractType.delete.error'));
         }
-    }, [isDeleteSuccess, isDeleteError]);
+    }, [isDeleteSuccess, isDeleteError, t]);
 
     const handleSort = (column: string) => {
         const direction = sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc';

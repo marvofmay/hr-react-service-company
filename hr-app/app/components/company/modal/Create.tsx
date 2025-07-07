@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, MenuItem, FormControlLabel, Box, IconButton, Typography } from '@mui/material';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Company from '../../../types/Company';
 import { useTranslation } from 'react-i18next';
@@ -114,7 +114,9 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                 ref={ref}
                 label={
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <CustomLabel children={item?.label || ''} className="tree-label" secondaryLabel={item?.secondaryLabel || ''} />
+                        <CustomLabel className="tree-label" secondaryLabel={item?.secondaryLabel || ''}>
+                            {item?.label || ''}
+                        </CustomLabel>
                         <div>
                             <IconButton onClick={e => {
                                 e.stopPropagation();
@@ -132,7 +134,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                     </div>
                 }
             >
-                {item?.children && item.children.map((child: any) => (
+                {item?.children && item.children.map((child: TreeItemWithLabel) => (
                     <CustomTreeItem
                         key={child.id}
                         itemId={child.id}
@@ -184,7 +186,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
         }
     }, [departments]);
 
-    const handleAddPhone = (values: any, setFieldValue: any) => {
+    const handleAddPhone = (values: Company, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
         if (values.phone.length < MAX_PHONE_FIELDS) {
             const newPhones = [...values.phone, ""];
             setPhones(newPhones);
@@ -192,14 +194,14 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
         }
     };
 
-    const handleRemovePhone = (index: number, setFieldValue: any) => {
+    const handleRemovePhone = (index: number, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
         const updatedPhones = [...phones];
         updatedPhones.splice(index, 1);
         setPhones(updatedPhones);
         setFieldValue("phone", updatedPhones);
     };
 
-    const handleAddEmail = (values: any, setFieldValue: any) => {
+    const handleAddEmail = (values: Company, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
         if (values.email.length < MAX_EMAIL_FIELDS) {
             const newEmails = [...values.email, ""];
             setEmails(newEmails);
@@ -207,14 +209,14 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
         }
     };
 
-    const handleRemoveEmail = (index: number, setFieldValue: any) => {
+    const handleRemoveEmail = (index: number, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
         const updatedEmails = [...emails];
         updatedEmails.splice(index, 1);
         setEmails(updatedEmails);
         setFieldValue("email", updatedEmails);
     };
 
-    const handleAddWeb = (values: any, setFieldValue: any) => {
+    const handleAddWeb = (values: Company, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
         if (values.web.length < MAX_WEB_FIELDS) {
             const newWebs = [...values.web, ""];
             setWebs(newWebs);
@@ -222,7 +224,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
         }
     };
 
-    const handleRemoveWeb = (index: number, setFieldValue: any) => {
+    const handleRemoveWeb = (index: number, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
         const updatedWebs = [...webs];
         updatedWebs.splice(index, 1);
         setWebs(updatedWebs);
@@ -266,13 +268,13 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
         }),
     });
 
-    const handleSubmit = (values: Company, { resetForm }: any) => {
+    const handleSubmit = (values: Company, helpers: FormikHelpers<Company>) => {
         const companyData = {
             ...values,
             departments: departments || [],
         };
         onAddCompany(companyData);
-        resetForm();
+        helpers.resetForm();
         onClose();
     };
 

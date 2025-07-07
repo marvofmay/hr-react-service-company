@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import Image from 'next/image';
 
 const AvatarForm: React.FC = () => {
     const { t } = useTranslation();
@@ -90,9 +91,11 @@ const AvatarForm: React.FC = () => {
         <div className="p-4 bg-white shadow-md rounded-lg text-xs">
             <div className="flex flex-col items-center gap-4">
                 <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-gray-300">
-                    <img
+                    <Image
                         src={avatarUrl}
                         alt={t('avatar.alt')}
+                        width={128}
+                        height={128}
                         className="w-full h-full object-cover"
                     />
                 </div>

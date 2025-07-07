@@ -4,7 +4,7 @@ import Preview from '../../modal/Preview';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useTranslation } from 'react-i18next';
-import fakeCompanies from '../../../fakeData/Companies';
+//import fakeCompanies from '../../../fakeData/Companies';
 
 interface PreviewCompanyModalProps {
     open: boolean;
@@ -15,9 +15,9 @@ interface PreviewCompanyModalProps {
 const PreviewCompanyModal: React.FC<PreviewCompanyModalProps> = ({ open, selectedCompany, onClose }) => {
     const { t } = useTranslation();
 
-    const companySuperior = fakeCompanies.find(
-        (emp) => emp.uuid === selectedCompany?.companyUUID && emp.active
-    );
+    // const companySuperior = fakeCompanies.find(
+    //     (emp) => emp.uuid === selectedCompany?.companyUUID && emp.active
+    // );
 
     return (
         <Preview

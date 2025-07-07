@@ -4,6 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import Department from '@/app/types/Department';
+import { FormikHelpers } from 'formik';
 
 interface AddDepartmentModalProps {
     open: boolean;
@@ -57,9 +58,9 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
         deletedAt: ''
     };
 
-    const handleSubmit = (values: Department, { resetForm }: any) => {
+    const handleSubmit = (values: Department, formikHelpers: FormikHelpers<Department>) => {
         onAddDepartment(values);
-        resetForm();
+        formikHelpers.resetForm();
         onClose();
     };
 
@@ -73,9 +74,9 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({ open, onClose, 
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                {({ errors, touched, values, resetForm }) => (
+                {({ errors, touched, values }) => (
                     <Form noValidate>
-                        <DialogContent>
+                        <DialogContent>s
                             <Box
                                 display="grid"
                                 gridTemplateColumns="repeat(4, 1fr)"

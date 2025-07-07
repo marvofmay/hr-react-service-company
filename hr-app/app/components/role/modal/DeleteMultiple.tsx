@@ -22,9 +22,17 @@ const DeleteMultipleRolesModal: React.FC<DeleteMultipleRolesModalProps> = ({ ope
             }
 
             onClose();
-        } catch (error: any) {
-            if (error.response?.status !== 200) {
-                setErrorAPI(error.response.data.message);
+        } catch (error: unknown) {
+            if (
+                typeof error === 'object' &&
+                error !== null &&
+                'response' in error &&
+                typeof (error as { response?: unknown }).response === 'object' &&
+                (error as { response?: { status?: number } }).response?.status !== 200
+            ) {
+                setErrorAPI(
+                    (error as { response: { data: { message: string } } }).response.data.message
+                );
             }
         }
     };

@@ -1,4 +1,4 @@
-import File from './File';
+//import File from './File';
 import Industry from './Industry';
 import Address from './Address';
 import Department from './Department';
@@ -18,9 +18,9 @@ export default interface Company {
     // logo: File | null;
     active?: boolean;
     address: Address;
-    phone: String[];
-    email: String[];
-    web: String[];
+    phone: string[];
+    email: string[];
+    web: string[];
     departments: Department[];
     createdAt?: string;
     updatedAt?: string | null;

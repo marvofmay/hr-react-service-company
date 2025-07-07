@@ -2,12 +2,12 @@ import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Role from '../../types/Role';
 import { useTranslation } from 'react-i18next';
-import { SERVICE_COMPNY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
 const updateRole = async (updatedRole: Role, token: string): Promise<string> => {
     try {
         const response = await axios.put(
-            `${SERVICE_COMPNY_URL}/api/roles/${updatedRole.uuid}`,
+            `${SERVICE_COMPANY_URL}/api/roles/${updatedRole.uuid}`,
             {
                 uuid: updatedRole.uuid,
                 name: updatedRole.name,
@@ -22,7 +22,7 @@ const updateRole = async (updatedRole: Role, token: string): Promise<string> => 
         );
 
         return response.data.message;
-    } catch (error: any) {
+    } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
             window.location.href = '/user/logout';
         }

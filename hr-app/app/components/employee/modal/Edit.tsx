@@ -12,6 +12,7 @@ import fakeContractTypes from '../../../fakeData/ContractTypes';
 import fakeRoles from '../../../fakeData/Roles';
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import { FormikHelpers } from 'formik';
 
 interface EditEmployeeModalProps {
     open: boolean;
@@ -20,13 +21,20 @@ interface EditEmployeeModalProps {
     onSave: (updatedEmployee: Employee) => void;
 }
 
+interface FormValues {
+    phone: string[];
+}
+
 const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, employee, onSave }) => {
     const { t } = useTranslation();
 
     const MAX_PHONE_FIELDS = 3;
     const [phones, setPhones] = useState([""])
 
-    const handleAddPhone = (values: any, setFieldValue: any) => {
+    const handleAddPhone = (
+        values: FormValues,
+        setFieldValue: FormikHelpers<FormValues>['setFieldValue']
+    ) => {
         if (values.phone.length < MAX_PHONE_FIELDS) {
             const newPhones = [...values.phone, ""];
             setPhones(newPhones);
@@ -34,7 +42,10 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
         }
     };
 
-    const handleRemovePhone = (index: number, setFieldValue: any) => {
+    const handleRemovePhone = (
+        index: number,
+        setFieldValue: FormikHelpers<FormValues>['setFieldValue']
+    ) => {
         const updatedPhones = [...phones];
         updatedPhones.splice(index, 1);
         setPhones(updatedPhones);

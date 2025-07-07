@@ -45,9 +45,9 @@ const CompaniesTable = () => {
         }
         if (isAddError) {
             closeModal();
-            toast.success('company.add.error');
+            toast.success(t('company.add.error'));
         }
-    }, [isAddSuccess, isAddError]);
+    }, [isAddSuccess, isAddError, t]);
 
     useEffect(() => {
         if (isUpdateSuccess) {
@@ -57,7 +57,7 @@ const CompaniesTable = () => {
         if (isUpdateError) {
             toast.error(t('company.update.error'));
         }
-    }, [isUpdateSuccess, isUpdateError]);
+    }, [isUpdateSuccess, isUpdateError, t]);
 
     useEffect(() => {
         if (isDeleteSuccess) {
@@ -68,7 +68,7 @@ const CompaniesTable = () => {
             closeModal();
             toast.success(t('company.delete.error'));
         }
-    }, [isDeleteSuccess, isDeleteError]);
+    }, [isDeleteSuccess, isDeleteError, t]);
 
     const handleSort = (column: string) => {
         const direction = sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc';

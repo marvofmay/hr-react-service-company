@@ -3,7 +3,7 @@ import Role from '../../../types/Role';
 import Preview from '../../modal/Preview';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { SERVICE_COMPNY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
 interface PreviewRoleModalProps {
     open: boolean;
@@ -24,7 +24,7 @@ const PreviewRoleModal: React.FC<PreviewRoleModalProps> = ({ open, selectedRole,
             }
 
             try {
-                const response = await axios.get(`${SERVICE_COMPNY_URL}/api/roles/${selectedRole?.uuid}`, {
+                const response = await axios.get(`${SERVICE_COMPANY_URL}/api/roles/${selectedRole?.uuid}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

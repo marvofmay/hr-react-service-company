@@ -15,7 +15,7 @@ const Emails: React.FC = () => {
         if (!loading && !hasAccessToModule(["emails"])) {
             router.replace("/unauthorized");
         }
-    }, [hasAccessToModule, loading]);
+    }, [hasAccessToModule, loading, router]);
 
     if (loading) {
         return (<Box display="flex" justifyContent="center" alignItems="center" height="300px">

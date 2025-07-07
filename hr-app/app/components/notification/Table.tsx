@@ -43,7 +43,7 @@ const NotificationsTable = () => {
             closeModal();
             toast.success(t('notification.delete.error'));
         }
-    }, [isDeleteSuccess, isDeleteError]);
+    }, [isDeleteSuccess, isDeleteError, t]);
 
     const handleSort = (column: string) => {
         const direction = sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc';

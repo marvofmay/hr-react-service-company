@@ -47,7 +47,7 @@ const EmployeesTable = () => {
             closeModal();
             toast.success('employee.add.error');
         }
-    }, [isAddSuccess, isAddError]);
+    }, [isAddSuccess, isAddError, t]);
 
     useEffect(() => {
         if (isUpdateSuccess) {
@@ -57,7 +57,7 @@ const EmployeesTable = () => {
         if (isUpdateError) {
             toast.error(t('employee.update.error'));
         }
-    }, [isUpdateSuccess, isUpdateError]);
+    }, [isUpdateSuccess, isUpdateError, t]);
 
     useEffect(() => {
         if (isDeleteSuccess) {
@@ -68,7 +68,7 @@ const EmployeesTable = () => {
             closeModal();
             toast.success(t('employee.delete.error'));
         }
-    }, [isDeleteSuccess, isDeleteError]);
+    }, [isDeleteSuccess, isDeleteError, t]);
 
     const handleSort = (column: string) => {
         const direction = sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc';

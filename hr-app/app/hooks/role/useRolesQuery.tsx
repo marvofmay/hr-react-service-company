@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import Role from '../../types/Role';
 import axios from 'axios';
-import { SERVICE_COMPNY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
@@ -16,7 +16,7 @@ const fetchRoles = async (
 ): Promise<Role[]> => {
 
     try {
-        const response = await axios.get(`${SERVICE_COMPNY_URL}/api/roles`, {
+        const response = await axios.get(`${SERVICE_COMPANY_URL}/api/roles`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -43,7 +43,7 @@ const fetchRoles = async (
 const useRolesQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection, phrase: string) => {
     const { t } = useTranslation();
 
-    return useQuery<any>({
+    return useQuery<object>({
         queryKey: ['roles', pageSize, pageIndex, sortBy, sortDirection, phrase],
         queryFn: async () => {
             const token = localStorage.getItem('token');

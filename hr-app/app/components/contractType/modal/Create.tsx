@@ -4,6 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import ContractType from '../../../types/ContractType';
 import { useTranslation } from 'react-i18next';
+import { FormikHelpers } from 'formik';
 
 interface AddContractTypeModalProps {
     open: boolean;
@@ -28,9 +29,9 @@ const AddContractTypeModal: React.FC<AddContractTypeModalProps> = ({ open, onClo
         deletedAt: null
     };
 
-    const handleSubmit = (values: ContractType, { resetForm }: any) => {
+    const handleSubmit = (values: ContractType, formikHelpers: FormikHelpers<ContractType>) => {
         onAddContractType(values);
-        resetForm();
+        formikHelpers.resetForm();
         onClose();
     };
 

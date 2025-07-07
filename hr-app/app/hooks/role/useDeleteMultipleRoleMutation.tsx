@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Role from '@/app/types/Role';
 import { useTranslation } from 'react-i18next';
-import { SERVICE_COMPNY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
 const deleteMultipleRole = async (rolesToDelete: Role[], token: string): Promise<string> => {
     try {
@@ -11,7 +11,7 @@ const deleteMultipleRole = async (rolesToDelete: Role[], token: string): Promise
         };
 
         const response = await axios.delete(
-            `${SERVICE_COMPNY_URL}/api/roles/multiple`,
+            `${SERVICE_COMPANY_URL}/api/roles/multiple`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ const deleteMultipleRole = async (rolesToDelete: Role[], token: string): Promise
         console.log('response', response);
 
         return response.data.message;
-    } catch (error: any) {
+    } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
             window.location.href = '/user/logout';
         }

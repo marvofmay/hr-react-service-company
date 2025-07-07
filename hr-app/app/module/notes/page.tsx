@@ -15,7 +15,7 @@ const Home: React.FC = () => {
         if (!loading && !hasAccessToModule(["notes"])) {
             router.replace("/unauthorized");
         }
-    }, [hasAccessToModule, loading]);
+    }, [hasAccessToModule, loading, router]);
 
     return (
         <div className="grid grid-rows-[10px_1fr_10px] min-h-screen p-1 pb-1 sm:p-1 font-[family-name:var(--font-geist-sans)]">

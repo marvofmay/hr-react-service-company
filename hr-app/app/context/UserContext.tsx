@@ -1,9 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import Employee from '../types/Employee';
-import { SERVICE_COMPNY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
 interface UserContextType {
     employee: Employee | null;
@@ -36,61 +36,11 @@ const UserProvider = ({ children }: UserProviderProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        const employeeUUID = localStorage.getItem('employeeUUID');
-        if (token) {
-            fetchEmployee(token, employeeUUID);
-        } else {
-            // setEmployee({
-            //     uuid: '1',
-            //     externalUUID: '1257-323-12',
-            //     company: { uuid: '1', name: 'Company 1' },
-            //     department: { uuid: '1', name: 'Department 1' },
-            //     employeeSuperior: { uuid: null, firstName: null, lastName: null },
-            //     position: { uuid: '1', name: 'Position 1' },
-            //     contractType: { uuid: '1', name: 'Contract type 1' },
-            //     address: { country: 'Polska', city: 'Gdańsk', postcode: '11-111', street: 'Cicha 2' },
-            //     role: {
-            //         uuid: '1',
-            //         name: 'admin',
-            //         permissions: [
-            //             { uuid: '1', name: 'notifications.view' },
-            //             { uuid: '2', name: 'notifications.delete' },
-            //             { uuid: '3', name: 'notifications.settings' },
-            //             { uuid: '4', name: 'companies.create' },
-            //             { uuid: '5', name: 'companies.edit' },
-            //             { uuid: '6', name: 'companies.view' },
-            //             { uuid: '7', name: 'companies.delete' },
-            //             { uuid: '8', name: 'emails.send' },
-            //             { uuid: '9', name: 'emails.view' },
-            //             { uuid: '10', name: 'task.create' },
-            //             { uuid: '11', name: 'task.edit' },
-            //             { uuid: '12', name: 'task.view' },
-            //             { uuid: '13', name: 'task.delete' },
-            //         ],
-            //     },
-            //     firstName: 'Emil',
-            //     lastName: 'Johnson',
-            //     pesel: '72022586569',
-            //     email: 'emil.johnson@email.com',
-            //     phone: ["333-222-111", "111-222-333"],
-            //     employmentFrom: '2009-01-01',
-            //     employmentTo: null,
-            //     active: true,
-            //     createdAt: '2024-06-11T15:30:45',
-            //     updatedAt: '2024-12-17T07:30:00',
-            //     deletedAt: null,
-            // });
-            setLoading(false);
-        }
-    }, []);
-
-    const fetchEmployee = async (token: string, employeeUUID: string | null) => {
+    const fetchEmployee = useCallback(async (token: string, employeeUUID: string | null) => {
         setLoading(true);
 
         if (token && token !== 'undefined' && employeeUUID && employeeUUID !== 'undefined') {
-            const res = await fetch(`${SERVICE_COMPNY_URL}/api/employees/${employeeUUID}`, {
+            const res = await fetch(`${SERVICE_COMPANY_URL}/api/employees/${employeeUUID}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -162,12 +112,22 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
             throw new Error(t('common.message.errorWhileTryingGetEmployeeData'));
         }
-    };
+    }, [t]);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const employeeUUID = localStorage.getItem('employeeUUID');
+        if (token) {
+            fetchEmployee(token, employeeUUID);
+        } else {
+            setLoading(false);
+        }
+    }, [fetchEmployee]);
 
     const login = async (email: string | FormDataEntryValue, password: string | FormDataEntryValue) => {
         setLoading(true);
 
-        const res = await fetch(`${SERVICE_COMPNY_URL}/api/login`, {
+        const res = await fetch(`${SERVICE_COMPANY_URL}/api/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),

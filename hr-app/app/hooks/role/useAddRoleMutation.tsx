@@ -2,12 +2,12 @@ import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Role from '@/app/types/Role';
 import { useTranslation } from 'react-i18next';
-import { SERVICE_COMPNY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
 const addRole = async (role: Role, token: string): Promise<string> => {
     try {
         const response = await axios.post(
-            `${SERVICE_COMPNY_URL}/api/roles`,
+            `${SERVICE_COMPANY_URL}/api/roles`,
             {
                 name: role.name,
                 description: role.description,
@@ -21,7 +21,7 @@ const addRole = async (role: Role, token: string): Promise<string> => {
         );
 
         return response.data.message;
-    } catch (error: any) {
+    } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
             window.location.href = '/user/logout';
         }

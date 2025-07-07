@@ -1,17 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Divider from '@mui/material/Divider';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import { Card as MuiCard } from '@mui/material';
+import { CssBaseline, Divider, Card as MuiCard } from '@mui/material';
 import ForgotPassword from './ForgotPassword';
 import getSignUpTheme from '../register/theme/getSignUpTheme';
 import {
@@ -103,8 +99,17 @@ export default function SignIn() {
 
         try {
             await login(emailData, passwordData);
-        } catch (err: any) {
-            setBackendErrorMessage(err.message);
+        } catch (err: unknown) {
+            if (
+                typeof err === 'object' &&
+                err !== null &&
+                'message' in err &&
+                typeof (err as { message?: unknown }).message === 'string'
+            ) {
+                setBackendErrorMessage((err as { message: string }).message);
+            } else {
+                setBackendErrorMessage(t('common.message.somethingWentWrong'));
+            }
         }
     };
 

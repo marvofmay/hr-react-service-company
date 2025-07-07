@@ -20,11 +20,10 @@ interface UploadFileProps {
     onUploadFile: (file: File) => void;
     allowedTypes?: string[];
     title: string | undefined;
-    errorsAPI: Object | undefined;
+    errorsAPI?: Record<string, string[]>;
 }
 
 const defaultAllowedTypes = ["xlsx", "csv", "jpeg", "png", "jpg", "pdf", "doc", "docx"];
-const defaultTitle = '';
 
 const UploadFileModal: React.FC<UploadFileProps> = ({
     open,

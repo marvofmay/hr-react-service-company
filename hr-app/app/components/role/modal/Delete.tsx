@@ -22,10 +22,18 @@ const DeleteRoleModal: React.FC<DeleteRoleModalProps> = ({ open, selectedRole, o
             }
 
             onClose();
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.log('error', error);
-            if (error.response?.status !== 200) {
-                setErrorAPI(error.response.data.message);
+            if (
+                typeof error === 'object' &&
+                error !== null &&
+                'response' in error &&
+                typeof (error as { response?: unknown }).response === 'object' &&
+                (error as { response?: { status?: number } }).response?.status !== 200
+            ) {
+                setErrorAPI(
+                    (error as { response: { data: { message: string } } }).response.data.message
+                );
             }
         }
     };

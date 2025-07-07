@@ -1,16 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useUser } from "@/app/context/UserContext";
-import { useTranslation } from "react-i18next";
 import { Box, CircularProgress } from '@mui/material';
 
 const Home: React.FC = () => {
-    const { t } = useTranslation();
-    const { hasAccessToModule, loading } = useUser();
-    const router = useRouter();
+    const { loading } = useUser();
 
     useEffect(() => {
     }, [loading]);

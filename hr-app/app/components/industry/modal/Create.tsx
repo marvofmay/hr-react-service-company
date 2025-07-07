@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Industry from '../../../types/Industry';
 import { useTranslation } from 'react-i18next';
@@ -28,9 +28,9 @@ const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAd
         deletedAt: null
     };
 
-    const handleSubmit = (values: Industry, { resetForm }: any) => {
+    const handleSubmit = (values: Industry, helpers: FormikHelpers<Industry>) => {
         onAddIndustry(values);
-        resetForm();
+        helpers.resetForm();
         onClose();
     };
 

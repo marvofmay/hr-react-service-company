@@ -1,6 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import UploadFile from '../../modal/UploadFile';
 import { useTranslation } from 'react-i18next';
+
+type APIError422 = {
+    response: {
+        status: number;
+        data: {
+            errors: Record<string, string[]>;
+        };
+    };
+};
 
 interface ImportRolesFromXLSXProps {
     open: boolean;
@@ -11,16 +20,22 @@ interface ImportRolesFromXLSXProps {
 
 const ImportRolesFromXLSXModal: React.FC<ImportRolesFromXLSXProps> = ({ open, onClose, onImportRolesFromXLSX, allowedTypes }) => {
     const { t } = useTranslation();
-    const [errorsAPI, setErrorsAPI] = useState<Object>();
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string[]> | undefined>();
 
     const onUploadFile = async (file: File) => {
         try {
             await onImportRolesFromXLSX(file);
 
             onClose();
-        } catch (error: any) {
-            if (error.response?.status === 422) {
-                setErrorsAPI(error.response.data.errors);
+        } catch (error: unknown) {
+            if (
+                typeof error === 'object' &&
+                error !== null &&
+                'response' in error &&
+                typeof (error as { response?: unknown }).response === 'object' &&
+                (error as APIError422).response?.status === 422
+            ) {
+                setErrorsAPI((error as APIError422).response.data.errors);
             }
         }
     };

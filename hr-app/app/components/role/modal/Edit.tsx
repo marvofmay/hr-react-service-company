@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 interface EditRoleModalProps {
     open: boolean;
-    role: any | Role | null;
+    role: Role | null;
     onSave: (updatedRole: Role) => Promise<void>;
     onClose: () => void;
 }
@@ -20,7 +20,7 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({ open, role, onSave, onClo
         description: Yup.string(),
     });
 
-    const [errorsAPI, setErrorsAPI] = useState<Object>();
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string[]> | null>(null);
 
     const handleSubmit = async (values: Role) => {
         try {
@@ -30,9 +30,17 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({ open, role, onSave, onClo
 
                 onClose();
             }
-        } catch (error: any) {
-            if (error.response?.status === 422) {
-                setErrorsAPI(error.response.data.errors);
+        } catch (error: unknown) {
+            if (
+                typeof error === 'object' &&
+                error !== null &&
+                'response' in error &&
+                typeof (error as { response?: unknown }).response === 'object' &&
+                (error as { response?: { status?: number } }).response?.status === 422
+            ) {
+                setErrorsAPI(
+                    (error as { response: { data: { errors: Record<string, string[]> } } }).response.data.errors
+                );
             }
         }
     }

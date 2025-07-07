@@ -9,6 +9,12 @@ const fetchCompanies = async (pageSize: number, pageIndex: number, sortBy: strin
     // const response = await axios.get('/api/companies', { params: { pageSize, pageIndex, sortBy, sortDirection } });
     // return response.data;
 
+    pageSize = 10;
+    pageIndex = 1;
+    sortBy = 'name';
+    sortDirection = 'desc';
+    console.log(pageIndex, pageSize, sortBy, sortDirection);
+
     // Na razie zwrócimy dane z fakeCompanies
     return fakeCompanies;
 };

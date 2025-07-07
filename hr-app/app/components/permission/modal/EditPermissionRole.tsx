@@ -26,6 +26,8 @@ const EditPermissionRoleModal: React.FC<EditPermissionRoleModalProps> = ({ open,
         assignedPermissions: Yup.array().of(Yup.string()),
     });
 
+    const [openModules, setOpenModules] = useState<{ [moduleName: string]: boolean }>({});
+
     return (
         <Dialog open={open} onClose={onClose} maxWidth="xl">
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
@@ -79,7 +81,7 @@ const EditPermissionRoleModal: React.FC<EditPermissionRoleModalProps> = ({ open,
                                     gap={2}
                                 >
                                     {modules.map((module) => {
-                                        const [open, setOpen] = useState(false);
+                                        const isOpen = openModules[module.name] || false;
 
                                         return (
                                             <Box
@@ -105,12 +107,15 @@ const EditPermissionRoleModal: React.FC<EditPermissionRoleModalProps> = ({ open,
                                                     >
                                                         {t(`module.${module.name}`)}
                                                     </h4>
-                                                    <IconButton onClick={() => setOpen(!open)}>
-                                                        {open ? <ExpandLess /> : <ExpandMore />}
+                                                    <IconButton onClick={() => setOpenModules(prev => ({
+                                                        ...prev,
+                                                        [module.name]: !isOpen
+                                                    }))}>
+                                                        {isOpen ? <ExpandLess /> : <ExpandMore />}
                                                     </IconButton>
                                                 </div>
 
-                                                <Collapse in={open}>
+                                                <Collapse in={isOpen}>
                                                     {permissions
                                                         .filter(permission => permission.name.startsWith(module.name))
                                                         .map(permission => (

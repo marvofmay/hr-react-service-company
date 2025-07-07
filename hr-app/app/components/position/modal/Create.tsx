@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Position from '../../../types/Position';
 import { useTranslation } from 'react-i18next';
@@ -29,9 +29,9 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
         deletedAt: null
     };
 
-    const handleSubmit = (values: Position, { resetForm }: any) => {
+    const handleSubmit = (values: Position, helpers: FormikHelpers<Position>) => {
         onAddPosition(values);
-        resetForm();
+        helpers.resetForm();
         onClose();
     };
 

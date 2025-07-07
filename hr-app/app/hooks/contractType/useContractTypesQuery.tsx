@@ -9,6 +9,12 @@ const fetchContractTypes = async (pageSize: number, pageIndex: number, sortBy: s
     // const response = await axios.get('/api/ContractTypes', { params: { pageSize, pageIndex, sortBy, sortDirection } });
     // return response.data;
 
+    pageSize = 10;
+    pageIndex = 1;
+    sortBy = 'name';
+    sortDirection = 'desc';
+    console.log(pageIndex, pageSize, sortBy, sortDirection);
+
     // Na razie zwrócimy dane z fakeContractTypes
     return fakeContractTypes;
 };

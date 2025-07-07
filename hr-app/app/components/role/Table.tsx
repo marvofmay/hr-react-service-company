@@ -50,9 +50,11 @@ const RolesTable = () => {
     const [modalType, setModalType] = useState<string | null>(null);
     const [selectedRole, setSelectedRole] = useState<Role | null>(null);
     const [localRoles, setLocalRoles] = useState<Role[]>([]);
-    const { data, isLoading, error } = useRolesQuery(pageSize, pageIndex, sortBy, sortDirection, phrase);
+    const result = useRolesQuery(pageSize, pageIndex, sortBy, sortDirection, phrase);
+    const data = result.data as { items: Role[]; total: number } | undefined;
+    const { isLoading, error } = result;
     const { mutate: addRoleMutate } = useAddRoleMutation();
-    const { mutate: updateRoleMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdateRoleMutation();
+    const { mutate: updateRoleMutate } = useUpdateRoleMutation();
     const { mutate: deleteRoleMutate } = useDeleteRoleMutation(pageSize, pageIndex, sortBy, sortDirection, phrase, setPageIndex);
     const { mutate: deleteMultipleRoleMutate } = useDeleteMultipleRoleMutation(pageSize, pageIndex, sortBy, sortDirection, phrase, setPageIndex);
     const { mutate: importRolesFromXLSXMutate } = useImportRolesFromXLSXMutation();
@@ -101,7 +103,7 @@ const RolesTable = () => {
                     toast.success(message);
                     resolve();
                 },
-                onError: (error: any) => {
+                onError: (error: object) => {
                     toast.error(t('role.add.error'));
                     reject(error);
                 },
@@ -116,7 +118,7 @@ const RolesTable = () => {
                     toast.success(message);
                     resolve();
                 },
-                onError: (error: any) => {
+                onError: (error: object) => {
                     toast.error(t('role.delete.error'));
 
                     reject(error);
@@ -133,7 +135,7 @@ const RolesTable = () => {
 
                     resolve();
                 },
-                onError: (error: any) => {
+                onError: (error: object) => {
                     toast.error(t('role.update.error'));
 
                     reject(error);
@@ -150,7 +152,7 @@ const RolesTable = () => {
 
                     resolve();
                 },
-                onError: (error: any) => {
+                onError: (error: object) => {
                     toast.error(t('common.message.somethingWentWrong'));
 
                     console.log(error);
@@ -180,7 +182,7 @@ const RolesTable = () => {
                     toast.success(message);
                     resolve();
                 },
-                onError: (error: any) => {
+                onError: (error: object) => {
                     toast.error(t('role.delete.error'));
 
                     reject(error);

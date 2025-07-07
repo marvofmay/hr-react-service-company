@@ -1,6 +1,6 @@
 "use client";
 
-import { AppBar, Toolbar, Typography, Button, Link } from "@mui/material";
+import { AppBar, Toolbar, Button, Link } from "@mui/material";
 import { usePathname } from "next/navigation";
 import ManageListNavigation from "../manage/navigation/List";
 import SettingsListNavigation from "../settings/navigation/List";
@@ -13,9 +13,10 @@ import EmailIcon from '@mui/icons-material/Email';
 import { useTranslation } from 'react-i18next';
 import { APP_NAME } from '../../utility/constans';
 import { useUser } from "@/app/context/UserContext";
+import Image from "next/image";
 
 const navLinks = [
-    { href: "/", label: { APP_NAME }, activePath: "/", icon: <HomeIcon /> },
+    { href: "/", label: APP_NAME, activePath: "/", icon: <HomeIcon /> },
     { href: "/", label: "Home", activePath: "/", icon: <HomeIcon />, name: 'home' },
     { href: "/info", label: "Info", activePath: "/info", icon: <InfoIcon />, name: 'info' },
 ];
@@ -29,7 +30,13 @@ const Navigation: React.FC = () => {
         <AppBar position="static" sx={{ backgroundColor: "#34495e" }}>
             <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Link href="/" color="inherit" underline="none">
-                    <img src="/icons/hr-app-logo.png" className="logo" alt="Logo" />
+                    <Image
+                        src="/icons/hr-app-logo.png"
+                        alt="Logo"
+                        className="logo"
+                        width={100}
+                        height={100}
+                    />
                     {/* <Typography>
                         {APP_NAME}
                     </Typography> */}
