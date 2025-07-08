@@ -62,13 +62,13 @@ const permissions: Permission[] = [{
     name: "departments.delete",
 }, {
     uuid: '21',
-    name: 'emails.send',
+    name: 'messages.send',
 }, {
     uuid: '22',
-    name: 'emails.view',
+    name: 'messages.view',
 }, {
     uuid: '23',
-    name: 'emails.delete',
+    name: 'messages.delete',
 }, {
     uuid: '24',
     name: 'pages.home',

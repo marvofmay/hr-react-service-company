@@ -63,33 +63,30 @@ const UserProvider = ({ children }: UserProviderProps) => {
                     name: 'admin',
                     permissions: [
                         { uuid: '0', name: 'pages.home' },
-                        { uuid: '0', name: 'pages.info' },
-                        { uuid: '1', name: 'notifications.preview' },
-                        { uuid: '2', name: 'notifications.delete' },
-                        { uuid: '3', name: 'notifications.settings' },
-                        { uuid: '4', name: 'notifications.list' },
-                        { uuid: '5', name: 'companies.create' },
-                        { uuid: '6', name: 'companies.edit' },
-                        { uuid: '7', name: 'companies.preview' },
-                        { uuid: '8', name: 'companies.list' },
-                        { uuid: '9', name: 'companies.delete' },
-                        { uuid: '10', name: 'emails.send' },
-                        { uuid: '11', name: 'emails.preview' },
-                        { uuid: '12', name: 'task.create' },
-                        { uuid: '13', name: 'task.edit' },
-                        { uuid: '14', name: 'task.preview' },
-                        { uuid: '15', name: 'task.delete' },
-                        { uuid: '16', name: 'task.list' },
-                        { uuid: '17', name: 'roles.list' },
-                        { uuid: '18', name: 'roles.create' },
-                        { uuid: '19', name: 'roles.preview' },
-                        { uuid: '20', name: 'roles.edit' },
-                        { uuid: '21', name: 'roles.delete' },
-                        { uuid: '17', name: 'notes.list' },
-                        // { uuid: '18', name: 'notes.create' },
-                        // { uuid: '19', name: 'notes.preview' },
-                        // { uuid: '20', name: 'notes.edit' },
-                        // { uuid: '21', name: 'notes.delete' },
+                        { uuid: '1', name: 'pages.info' },
+                        { uuid: '2', name: 'notifications.preview' },
+                        { uuid: '3', name: 'notifications.delete' },
+                        { uuid: '4', name: 'notifications.settings' },
+                        { uuid: '5', name: 'notifications.list' },
+                        { uuid: '6', name: 'companies.create' },
+                        { uuid: '7', name: 'companies.edit' },
+                        { uuid: '8', name: 'companies.preview' },
+                        { uuid: '9', name: 'companies.list' },
+                        { uuid: '10', name: 'companies.delete' },
+                        { uuid: '11', name: 'messages.send' },
+                        { uuid: '12', name: 'messages.preview' },
+                        { uuid: '13', name: 'task.create' },
+                        { uuid: '14', name: 'task.edit' },
+                        { uuid: '15', name: 'task.preview' },
+                        { uuid: '16', name: 'task.delete' },
+                        { uuid: '17', name: 'task.list' },
+                        { uuid: '18', name: 'roles.list' },
+                        { uuid: '19', name: 'roles.create' },
+                        { uuid: '20', name: 'roles.preview' },
+                        { uuid: '21', name: 'roles.edit' },
+                        { uuid: '22', name: 'roles.delete' },
+                        { uuid: '23', name: 'notes.list' },
+                        { uuid: '24', name: 'documents.list' },
                     ],
                 },
                 firstName: 'Emil',
@@ -140,14 +137,12 @@ const UserProvider = ({ children }: UserProviderProps) => {
         const data = await res.json();
         const { token, employeeUUID } = data;
 
-        if (token && token !== 'undefined') {
-            localStorage.setItem('token', token);
-        }
         if (employeeUUID && employeeUUID !== 'undefined') {
             localStorage.setItem('employeeUUID', employeeUUID);
         }
 
         if (token && token !== 'undefined') {
+            localStorage.setItem('token', token);
             await fetchEmployee(token, employeeUUID);
         }
 
@@ -167,18 +162,19 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
     const hasAccessToModule = (moduleNames: string[]): boolean => {
         const modulePermissionsMap: { [key: string]: string } = {
-            tasks: 'tasks',
-            notes: 'notes',
-            roles: 'roles',
-            employees: 'employees',
-            departments: 'departments',
             companies: 'companies',
+            departments: 'departments',
+            employees: 'employees',
+            roles: 'roles',
             settings: 'settings',
             calendar: 'calendar',
             notifications: 'notifications',
             pages: 'pages',
-            emails: 'emails',
+            messages: 'messages',
             requests: 'requests',
+            documents: 'documents',
+            tasks: 'tasks',
+            notes: 'notes',
         };
 
         return moduleNames.some(moduleName => {

@@ -64,7 +64,6 @@ const RolesTable = () => {
     const allSelected = selected.length === data?.items?.length && data?.items?.length > 0;
 
     useEffect(() => {
-        console.log(data);
         if (data?.items) {
             setLocalRoles(data.items);
         }
@@ -92,6 +91,7 @@ const RolesTable = () => {
     };
 
     const handlePageSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPageIndex(1)
         setPageSize(Number(event.target.value));
     };
 
@@ -167,14 +167,12 @@ const RolesTable = () => {
         setSelected(allSelected ? [] : localRoles.map((role: Role) => role.uuid));
     };
 
-    // Obsługuje kliknięcie na checkboxa w wierszu
     const toggleSelectRow = (uuid: string) => {
         setSelected((prev) =>
             prev.includes(uuid) ? prev.filter((item) => item !== uuid) : [...prev, uuid]
         );
     };
 
-    // Usuwa zaznaczone wiersze
     const handleDeleteMultiple = (rolesToDelete: Role[]): Promise<void> => {
         return new Promise((resolve, reject) => {
             deleteMultipleRoleMutate(rolesToDelete, {

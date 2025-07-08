@@ -5,7 +5,7 @@ const modules: Module[] = [
     { uuid: "4", name: "departments" },
     { uuid: "3", name: "employees" },
     { uuid: "6", name: "notifications" },
-    { uuid: "8", name: "emails" },
+    { uuid: "8", name: "messages" },
     { uuid: "1", name: "tasks" },
     { uuid: "7", name: "calendar" },
     { uuid: "2", name: "notes" },

@@ -10,15 +10,19 @@ import { useEffect } from "react";
 
 const RolesList: React.FC = () => {
     const queryClient = new QueryClient();
-    const { hasAccessToModule, hasPermission, loading } = useUser();
+    const { hasAccessToModule, hasPermission, isAuthenticated, loading } = useUser();
     const router = useRouter();
     const { t } = useTranslation();
 
     useEffect(() => {
-        if (!loading && !hasAccessToModule(["roles"])) {
+        if (!loading && !isAuthenticated) {
             router.replace("/unauthorized");
         }
-    }, [hasAccessToModule, loading, router]);
+
+        if (!loading && !hasAccessToModule(["companies"])) {
+            router.replace("/forbidden");
+        }
+    }, [hasAccessToModule, isAuthenticated, loading, router]);
 
     if (loading) {
         return (<Box display="flex" justifyContent="center" alignItems="center" height="300px">

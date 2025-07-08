@@ -30,9 +30,11 @@
         "emails": "emails",
         "data": "dane",
         "unauthorized": "brak autoryzacji",
+        "forbidden": "brak uprawnień",
         "login": "logowanie",
         "module": "moduł",
-        "notes": "notatki"
+        "notes": "notatki",
+        "messages": "wiadomości"
     },
     "button": {
         "cancel": "anuluj",
@@ -66,6 +68,7 @@
     "addAnotherEmail": "kolejny email",
     "addAnotherWeb": "kolejna strona www",
     "error401": "błąd 401",
+    "error403": "błąd 403",
     "enterPhraseToSearch": "wpisz frazę do wyszukania",
     "logout": {
         "success": {

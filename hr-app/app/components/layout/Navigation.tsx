@@ -74,18 +74,18 @@ const Navigation: React.FC = () => {
                     </Link>
                     }
 
-                    {isAuthenticated && hasAccessToModule(['emails']) && <Link
-                        key="/emails"
-                        href="/emails"
+                    {isAuthenticated && hasAccessToModule(['messages']) && <Link
+                        key="/messages"
+                        href="/messages"
                         color="inherit"
                         underline="none"
                         sx={{
-                            backgroundColor: pathname === "/emails" ? "rgba(255, 255, 255, 0.3)" : "transparent",
+                            backgroundColor: pathname === "/messages" ? "rgba(255, 255, 255, 0.3)" : "transparent",
                             padding: 0,
                             borderRadius: "2px",
                         }}
                     >
-                        <Button color="inherit"><EmailIcon /> {t('navigation.emails')} </Button>
+                        <Button color="inherit"><EmailIcon /> {t('navigation.messages')} </Button>
                     </Link>
                     }
                     {isAuthenticated ? (
