@@ -3,7 +3,7 @@ import Employee from '@/app/types/Employee';
 import fakeUserProfiles from '@/app/fakeData/UserProfiles';
 
 const fetchUserProfileData = async (uuid: string): Promise<Employee> => {
-    // ToDo: dodać wywołanie endpointa z enpoitna API
+    // ToDo: dodać wywołanie endpointa
     // const response = await axios.get('/api/user/{uuid}');
     // return response.data;
 

@@ -51,7 +51,7 @@ const UserProfileNavigation: React.FC = () => {
                     backgroundColor: open || selectedMenuItem ? "rgba(255, 255, 255, 0.3)" : "transparent",
                 }}
             >
-                <Person2Icon /> {t('navigation.userProfile')}
+                <Person2Icon />
             </Button>
 
             <Menu

@@ -50,7 +50,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
             setIsAuthenticated(true);
         } else if (token && token !== 'undefined') {
             setEmployee({
-                uuid: '1',
+                uuid: '77eaa379-8f25-4de8-b899-84e518f9dbb2',
                 externalUUID: '1257-323-12',
                 company: { uuid: '1', name: 'Company 1' },
                 department: { uuid: '1', name: 'Department 1' },

@@ -13,7 +13,7 @@ import { Box, CircularProgress } from '@mui/material';
 const DataContent: React.FC = () => {
     const { t } = useTranslation();
 
-    const { data, isLoading, error } = useUserProfileQuery('121');
+    const { data, isLoading, error } = useUserProfileQuery('77eaa379-8f25-4de8-b899-84e518f9dbb2');
 
     if (isLoading) {
         return (<Box display="flex" justifyContent="center" alignItems="center" height="300px">
