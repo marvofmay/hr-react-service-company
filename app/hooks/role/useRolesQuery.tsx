@@ -6,56 +6,55 @@ import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
+export interface RolesResponse {
+    items: Role[];
+    total: number;
+}
+
 const fetchRoles = async (
     token: string,
     pageSize: number,
-    pageIndex: number,
+    page: number,
     sortBy: string,
     sortDirection: SortDirection,
     phrase: string
-): Promise<Role[]> => {
-
+): Promise<RolesResponse> => {
     try {
         const response = await axios.get(`${SERVICE_COMPANY_URL}/api/roles`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            params: {
-                pageSize,
-                pageIndex,
-                sortBy,
-                sortDirection,
-                phrase
-            },
+            headers: { Authorization: `Bearer ${token}` },
+            params: { pageSize, page, sortBy, sortDirection, phrase },
         });
 
-        return response.data.data;
 
+        return {
+            items: response.data.data.items || [],
+            total: response.data.data.total || 0,
+        };
     } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
             window.location.href = '/user/logout';
         }
-
         throw error;
     }
 };
 
-const useRolesQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection, phrase: string) => {
+const useRolesQuery = (
+    pageSize: number,
+    page: number,
+    sortBy: string,
+    sortDirection: SortDirection,
+    phrase: string
+) => {
     const { t } = useTranslation();
 
-    return useQuery<object>({
-        queryKey: ['roles', pageSize, pageIndex, sortBy, sortDirection, phrase],
+    return useQuery<RolesResponse>({
+        queryKey: ['roles', pageSize, page, sortBy, sortDirection, phrase],
         queryFn: async () => {
             const token = localStorage.getItem('token');
+            if (!token) throw new Error(t('common.message.tokenIsMissing'));
 
-            if (!token) {
-                throw new Error(t('common.message.tokenIsMissing'));
-            }
-
-            const roles = await fetchRoles(token, pageSize, pageIndex, sortBy, sortDirection, phrase);
-
-            return roles || [];
-        }
+            return fetchRoles(token, pageSize, page, sortBy, sortDirection, phrase);
+        },
     });
 };
 

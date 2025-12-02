@@ -6,8 +6,8 @@ import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
 const deleteMultipleRole = async (rolesToDelete: Role[], token: string): Promise<string> => {
     try {
-        const selectedUUID = {
-            selectedUUID: rolesToDelete.map(item => item.uuid)
+        const rolesUUIDs = {
+            rolesUUIDs: rolesToDelete.map(item => item.uuid)
         };
 
         const response = await axios.delete(
@@ -17,7 +17,7 @@ const deleteMultipleRole = async (rolesToDelete: Role[], token: string): Promise
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
-                data: selectedUUID
+                data: rolesUUIDs
             }
         );
 
@@ -55,24 +55,24 @@ const useDeleteMultipleRoleMutation = (
             return deleteMultipleRole(rolesToDelete, token);
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries({
-                queryKey: ['roles', pageSize, pageIndex, sortBy, sortDirection, phrase],
-            });
+            // await queryClient.invalidateQueries({
+            //     queryKey: ['roles', pageSize, pageIndex, sortBy, sortDirection, phrase],
+            // });
 
-            const updatedData = queryClient.getQueryData<{
-                totalRoles: number;
-                page: number;
-                limit: number;
-                items: Role[];
-            }>(['roles', pageSize, pageIndex, sortBy, sortDirection, phrase]);
+            // const updatedData = queryClient.getQueryData<{
+            //     totalRoles: number;
+            //     page: number;
+            //     limit: number;
+            //     items: Role[];
+            // }>(['roles', pageSize, pageIndex, sortBy, sortDirection, phrase]);
 
-            console.log('updatedData', updatedData);
+            // console.log('updatedData', updatedData);
 
-            if (!updatedData || updatedData.items.length === 0) {
-                if (pageIndex > 1) {
-                    setPageIndex(pageIndex - 1);
-                }
-            }
+            // if (!updatedData || updatedData.items.length === 0) {
+            //     if (pageIndex > 1) {
+            //         setPageIndex(pageIndex - 1);
+            //     }
+            // }
         },
     });
 };

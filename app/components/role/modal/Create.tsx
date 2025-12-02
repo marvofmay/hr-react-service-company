@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, IconButton } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
@@ -29,23 +31,24 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
         deletedAt: null,
     };
 
-    const [errorsAPI, setErrorsAPI] = useState<Record<string, string[]> | null>(null);
+    const [errorAPI, setErrorAPI] = useState<string | null>(null);
 
     const handleSubmit = async (values: Role) => {
+        setErrorAPI(null); // czyścimy poprzedni błąd
         try {
             await onAddRole(values);
             onClose();
         } catch (error: unknown) {
+            // jeśli backend zwraca { message: "Rola o nazwie 'aaa' już istnieje." }
             if (
                 typeof error === 'object' &&
                 error !== null &&
                 'response' in error &&
-                typeof (error as { response?: unknown }).response === 'object' &&
-                (error as { response?: { status?: number } }).response?.status === 422
+                (error as any).response?.data?.message
             ) {
-                setErrorsAPI(
-                    (error as { response: { data: { errors: Record<string, string[]> } } }).response.data.errors
-                );
+                setErrorAPI((error as any).response.data.message);
+            } else {
+                setErrorAPI('Wystąpił nieznany błąd');
             }
         }
     };
@@ -62,6 +65,7 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
                     <CloseIcon />
                 </IconButton>
             </DialogTitle>
+
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -70,17 +74,9 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
                 {({ errors, touched }) => (
                     <Form noValidate>
                         <DialogContent>
-                            {errorsAPI && (
+                            {errorAPI && (
                                 <div style={{ color: 'red', marginBottom: '1rem' }}>
-                                    {Object.entries(errorsAPI).map(([key, value]) => (
-                                        <ul key={key} style={{ marginBottom: '10px' }}>
-                                            <li>
-                                                <span>
-                                                    <strong>{key}:</strong> {value}
-                                                </span>
-                                            </li>
-                                        </ul>
-                                    ))}
+                                    {errorAPI}
                                 </div>
                             )}
                             <Field
@@ -106,10 +102,18 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
                             />
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={onClose} variant="contained" sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}>
+                            <Button
+                                onClick={onClose}
+                                variant="contained"
+                                sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}
+                            >
                                 {t('common.button.cancel')}
                             </Button>
-                            <Button type="submit" variant="contained" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}
+                            >
                                 {t('common.button.save')}
                             </Button>
                         </DialogActions>

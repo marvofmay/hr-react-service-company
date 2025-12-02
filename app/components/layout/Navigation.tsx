@@ -1,0 +1,156 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { AppBar, Toolbar, Button, Link, Badge } from "@mui/material";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+import HomeIcon from "@mui/icons-material/Home";
+import InfoIcon from "@mui/icons-material/Info";
+import LoginIcon from "@mui/icons-material/Login";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import EmailIcon from "@mui/icons-material/Email";
+
+import { useTranslation } from "react-i18next";
+import { APP_NAME } from "../../utility/constans";
+import { useUser } from "@/app/context/UserContext";
+
+import ManageListNavigation from "../manage/navigation/List";
+import SettingsListNavigation from "../settings/navigation/List";
+import UserProfileNavigation from "../user/UserProfileNavigation";
+
+const navLinks = [
+    { href: "/", label: APP_NAME, activePath: "/", icon: <HomeIcon /> },
+    { href: "/info", label: "Info", activePath: "/info", icon: <InfoIcon />, name: "info" },
+];
+
+const Navigation: React.FC = () => {
+    const pathname = usePathname();
+    const { t } = useTranslation();
+    const { isAuthenticated, hasAccessToModule, hasPermission, employee } = useUser();
+    const [notificationCount, setNotificationCount] = useState(0);
+    const [hydrated, setHydrated] = useState(false);
+
+    // Po stronie klienta – oznacza, że komponent "hydrated"
+    useEffect(() => {
+        setHydrated(true);
+    }, []);
+
+    // EventSource tylko po stronie klienta
+    useEffect(() => {
+        if (!isAuthenticated || !employee?.uuid || !hydrated) return;
+
+        const url = new URL("http://localhost:3001/.well-known/mercure");
+        url.searchParams.append("topic", `user.${employee.uuid}`);
+
+        const es = new EventSource(url.toString());
+
+        es.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.payload?.subscriberType === "internal") {
+                setNotificationCount((prev) => prev + 1);
+            }
+        };
+
+        es.onerror = (err) => console.error("Błąd Mercure:", err);
+
+        return () => es.close();
+    }, [isAuthenticated, employee, hydrated]);
+
+    // Nie renderuj dynamicznego contentu dopóki klient nie zhydratuje
+    if (!hydrated) {
+        return null;
+    }
+
+    return (
+        <AppBar position="static" sx={{ backgroundColor: "#34495e" }}>
+            <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Link href="/" color="inherit" underline="none">
+                    <Image src="/icons/hr-app-logo.png" alt="Logo" width={100} height={100} />
+                </Link>
+
+                <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                    {navLinks.map((link) =>
+                        isAuthenticated && hasPermission(`pages.${link.name}`) ? (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                color="inherit"
+                                underline="none"
+                                sx={{
+                                    backgroundColor:
+                                        pathname === link.activePath ? "rgba(255, 255, 255, 0.3)" : "transparent",
+                                    borderRadius: "4px",
+                                }}
+                            >
+                                <Button color="inherit">
+                                    {link.icon} {t(`navigation.${link.label.toLowerCase()}`)}
+                                </Button>
+                            </Link>
+                        ) : null
+                    )}
+
+                    {isAuthenticated && hasAccessToModule([
+                        "companies", "departments", "employees", "positions", "roles", "industries", "contractTypes"
+                    ]) && (
+                            <>
+                                <ManageListNavigation />
+                                <SettingsListNavigation />
+                            </>
+                        )}
+
+                    {isAuthenticated && hasAccessToModule(["notifications"]) && (
+                        <Link
+                            href="/notifications"
+                            color="inherit"
+                            underline="none"
+                            sx={{
+                                backgroundColor: pathname === "/notifications" ? "rgba(255,255,255,0.3)" : "transparent",
+                                borderRadius: "4px",
+                            }}
+                        >
+                            <Button color="inherit">
+                                <Badge badgeContent={notificationCount} color="error">
+                                    <CircleNotificationsIcon />
+                                </Badge>
+                            </Button>
+                        </Link>
+                    )}
+
+                    {isAuthenticated && hasAccessToModule(["messages"]) && (
+                        <Link
+                            href="/messages"
+                            color="inherit"
+                            underline="none"
+                            sx={{
+                                backgroundColor: pathname === "/messages" ? "rgba(255,255,255,0.3)" : "transparent",
+                                borderRadius: "4px",
+                            }}
+                        >
+                            <Button color="inherit">
+                                <EmailIcon />
+                            </Button>
+                        </Link>
+                    )}
+
+                    {isAuthenticated ? <UserProfileNavigation /> : (
+                        <Link
+                            href="/login"
+                            color="inherit"
+                            underline="none"
+                            sx={{
+                                backgroundColor: pathname === "/login" ? "rgba(255,255,255,0.3)" : "transparent",
+                                borderRadius: "4px",
+                            }}
+                        >
+                            <Button color="inherit">
+                                <LoginIcon /> {t("login")}
+                            </Button>
+                        </Link>
+                    )}
+                </div>
+            </Toolbar>
+        </AppBar>
+    );
+};
+
+export default Navigation;
