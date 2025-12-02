@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Table,
     TableBody,
@@ -29,7 +29,7 @@ import useRolesQuery from '@/app/hooks/role/useRolesQuery';
 import useAddRoleMutation from '@/app/hooks/role/useAddRoleMutation';
 import useUpdateRoleMutation from '@/app/hooks/role/useUpdateRoleMutation';
 import useDeleteRoleMutation from '@/app/hooks/role/useDeleteRoleMutation';
-import useDeleteMultipleRoleMutation from '@/app/hooks/role/useDeleteMultipleRoleMutation'
+import useDeleteMultipleRoleMutation from '@/app/hooks/role/useDeleteMultipleRoleMutation';
 import useImportRolesFromXLSXMutation from '@/app/hooks/role/importRolesFromXLSXMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -42,36 +42,34 @@ type SortDirection = 'asc' | 'desc';
 
 const RolesTable = () => {
     const [pageSize, setPageSize] = useState(5);
-    const [pageIndex, setPageIndex] = useState(1);
+    const [page, setPage] = useState(1);
     const [sortBy, setSortBy] = useState('createdAt');
     const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
     const [searchPhrase, setSearchPhrase] = useState<string>('');
     const [phrase, setPhrase] = useState<string>('');
     const [modalType, setModalType] = useState<string | null>(null);
     const [selectedRole, setSelectedRole] = useState<Role | null>(null);
-    const [localRoles, setLocalRoles] = useState<Role[]>([]);
-    const result = useRolesQuery(pageSize, pageIndex, sortBy, sortDirection, phrase);
-    const data = result.data as { items: Role[]; total: number } | undefined;
-    const { isLoading, error } = result;
+    const [selected, setSelected] = useState<string[]>([]);
+
     const { mutate: addRoleMutate } = useAddRoleMutation();
     const { mutate: updateRoleMutate } = useUpdateRoleMutation();
-    const { mutate: deleteRoleMutate } = useDeleteRoleMutation(pageSize, pageIndex, sortBy, sortDirection, phrase, setPageIndex);
-    const { mutate: deleteMultipleRoleMutate } = useDeleteMultipleRoleMutation(pageSize, pageIndex, sortBy, sortDirection, phrase, setPageIndex);
+    const { mutate: deleteRoleMutate } = useDeleteRoleMutation(pageSize, page, sortBy, sortDirection, phrase, setPage);
+    const { mutate: deleteMultipleRoleMutate } = useDeleteMultipleRoleMutation(pageSize, page, sortBy, sortDirection, phrase, setPage);
     const { mutate: importRolesFromXLSXMutate } = useImportRolesFromXLSXMutation();
     const { t } = useTranslation();
     const { hasPermission } = useUser();
-    const [selected, setSelected] = useState<string[]>([]);
-    const allSelected = selected.length === data?.items?.length && data?.items?.length > 0;
 
-    useEffect(() => {
-        if (data?.items) {
-            setLocalRoles(data.items);
-        }
-    }, [data]);
+    const result = useRolesQuery(pageSize, page, sortBy, sortDirection, phrase);
+    const { data: rawData, isLoading, error, refetch } = result;
+
+    const roles: Role[] = Array.isArray(rawData) ? rawData : rawData?.items || [];
+    const totalCount: number = Array.isArray(rawData) ? roles.length : rawData?.total || 0;
+
+    const allSelected = selected.length === roles.length && roles.length > 0;
 
     const handleSearch = () => {
         setPhrase(searchPhrase);
-        setPageIndex(1);
+        setPage(1);
     };
 
     const handleSort = (column: string) => {
@@ -91,22 +89,20 @@ const RolesTable = () => {
     };
 
     const handlePageSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPageIndex(1)
+        setPage(1);
         setPageSize(Number(event.target.value));
+        setSelected([]);
     };
 
     const handleAdd = async (newRole: Role): Promise<void> => {
         return new Promise((resolve, reject) => {
             addRoleMutate(newRole, {
                 onSuccess: (message: string) => {
-                    setPageIndex(1);
                     toast.success(message);
+                    refetch();
                     resolve();
                 },
-                onError: (error: object) => {
-                    toast.error(t('role.add.error'));
-                    reject(error);
-                },
+                onError: (error: object) => { toast.error(t('role.add.error')); reject(error); },
             });
         });
     };
@@ -116,13 +112,16 @@ const RolesTable = () => {
             deleteRoleMutate(roleToDelete, {
                 onSuccess: (message: string) => {
                     toast.success(message);
+
+                    refetch().then((freshData) => {
+                        if (!freshData.data?.items?.length && page > 1) {
+                            setPage(page - 1);
+                        }
+                    });
+
                     resolve();
                 },
-                onError: (error: object) => {
-                    toast.error(t('role.delete.error'));
-
-                    reject(error);
-                },
+                onError: (error: object) => { toast.error(t('role.delete.error')); reject(error); },
             });
         });
     };
@@ -130,16 +129,8 @@ const RolesTable = () => {
     const handleUpdate = async (updatedRole: Role): Promise<void> => {
         return new Promise((resolve, reject) => {
             updateRoleMutate(updatedRole, {
-                onSuccess: (message: string) => {
-                    toast.success(message);
-
-                    resolve();
-                },
-                onError: (error: object) => {
-                    toast.error(t('role.update.error'));
-
-                    reject(error);
-                },
+                onSuccess: (message: string) => { toast.success(message); resolve(); },
+                onError: (error: object) => { toast.error(t('role.update.error')); reject(error); },
             });
         });
     };
@@ -147,44 +138,36 @@ const RolesTable = () => {
     const handleImportRolesFromXLSX = async (file: File): Promise<void> => {
         return new Promise((resolve, reject) => {
             importRolesFromXLSXMutate(file, {
-                onSuccess: (message: string) => {
-                    toast.success(message);
-
-                    resolve();
-                },
-                onError: (error: object) => {
-                    toast.error(t('common.message.somethingWentWrong'));
-
-                    console.log(error);
-
-                    reject(error);
-                },
+                onSuccess: (message: string) => { toast.success(message); resolve(); },
+                onError: (error: object) => { toast.error(t('common.message.somethingWentWrong')); console.log(error); reject(error); },
             });
         });
     };
 
     const toggleSelectAll = () => {
-        setSelected(allSelected ? [] : localRoles.map((role: Role) => role.uuid));
+        setSelected(allSelected ? [] : roles.map(role => role.uuid));
     };
 
     const toggleSelectRow = (uuid: string) => {
-        setSelected((prev) =>
-            prev.includes(uuid) ? prev.filter((item) => item !== uuid) : [...prev, uuid]
-        );
+        setSelected(prev => prev.includes(uuid) ? prev.filter(item => item !== uuid) : [...prev, uuid]);
     };
 
     const handleDeleteMultiple = (rolesToDelete: Role[]): Promise<void> => {
         return new Promise((resolve, reject) => {
             deleteMultipleRoleMutate(rolesToDelete, {
                 onSuccess: (message: string) => {
+                    setSelected([]);
                     toast.success(message);
+
+                    refetch().then((freshData) => {
+                        if (!freshData.data?.items?.length && page > 1) {
+                            setPage(page - 1);
+                        }
+                    });
+
                     resolve();
                 },
-                onError: (error: object) => {
-                    toast.error(t('role.delete.error'));
-
-                    reject(error);
-                },
+                onError: (error: object) => { toast.error(t('role.delete.error')); reject(error); },
             });
         });
     };
@@ -198,9 +181,7 @@ const RolesTable = () => {
                         placeholder={t('common.enterPhraseToSearch')}
                         size="small"
                         sx={{ width: '500px' }}
-                        onChange={(e) => {
-                            setSearchPhrase(e.target.value);
-                        }}
+                        onChange={(e) => setSearchPhrase(e.target.value)}
                     />
                     <Button
                         startIcon={<Search />}
@@ -214,24 +195,24 @@ const RolesTable = () => {
 
                 <Box display="flex" alignItems="center" gap={1} ml="auto">
                     {hasPermission("roles.create") && (
-                        <Button
-                            variant="contained"
-                            color="success"
-                            startIcon={<Add />}
-                            onClick={() => openModal('create')}
-                        >
-                            {t('role.button.add')}
-                        </Button>
-                    )}
-                    {hasPermission("roles.create") && (
-                        <Button
-                            variant="contained"
-                            color="success"
-                            startIcon={<FileUploadOutlinedIcon />}
-                            onClick={() => openModal('importFromXLSX')}
-                        >
-                            {t('role.button.importFromXLSX')}
-                        </Button>
+                        <>
+                            <Button
+                                variant="contained"
+                                color="success"
+                                startIcon={<Add />}
+                                onClick={() => openModal('create')}
+                            >
+                                {t('role.button.add')}
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="success"
+                                startIcon={<FileUploadOutlinedIcon />}
+                                onClick={() => openModal('importFromXLSX')}
+                            >
+                                {t('role.button.importFromXLSX')}
+                            </Button>
+                        </>
                     )}
                     {hasPermission("roles.delete") && selected.length > 0 && (
                         <Button
@@ -240,7 +221,7 @@ const RolesTable = () => {
                             startIcon={<Delete />}
                             onClick={() => openModal('multipleDelete')}
                         >
-                            {t('role.button.deleteChecked')}
+                            {t('role.button.deleteChecked')} ({selected.length})
                         </Button>
                     )}
                 </Box>
@@ -254,7 +235,7 @@ const RolesTable = () => {
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.message.somethingWentWrong')} :(</div>
                 </Box>
-            ) : data && data.items?.length === 0 ? (
+            ) : roles.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.noData')}</div>
                 </Box>
@@ -264,14 +245,13 @@ const RolesTable = () => {
                         <TableHead>
                             <TableRow>
                                 {hasPermission("roles.delete") && (
-                                    <TableCell sx={{ width: "50px", minWidth: "50px", maxWidth: "50px", padding: "4px 8px" }}
-                                        onChange={toggleSelectAll}
-                                    >
+                                    <TableCell sx={{ width: 50, padding: "4px 8px" }}>
                                         <Checkbox
                                             checked={allSelected}
                                             onChange={toggleSelectAll}
                                         />
-                                    </TableCell>)}
+                                    </TableCell>
+                                )}
                                 <TableCell
                                     sortDirection={sortBy === 'id' ? sortDirection : false}
                                     onClick={() => handleSort('id')}
@@ -293,7 +273,7 @@ const RolesTable = () => {
                                 <TableCell
                                     sortDirection={sortBy === 'description' ? sortDirection : false}
                                     onClick={() => handleSort('description')}
-                                    sx={{ width: "750px", minWidth: "750px", maxWidth: "750px", padding: "4px 8px" }}
+                                    sx={{ width: 750, padding: "4px 8px" }}
                                 >
                                     <TableSortLabel active={sortBy === 'description'} direction={sortBy === 'description' ? sortDirection : 'asc'}>
                                         {t('role.table.column.description')}
@@ -313,7 +293,7 @@ const RolesTable = () => {
                                     onClick={() => handleSort('updatedAt')}
                                     sx={{ padding: '4px 8px' }}
                                 >
-                                    <TableSortLabel active={sortBy === 'updateddAt'} direction={sortBy === 'updatedAt' ? sortDirection : 'asc'}>
+                                    <TableSortLabel active={sortBy === 'updatedAt'} direction={sortBy === 'updatedAt' ? sortDirection : 'asc'}>
                                         {t('role.table.column.updatedAt')}
                                     </TableSortLabel>
                                 </TableCell>
@@ -321,15 +301,17 @@ const RolesTable = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {localRoles?.map((role, index) => (
+                            {roles.map((role, index) => (
                                 <TableRow key={role.uuid}>
-                                    {hasPermission("roles.delete") && (<TableCell sx={{ width: "50px", minWidth: "50px", maxWidth: "50px", padding: "4px 8px" }}>
-                                        <Checkbox
-                                            checked={selected.includes(role.uuid)}
-                                            onChange={() => toggleSelectRow(role.uuid)}
-                                        />
-                                    </TableCell>)}
-                                    <TableCell sx={{ padding: '4px 8px' }}>{(pageIndex - 1) * pageSize + index + 1}</TableCell>
+                                    {hasPermission("roles.delete") && (
+                                        <TableCell sx={{ width: 50, padding: "4px 8px" }}>
+                                            <Checkbox
+                                                checked={selected.includes(role.uuid)}
+                                                onChange={() => toggleSelectRow(role.uuid)}
+                                            />
+                                        </TableCell>
+                                    )}
+                                    <TableCell sx={{ padding: '4px 8px' }}>{(page - 1) * pageSize + index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.name}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.description || '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{moment(role.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
@@ -347,14 +329,14 @@ const RolesTable = () => {
                 </TableContainer>
             )}
 
-            {data && data.items.length > 0 && (
+            {totalCount > 0 && (
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25, 50, 100]}
                     component="div"
-                    count={data.total}
+                    count={totalCount}
                     rowsPerPage={pageSize}
-                    page={pageIndex - 1}
-                    onPageChange={(_, newPage) => setPageIndex(newPage + 1)}
+                    page={page - 1}
+                    onPageChange={(_, newPage) => { setPage(newPage + 1); setSelected([]); }}
                     onRowsPerPageChange={handlePageSizeChange}
                     labelRowsPerPage={t('common.rowPerPage')}
                     labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${t('common.of')} ${count}`}
@@ -369,7 +351,7 @@ const RolesTable = () => {
             {hasPermission("roles.create") && modalType === 'create' && <CreateRoleModal
                 open={true}
                 onClose={closeModal}
-                onAddRole={role => handleAdd(role)}
+                onAddRole={handleAdd}
             />}
             {hasPermission("roles.edit") && modalType === 'edit' && <EditRoleModal
                 open={true}
@@ -394,12 +376,12 @@ const RolesTable = () => {
                 open={true}
                 selectedRole={selectedRole}
                 onClose={closeModal}
-                onDeleteConfirm={role => handleDelete(role)} />}
+                onDeleteConfirm={handleDelete} />}
             {hasPermission("roles.delete") && modalType === 'multipleDelete' && <DeleteMultipleRolesModal
                 open={true}
-                selectedRoles={localRoles.filter(role => selected.includes(role.uuid))}
+                selectedRoles={roles.filter(role => selected.includes(role.uuid))}
                 onClose={closeModal}
-                onDeleteMultipleConfirm={roles => handleDeleteMultiple(roles)}
+                onDeleteMultipleConfirm={handleDeleteMultiple}
             />}
         </div>
     );

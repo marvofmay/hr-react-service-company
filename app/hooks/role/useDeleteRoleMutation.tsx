@@ -48,26 +48,26 @@ const useDeleteRoleMutation = (
 
             return deleteRole(roleToDelete, token);
         },
-        onSuccess: async () => {
-            await queryClient.invalidateQueries({
-                queryKey: ['roles', pageSize, pageIndex, sortBy, sortDirection, phrase],
-            });
+        // onSuccess: async () => {
+        //     await queryClient.invalidateQueries({
+        //         queryKey: ['roles', pageSize, pageIndex, sortBy, sortDirection, phrase],
+        //     });
 
-            const updatedData = queryClient.getQueryData<{
-                totalRoles: number;
-                page: number;
-                limit: number;
-                items: Role[];
-            }>(['roles', pageSize, pageIndex, sortBy, sortDirection, phrase]);
+        //     const updatedData = queryClient.getQueryData<{
+        //         totalRoles: number;
+        //         page: number;
+        //         limit: number;
+        //         items: Role[];
+        //     }>(['roles', pageSize, pageIndex, sortBy, sortDirection, phrase]);
 
-            console.log('updatedData', updatedData);
+        //     console.log('updatedData', updatedData);
 
-            if (!updatedData || updatedData.items.length === 0) {
-                if (pageIndex > 1) {
-                    setPageIndex(pageIndex - 1);
-                }
-            }
-        },
+        //     if (!updatedData || updatedData.items.length === 0) {
+        //         if (pageIndex > 1) {
+        //             setPageIndex(pageIndex - 1);
+        //         }
+        //     }
+        // },
     });
 };
 
