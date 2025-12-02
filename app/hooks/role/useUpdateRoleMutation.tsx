@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import Role from '../../types/Role';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
@@ -32,7 +32,6 @@ const updateRole = async (updatedRole: Role, token: string): Promise<string> => 
 };
 
 const useUpdateRoleMutation = () => {
-    const queryClient = useQueryClient();
     const { t } = useTranslation();
 
     return useMutation({
@@ -44,9 +43,6 @@ const useUpdateRoleMutation = () => {
             }
 
             return updateRole(updatedRole, token);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['roles'] });
         },
         onError: (error) => {
             throw error;

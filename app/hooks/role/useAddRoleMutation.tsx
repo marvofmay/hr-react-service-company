@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import Role from '@/app/types/Role';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';

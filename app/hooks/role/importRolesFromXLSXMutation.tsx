@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
@@ -29,7 +29,6 @@ const importRoles = async (file: File, token: string): Promise<string> => {
 };
 
 const useImportRolesFromXLSXMutation = () => {
-    const queryClient = useQueryClient();
     const { t } = useTranslation();
 
     return useMutation({
@@ -41,9 +40,6 @@ const useImportRolesFromXLSXMutation = () => {
             }
 
             return importRoles(file, token);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['roles'] });
         },
         onError: (error) => {
             throw error;

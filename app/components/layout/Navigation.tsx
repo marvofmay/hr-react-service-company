@@ -9,14 +9,14 @@ import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from "@mui/icons-material/Login";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import EmailIcon from "@mui/icons-material/Email";
-
 import { useTranslation } from "react-i18next";
 import { APP_NAME } from "../../utility/constans";
 import { useUser } from "@/app/context/UserContext";
-
 import ManageListNavigation from "../manage/navigation/List";
 import SettingsListNavigation from "../settings/navigation/List";
 import UserProfileNavigation from "../user/UserProfileNavigation";
+import { SERVICE_MERCURE_URL } from '@/app/utility/constans';
+
 
 const navLinks = [
     { href: "/", label: APP_NAME, activePath: "/", icon: <HomeIcon /> },
@@ -30,16 +30,16 @@ const Navigation: React.FC = () => {
     const [notificationCount, setNotificationCount] = useState(0);
     const [hydrated, setHydrated] = useState(false);
 
-    // Po stronie klienta – oznacza, że komponent "hydrated"
     useEffect(() => {
         setHydrated(true);
     }, []);
 
-    // EventSource tylko po stronie klienta
     useEffect(() => {
         if (!isAuthenticated || !employee?.uuid || !hydrated) return;
 
-        const url = new URL("http://localhost:3001/.well-known/mercure");
+        if (typeof window === "undefined") return;
+
+        const url = new URL(SERVICE_MERCURE_URL);
         url.searchParams.append("topic", `user.${employee.uuid}`);
 
         const es = new EventSource(url.toString());
@@ -56,7 +56,6 @@ const Navigation: React.FC = () => {
         return () => es.close();
     }, [isAuthenticated, employee, hydrated]);
 
-    // Nie renderuj dynamicznego contentu dopóki klient nie zhydratuje
     if (!hydrated) {
         return null;
     }

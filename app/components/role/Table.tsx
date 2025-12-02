@@ -53,8 +53,8 @@ const RolesTable = () => {
 
     const { mutate: addRoleMutate } = useAddRoleMutation();
     const { mutate: updateRoleMutate } = useUpdateRoleMutation();
-    const { mutate: deleteRoleMutate } = useDeleteRoleMutation(pageSize, page, sortBy, sortDirection, phrase, setPage);
-    const { mutate: deleteMultipleRoleMutate } = useDeleteMultipleRoleMutation(pageSize, page, sortBy, sortDirection, phrase, setPage);
+    const { mutate: deleteRoleMutate } = useDeleteRoleMutation();
+    const { mutate: deleteMultipleRoleMutate } = useDeleteMultipleRoleMutation();
     const { mutate: importRolesFromXLSXMutate } = useImportRolesFromXLSXMutation();
     const { t } = useTranslation();
     const { hasPermission } = useUser();
@@ -129,7 +129,11 @@ const RolesTable = () => {
     const handleUpdate = async (updatedRole: Role): Promise<void> => {
         return new Promise((resolve, reject) => {
             updateRoleMutate(updatedRole, {
-                onSuccess: (message: string) => { toast.success(message); resolve(); },
+                onSuccess: (message: string) => {
+                    toast.success(message);
+                    refetch();
+                    resolve();
+                },
                 onError: (error: object) => { toast.error(t('role.update.error')); reject(error); },
             });
         });
@@ -138,7 +142,11 @@ const RolesTable = () => {
     const handleImportRolesFromXLSX = async (file: File): Promise<void> => {
         return new Promise((resolve, reject) => {
             importRolesFromXLSXMutate(file, {
-                onSuccess: (message: string) => { toast.success(message); resolve(); },
+                onSuccess: (message: string) => {
+                    toast.success(message);
+                    refetch();
+                    resolve();
+                },
                 onError: (error: object) => { toast.error(t('common.message.somethingWentWrong')); console.log(error); reject(error); },
             });
         });

@@ -1,3 +1,6 @@
 {
-  "/manage/roles/list/page": "app/manage/roles/list/page.js"
+  "/login/page": "app/login/page.js",
+  "/manage/roles/list/page": "app/manage/roles/list/page.js",
+  "/page": "app/page.js",
+  "/user/logout/page": "app/user/logout/page.js"
 }

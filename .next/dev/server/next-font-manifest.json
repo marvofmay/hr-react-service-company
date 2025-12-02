@@ -1,6 +1,18 @@
 {
   "app": {
+    "[project]/app/login/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
     "[project]/app/manage/roles/list/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/user/logout/page": [
       "static/media/GeistVF-s.p.4c3c0b96.woff",
       "static/media/GeistMonoVF-s.p.2cee7d16.woff"
     ]

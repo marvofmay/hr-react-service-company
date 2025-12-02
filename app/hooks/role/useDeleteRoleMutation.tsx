@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import Role from '@/app/types/Role';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
@@ -27,15 +27,7 @@ const deleteRole = async (roleToDelete: Role, token: string): Promise<string> =>
     }
 };
 
-const useDeleteRoleMutation = (
-    pageSize: number,
-    pageIndex: number,
-    sortBy: string,
-    sortDirection: string,
-    phrase: string,
-    setPageIndex: (page: number) => void
-) => {
-    const queryClient = useQueryClient();
+const useDeleteRoleMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({
@@ -47,27 +39,7 @@ const useDeleteRoleMutation = (
             }
 
             return deleteRole(roleToDelete, token);
-        },
-        // onSuccess: async () => {
-        //     await queryClient.invalidateQueries({
-        //         queryKey: ['roles', pageSize, pageIndex, sortBy, sortDirection, phrase],
-        //     });
-
-        //     const updatedData = queryClient.getQueryData<{
-        //         totalRoles: number;
-        //         page: number;
-        //         limit: number;
-        //         items: Role[];
-        //     }>(['roles', pageSize, pageIndex, sortBy, sortDirection, phrase]);
-
-        //     console.log('updatedData', updatedData);
-
-        //     if (!updatedData || updatedData.items.length === 0) {
-        //         if (pageIndex > 1) {
-        //             setPageIndex(pageIndex - 1);
-        //         }
-        //     }
-        // },
+        }
     });
 };
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import Role from '@/app/types/Role';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
@@ -33,15 +33,7 @@ const deleteMultipleRole = async (rolesToDelete: Role[], token: string): Promise
     }
 };
 
-const useDeleteMultipleRoleMutation = (
-    pageSize: number,
-    pageIndex: number,
-    sortBy: string,
-    sortDirection: string,
-    phrase: string,
-    setPageIndex: (page: number) => void
-) => {
-    const queryClient = useQueryClient();
+const useDeleteMultipleRoleMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({

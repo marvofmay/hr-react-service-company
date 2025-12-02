@@ -32,10 +32,13 @@ __turbopack_context__.s([
     "LOREM_IPSUM",
     ()=>LOREM_IPSUM,
     "SERVICE_COMPANY_URL",
-    ()=>SERVICE_COMPANY_URL
+    ()=>SERVICE_COMPANY_URL,
+    "SERVICE_MERCURE_URL",
+    ()=>SERVICE_MERCURE_URL
 ]);
 const APP_NAME = "HR APP";
 const SERVICE_COMPANY_URL = "http://127.0.0.1:81";
+const SERVICE_MERCURE_URL = "http://localhost:3001/.well-known/mercure";
 const LOREM_IPSUM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lobortis elementum egestas. Proin suscipit suscipit tincidunt. Cras iaculis, nibh at laoreet maximus, diam nisl molestie odio, et egestas leo urna ac magna. Fusce tempus lacinia arcu, eget elementum purus varius a. Aenean quis ipsum eleifend, vehicula risus ac, dictum risus. Nam pellentesque quis velit eget sagittis. Praesent commodo nisi a tempor maximus. Donec ex est, fringilla eu interdum at, imperdiet id nibh.
 Nulla luctus scelerisque scelerisque.Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.Aenean cursus, quam id placerat fermentum, est nulla rhoncus libero, eget mollis nunc purus a augue.Ut dapibus erat a varius eleifend.Duis vestibulum est ac dui faucibus, et scelerisque tellus viverra.Suspendisse viverra, turpis quis fringilla efficitur, risus justo efficitur ligula, id efficitur nunc nunc nec erat.Nam ornare libero tellus, id euismod orci lobortis id.
 Mauris lobortis pretium tellus eu fermentum.Aenean eget consequat ex, sit amet suscipit velit.Sed sit amet nisl fringilla, mattis metus in, faucibus tellus.Quisque egestas felis erat, vitae tincidunt lacus bibendum non.Nunc semper mi at nulla laoreet ullamcorper.Phasellus tortor nunc, pretium faucibus augue a, mollis tempus tellus.Aliquam nec nisi nisl.Sed bibendum odio in magna auctor, id hendrerit leo accumsan.Mauris malesuada ligula et condimentum hendrerit.Morbi sed ante dolor.Nam sit amet urna semper, pulvinar sapien et, bibendum nibh.Fusce ac vehicula massa.
@@ -913,6 +916,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$user$2f
 ;
 ;
 ;
+;
 const navLinks = [
     {
         href: "/",
@@ -942,30 +946,21 @@ const Navigation = ()=>{
     const { isAuthenticated, hasAccessToModule, hasPermission, employee } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useUser"])();
     const [notificationCount, setNotificationCount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
     const [hydrated, setHydrated] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    // Po stronie klienta – oznacza, że komponent "hydrated"
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         setHydrated(true);
     }, []);
-    // EventSource tylko po stronie klienta
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (!isAuthenticated || !employee?.uuid || !hydrated) return;
-        const url = new URL("http://localhost:3001/.well-known/mercure");
-        url.searchParams.append("topic", `user.${employee.uuid}`);
-        const es = new EventSource(url.toString());
-        es.onmessage = (event)=>{
-            const data = JSON.parse(event.data);
-            if (data.payload?.subscriberType === "internal") {
-                setNotificationCount((prev)=>prev + 1);
-            }
-        };
-        es.onerror = (err)=>console.error("Błąd Mercure:", err);
-        return ()=>es.close();
+        if ("TURBOPACK compile-time truthy", 1) return;
+        //TURBOPACK unreachable
+        ;
+        const url = undefined;
+        const es = undefined;
     }, [
         isAuthenticated,
         employee,
         hydrated
     ]);
-    // Nie renderuj dynamicznego contentu dopóki klient nie zhydratuje
     if (!hydrated) {
         return null;
     }
@@ -992,12 +987,12 @@ const Navigation = ()=>{
                         height: 100
                     }, void 0, false, {
                         fileName: "[project]/app/components/layout/Navigation.tsx",
-                        lineNumber: 68,
+                        lineNumber: 67,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/app/components/layout/Navigation.tsx",
-                    lineNumber: 67,
+                    lineNumber: 66,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1024,12 +1019,12 @@ const Navigation = ()=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/layout/Navigation.tsx",
-                                    lineNumber: 85,
+                                    lineNumber: 84,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, link.href, false, {
                                 fileName: "[project]/app/components/layout/Navigation.tsx",
-                                lineNumber: 74,
+                                lineNumber: 73,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)) : null),
                         isAuthenticated && hasAccessToModule([
@@ -1044,12 +1039,12 @@ const Navigation = ()=>{
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$manage$2f$navigation$2f$List$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/app/components/layout/Navigation.tsx",
-                                    lineNumber: 96,
+                                    lineNumber: 95,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$settings$2f$navigation$2f$List$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/app/components/layout/Navigation.tsx",
-                                    lineNumber: 97,
+                                    lineNumber: 96,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
@@ -1071,22 +1066,22 @@ const Navigation = ()=>{
                                     color: "error",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$CircleNotifications$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                         fileName: "[project]/app/components/layout/Navigation.tsx",
-                                        lineNumber: 113,
+                                        lineNumber: 112,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/layout/Navigation.tsx",
-                                    lineNumber: 112,
+                                    lineNumber: 111,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/app/components/layout/Navigation.tsx",
-                                lineNumber: 111,
+                                lineNumber: 110,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/app/components/layout/Navigation.tsx",
-                            lineNumber: 102,
+                            lineNumber: 101,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         isAuthenticated && hasAccessToModule([
@@ -1103,22 +1098,22 @@ const Navigation = ()=>{
                                 color: "inherit",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Email$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/app/components/layout/Navigation.tsx",
-                                    lineNumber: 130,
+                                    lineNumber: 129,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/app/components/layout/Navigation.tsx",
-                                lineNumber: 129,
+                                lineNumber: 128,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/app/components/layout/Navigation.tsx",
-                            lineNumber: 120,
+                            lineNumber: 119,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         isAuthenticated ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$user$2f$UserProfileNavigation$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/app/components/layout/Navigation.tsx",
-                            lineNumber: 135,
+                            lineNumber: 134,
                             columnNumber: 40
                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Link$2f$Link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Link$3e$__["Link"], {
                             href: "/login",
@@ -1133,7 +1128,7 @@ const Navigation = ()=>{
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Login$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                         fileName: "[project]/app/components/layout/Navigation.tsx",
-                                        lineNumber: 146,
+                                        lineNumber: 145,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     " ",
@@ -1141,29 +1136,29 @@ const Navigation = ()=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/layout/Navigation.tsx",
-                                lineNumber: 145,
+                                lineNumber: 144,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/app/components/layout/Navigation.tsx",
-                            lineNumber: 136,
+                            lineNumber: 135,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/components/layout/Navigation.tsx",
-                    lineNumber: 71,
+                    lineNumber: 70,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/app/components/layout/Navigation.tsx",
-            lineNumber: 66,
+            lineNumber: 65,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/app/components/layout/Navigation.tsx",
-        lineNumber: 65,
+        lineNumber: 64,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
