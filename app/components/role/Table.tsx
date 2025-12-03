@@ -36,7 +36,7 @@ import { useTranslation } from 'react-i18next';
 import modules from '@/app/fakeData/Modules';
 import permissions from '@/app/fakeData/Permissions';
 import moment from 'moment';
-import { useUser } from "@/app/context/UserContext";
+import { useUser } from "@/app/context/userContext";
 
 type SortDirection = 'asc' | 'desc';
 
@@ -147,7 +147,11 @@ const RolesTable = () => {
                     refetch();
                     resolve();
                 },
-                onError: (error: object) => { toast.error(t('common.message.somethingWentWrong')); console.log(error); reject(error); },
+                onError: (error: object) => {
+                    toast.error(t('common.message.somethingWentWrong'));
+                    console.log(error);
+                    reject(error);
+                },
             });
         });
     };
@@ -202,7 +206,7 @@ const RolesTable = () => {
                 </Box>
 
                 <Box display="flex" alignItems="center" gap={1} ml="auto">
-                    {hasPermission("roles.create") && (
+                    {hasPermission("role.create") && (
                         <>
                             <Button
                                 variant="contained"
@@ -222,7 +226,7 @@ const RolesTable = () => {
                             </Button>
                         </>
                     )}
-                    {hasPermission("roles.delete") && selected.length > 0 && (
+                    {hasPermission("role.delete") && selected.length > 0 && (
                         <Button
                             variant="contained"
                             color="error"
@@ -252,7 +256,7 @@ const RolesTable = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                {hasPermission("roles.delete") && (
+                                {hasPermission("role.delete") && (
                                     <TableCell sx={{ width: 50, padding: "4px 8px" }}>
                                         <Checkbox
                                             checked={allSelected}
@@ -311,7 +315,7 @@ const RolesTable = () => {
                         <TableBody>
                             {roles.map((role, index) => (
                                 <TableRow key={role.uuid}>
-                                    {hasPermission("roles.delete") && (
+                                    {hasPermission("role.delete") && (
                                         <TableCell sx={{ width: 50, padding: "4px 8px" }}>
                                             <Checkbox
                                                 checked={selected.includes(role.uuid)}
@@ -325,10 +329,10 @@ const RolesTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{moment(role.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.updatedAt ? moment(role.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
-                                        {hasPermission("roles.preview") && <IconButton onClick={() => openModal('preview', role)}><Preview /></IconButton>}
-                                        {hasPermission("roles.edit") && <IconButton onClick={() => openModal('edit', role)}><Edit /></IconButton>}
+                                        {hasPermission("role.view") && <IconButton onClick={() => openModal('preview', role)}><Preview /></IconButton>}
+                                        {hasPermission("role.edit") && <IconButton onClick={() => openModal('edit', role)}><Edit /></IconButton>}
                                         <IconButton onClick={() => openModal('permission', role)}><Key /></IconButton>
-                                        {hasPermission("roles.delete") && <IconButton onClick={() => openModal('delete', role)}><Delete /></IconButton>}
+                                        {hasPermission("role.delete") && <IconButton onClick={() => openModal('delete', role)}><Delete /></IconButton>}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -351,17 +355,17 @@ const RolesTable = () => {
                 />
             )}
 
-            {hasPermission("roles.preview") && modalType === 'preview' && <PreviewRoleModal
+            {hasPermission("role.preview") && modalType === 'preview' && <PreviewRoleModal
                 open={true}
                 selectedRole={selectedRole}
                 onClose={closeModal}
             />}
-            {hasPermission("roles.create") && modalType === 'create' && <CreateRoleModal
+            {hasPermission("role.create") && modalType === 'create' && <CreateRoleModal
                 open={true}
                 onClose={closeModal}
                 onAddRole={handleAdd}
             />}
-            {hasPermission("roles.edit") && modalType === 'edit' && <EditRoleModal
+            {hasPermission("role.edit") && modalType === 'edit' && <EditRoleModal
                 open={true}
                 role={selectedRole}
                 onClose={closeModal}
@@ -374,18 +378,18 @@ const RolesTable = () => {
                 modules={modules}
                 permissions={permissions}
             />}
-            {hasPermission("roles.create") && modalType === 'importFromXLSX' && <ImportRolesFromXLSXModal
+            {hasPermission("role.create") && modalType === 'importFromXLSX' && <ImportRolesFromXLSXModal
                 open={true}
                 onClose={closeModal}
                 onImportRolesFromXLSX={handleImportRolesFromXLSX}
                 allowedTypes={["xlsx"]}
             />}
-            {hasPermission("roles.delete") && modalType === 'delete' && <DeleteRoleModal
+            {hasPermission("role.delete") && modalType === 'delete' && <DeleteRoleModal
                 open={true}
                 selectedRole={selectedRole}
                 onClose={closeModal}
                 onDeleteConfirm={handleDelete} />}
-            {hasPermission("roles.delete") && modalType === 'multipleDelete' && <DeleteMultipleRolesModal
+            {hasPermission("role.delete") && modalType === 'multipleDelete' && <DeleteMultipleRolesModal
                 open={true}
                 selectedRoles={roles.filter(role => selected.includes(role.uuid))}
                 onClose={closeModal}

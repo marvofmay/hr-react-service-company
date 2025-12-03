@@ -25,12 +25,12 @@ const fetchRoles = async (
             params: { pageSize, page, sortBy, sortDirection, phrase },
         });
 
-
         return {
             items: response.data.data.items || [],
             total: response.data.data.total || 0,
         };
     } catch (error) {
+        console.log(error);
         if (axios.isAxiosError(error) && error.response?.status === 401) {
             window.location.href = '/user/logout';
         }
@@ -50,7 +50,7 @@ const useRolesQuery = (
     return useQuery<RolesResponse>({
         queryKey: ['roles', pageSize, page, sortBy, sortDirection, phrase],
         queryFn: async () => {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('auth_token');
             if (!token) throw new Error(t('common.message.tokenIsMissing'));
 
             return fetchRoles(token, pageSize, page, sortBy, sortDirection, phrase);

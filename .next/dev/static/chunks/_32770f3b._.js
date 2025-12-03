@@ -8,35 +8,27 @@ __turbopack_context__.s([
 ]);
 const dashboardModules = [
     {
-        uuid: "1",
-        name: "tasks"
+        name: "task"
     },
     {
-        uuid: "7",
         name: "calendar"
     },
     {
-        uuid: "2",
-        name: "notes"
+        name: "note"
     },
     {
-        uuid: "9",
-        name: "documents"
+        name: "document"
     },
     {
-        uuid: "10",
-        name: "trips"
+        name: "trip"
     },
     {
-        uuid: "11",
-        name: "requests"
+        name: "request"
     },
     {
-        uuid: "12",
-        name: "substitutions"
+        name: "substitution"
     },
     {
-        uuid: "13",
         name: "feedback"
     }
 ];
@@ -65,10 +57,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$ico
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$RequestPage$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/icons-material/esm/RequestPage.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$SwapHoriz$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/icons-material/esm/SwapHoriz.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Feedback$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/icons-material/esm/Feedback.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/context/UserContext.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/context/userContext.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
-'use client';
 ;
 ;
 ;
@@ -87,7 +78,7 @@ const moduleIcons = {
         color: "inherit"
     }, void 0, false, {
         fileName: "[project]/app/components/dashboard/Items.tsx",
-        lineNumber: 18,
+        lineNumber: 16,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0)),
     calendar: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$CalendarToday$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -95,7 +86,7 @@ const moduleIcons = {
         color: "inherit"
     }, void 0, false, {
         fileName: "[project]/app/components/dashboard/Items.tsx",
-        lineNumber: 19,
+        lineNumber: 17,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0)),
     notes: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$StickyNote2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -103,7 +94,7 @@ const moduleIcons = {
         color: "inherit"
     }, void 0, false, {
         fileName: "[project]/app/components/dashboard/Items.tsx",
-        lineNumber: 20,
+        lineNumber: 18,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0)),
     documents: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Description$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -111,7 +102,7 @@ const moduleIcons = {
         color: "inherit"
     }, void 0, false, {
         fileName: "[project]/app/components/dashboard/Items.tsx",
-        lineNumber: 21,
+        lineNumber: 19,
         columnNumber: 16
     }, ("TURBOPACK compile-time value", void 0)),
     trips: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Flight$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -119,7 +110,7 @@ const moduleIcons = {
         color: "inherit"
     }, void 0, false, {
         fileName: "[project]/app/components/dashboard/Items.tsx",
-        lineNumber: 22,
+        lineNumber: 20,
         columnNumber: 12
     }, ("TURBOPACK compile-time value", void 0)),
     requests: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$RequestPage$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -127,7 +118,7 @@ const moduleIcons = {
         color: "inherit"
     }, void 0, false, {
         fileName: "[project]/app/components/dashboard/Items.tsx",
-        lineNumber: 23,
+        lineNumber: 21,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0)),
     substitutions: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$SwapHoriz$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -135,7 +126,7 @@ const moduleIcons = {
         color: "inherit"
     }, void 0, false, {
         fileName: "[project]/app/components/dashboard/Items.tsx",
-        lineNumber: 24,
+        lineNumber: 22,
         columnNumber: 20
     }, ("TURBOPACK compile-time value", void 0)),
     feedback: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Feedback$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -143,21 +134,19 @@ const moduleIcons = {
         color: "inherit"
     }, void 0, false, {
         fileName: "[project]/app/components/dashboard/Items.tsx",
-        lineNumber: 25,
+        lineNumber: 23,
         columnNumber: 15
     }, ("TURBOPACK compile-time value", void 0))
 };
 const Items = ()=>{
     _s();
     const { t } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$useTranslation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTranslation"])();
-    const { hasAccessToModule } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"])();
+    const { hasModule } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"])();
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "grid grid-rows-[10px_1fr_10px] justify-items-center min-h-screen p-4 font-[family-name:var(--font-geist-sans)]",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
             className: "grid grid-cols-4 gap-10 justify-center items-center",
-            children: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$fakeData$2f$DashboardModules$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].map((module)=>hasAccessToModule([
-                    module.name
-                ]) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+            children: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$fakeData$2f$DashboardModules$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].map((module, index)=>hasModule(module.name) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                     href: `/module/${module.name}`,
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "relative flex flex-col items-center justify-center w-24 h-24 sm:w-48 sm:h-48 rounded-full bg-[#34495e] hover:bg-[#2c3e50] transition-all shadow-lg cursor-pointer group overflow-hidden",
@@ -167,7 +156,7 @@ const Items = ()=>{
                                 children: moduleIcons[module.name]
                             }, void 0, false, {
                                 fileName: "[project]/app/components/dashboard/Items.tsx",
-                                lineNumber: 44,
+                                lineNumber: 40,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -175,42 +164,42 @@ const Items = ()=>{
                                 children: t(`module.${module.name}`)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/dashboard/Items.tsx",
-                                lineNumber: 49,
+                                lineNumber: 41,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0)),
-                            ("TURBOPACK compile-time value", "object") !== 'undefined' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100 -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out z-20"
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-100 transform translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/dashboard/Items.tsx",
-                                lineNumber: 55,
-                                columnNumber: 37
+                                lineNumber: 44,
+                                columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/dashboard/Items.tsx",
-                        lineNumber: 41,
+                        lineNumber: 39,
                         columnNumber: 29
                     }, ("TURBOPACK compile-time value", void 0))
-                }, module.uuid, false, {
+                }, `${module.name}-${index}`, false, {
                     fileName: "[project]/app/components/dashboard/Items.tsx",
-                    lineNumber: 37,
+                    lineNumber: 35,
                     columnNumber: 25
                 }, ("TURBOPACK compile-time value", void 0)))
         }, void 0, false, {
             fileName: "[project]/app/components/dashboard/Items.tsx",
-            lineNumber: 34,
+            lineNumber: 32,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/app/components/dashboard/Items.tsx",
-        lineNumber: 33,
+        lineNumber: 31,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(Items, "a+vMtnizhnKxMASejJDzUvZkHE4=", false, function() {
+_s(Items, "6oBnRpcAqEaq150rB60wkLKms4Y=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$useTranslation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTranslation"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"]
     ];
 });
 _c = Items;
@@ -230,14 +219,13 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__ = __turbopack_context__.i("[project]/node_modules/@mui/material/esm/Box/Box.js [app-client] (ecmascript) <export default as Box>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$CircularProgress$2f$CircularProgress$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CircularProgress$3e$__ = __turbopack_context__.i("[project]/node_modules/@mui/material/esm/CircularProgress/CircularProgress.js [app-client] (ecmascript) <export default as CircularProgress>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__ = __turbopack_context__.i("[project]/node_modules/@mui/material/esm/Typography/Typography.js [app-client] (ecmascript) <export default as Typography>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$query$2d$core$2f$build$2f$modern$2f$queryClient$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/query-core/build/modern/queryClient.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$dashboard$2f$Items$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/dashboard/Items.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/context/UserContext.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/context/userContext.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -246,32 +234,12 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-;
 const Home = ()=>{
     _s();
-    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const queryClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "Home.useMemo[queryClient]": ()=>new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$query$2d$core$2f$build$2f$modern$2f$queryClient$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["QueryClient"]()
     }["Home.useMemo[queryClient]"], []);
-    const { isAuthenticated, hasAccessToModule, hasPermission, loading, employee } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"])();
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "Home.useEffect": ()=>{
-            if (!loading && !isAuthenticated) {
-                router.replace("/unauthorized");
-            }
-            if (!loading && !hasAccessToModule([
-                "pages"
-            ]) && !hasPermission("pages.home")) {
-                router.replace("/forbidden");
-            }
-        }
-    }["Home.useEffect"], [
-        hasAccessToModule,
-        hasPermission,
-        isAuthenticated,
-        loading,
-        router
-    ]);
+    const { isAuthenticated, loading, employee } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"])();
     if (loading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
             display: "flex",
@@ -280,12 +248,12 @@ const Home = ()=>{
             height: "300px",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$CircularProgress$2f$CircularProgress$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CircularProgress$3e$__["CircularProgress"], {}, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 31,
+                lineNumber: 18,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/app/page.tsx",
-            lineNumber: 30,
+            lineNumber: 17,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -300,59 +268,54 @@ const Home = ()=>{
                     width: "90%",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["QueryClientProvider"], {
                         client: queryClient,
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
-                            children: [
-                                employee && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
-                                    variant: "body1",
-                                    mb: 2,
-                                    children: [
-                                        "Witaj, ",
-                                        employee.firstName,
-                                        " ",
-                                        employee.lastName
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/app/page.tsx",
-                                    lineNumber: 45,
-                                    columnNumber: 41
-                                }, ("TURBOPACK compile-time value", void 0)),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$dashboard$2f$Items$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-                                    fileName: "[project]/app/page.tsx",
-                                    lineNumber: 49,
-                                    columnNumber: 37
-                                }, ("TURBOPACK compile-time value", void 0))
-                            ]
-                        }, void 0, true)
-                    }, void 0, false, {
+                        children: [
+                            isAuthenticated && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
+                                variant: "body1",
+                                mb: 2,
+                                children: [
+                                    "Witaj, ",
+                                    employee?.uuid ? `${employee.firstName} ${employee.lastName}` : "pracowniku techniczny"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/page.tsx",
+                                lineNumber: 30,
+                                columnNumber: 33
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            isAuthenticated && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$dashboard$2f$Items$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                                fileName: "[project]/app/page.tsx",
+                                lineNumber: 35,
+                                columnNumber: 49
+                            }, ("TURBOPACK compile-time value", void 0))
+                        ]
+                    }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 41,
+                        lineNumber: 28,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/app/page.tsx",
-                    lineNumber: 40,
+                    lineNumber: 27,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 39,
+                lineNumber: 26,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/app/page.tsx",
-            lineNumber: 38,
+            lineNumber: 25,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 37,
+        lineNumber: 24,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(Home, "JvLHGA3ongM2y3uRF4bBmuQb22U=", false, function() {
+_s(Home, "GeiLtMzdjY0sgzm9PzOLu2bKd48=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"]
     ];
 });
 _c = Home;

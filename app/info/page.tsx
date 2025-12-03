@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser } from "@/app/context/UserContext";
+import { useUser } from "@/app/context/userContext";
 import { useTranslation } from "react-i18next";
 import { Box, CircularProgress } from '@mui/material';
 import CenteredMessage from '@/app/components/shared/CenterdeMessage';

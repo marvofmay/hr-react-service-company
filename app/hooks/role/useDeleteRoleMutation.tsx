@@ -32,7 +32,7 @@ const useDeleteRoleMutation = () => {
 
     return useMutation({
         mutationFn: (roleToDelete: Role) => {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem("auth_token");
 
             if (!token) {
                 throw new Error(t('common.message.tokenIsMissing'));

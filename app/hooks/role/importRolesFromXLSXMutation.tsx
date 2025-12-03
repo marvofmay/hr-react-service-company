@@ -33,7 +33,7 @@ const useImportRolesFromXLSXMutation = () => {
 
     return useMutation({
         mutationFn: (file: File) => {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem("auth_token");
 
             if (!token) {
                 throw new Error(t('common.message.tokenIsMissing'));

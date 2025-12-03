@@ -16,9 +16,8 @@ import {
     styled,
     PaletteMode,
 } from '@mui/material/styles';
-import { useUser } from "@/app/context/UserContext";
+import { useUser } from "@/app/context/userContext";
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -71,13 +70,7 @@ export default function SignIn() {
     const [open, setOpen] = React.useState(false);
     const [mode] = React.useState<PaletteMode>('light');
     const SignUpTheme = createTheme(getSignUpTheme(mode));
-    const { login, isAuthenticated } = useUser();
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            window.location.href = "/";
-        }
-    }, [isAuthenticated]);
+    const { login } = useUser();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -94,8 +87,8 @@ export default function SignIn() {
         }
 
         const data = new FormData(event.currentTarget);
-        const emailData = data.get('email') || '';
-        const passwordData = data.get('password') || '';
+        const emailData = String(data.get('email') ?? '');
+        const passwordData = String(data.get('password') ?? '');
 
         try {
             await login(emailData, passwordData);

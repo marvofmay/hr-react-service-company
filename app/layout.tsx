@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import Navigation from './components/layout/Navigation';
 import Content from "./components/layout/Content";
 import Footer from "./components/layout/Footer";
-import { UserProvider } from './context/UserContext';
+import { UserProvider } from './context/userContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../public/globals.css";
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children, }: Readonly<{ children: React.ReactNode; }>) => {
     return (
-        <html lang="en">
+        <html lang="pl">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <UserProvider>
                     <ToastContainer />

@@ -34,12 +34,11 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
     const [errorAPI, setErrorAPI] = useState<string | null>(null);
 
     const handleSubmit = async (values: Role) => {
-        setErrorAPI(null); // czyścimy poprzedni błąd
+        setErrorAPI(null);
         try {
             await onAddRole(values);
             onClose();
         } catch (error: unknown) {
-            // jeśli backend zwraca { message: "Rola o nazwie 'aaa' już istnieje." }
             if (
                 typeof error === 'object' &&
                 error !== null &&

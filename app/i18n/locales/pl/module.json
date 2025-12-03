@@ -1,14 +1,14 @@
 {
-    "tasks": "zadania",
-    "notes": "notatki",
-    "employees": "pracownicy",
-    "departments": "departamenty",
-    "companies": "firmy",
+    "task": "zadania",
+    "note": "notatki",
+    "employee": "pracownicy",
+    "department": "departamenty",
+    "companie": "firmy",
     "calendar": "kalendarz",
-    "notifications": "powiadomienia",
-    "documents": "dokumenty",
+    "notification": "powiadomienia",
+    "document": "dokumenty",
     "feedback": "feedback",
-    "trips": "delegacje",
-    "requests": "wnioski pracownicze",
-    "substitutions": "zastępstwa"
+    "trip": "delegacje",
+    "request": "wnioski pracownicze",
+    "substitution": "zastępstwa"
 }

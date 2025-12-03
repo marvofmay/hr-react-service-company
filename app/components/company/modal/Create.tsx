@@ -12,9 +12,9 @@ import fakeCompanies from "@/app/fakeData/Companies";
 import CreateDepartmentModal from "@/app/components/department/modal/Create";
 import Department from '@/app/types/Department';
 import { TreeViewBaseItem } from '@mui/x-tree-view/models';
-import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
-import { TreeItem2, TreeItem2Props } from '@mui/x-tree-view/TreeItem2';
-import { useTreeItem2Utils } from '@mui/x-tree-view/hooks';
+// import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
+// import { TreeItem2, TreeItem2Props } from '@mui/x-tree-view/TreeItem2';
+// import { useTreeItem2Utils } from '@mui/x-tree-view/hooks';
 
 interface AddCompanyModalProps {
     open: boolean;
@@ -97,94 +97,94 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
         );
     }
 
-    const CustomTreeItem = React.forwardRef(function CustomTreeItem(
-        props: TreeItem2Props,
-        ref: React.Ref<HTMLLIElement>,
-    ) {
-        const { publicAPI } = useTreeItem2Utils({
-            itemId: props.itemId,
-            children: props.children,
-        });
+    // const CustomTreeItem = React.forwardRef(function CustomTreeItem(
+    //     props: TreeItem2Props,
+    //     ref: React.Ref<HTMLLIElement>,
+    // ) {
+    //     const { publicAPI } = useTreeItem2Utils({
+    //         itemId: props.itemId,
+    //         children: props.children,
+    //     });
 
-        const item = publicAPI.getItem(props.itemId);
+    //     const item = publicAPI.getItem(props.itemId);
 
-        return (
-            <TreeItem2
-                {...props}
-                ref={ref}
-                label={
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <CustomLabel className="tree-label" secondaryLabel={item?.secondaryLabel || ''}>
-                            {item?.label || ''}
-                        </CustomLabel>
-                        <div>
-                            <IconButton onClick={e => {
-                                e.stopPropagation();
-                                handleEditDepartment(item.department);
-                            }} size="small" color="info">
-                                <EditIcon /> --{item.department.uuid}--
-                            </IconButton>
-                            <IconButton onClick={e => {
-                                e.stopPropagation();
-                                handleRemoveDepartment(item.department);
-                            }} size="small" color="error">
-                                <RemoveCircleOutlineIcon />
-                            </IconButton>
-                        </div>
-                    </div>
-                }
-            >
-                {item?.children && item.children.map((child: TreeItemWithLabel) => (
-                    <CustomTreeItem
-                        key={child.id}
-                        itemId={child.id}
-                        label={child.label}
-                    />
-                ))}
-            </TreeItem2 >
-        );
-    });
+    //     return (
+    //         <TreeItem2
+    //             {...props}
+    //             ref={ref}
+    //             label={
+    //                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    //                     <CustomLabel className="tree-label" secondaryLabel={item?.secondaryLabel || ''}>
+    //                         {item?.label || ''}
+    //                     </CustomLabel>
+    //                     <div>
+    //                         <IconButton onClick={e => {
+    //                             e.stopPropagation();
+    //                             handleEditDepartment(item.department);
+    //                         }} size="small" color="info">
+    //                             <EditIcon /> --{item.department.uuid}--
+    //                         </IconButton>
+    //                         <IconButton onClick={e => {
+    //                             e.stopPropagation();
+    //                             handleRemoveDepartment(item.department);
+    //                         }} size="small" color="error">
+    //                             <RemoveCircleOutlineIcon />
+    //                         </IconButton>
+    //                     </div>
+    //                 </div>
+    //             }
+    //         >
+    //             {item?.children && item.children.map((child: TreeItemWithLabel) => (
+    //                 <CustomTreeItem
+    //                     key={child.id}
+    //                     itemId={child.id}
+    //                     label={child.label}
+    //                 />
+    //             ))}
+    //         </TreeItem2 >
+    //     );
+    // });
 
-    const transformDepartmentsToTree = (departments: Department[]): TreeViewBaseItem<TreeItemWithLabel>[] => {
-        const departmentMap: Record<string, TreeViewBaseItem<TreeItemWithLabel>> = {};
-        const rootDepartments: TreeViewBaseItem<TreeItemWithLabel>[] = [];
+    // const transformDepartmentsToTree = (departments: Department[]): TreeViewBaseItem<TreeItemWithLabel>[] => {
+    //     const departmentMap: Record<string, TreeViewBaseItem<TreeItemWithLabel>> = {};
+    //     const rootDepartments: TreeViewBaseItem<TreeItemWithLabel>[] = [];
 
-        console.log('before transformDepartmentsToTree', departments);
-        // Tworzenie mapy departmentMap
-        departments.forEach(department => {
-            // if (department.uuid === '') {
-            //     department.uuid = `new-department-${crypto.randomUUID()}`;
-            // }
-            departmentMap[department.uuid] = {
-                id: department.uuid,
-                label: department.name || '',
-                secondaryLabel: department.description || '',
-                department: department,
-                children: [],
-            };
-        });
+    //     console.log('before transformDepartmentsToTree', departments);
+    //     // Tworzenie mapy departmentMap
+    //     departments.forEach(department => {
+    //         // if (department.uuid === '') {
+    //         //     department.uuid = `new-department-${crypto.randomUUID()}`;
+    //         // }
+    //         departmentMap[department.uuid] = {
+    //             id: department.uuid,
+    //             label: department.name || '',
+    //             secondaryLabel: department.description || '',
+    //             department: department,
+    //             children: [],
+    //         };
+    //     });
 
-        // Przekształcenie danych w strukturę drzewa
-        departments.forEach(department => {
-            const parentId = department.departmentSuperior?.uuid || null;
-            if (parentId && parentId !== '' && departmentMap[parentId]) {
-                // Dodajemy element jako dziecko do rodzica
-                departmentMap[parentId].children?.push(departmentMap[department.uuid]);
-            } else {
-                // Dodajemy element do korzenia, jeśli nie ma rodzica
-                rootDepartments.push(departmentMap[department.uuid]);
-            }
-        });
+    //     // Przekształcenie danych w strukturę drzewa
+    //     departments.forEach(department => {
+    //         const parentId = department.departmentSuperior?.uuid || null;
+    //         if (parentId && parentId !== '' && departmentMap[parentId]) {
+    //             // Dodajemy element jako dziecko do rodzica
+    //             departmentMap[parentId].children?.push(departmentMap[department.uuid]);
+    //         } else {
+    //             // Dodajemy element do korzenia, jeśli nie ma rodzica
+    //             rootDepartments.push(departmentMap[department.uuid]);
+    //         }
+    //     });
 
-        return rootDepartments;
-    };
+    //     return rootDepartments;
+    // };
 
-    useEffect(() => {
-        if (departments.length > 0) {
-            const treeData = transformDepartmentsToTree(departments);
-            setTreeDepartments(treeData);
-        }
-    }, [departments]);
+    // useEffect(() => {
+    //     if (departments.length > 0) {
+    //         const treeData = transformDepartmentsToTree(departments);
+    //         setTreeDepartments(treeData);
+    //     }
+    // }, [departments]);
 
     const handleAddPhone = (values: Company, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
         if (values.phone.length < MAX_PHONE_FIELDS) {
@@ -629,11 +629,11 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                         >
                                             {t('department.button.add')}
                                         </Button>
-                                        <RichTreeView
+                                        {/* <RichTreeView
                                             defaultExpandedItems={['pickers']}
                                             items={treeDepartments}
                                             slots={{ item: CustomTreeItem }}
-                                        />
+                                        /> */}
                                         {/* <ul>
                                             {departments.map((dept, index) => (
                                                 <li

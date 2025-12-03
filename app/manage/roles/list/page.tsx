@@ -4,13 +4,13 @@ import RolesTable from "@/app/components/role/Table";
 import { Box, Typography, CircularProgress } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { useUser } from "@/app/context/UserContext";
+import { useUser } from "@/app/context/userContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const RolesList: React.FC = () => {
     const queryClient = new QueryClient();
-    const { hasAccessToModule, hasPermission, isAuthenticated, loading } = useUser();
+    const { hasAccess, hasPermission, isAuthenticated, loading } = useUser();
     const router = useRouter();
     const { t } = useTranslation();
 
@@ -19,10 +19,10 @@ const RolesList: React.FC = () => {
             router.replace("/unauthorized");
         }
 
-        if (!loading && !hasAccessToModule(["companies"])) {
+        if (!loading && !hasAccess("role")) {
             router.replace("/forbidden");
         }
-    }, [hasAccessToModule, isAuthenticated, loading, router]);
+    }, [hasAccess, hasPermission, isAuthenticated, loading, router]);
 
     if (loading) {
         return (<Box display="flex" justifyContent="center" alignItems="center" height="300px">
@@ -37,7 +37,7 @@ const RolesList: React.FC = () => {
                     <Box width="90%">
                         <Typography variant="h6" gutterBottom>{t('role.list.title')}</Typography>
                         <QueryClientProvider client={queryClient}>
-                            {hasPermission('roles.list') && <RolesTable />}
+                            {hasPermission('role.list') && <RolesTable />}
                         </QueryClientProvider>
                     </Box></Box>
             </main>

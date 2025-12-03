@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useUser } from "@/app/context/UserContext";
+import { useUser } from "@/app/context/userContext";
 import { useTranslation } from "react-i18next";
 import { Box, CircularProgress } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -10,15 +10,15 @@ import NotificationsTable from "@/app/components/notification/Table";
 
 const Notifications: React.FC = () => {
     const { t } = useTranslation();
-    const { hasAccessToModule, loading } = useUser();
+    const { hasModule, loading } = useUser();
     const router = useRouter();
     const queryClient = new QueryClient();
 
     useEffect(() => {
-        if (!loading && !hasAccessToModule(["notifications"])) {
+        if (!loading && !hasModule("notifications")) {
             router.replace("/unauthorized");
         }
-    }, [hasAccessToModule, loading, router]);
+    }, [hasModule, loading, router]);
 
     if (loading) {
         return (<Box display="flex" justifyContent="center" alignItems="center" height="300px">

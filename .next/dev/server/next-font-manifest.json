@@ -1,6 +1,26 @@
 {
   "app": {
+    "[project]/app/_not-found/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/info/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
     "[project]/app/login/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/manage/companies/list/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/manage/employees/list/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/manage/positions/list/page": [
       "static/media/GeistVF-s.p.4c3c0b96.woff",
       "static/media/GeistMonoVF-s.p.2cee7d16.woff"
     ],
@@ -8,11 +28,39 @@
       "static/media/GeistVF-s.p.4c3c0b96.woff",
       "static/media/GeistMonoVF-s.p.2cee7d16.woff"
     ],
+    "[project]/app/module/document/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/module/note/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/notifications/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
     "[project]/app/page": [
       "static/media/GeistVF-s.p.4c3c0b96.woff",
       "static/media/GeistMonoVF-s.p.2cee7d16.woff"
     ],
-    "[project]/app/user/logout/page": [
+    "[project]/app/settings/companies/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/settings/employees/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/settings/notifications/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/settings/roles/page": [
+      "static/media/GeistVF-s.p.4c3c0b96.woff",
+      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
+    ],
+    "[project]/app/unauthorized/page": [
       "static/media/GeistVF-s.p.4c3c0b96.woff",
       "static/media/GeistMonoVF-s.p.2cee7d16.woff"
     ]

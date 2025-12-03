@@ -46,12 +46,11 @@ const AddRoleModal = ({ open, onClose, onAddRole })=>{
     };
     const [errorAPI, setErrorAPI] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const handleSubmit = async (values)=>{
-        setErrorAPI(null); // czyścimy poprzedni błąd
+        setErrorAPI(null);
         try {
             await onAddRole(values);
             onClose();
         } catch (error) {
-            // jeśli backend zwraca { message: "Rola o nazwie 'aaa' już istnieje." }
             if (typeof error === 'object' && error !== null && 'response' in error && error.response?.data?.message) {
                 setErrorAPI(error.response.data.message);
             } else {
@@ -85,18 +84,18 @@ const AddRoleModal = ({ open, onClose, onAddRole })=>{
                         },
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Close$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/app/components/role/modal/Create.tsx",
-                            lineNumber: 65,
+                            lineNumber: 64,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/app/components/role/modal/Create.tsx",
-                        lineNumber: 60,
+                        lineNumber: 59,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/role/modal/Create.tsx",
-                lineNumber: 58,
+                lineNumber: 57,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$formik$2f$dist$2f$formik$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Formik"], {
@@ -116,7 +115,7 @@ const AddRoleModal = ({ open, onClose, onAddRole })=>{
                                         children: errorAPI
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/modal/Create.tsx",
-                                        lineNumber: 78,
+                                        lineNumber: 77,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$formik$2f$dist$2f$formik$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Field"], {
@@ -130,7 +129,7 @@ const AddRoleModal = ({ open, onClose, onAddRole })=>{
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/modal/Create.tsx",
-                                        lineNumber: 82,
+                                        lineNumber: 81,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$formik$2f$dist$2f$formik$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Field"], {
@@ -145,13 +144,13 @@ const AddRoleModal = ({ open, onClose, onAddRole })=>{
                                         helperText: touched.description && errors.description
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/modal/Create.tsx",
-                                        lineNumber: 92,
+                                        lineNumber: 91,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/role/modal/Create.tsx",
-                                lineNumber: 76,
+                                lineNumber: 75,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$DialogActions$2f$DialogActions$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__DialogActions$3e$__["DialogActions"], {
@@ -167,7 +166,7 @@ const AddRoleModal = ({ open, onClose, onAddRole })=>{
                                         children: t('common.button.cancel')
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/modal/Create.tsx",
-                                        lineNumber: 105,
+                                        lineNumber: 104,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Button$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
@@ -181,30 +180,30 @@ const AddRoleModal = ({ open, onClose, onAddRole })=>{
                                         children: t('common.button.save')
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/modal/Create.tsx",
-                                        lineNumber: 112,
+                                        lineNumber: 111,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/role/modal/Create.tsx",
-                                lineNumber: 104,
+                                lineNumber: 103,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/role/modal/Create.tsx",
-                        lineNumber: 75,
+                        lineNumber: 74,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/app/components/role/modal/Create.tsx",
-                lineNumber: 69,
+                lineNumber: 68,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/role/modal/Create.tsx",
-        lineNumber: 57,
+        lineNumber: 56,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -600,7 +599,7 @@ const PreviewRoleModal = ({ open, selectedRole, onClose })=>{
         "PreviewRoleModal.useEffect": ()=>{
             const fetchRole = {
                 "PreviewRoleModal.useEffect.fetchRole": async ()=>{
-                    const token = localStorage.getItem('token');
+                    const token = localStorage.getItem("auth_token");
                     if (!token) {
                         console.error('Token is missing');
                         return;
@@ -1754,6 +1753,7 @@ const fetchRoles = async (token, pageSize, page, sortBy, sortDirection, phrase)=
             total: response.data.data.total || 0
         };
     } catch (error) {
+        console.log(error);
         if (__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].isAxiosError(error) && error.response?.status === 401) {
             window.location.href = '/user/logout';
         }
@@ -1774,7 +1774,7 @@ const useRolesQuery = (pageSize, page, sortBy, sortDirection, phrase)=>{
         ],
         queryFn: {
             "useRolesQuery.useQuery": async ()=>{
-                const token = localStorage.getItem('token');
+                const token = localStorage.getItem('auth_token');
                 if (!token) throw new Error(t('common.message.tokenIsMissing'));
                 return fetchRoles(token, pageSize, page, sortBy, sortDirection, phrase);
             }
@@ -1827,7 +1827,7 @@ const useAddRoleMutation = ()=>{
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMutation"])({
         mutationFn: {
             "useAddRoleMutation.useMutation": (role)=>{
-                const token = localStorage.getItem('token');
+                const token = localStorage.getItem("auth_token");
                 if (!token) throw new Error(t('common.message.tokenIsMissing'));
                 return addRole(role, token);
             }
@@ -1888,7 +1888,7 @@ const useUpdateRoleMutation = ()=>{
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMutation"])({
         mutationFn: {
             "useUpdateRoleMutation.useMutation": (updatedRole)=>{
-                const token = localStorage.getItem('token');
+                const token = localStorage.getItem("auth_token");
                 if (!token) {
                     throw new Error(t('common.message.tokenIsMissing'));
                 }
@@ -1953,7 +1953,7 @@ const useDeleteRoleMutation = ()=>{
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMutation"])({
         mutationFn: {
             "useDeleteRoleMutation.useMutation": (roleToDelete)=>{
-                const token = localStorage.getItem('token');
+                const token = localStorage.getItem("auth_token");
                 if (!token) {
                     throw new Error(t('common.message.tokenIsMissing'));
                 }
@@ -2017,7 +2017,7 @@ const useDeleteMultipleRoleMutation = ()=>{
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMutation"])({
         mutationFn: {
             "useDeleteMultipleRoleMutation.useMutation": (rolesToDelete)=>{
-                const token = localStorage.getItem('token');
+                const token = localStorage.getItem("auth_token");
                 if (!token) {
                     throw new Error(t('common.message.tokenIsMissing'));
                 }
@@ -2097,7 +2097,7 @@ const useImportRolesFromXLSXMutation = ()=>{
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMutation"])({
         mutationFn: {
             "useImportRolesFromXLSXMutation.useMutation": (file)=>{
-                const token = localStorage.getItem('token');
+                const token = localStorage.getItem("auth_token");
                 if (!token) {
                     throw new Error(t('common.message.tokenIsMissing'));
                 }
@@ -2367,7 +2367,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$fakeData$2f$Modules$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/fakeData/Modules.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$fakeData$2f$Permissions$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/fakeData/Permissions.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$moment$2f$moment$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/moment/moment.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/context/UserContext.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/context/userContext.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 ;
@@ -2415,7 +2415,7 @@ const RolesTable = ()=>{
     const { mutate: deleteMultipleRoleMutate } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$role$2f$useDeleteMultipleRoleMutation$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])();
     const { mutate: importRolesFromXLSXMutate } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$role$2f$importRolesFromXLSXMutation$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])();
     const { t } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$useTranslation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTranslation"])();
-    const { hasPermission } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"])();
+    const { hasPermission } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"])();
     const result = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$role$2f$useRolesQuery$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(pageSize, page, sortBy, sortDirection, phrase);
     const { data: rawData, isLoading, error, refetch } = result;
     const roles = Array.isArray(rawData) ? rawData : rawData?.items || [];
@@ -2560,13 +2560,13 @@ const RolesTable = ()=>{
                                 onChange: (e)=>setSearchPhrase(e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/role/Table.tsx",
-                                lineNumber: 187,
+                                lineNumber: 191,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Button$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
                                 startIcon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Search$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/app/components/role/Table.tsx",
-                                    lineNumber: 195,
+                                    lineNumber: 199,
                                     columnNumber: 36
                                 }, void 0),
                                 variant: "contained",
@@ -2575,13 +2575,13 @@ const RolesTable = ()=>{
                                 children: t('common.button.search')
                             }, void 0, false, {
                                 fileName: "[project]/app/components/role/Table.tsx",
-                                lineNumber: 194,
+                                lineNumber: 198,
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/role/Table.tsx",
-                        lineNumber: 186,
+                        lineNumber: 190,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -2590,21 +2590,21 @@ const RolesTable = ()=>{
                         gap: 1,
                         ml: "auto",
                         children: [
-                            hasPermission("roles.create") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                            hasPermission("role.create") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Button$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
                                         variant: "contained",
                                         color: "success",
                                         startIcon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Add$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 210,
+                                            lineNumber: 214,
                                             columnNumber: 44
                                         }, void 0),
                                         onClick: ()=>openModal('create'),
                                         children: t('role.button.add')
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/Table.tsx",
-                                        lineNumber: 207,
+                                        lineNumber: 211,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Button$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
@@ -2612,24 +2612,24 @@ const RolesTable = ()=>{
                                         color: "success",
                                         startIcon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$FileUploadOutlined$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 218,
+                                            lineNumber: 222,
                                             columnNumber: 44
                                         }, void 0),
                                         onClick: ()=>openModal('importFromXLSX'),
                                         children: t('role.button.importFromXLSX')
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/Table.tsx",
-                                        lineNumber: 215,
+                                        lineNumber: 219,
                                         columnNumber: 29
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true),
-                            hasPermission("roles.delete") && selected.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Button$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
+                            hasPermission("role.delete") && selected.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Button$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
                                 variant: "contained",
                                 color: "error",
                                 startIcon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Delete$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/app/components/role/Table.tsx",
-                                    lineNumber: 229,
+                                    lineNumber: 233,
                                     columnNumber: 40
                                 }, void 0),
                                 onClick: ()=>openModal('multipleDelete'),
@@ -2641,19 +2641,19 @@ const RolesTable = ()=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/role/Table.tsx",
-                                lineNumber: 226,
+                                lineNumber: 230,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/role/Table.tsx",
-                        lineNumber: 204,
+                        lineNumber: 208,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 185,
+                lineNumber: 189,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             isLoading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -2663,12 +2663,12 @@ const RolesTable = ()=>{
                 height: "300px",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$CircularProgress$2f$CircularProgress$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CircularProgress$3e$__["CircularProgress"], {}, void 0, false, {
                     fileName: "[project]/app/components/role/Table.tsx",
-                    lineNumber: 240,
+                    lineNumber: 244,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 239,
+                lineNumber: 243,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
                 display: "flex",
@@ -2682,12 +2682,12 @@ const RolesTable = ()=>{
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/components/role/Table.tsx",
-                    lineNumber: 244,
+                    lineNumber: 248,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 243,
+                lineNumber: 247,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)) : roles.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
                 display: "flex",
@@ -2698,12 +2698,12 @@ const RolesTable = ()=>{
                     children: t('common.noData')
                 }, void 0, false, {
                     fileName: "[project]/app/components/role/Table.tsx",
-                    lineNumber: 248,
+                    lineNumber: 252,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 247,
+                lineNumber: 251,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableContainer$2f$TableContainer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableContainer$3e$__["TableContainer"], {
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Table$2f$Table$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Table$3e$__["Table"], {
@@ -2711,7 +2711,7 @@ const RolesTable = ()=>{
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableHead$2f$TableHead$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableHead$3e$__["TableHead"], {
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableRow$2f$TableRow$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableRow$3e$__["TableRow"], {
                                 children: [
-                                    hasPermission("roles.delete") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
+                                    hasPermission("role.delete") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
                                         sx: {
                                             width: 50,
                                             padding: "4px 8px"
@@ -2721,12 +2721,12 @@ const RolesTable = ()=>{
                                             onChange: toggleSelectAll
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 257,
+                                            lineNumber: 261,
                                             columnNumber: 41
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/Table.tsx",
-                                        lineNumber: 256,
+                                        lineNumber: 260,
                                         columnNumber: 37
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2741,12 +2741,12 @@ const RolesTable = ()=>{
                                             children: "#"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 268,
+                                            lineNumber: 272,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/Table.tsx",
-                                        lineNumber: 263,
+                                        lineNumber: 267,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2761,12 +2761,12 @@ const RolesTable = ()=>{
                                             children: t('role.table.column.name')
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 277,
+                                            lineNumber: 281,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/Table.tsx",
-                                        lineNumber: 272,
+                                        lineNumber: 276,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2782,12 +2782,12 @@ const RolesTable = ()=>{
                                             children: t('role.table.column.description')
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 286,
+                                            lineNumber: 290,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/Table.tsx",
-                                        lineNumber: 281,
+                                        lineNumber: 285,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2802,12 +2802,12 @@ const RolesTable = ()=>{
                                             children: t('role.table.column.createdAt')
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 295,
+                                            lineNumber: 299,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/Table.tsx",
-                                        lineNumber: 290,
+                                        lineNumber: 294,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2822,12 +2822,12 @@ const RolesTable = ()=>{
                                             children: t('role.table.column.updatedAt')
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 304,
+                                            lineNumber: 308,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/Table.tsx",
-                                        lineNumber: 299,
+                                        lineNumber: 303,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2837,24 +2837,24 @@ const RolesTable = ()=>{
                                         children: t('role.table.column.actions')
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/role/Table.tsx",
-                                        lineNumber: 308,
+                                        lineNumber: 312,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/role/Table.tsx",
-                                lineNumber: 254,
+                                lineNumber: 258,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/app/components/role/Table.tsx",
-                            lineNumber: 253,
+                            lineNumber: 257,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableBody$2f$TableBody$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableBody$3e$__["TableBody"], {
                             children: roles.map((role, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableRow$2f$TableRow$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableRow$3e$__["TableRow"], {
                                     children: [
-                                        hasPermission("roles.delete") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
+                                        hasPermission("role.delete") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
                                             sx: {
                                                 width: 50,
                                                 padding: "4px 8px"
@@ -2864,12 +2864,12 @@ const RolesTable = ()=>{
                                                 onChange: ()=>toggleSelectRow(role.uuid)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/role/Table.tsx",
-                                                lineNumber: 316,
+                                                lineNumber: 320,
                                                 columnNumber: 45
                                             }, ("TURBOPACK compile-time value", void 0))
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 315,
+                                            lineNumber: 319,
                                             columnNumber: 41
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2879,7 +2879,7 @@ const RolesTable = ()=>{
                                             children: (page - 1) * pageSize + index + 1
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 322,
+                                            lineNumber: 326,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2889,7 +2889,7 @@ const RolesTable = ()=>{
                                             children: role.name
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 323,
+                                            lineNumber: 327,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2899,7 +2899,7 @@ const RolesTable = ()=>{
                                             children: role.description || '-'
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 324,
+                                            lineNumber: 328,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2909,7 +2909,7 @@ const RolesTable = ()=>{
                                             children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$moment$2f$moment$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(role.createdAt).format('YYYY-MM-DD HH:mm:ss')
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 325,
+                                            lineNumber: 329,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2919,7 +2919,7 @@ const RolesTable = ()=>{
                                             children: role.updatedAt ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$moment$2f$moment$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(role.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 326,
+                                            lineNumber: 330,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TableCell$2f$TableCell$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TableCell$3e$__["TableCell"], {
@@ -2927,80 +2927,80 @@ const RolesTable = ()=>{
                                                 padding: '4px 8px'
                                             },
                                             children: [
-                                                hasPermission("roles.preview") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$IconButton$2f$IconButton$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__IconButton$3e$__["IconButton"], {
+                                                hasPermission("role.view") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$IconButton$2f$IconButton$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__IconButton$3e$__["IconButton"], {
                                                     onClick: ()=>openModal('preview', role),
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Preview$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                                         fileName: "[project]/app/components/role/Table.tsx",
-                                                        lineNumber: 328,
-                                                        columnNumber: 131
+                                                        lineNumber: 332,
+                                                        columnNumber: 127
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/role/Table.tsx",
-                                                    lineNumber: 328,
-                                                    columnNumber: 76
+                                                    lineNumber: 332,
+                                                    columnNumber: 72
                                                 }, ("TURBOPACK compile-time value", void 0)),
-                                                hasPermission("roles.edit") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$IconButton$2f$IconButton$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__IconButton$3e$__["IconButton"], {
+                                                hasPermission("role.edit") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$IconButton$2f$IconButton$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__IconButton$3e$__["IconButton"], {
                                                     onClick: ()=>openModal('edit', role),
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Edit$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                                         fileName: "[project]/app/components/role/Table.tsx",
-                                                        lineNumber: 329,
-                                                        columnNumber: 125
+                                                        lineNumber: 333,
+                                                        columnNumber: 124
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/role/Table.tsx",
-                                                    lineNumber: 329,
-                                                    columnNumber: 73
+                                                    lineNumber: 333,
+                                                    columnNumber: 72
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$IconButton$2f$IconButton$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__IconButton$3e$__["IconButton"], {
                                                     onClick: ()=>openModal('permission', role),
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Key$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                                         fileName: "[project]/app/components/role/Table.tsx",
-                                                        lineNumber: 330,
+                                                        lineNumber: 334,
                                                         columnNumber: 99
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/role/Table.tsx",
-                                                    lineNumber: 330,
+                                                    lineNumber: 334,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
-                                                hasPermission("roles.delete") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$IconButton$2f$IconButton$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__IconButton$3e$__["IconButton"], {
+                                                hasPermission("role.delete") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$IconButton$2f$IconButton$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__IconButton$3e$__["IconButton"], {
                                                     onClick: ()=>openModal('delete', role),
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$Delete$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                                         fileName: "[project]/app/components/role/Table.tsx",
-                                                        lineNumber: 331,
-                                                        columnNumber: 129
+                                                        lineNumber: 335,
+                                                        columnNumber: 128
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/role/Table.tsx",
-                                                    lineNumber: 331,
-                                                    columnNumber: 75
+                                                    lineNumber: 335,
+                                                    columnNumber: 74
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/role/Table.tsx",
-                                            lineNumber: 327,
+                                            lineNumber: 331,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, role.uuid, true, {
                                     fileName: "[project]/app/components/role/Table.tsx",
-                                    lineNumber: 313,
+                                    lineNumber: 317,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0)))
                         }, void 0, false, {
                             fileName: "[project]/app/components/role/Table.tsx",
-                            lineNumber: 311,
+                            lineNumber: 315,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/components/role/Table.tsx",
-                    lineNumber: 252,
+                    lineNumber: 256,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 251,
+                lineNumber: 255,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             totalCount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TablePagination$2f$TablePagination$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TablePagination$3e$__["TablePagination"], {
@@ -3024,36 +3024,36 @@ const RolesTable = ()=>{
                 labelDisplayedRows: ({ from, to, count })=>`${from}-${to} ${t('common.of')} ${count}`
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 341,
+                lineNumber: 345,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
-            hasPermission("roles.preview") && modalType === 'preview' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$Preview$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+            hasPermission("role.preview") && modalType === 'preview' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$Preview$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 open: true,
                 selectedRole: selectedRole,
                 onClose: closeModal
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 354,
-                columnNumber: 75
+                lineNumber: 358,
+                columnNumber: 74
             }, ("TURBOPACK compile-time value", void 0)),
-            hasPermission("roles.create") && modalType === 'create' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$Create$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+            hasPermission("role.create") && modalType === 'create' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$Create$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 open: true,
                 onClose: closeModal,
                 onAddRole: handleAdd
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 359,
-                columnNumber: 73
+                lineNumber: 363,
+                columnNumber: 72
             }, ("TURBOPACK compile-time value", void 0)),
-            hasPermission("roles.edit") && modalType === 'edit' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$Edit$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+            hasPermission("role.edit") && modalType === 'edit' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$Edit$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 open: true,
                 role: selectedRole,
                 onClose: closeModal,
                 onSave: handleUpdate
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 364,
-                columnNumber: 69
+                lineNumber: 368,
+                columnNumber: 68
             }, ("TURBOPACK compile-time value", void 0)),
             modalType === 'permission' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$permission$2f$modal$2f$EditPermissionRole$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 open: true,
@@ -3064,10 +3064,10 @@ const RolesTable = ()=>{
                 permissions: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$fakeData$2f$Permissions$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 369,
+                lineNumber: 373,
                 columnNumber: 44
             }, ("TURBOPACK compile-time value", void 0)),
-            hasPermission("roles.create") && modalType === 'importFromXLSX' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$importRolesFromXLSX$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+            hasPermission("role.create") && modalType === 'importFromXLSX' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$importRolesFromXLSX$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 open: true,
                 onClose: closeModal,
                 onImportRolesFromXLSX: handleImportRolesFromXLSX,
@@ -3076,33 +3076,33 @@ const RolesTable = ()=>{
                 ]
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 377,
-                columnNumber: 81
+                lineNumber: 381,
+                columnNumber: 80
             }, ("TURBOPACK compile-time value", void 0)),
-            hasPermission("roles.delete") && modalType === 'delete' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$Delete$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+            hasPermission("role.delete") && modalType === 'delete' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$Delete$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 open: true,
                 selectedRole: selectedRole,
                 onClose: closeModal,
                 onDeleteConfirm: handleDelete
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 383,
-                columnNumber: 73
+                lineNumber: 387,
+                columnNumber: 72
             }, ("TURBOPACK compile-time value", void 0)),
-            hasPermission("roles.delete") && modalType === 'multipleDelete' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$DeleteMultiple$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+            hasPermission("role.delete") && modalType === 'multipleDelete' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$modal$2f$DeleteMultiple$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 open: true,
                 selectedRoles: roles.filter((role)=>selected.includes(role.uuid)),
                 onClose: closeModal,
                 onDeleteMultipleConfirm: handleDeleteMultiple
             }, void 0, false, {
                 fileName: "[project]/app/components/role/Table.tsx",
-                lineNumber: 388,
-                columnNumber: 81
+                lineNumber: 392,
+                columnNumber: 80
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/role/Table.tsx",
-        lineNumber: 184,
+        lineNumber: 188,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -3114,7 +3114,7 @@ _s(RolesTable, "DznuXGAmAGb0MtCBEjqErpeg360=", false, function() {
         __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$role$2f$useDeleteMultipleRoleMutation$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
         __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$role$2f$importRolesFromXLSXMutation$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$useTranslation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTranslation"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"],
         __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$role$2f$useRolesQuery$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
     ];
 });
@@ -3142,7 +3142,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/react-i18next/dist/es/index.js [app-client] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$useTranslation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-i18next/dist/es/useTranslation.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/context/UserContext.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/context/userContext.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 ;
@@ -3158,7 +3158,7 @@ var _s = __turbopack_context__.k.signature();
 const RolesList = ()=>{
     _s();
     const queryClient = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$query$2d$core$2f$build$2f$modern$2f$queryClient$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["QueryClient"]();
-    const { hasAccessToModule, hasPermission, isAuthenticated, loading } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"])();
+    const { hasAccess, hasPermission, isAuthenticated, loading } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const { t } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$useTranslation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTranslation"])();
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
@@ -3166,14 +3166,13 @@ const RolesList = ()=>{
             if (!loading && !isAuthenticated) {
                 router.replace("/unauthorized");
             }
-            if (!loading && !hasAccessToModule([
-                "companies"
-            ])) {
+            if (!loading && !hasAccess("role")) {
                 router.replace("/forbidden");
             }
         }
     }["RolesList.useEffect"], [
-        hasAccessToModule,
+        hasAccess,
+        hasPermission,
         isAuthenticated,
         loading,
         router
@@ -3216,10 +3215,10 @@ const RolesList = ()=>{
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["QueryClientProvider"], {
                             client: queryClient,
-                            children: hasPermission('roles.list') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$Table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                            children: hasPermission('role.list') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$role$2f$Table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                 fileName: "[project]/app/manage/roles/list/page.tsx",
                                 lineNumber: 40,
-                                columnNumber: 61
+                                columnNumber: 60
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/app/manage/roles/list/page.tsx",
@@ -3248,9 +3247,9 @@ const RolesList = ()=>{
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(RolesList, "v9B8WushG31qu7n2zbs+4FY/kkU=", false, function() {
+_s(RolesList, "51DsgDmHw+SLdJri/sbO2sXd99c=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$UserContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$useTranslation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTranslation"]
     ];

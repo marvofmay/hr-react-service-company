@@ -2,7 +2,7 @@
 
 import { useTranslation } from 'react-i18next';
 
-const Unauthorized: React.FC = () => {
+const Forbidden: React.FC = () => {
     const { t } = useTranslation();
 
     return (
@@ -15,4 +15,4 @@ const Unauthorized: React.FC = () => {
     );
 };
 
-export default Unauthorized;
+export default Forbidden;

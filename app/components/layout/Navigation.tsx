@@ -11,7 +11,7 @@ import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import EmailIcon from "@mui/icons-material/Email";
 import { useTranslation } from "react-i18next";
 import { APP_NAME } from "../../utility/constans";
-import { useUser } from "@/app/context/UserContext";
+import { useUser } from "@/app/context/userContext";
 import ManageListNavigation from "../manage/navigation/List";
 import SettingsListNavigation from "../settings/navigation/List";
 import UserProfileNavigation from "../user/UserProfileNavigation";
@@ -19,14 +19,14 @@ import { SERVICE_MERCURE_URL } from '@/app/utility/constans';
 
 
 const navLinks = [
-    { href: "/", label: APP_NAME, activePath: "/", icon: <HomeIcon /> },
+    { href: "/", label: "home", activePath: "/", icon: <HomeIcon /> },
     { href: "/info", label: "Info", activePath: "/info", icon: <InfoIcon />, name: "info" },
 ];
 
 const Navigation: React.FC = () => {
     const pathname = usePathname();
     const { t } = useTranslation();
-    const { isAuthenticated, hasAccessToModule, hasPermission, employee } = useUser();
+    const { isAuthenticated, hasModule, hasAccess, hasPermission, user } = useUser();
     const [notificationCount, setNotificationCount] = useState(0);
     const [hydrated, setHydrated] = useState(false);
 
@@ -35,12 +35,12 @@ const Navigation: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        if (!isAuthenticated || !employee?.uuid || !hydrated) return;
+        if (!isAuthenticated || !user?.uuid || !hydrated) return;
 
         if (typeof window === "undefined") return;
 
         const url = new URL(SERVICE_MERCURE_URL);
-        url.searchParams.append("topic", `user.${employee.uuid}`);
+        url.searchParams.append("topic", `user.${user.uuid}`);
 
         const es = new EventSource(url.toString());
 
@@ -54,7 +54,7 @@ const Navigation: React.FC = () => {
         es.onerror = (err) => console.error("Błąd Mercure:", err);
 
         return () => es.close();
-    }, [isAuthenticated, employee, hydrated]);
+    }, [isAuthenticated, user, hydrated]);
 
     if (!hydrated) {
         return null;
@@ -69,7 +69,7 @@ const Navigation: React.FC = () => {
 
                 <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
                     {navLinks.map((link) =>
-                        isAuthenticated && hasPermission(`pages.${link.name}`) ? (
+                        isAuthenticated ? (
                             <Link
                                 key={link.href}
                                 href={link.href}
@@ -88,16 +88,14 @@ const Navigation: React.FC = () => {
                         ) : null
                     )}
 
-                    {isAuthenticated && hasAccessToModule([
-                        "companies", "departments", "employees", "positions", "roles", "industries", "contractTypes"
-                    ]) && (
-                            <>
-                                <ManageListNavigation />
-                                <SettingsListNavigation />
-                            </>
-                        )}
+                    {isAuthenticated && (
+                        <>
+                            <ManageListNavigation />
+                            <SettingsListNavigation />
+                        </>
+                    )}
 
-                    {isAuthenticated && hasAccessToModule(["notifications"]) && (
+                    {isAuthenticated && hasAccess("notification") && (
                         <Link
                             href="/notifications"
                             color="inherit"
@@ -115,7 +113,7 @@ const Navigation: React.FC = () => {
                         </Link>
                     )}
 
-                    {isAuthenticated && hasAccessToModule(["messages"]) && (
+                    {isAuthenticated && hasModule("message") && (
                         <Link
                             href="/messages"
                             color="inherit"

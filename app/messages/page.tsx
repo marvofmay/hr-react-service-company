@@ -2,20 +2,20 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useUser } from "@/app/context/UserContext";
+import { useUser } from "@/app/context/userContext";
 import { useTranslation } from "react-i18next";
 import { Box, CircularProgress } from '@mui/material';
 
 const Messages: React.FC = () => {
     const { t } = useTranslation();
-    const { hasAccessToModule, loading } = useUser();
+    const { hasModule, loading } = useUser();
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading && !hasAccessToModule(["messages"])) {
+        if (!loading && !hasModule("messages")) {
             router.replace("/unauthorized");
         }
-    }, [hasAccessToModule, loading, router]);
+    }, [hasModule, loading, router]);
 
     if (loading) {
         return (<Box display="flex" justifyContent="center" alignItems="center" height="300px">

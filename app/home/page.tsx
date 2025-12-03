@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect } from "react";
-import { useUser } from "@/app/context/UserContext";
+import { useUser } from "@/app/context/userContext";
 import { Box, CircularProgress } from '@mui/material';
 
 const Home: React.FC = () => {

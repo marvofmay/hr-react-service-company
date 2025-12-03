@@ -13,7 +13,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18
 var _s = __turbopack_context__.k.signature();
 "use client";
 ;
-const Unauthorized = ()=>{
+const Forbidden = ()=>{
     _s();
     const { t } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$useTranslation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTranslation"])();
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -49,15 +49,15 @@ const Unauthorized = ()=>{
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(Unauthorized, "zlIdU9EjM2llFt74AbE2KsUJXyM=", false, function() {
+_s(Forbidden, "zlIdU9EjM2llFt74AbE2KsUJXyM=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$useTranslation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTranslation"]
     ];
 });
-_c = Unauthorized;
-const __TURBOPACK__default__export__ = Unauthorized;
+_c = Forbidden;
+const __TURBOPACK__default__export__ = Forbidden;
 var _c;
-__turbopack_context__.k.register(_c, "Unauthorized");
+__turbopack_context__.k.register(_c, "Forbidden");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

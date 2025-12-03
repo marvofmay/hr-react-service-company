@@ -14,5 +14,9 @@
         "singUp": "zarejestruj",
         "rememberMe": "zapamiętaj mnie",
         "singIn": "zaloguj"
-    }
+    },
+    "token": {
+        "missing": "Brak tokenu"
+    },
+    "invalidCredentials": "nieprawidłowe dane do zalogowania"
 }
