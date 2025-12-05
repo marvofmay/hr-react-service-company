@@ -1,28 +1,60 @@
 import { useQuery } from '@tanstack/react-query';
 import Position from '../../types/Position';
-import fakePositions from '../../fakeData/Positions';
+import axios from 'axios';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
-const fetchPositions = async (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection): Promise<Position[]> => {
-    // ToDo: dodać wywołanie endpointa z enpoitna API
-    // const response = await axios.get('/api/positions', { params: { pageSize, pageIndex, sortBy, sortDirection } });
-    // return response.data;
+export interface PositionsResponse {
+    items: Position[];
+    total: number;
+}
 
-    pageSize = 10;
-    pageIndex = 1;
-    sortBy = 'name';
-    sortDirection = 'desc';
-    console.log(pageIndex, pageSize, sortBy, sortDirection);
+const fetchPositions = async (
+    token: string,
+    pageSize: number,
+    page: number,
+    sortBy: string,
+    sortDirection: SortDirection,
+    phrase: string
+): Promise<PositionsResponse> => {
+    try {
+        const response = await axios.get(`${SERVICE_COMPANY_URL}/api/positions`, {
+            headers: { Authorization: `Bearer ${token}` },
+            params: { pageSize, page, sortBy, sortDirection, phrase },
+        });
 
-    // Na razie zwrócimy dane z fakePositions
-    return fakePositions;
+        return {
+            items: response.data.data.items || [],
+            total: response.data.data.total || 0,
+        };
+    } catch (error) {
+        console.log(error);
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+            window.location.href = '/user/logout';
+        }
+        throw error;
+    }
 };
 
-const usePositionsQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection) => {
-    return useQuery<Position[]>({
-        queryKey: ['positions', pageSize, pageIndex, sortBy, sortDirection],
-        queryFn: () => fetchPositions(pageSize, pageIndex, sortBy, sortDirection),
+const usePositionsQuery = (
+    pageSize: number,
+    page: number,
+    sortBy: string,
+    sortDirection: SortDirection,
+    phrase: string
+) => {
+    const { t } = useTranslation();
+
+    return useQuery<PositionsResponse>({
+        queryKey: ['positions', pageSize, page, sortBy, sortDirection, phrase],
+        queryFn: async () => {
+            const token = localStorage.getItem('auth_token');
+            if (!token) throw new Error(t('common.message.tokenIsMissing'));
+
+            return fetchPositions(token, pageSize, page, sortBy, sortDirection, phrase);
+        },
     });
 };
 

@@ -10,7 +10,6 @@ import LoginIcon from "@mui/icons-material/Login";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import EmailIcon from "@mui/icons-material/Email";
 import { useTranslation } from "react-i18next";
-import { APP_NAME } from "../../utility/constans";
 import { useUser } from "@/app/context/userContext";
 import ManageListNavigation from "../manage/navigation/List";
 import SettingsListNavigation from "../settings/navigation/List";
@@ -26,7 +25,7 @@ const navLinks = [
 const Navigation: React.FC = () => {
     const pathname = usePathname();
     const { t } = useTranslation();
-    const { isAuthenticated, hasModule, hasAccess, hasPermission, user } = useUser();
+    const { isAuthenticated, hasModule, hasAccess, user } = useUser();
     const [notificationCount, setNotificationCount] = useState(0);
     const [hydrated, setHydrated] = useState(false);
 
@@ -90,12 +89,12 @@ const Navigation: React.FC = () => {
 
                     {isAuthenticated && (
                         <>
-                            <ManageListNavigation />
-                            <SettingsListNavigation />
+                            {hasAccess('manage') && <ManageListNavigation />}
+                            {hasAccess('settings') && <SettingsListNavigation />}
                         </>
                     )}
 
-                    {isAuthenticated && hasAccess("notification") && (
+                    {isAuthenticated && hasAccess("notifications") && (
                         <Link
                             href="/notifications"
                             color="inherit"
@@ -113,7 +112,7 @@ const Navigation: React.FC = () => {
                         </Link>
                     )}
 
-                    {isAuthenticated && hasModule("message") && (
+                    {isAuthenticated && hasModule("company") && hasAccess("messages") && (
                         <Link
                             href="/messages"
                             color="inherit"

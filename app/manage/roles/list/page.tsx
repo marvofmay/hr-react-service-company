@@ -16,11 +16,11 @@ const RolesList: React.FC = () => {
 
     useEffect(() => {
         if (!loading && !isAuthenticated) {
-            router.replace("/unauthorized");
+            router.push("/user/logout");
         }
 
-        if (!loading && !hasAccess("role")) {
-            router.replace("/forbidden");
+        if (!loading && !hasAccess("roles")) {
+            router.push("/forbidden");
         }
     }, [hasAccess, hasPermission, isAuthenticated, loading, router]);
 
@@ -37,7 +37,7 @@ const RolesList: React.FC = () => {
                     <Box width="90%">
                         <Typography variant="h6" gutterBottom>{t('role.list.title')}</Typography>
                         <QueryClientProvider client={queryClient}>
-                            {hasPermission('role.list') && <RolesTable />}
+                            {hasPermission('roles.list') && <RolesTable />}
                         </QueryClientProvider>
                     </Box></Box>
             </main>

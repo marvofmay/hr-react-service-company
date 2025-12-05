@@ -18,6 +18,7 @@ interface UserContextType {
     hasPermission: (permissionName: string) => boolean;
     hasAccess: (accessName: string) => boolean;
     hasModule: (moduleName: string) => boolean;
+    modules: string[];
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -126,10 +127,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         if (permissions.length === 0) return false;
 
         return permissions.some((p) => {
-            // dokładne dopasowanie
             if (p === accessPermission) return true;
 
-            // dopasowanie wildcard, np. "role.*" do "role.create"
             if (p?.endsWith(".*")) {
                 const prefix = p.replace(".*", "");
                 return accessPermission.startsWith(prefix + ".");
@@ -159,6 +158,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 hasPermission,
                 hasAccess,
                 hasModule,
+                modules
             }}
         >
             {children}

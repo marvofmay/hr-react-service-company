@@ -4,18 +4,22 @@ import Position from '@/app/types/Position';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
-const deletePosition = async (positionToDelete: Position, token: string): Promise<string> => {
+const deleteMultiplePosition = async (positionsToDelete: Position[], token: string): Promise<string> => {
     try {
+        const positionsUUIDs = {
+            positionsUUIDs: positionsToDelete.map(item => item.uuid)
+        };
+
         const response = await axios.delete(
-            `${SERVICE_COMPANY_URL}/api/positions/${positionToDelete.uuid}`,
+            `${SERVICE_COMPANY_URL}/api/positions/multiple`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
+                data: positionsUUIDs
             }
         );
-        console.log('response', response);
 
         return response.data.message;
     } catch (error: unknown) {
@@ -27,20 +31,23 @@ const deletePosition = async (positionToDelete: Position, token: string): Promis
     }
 };
 
-const useDeletePositionMutation = () => {
+const useDeleteMultiplePositionMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: (positionToDelete: Position) => {
+        mutationFn: (positionsToDelete: Position[]) => {
             const token = localStorage.getItem("auth_token");
 
             if (!token) {
                 throw new Error(t('common.message.tokenIsMissing'));
             }
 
-            return deletePosition(positionToDelete, token);
-        }
+            return deleteMultiplePosition(positionsToDelete, token);
+        },
+        onSuccess: async () => {
+
+        },
     });
 };
 
-export default useDeletePositionMutation;
+export default useDeleteMultiplePositionMutation;

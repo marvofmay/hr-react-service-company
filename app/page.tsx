@@ -28,7 +28,7 @@ const Home: React.FC = () => {
                         <QueryClientProvider client={queryClient}>
                             {isAuthenticated && (
                                 <Typography variant="body1" mb={2}>
-                                    Witaj, {employee?.uuid ? `${employee.firstName} ${employee.lastName}` : "pracowniku techniczny"}
+                                    Witaj, {employee?.uuid ? `${employee.firstName} ${employee.lastName}` : "pracowniku techniczny systemu"}.
                                 </Typography>
                             )}
 

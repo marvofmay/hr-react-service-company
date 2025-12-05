@@ -5,17 +5,20 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import '../../../i18n/i18n';
 import { useTranslation } from 'react-i18next';
 import { lowercaseFirstLetter } from '@/app/utility/stringMethod';
+import { useUser } from "@/app/context/userContext";
 
 const menuItems = [
     { label: "Companies", href: "/manage/companies/list", key: "companies" },
+    { label: "Departments", href: "/manage/departments/list", key: "departments" },
     { label: "Employees", href: "/manage/employees/list", key: "employees" },
     { label: "Positions", href: "/manage/positions/list", key: "positions" },
     { label: "Roles", href: "/manage/roles/list", key: "roles" },
     { label: "Industries", href: "/manage/industries/list", key: "industries" },
-    { label: "ContractTypes", href: "/manage/contractTypes/list", key: "contracttypes" },
+    { label: "ContractTypes", href: "/manage/contractTypes/list", key: "contract_types" },
 ];
 
 const ManageListNavigation: React.FC = () => {
+    const { hasAccess } = useUser();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const pathname = usePathname();
@@ -67,7 +70,7 @@ const ManageListNavigation: React.FC = () => {
                     "aria-labelledby": "manage-button",
                 }}
             >
-                {menuItems.map((item) => (
+                {menuItems.map((item) => hasAccess(item.key) && (
                     <MenuItem
                         key={item.key}
                         onClick={() => handleMenuItemClick(item.key)}

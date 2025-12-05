@@ -8,14 +8,14 @@ import { Box, CircularProgress } from '@mui/material';
 
 const Messages: React.FC = () => {
     const { t } = useTranslation();
-    const { hasModule, loading } = useUser();
+    const { loading, isAuthenticated } = useUser();
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading && !hasModule("messages")) {
+        if (!loading && !isAuthenticated) {
             router.replace("/unauthorized");
         }
-    }, [hasModule, loading, router]);
+    }, [isAuthenticated, loading, router]);
 
     if (loading) {
         return (<Box display="flex" justifyContent="center" alignItems="center" height="300px">

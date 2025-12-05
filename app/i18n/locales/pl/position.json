@@ -18,7 +18,9 @@
         }
     },
     "button": {
-        "add": "Dodaj stanowisko"
+        "add": "Dodaj stanowisko",
+        "importFromXLSX": "Importuj stanowiska z pliku xlsx",
+        "deleteChecked": "Usuń zaznaczone stanowiska"
     },
     "add": {
         "success": "Nowe stanowisko zostało dodane",

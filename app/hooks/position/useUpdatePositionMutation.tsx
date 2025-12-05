@@ -1,27 +1,51 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
 import Position from '../../types/Position';
-import fakePositions from '../../fakeData/Positions';
 import { useTranslation } from 'react-i18next';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
-const updatePosition = async (updatedPosition: Position): Promise<Position[]> => {
-    const updatedPositions = fakePositions.map(role =>
-        role.uuid === updatedPosition.uuid ? updatedPosition : role
-    );
+const updatePosition = async (updatedPosition: Position, token: string): Promise<string> => {
+    try {
+        const response = await axios.put(
+            `${SERVICE_COMPANY_URL}/api/positions/${updatedPosition.uuid}`,
+            {
+                uuid: updatedPosition.uuid,
+                name: updatedPosition.name,
+                description: updatedPosition.description,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
 
-    return updatedPositions;
+        return response.data.message;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+            window.location.href = '/user/logout';
+        }
+
+        throw error;
+    }
 };
 
 const useUpdatePositionMutation = () => {
     const { t } = useTranslation();
-    const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: updatePosition,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['positions'] });
+        mutationFn: (updatedPosition: Position) => {
+            const token = localStorage.getItem("auth_token");
+
+            if (!token) {
+                throw new Error(t('common.message.tokenIsMissing'));
+            }
+
+            return updatePosition(updatedPosition, token);
         },
         onError: (error) => {
-            console.error(t('position.update.error'), error);
+            throw error;
         },
     });
 };

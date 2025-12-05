@@ -1,21 +1,22 @@
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
-import Position from '@/app/types/Position';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
-const deletePosition = async (positionToDelete: Position, token: string): Promise<string> => {
+const importPositions = async (file: File, token: string): Promise<string> => {
     try {
-        const response = await axios.delete(
-            `${SERVICE_COMPANY_URL}/api/positions/${positionToDelete.uuid}`,
+        const response = await axios.post(
+            `${SERVICE_COMPANY_URL}/api/positions/import`,
+            {
+                file: file,
+            },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'multipart/form-data',
                 },
             }
         );
-        console.log('response', response);
 
         return response.data.message;
     } catch (error: unknown) {
@@ -27,20 +28,23 @@ const deletePosition = async (positionToDelete: Position, token: string): Promis
     }
 };
 
-const useDeletePositionMutation = () => {
+const useImportPositionsFromXLSXMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: (positionToDelete: Position) => {
+        mutationFn: (file: File) => {
             const token = localStorage.getItem("auth_token");
 
             if (!token) {
                 throw new Error(t('common.message.tokenIsMissing'));
             }
 
-            return deletePosition(positionToDelete, token);
-        }
+            return importPositions(file, token);
+        },
+        onError: (error) => {
+            throw error;
+        },
     });
 };
 
-export default useDeletePositionMutation;
+export default useImportPositionsFromXLSXMutation;

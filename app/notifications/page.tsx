@@ -10,15 +10,15 @@ import NotificationsTable from "@/app/components/notification/Table";
 
 const Notifications: React.FC = () => {
     const { t } = useTranslation();
-    const { hasModule, loading } = useUser();
+    const { loading, isAuthenticated } = useUser();
     const router = useRouter();
     const queryClient = new QueryClient();
 
     useEffect(() => {
-        if (!loading && !hasModule("notifications")) {
+        if (!loading && !isAuthenticated) {
             router.replace("/unauthorized");
         }
-    }, [hasModule, loading, router]);
+    }, [loading, isAuthenticated, router]);
 
     if (loading) {
         return (<Box display="flex" justifyContent="center" alignItems="center" height="300px">
