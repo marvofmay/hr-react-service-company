@@ -15,7 +15,6 @@ const deletePosition = async (positionToDelete: Position, token: string): Promis
                 },
             }
         );
-        console.log('response', response);
 
         return response.data.message;
     } catch (error: unknown) {

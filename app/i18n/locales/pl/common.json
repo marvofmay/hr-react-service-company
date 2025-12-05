@@ -33,7 +33,10 @@
         "forbidden": "brak uprawnień",
         "login": "logowanie",
         "module": "moduł",
+        "company": "firma",
+        "system": "system",
         "notes": "notatki",
+        "documents": "dokumenty",
         "messages": "wiadomości"
     },
     "button": {

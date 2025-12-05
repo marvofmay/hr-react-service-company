@@ -21,8 +21,6 @@ const deleteMultipleContractType = async (contractTypesToDelete: ContractType[],
             }
         );
 
-        console.log('response', response);
-
         return response.data.message;
     } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {

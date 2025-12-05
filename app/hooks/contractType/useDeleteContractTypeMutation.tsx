@@ -15,7 +15,6 @@ const deleteContractType = async (contractTypeToDelete: ContractType, token: str
                 },
             }
         );
-        console.log('response', response);
 
         return response.data.message;
     } catch (error: unknown) {

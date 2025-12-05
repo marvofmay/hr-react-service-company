@@ -15,6 +15,7 @@ import {
     TextField,
     Checkbox
 } from '@mui/material';
+import Tooltip from "@mui/material/Tooltip";
 import { Preview, Edit, Delete, Add, Key, Search } from '@mui/icons-material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import ContractType from '@/app/types/ContractType';
@@ -326,9 +327,23 @@ const ContractTypesTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{moment(contractType.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{contractType.updatedAt ? moment(contractType.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
-                                        {hasPermission("contract_types.view") && <IconButton onClick={() => openModal('preview', contractType)}><Preview /></IconButton>}
-                                        {hasPermission("contract_types.edit") && <IconButton onClick={() => openModal('edit', contractType)}><Edit /></IconButton>}
-                                        {hasPermission("contract_types.delete") && <IconButton onClick={() => openModal('delete', contractType)}><Delete /></IconButton>}
+                                        {hasPermission("contract_types.view") && (
+                                            <Tooltip title={t('common.view')} placement="top">
+                                                <IconButton onClick={() => openModal('preview', contractType)}><Preview /></IconButton>
+                                            </Tooltip>
+                                        )}
+
+                                        {hasPermission("contract_types.edit") && (
+                                            <Tooltip title={t('common.edit')} placement="top">
+                                                <IconButton onClick={() => openModal('edit', contractType)}><Edit /></IconButton>
+                                            </Tooltip>
+                                        )}
+
+                                        {hasPermission("contract_types.delete") && (
+                                            <Tooltip title={t('common.delete')} placement="top">
+                                                <IconButton onClick={() => openModal('delete', contractType)}><Delete /></IconButton>
+                                            </Tooltip>
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             ))}

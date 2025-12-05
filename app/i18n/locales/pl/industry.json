@@ -18,7 +18,9 @@
         }
     },
     "button": {
-        "add": "Dodaj branże"
+        "add": "Dodaj branże",
+        "importFromXLSX": "Importuj branże z pliku xlsx",
+        "deleteChecked": "Usuń zaznaczone branże"
     },
     "add": {
         "success": "Nowa branża została dodana",

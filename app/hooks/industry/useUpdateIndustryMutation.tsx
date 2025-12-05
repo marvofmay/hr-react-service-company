@@ -1,27 +1,51 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
 import Industry from '../../types/Industry';
-import fakeIndustries from '../../fakeData/Industries';
 import { useTranslation } from 'react-i18next';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
-const updateIndustry = async (updatedIndustry: Industry): Promise<Industry[]> => {
-    const updatedIndustries = fakeIndustries.map(industry =>
-        industry.uuid === updatedIndustry.uuid ? updatedIndustry : industry
-    );
+const updateIndustry = async (updatedIndustry: Industry, token: string): Promise<string> => {
+    try {
+        const response = await axios.put(
+            `${SERVICE_COMPANY_URL}/api/industries/${updatedIndustry.uuid}`,
+            {
+                uuid: updatedIndustry.uuid,
+                name: updatedIndustry.name,
+                description: updatedIndustry.description,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
 
-    return updatedIndustries;
+        return response.data.message;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+            window.location.href = '/user/logout';
+        }
+
+        throw error;
+    }
 };
 
 const useUpdateIndustryMutation = () => {
     const { t } = useTranslation();
-    const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: updateIndustry,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['industries'] });
+        mutationFn: (updatedIndustry: Industry) => {
+            const token = localStorage.getItem("auth_token");
+
+            if (!token) {
+                throw new Error(t('common.message.tokenIsMissing'));
+            }
+
+            return updateIndustry(updatedIndustry, token);
         },
         onError: (error) => {
-            console.error(t('industry.update.error'), error);
+            throw error;
         },
     });
 };

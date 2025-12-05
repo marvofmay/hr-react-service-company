@@ -1,28 +1,60 @@
 import { useQuery } from '@tanstack/react-query';
 import Industry from '../../types/Industry';
-import fakeIndustries from '../../fakeData/Industries';
+import axios from 'axios';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
-const fetchIndustries = async (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection): Promise<Industry[]> => {
-    // ToDo: dodać wywołanie endpointa z enpoitna API
-    // const response = await axios.get('/api/industries', { params: { pageSize, pageIndex, sortBy, sortDirection } });
-    // return response.data;
+export interface IndustriesResponse {
+    items: Industry[];
+    total: number;
+}
 
-    pageSize = 10;
-    pageIndex = 1;
-    sortBy = 'name';
-    sortDirection = 'desc';
-    console.log(pageIndex, pageSize, sortBy, sortDirection);
+const fetchIndustries = async (
+    token: string,
+    pageSize: number,
+    page: number,
+    sortBy: string,
+    sortDirection: SortDirection,
+    phrase: string
+): Promise<IndustriesResponse> => {
+    try {
+        const response = await axios.get(`${SERVICE_COMPANY_URL}/api/industries`, {
+            headers: { Authorization: `Bearer ${token}` },
+            params: { pageSize, page, sortBy, sortDirection, phrase },
+        });
 
-    // Na razie zwrócimy dane z fakeIndustries
-    return fakeIndustries;
+        return {
+            items: response.data.data.items || [],
+            total: response.data.data.total || 0,
+        };
+    } catch (error) {
+        console.log(error);
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+            window.location.href = '/user/logout';
+        }
+        throw error;
+    }
 };
 
-const useIndustriesQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection) => {
-    return useQuery<Industry[]>({
-        queryKey: ['industries', pageSize, pageIndex, sortBy, sortDirection],
-        queryFn: () => fetchIndustries(pageSize, pageIndex, sortBy, sortDirection),
+const useIndustriesQuery = (
+    pageSize: number,
+    page: number,
+    sortBy: string,
+    sortDirection: SortDirection,
+    phrase: string
+) => {
+    const { t } = useTranslation();
+
+    return useQuery<IndustriesResponse>({
+        queryKey: ['industries', pageSize, page, sortBy, sortDirection, phrase],
+        queryFn: async () => {
+            const token = localStorage.getItem('auth_token');
+            if (!token) throw new Error(t('common.message.tokenIsMissing'));
+
+            return fetchIndustries(token, pageSize, page, sortBy, sortDirection, phrase);
+        },
     });
 };
 
