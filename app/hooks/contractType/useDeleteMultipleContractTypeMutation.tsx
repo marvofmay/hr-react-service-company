@@ -1,25 +1,27 @@
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
-import ContractType from '../../types/ContractType';
+import ContractType from '@/app/types/ContractType';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
-const updateContractType = async (updatedContractType: ContractType, token: string): Promise<string> => {
+const deleteMultipleContractType = async (contractTypesToDelete: ContractType[], token: string): Promise<string> => {
     try {
-        const response = await axios.put(
-            `${SERVICE_COMPANY_URL}/api/contract_types/${updatedContractType.uuid}`,
-            {
-                uuid: updatedContractType.uuid,
-                name: updatedContractType.name,
-                description: updatedContractType.description,
-            },
+        const contractTypesUUIDs = {
+            contractTypesUUIDs: contractTypesToDelete.map(item => item.uuid)
+        };
+
+        const response = await axios.delete(
+            `${SERVICE_COMPANY_URL}/api/contract_types/multiple`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
+                data: contractTypesUUIDs
             }
         );
+
+        console.log('response', response);
 
         return response.data.message;
     } catch (error: unknown) {
@@ -31,23 +33,22 @@ const updateContractType = async (updatedContractType: ContractType, token: stri
     }
 };
 
-const useUpdateContractTypeMutation = () => {
+const useDeleteMultipleContractTypeMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: (updatedContractType: ContractType) => {
+        mutationFn: (contractTypesToDelete: ContractType[]) => {
             const token = localStorage.getItem("auth_token");
 
             if (!token) {
                 throw new Error(t('common.message.tokenIsMissing'));
             }
 
-            return updateContractType(updatedContractType, token);
+            return deleteMultipleContractType(contractTypesToDelete, token);
         },
-        onError: (error) => {
-            throw error;
+        onSuccess: async () => {
         },
     });
 };
 
-export default useUpdateContractTypeMutation;
+export default useDeleteMultipleContractTypeMutation;

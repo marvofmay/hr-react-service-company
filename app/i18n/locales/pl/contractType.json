@@ -17,7 +17,9 @@
         }
     },
     "button": {
-        "add": "Dodaj formę zatrudnienia"
+        "add": "Dodaj formę zatrudnienia",
+        "importFromXLSX": "Importuj formy zatrudnienia z pliku xlsx",
+        "deleteChecked": "Usuń zaznaczone formy zatrudnienia"
     },
     "add": {
         "success": "Nowa forma zatrudnienia została dodana",

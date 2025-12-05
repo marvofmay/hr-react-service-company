@@ -1,22 +1,19 @@
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
-import ContractType from '../../types/ContractType';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
-const updateContractType = async (updatedContractType: ContractType, token: string): Promise<string> => {
+const importContractTypes = async (file: File, token: string): Promise<string> => {
     try {
-        const response = await axios.put(
-            `${SERVICE_COMPANY_URL}/api/contract_types/${updatedContractType.uuid}`,
+        const response = await axios.post(
+            `${SERVICE_COMPANY_URL}/api/contract_types/import`,
             {
-                uuid: updatedContractType.uuid,
-                name: updatedContractType.name,
-                description: updatedContractType.description,
+                file: file,
             },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'multipart/form-data',
                 },
             }
         );
@@ -31,18 +28,18 @@ const updateContractType = async (updatedContractType: ContractType, token: stri
     }
 };
 
-const useUpdateContractTypeMutation = () => {
+const useImportContractTypesFromXLSXMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: (updatedContractType: ContractType) => {
+        mutationFn: (file: File) => {
             const token = localStorage.getItem("auth_token");
 
             if (!token) {
                 throw new Error(t('common.message.tokenIsMissing'));
             }
 
-            return updateContractType(updatedContractType, token);
+            return importContractTypes(file, token);
         },
         onError: (error) => {
             throw error;
@@ -50,4 +47,4 @@ const useUpdateContractTypeMutation = () => {
     });
 };
 
-export default useUpdateContractTypeMutation;
+export default useImportContractTypesFromXLSXMutation;

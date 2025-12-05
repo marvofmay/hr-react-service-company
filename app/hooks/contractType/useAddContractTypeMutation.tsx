@@ -1,27 +1,27 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import ContractType from '../../types/ContractType';
-import fakeContractTypes from '../../fakeData/ContractTypes';
+import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
+import ContractType from '@/app/types/ContractType';
 import { useTranslation } from 'react-i18next';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
-const addContractType = async (contractType: ContractType): Promise<ContractType[]> => {
-    const newContractType = { ...contractType, uuid: `${fakeContractTypes.length + 1}` };
-    fakeContractTypes.push(newContractType);
-
-    return fakeContractTypes;
+const addContractType = async (contractType: ContractType, token: string): Promise<string> => {
+    const response = await axios.post(
+        `${SERVICE_COMPANY_URL}/api/contract_types`,
+        { name: contractType.name, description: contractType.description },
+        { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }
+    );
+    return response.data.message;
 };
 
 const useAddContractTypeMutation = () => {
-    const queryClient = useQueryClient();
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: addContractType,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['contractTypes'] });
-        },
-        onError: (error) => {
-            console.error(t('contractType.add.error'), error);
-        },
+        mutationFn: (contractType: ContractType) => {
+            const token = localStorage.getItem("auth_token");
+            if (!token) throw new Error(t('common.message.tokenIsMissing'));
+            return addContractType(contractType, token);
+        }
     });
 };
 

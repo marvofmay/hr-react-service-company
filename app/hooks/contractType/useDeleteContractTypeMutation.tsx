@@ -1,26 +1,45 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import ContractType from '../../types/ContractType';
-import fakeContractTypes from '../../fakeData/ContractTypes';
+import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
+import ContractType from '@/app/types/ContractType';
 import { useTranslation } from 'react-i18next';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
-const deleteContractType = async (contractTypeToDelete: ContractType): Promise<ContractType[] | []> => {
-    const currentContractTypes = fakeContractTypes.filter(contractType => contractType.uuid !== contractTypeToDelete.uuid);
+const deleteContractType = async (contractTypeToDelete: ContractType, token: string): Promise<string> => {
+    try {
+        const response = await axios.delete(
+            `${SERVICE_COMPANY_URL}/api/contract_types/${contractTypeToDelete.uuid}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        console.log('response', response);
 
-    return currentContractTypes
+        return response.data.message;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+            window.location.href = '/user/logout';
+        }
+
+        throw error;
+    }
 };
 
 const useDeleteContractTypeMutation = () => {
-    const queryClient = useQueryClient();
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: deleteContractType,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['ContractTypes'] });
-        },
-        onError: (error) => {
-            console.error(t('contractType.delete.error'), error);
-        },
+        mutationFn: (contractTypeToDelete: ContractType) => {
+            const token = localStorage.getItem("auth_token");
+
+            if (!token) {
+                throw new Error(t('common.message.tokenIsMissing'));
+            }
+
+            return deleteContractType(contractTypeToDelete, token);
+        }
     });
 };
 

@@ -1,28 +1,60 @@
 import { useQuery } from '@tanstack/react-query';
 import ContractType from '../../types/ContractType';
-import fakeContractTypes from '../../fakeData/ContractTypes';
+import axios from 'axios';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
-const fetchContractTypes = async (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection): Promise<ContractType[]> => {
-    // ToDo: dodać wywołanie endpointa z enpoitna API
-    // const response = await axios.get('/api/ContractTypes', { params: { pageSize, pageIndex, sortBy, sortDirection } });
-    // return response.data;
+export interface ContractTypesResponse {
+    items: ContractType[];
+    total: number;
+}
 
-    pageSize = 10;
-    pageIndex = 1;
-    sortBy = 'name';
-    sortDirection = 'desc';
-    console.log(pageIndex, pageSize, sortBy, sortDirection);
+const fetchContractTypes = async (
+    token: string,
+    pageSize: number,
+    page: number,
+    sortBy: string,
+    sortDirection: SortDirection,
+    phrase: string
+): Promise<ContractTypesResponse> => {
+    try {
+        const response = await axios.get(`${SERVICE_COMPANY_URL}/api/contract_types`, {
+            headers: { Authorization: `Bearer ${token}` },
+            params: { pageSize, page, sortBy, sortDirection, phrase },
+        });
 
-    // Na razie zwrócimy dane z fakeContractTypes
-    return fakeContractTypes;
+        return {
+            items: response.data.data.items || [],
+            total: response.data.data.total || 0,
+        };
+    } catch (error) {
+        console.log(error);
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+            window.location.href = '/user/logout';
+        }
+        throw error;
+    }
 };
 
-const useContractTypesQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection) => {
-    return useQuery<ContractType[]>({
-        queryKey: ['contractTypes', pageSize, pageIndex, sortBy, sortDirection],
-        queryFn: () => fetchContractTypes(pageSize, pageIndex, sortBy, sortDirection),
+const useContractTypesQuery = (
+    pageSize: number,
+    page: number,
+    sortBy: string,
+    sortDirection: SortDirection,
+    phrase: string
+) => {
+    const { t } = useTranslation();
+
+    return useQuery<ContractTypesResponse>({
+        queryKey: ['contractTypes', pageSize, page, sortBy, sortDirection, phrase],
+        queryFn: async () => {
+            const token = localStorage.getItem('auth_token');
+            if (!token) throw new Error(t('common.message.tokenIsMissing'));
+
+            return fetchContractTypes(token, pageSize, page, sortBy, sortDirection, phrase);
+        },
     });
 };
 

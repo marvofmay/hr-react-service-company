@@ -15,6 +15,7 @@ import {
     TextField,
     Checkbox
 } from '@mui/material';
+import Tooltip from "@mui/material/Tooltip";
 import { Preview, Edit, Delete, Add, Key, Search } from '@mui/icons-material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import Role from '@/app/types/Role';
@@ -329,10 +330,28 @@ const RolesTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{moment(role.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{role.updatedAt ? moment(role.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
-                                        {hasPermission("roles.view") && <IconButton onClick={() => openModal('preview', role)}><Preview /></IconButton>}
-                                        {hasPermission("roles.edit") && <IconButton onClick={() => openModal('edit', role)}><Edit /></IconButton>}
-                                        {hasPermission("roles.assign_permission_to_access_role") && <IconButton onClick={() => openModal('permission', role)}><Key /></IconButton>}
-                                        {hasPermission("roles.delete") && <IconButton onClick={() => openModal('delete', role)}><Delete /></IconButton>}
+                                        {hasPermission("roles.view") && (
+                                            <Tooltip title={t('common.view')} placement="top">
+                                                <IconButton onClick={() => openModal('preview', role)}><Preview /></IconButton>
+                                            </Tooltip>
+                                        )}
+
+                                        {hasPermission("roles.edit") && (
+                                            <Tooltip title={t('common.eidt')} placement="top">
+                                                <IconButton onClick={() => openModal('edit', role)}><Edit /></IconButton>
+                                            </Tooltip>
+                                        )}
+
+                                        {hasPermission("roles.assign_permission_to_access_role") && (
+                                            <Tooltip title={t('common.assignDepartmentsToPosition')} placement="top">
+                                                <IconButton onClick={() => openModal('permission', role)}><Key /> </IconButton>
+                                            </Tooltip>
+                                        )}
+                                        {hasPermission("roles.delete") && (
+                                            <Tooltip title={t('common.delete')} placement="top">
+                                                <IconButton onClick={() => openModal('delete', role)}><Delete /></IconButton>
+                                            </Tooltip>
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             ))}
