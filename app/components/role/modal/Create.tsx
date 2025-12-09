@@ -32,23 +32,23 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
     };
 
     const [errorAPI, setErrorAPI] = useState<string | null>(null);
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
 
     const handleSubmit = async (values: Role) => {
         setErrorAPI(null);
+        setErrorsAPI(null);
+
         try {
             await onAddRole(values);
             onClose();
         } catch (error: unknown) {
-            if (
-                typeof error === 'object' &&
-                error !== null &&
-                'response' in error &&
-                (error as any).response?.data?.message
-            ) {
-                setErrorAPI((error as any).response.data.message);
-            } else {
-                setErrorAPI('Wystąpił nieznany błąd');
-            }
+            const err = error as any;
+
+            const message = err?.response?.data?.message ?? 'Wystąpił nieznany błąd';
+            const errors = err?.response?.data?.errors ?? null;
+
+            setErrorAPI(message);
+            setErrorsAPI(errors);
         }
     };
 
@@ -78,6 +78,17 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
                                     {errorAPI}
                                 </div>
                             )}
+
+                            {errorsAPI && (
+                                <ul style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {Object.entries(errorsAPI).map(([field, msg]) => (
+                                        <li key={field}>
+                                            <strong>{field}:</strong> {msg}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+
                             <Field
                                 as={TextField}
                                 name="name"
@@ -88,6 +99,7 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
                                 helperText={touched.name && errors.name}
                                 required
                             />
+
                             <Field
                                 as={TextField}
                                 name="description"
@@ -100,6 +112,7 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
                                 helperText={touched.description && errors.description}
                             />
                         </DialogContent>
+
                         <DialogActions>
                             <Button
                                 onClick={onClose}
@@ -108,6 +121,7 @@ const AddRoleModal: React.FC<AddRoleModalProps> = ({ open, onClose, onAddRole })
                             >
                                 {t('common.button.cancel')}
                             </Button>
+
                             <Button
                                 type="submit"
                                 variant="contained"

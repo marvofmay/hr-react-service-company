@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
-import { Formik, Form, Field, FormikHelpers } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Position from '../../../types/Position';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 interface AddPositionModalProps {
     open: boolean;
     onClose: () => void;
-    onAddPosition: (newPosition: Position) => void;
+    onAddPosition: (newPosition: Position) => Promise<void>;
 }
 
 const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAddPosition }) => {
@@ -29,10 +29,25 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
         deletedAt: null
     };
 
-    const handleSubmit = (values: Position, helpers: FormikHelpers<Position>) => {
-        onAddPosition(values);
-        helpers.resetForm();
-        onClose();
+    const [errorAPI, setErrorAPI] = useState<string | null>(null);
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
+
+    const handleSubmit = async (values: Position) => {
+        setErrorAPI(null);
+        setErrorsAPI(null);
+
+        try {
+            await onAddPosition(values);
+            onClose();
+        } catch (error: unknown) {
+            const err = error as any;
+
+            const message = err?.response?.data?.message ?? 'Wystąpił nieznany błąd';
+            const errors = err?.response?.data?.errors ?? null;
+
+            setErrorAPI(message);
+            setErrorsAPI(errors);
+        }
     };
 
     return (
@@ -40,6 +55,7 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 {t('position.modal.add.title')}
             </DialogTitle>
+
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -48,6 +64,22 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
                 {({ errors, touched }) => (
                     <Form noValidate>
                         <DialogContent>
+                            {errorAPI && (
+                                <div style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {errorAPI}
+                                </div>
+                            )}
+
+                            {errorsAPI && (
+                                <ul style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {Object.entries(errorsAPI).map(([field, message]) => (
+                                        <li key={field}>
+                                            <strong>{field}:</strong> {message}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+
                             <Field
                                 as={TextField}
                                 name="name"
@@ -58,6 +90,7 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
                                 helperText={touched.name && errors.name}
                                 required
                             />
+
                             <Field
                                 as={TextField}
                                 name="description"
@@ -70,11 +103,21 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
                                 helperText={touched.description && errors.description}
                             />
                         </DialogContent>
+
                         <DialogActions>
-                            <Button onClick={onClose} variant="contained" sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}>
+                            <Button
+                                onClick={onClose}
+                                variant="contained"
+                                sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}
+                            >
                                 {t('common.button.cancel')}
                             </Button>
-                            <Button type="submit" variant="contained" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}>
+
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}
+                            >
                                 {t('common.button.save')}
                             </Button>
                         </DialogActions>

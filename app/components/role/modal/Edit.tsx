@@ -20,61 +20,64 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({ open, role, onSave, onClo
         description: Yup.string(),
     });
 
-    const [errorsAPI, setErrorsAPI] = useState<Record<string, string[]> | null>(null);
+    const [errorAPI, setErrorAPI] = useState<string | null>(null);
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
 
     const handleSubmit = async (values: Role) => {
+        setErrorAPI(null);
+        setErrorsAPI(null);
+
         try {
             if (role) {
-                console.log(role);
                 await onSave({ ...role, ...values });
-
                 onClose();
             }
         } catch (error: unknown) {
-            if (
-                typeof error === 'object' &&
-                error !== null &&
-                'response' in error &&
-                typeof (error as { response?: unknown }).response === 'object' &&
-                (error as { response?: { status?: number } }).response?.status === 422
-            ) {
-                setErrorsAPI(
-                    (error as { response: { data: { errors: Record<string, string[]> } } }).response.data.errors
-                );
-            }
+            const err = error as any;
+
+            const message = err?.response?.data?.message ?? 'Wystąpił nieznany błąd';
+            const errors = err?.response?.data?.errors ?? null;
+
+            setErrorAPI(message);
+            setErrorsAPI(errors);
         }
-    }
+    };
 
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 {t('role.modal.edit.title')}
             </DialogTitle>
+
             <Formik
                 initialValues={{
-                    uuid: role?.uuid || '',
-                    name: role?.name || '',
-                    description: role?.description || '',
+                    uuid: role?.uuid ?? '',
+                    name: role?.name ?? '',
+                    description: role?.description ?? '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
+                enableReinitialize={true}
             >
-                {({ errors, touched, handleChange }) => (
+                {({ errors, touched }) => (
                     <Form>
                         <DialogContent>
-                            {errorsAPI && (
+                            {errorAPI && (
                                 <div style={{ color: 'red', marginBottom: '1rem' }}>
-                                    {Object.entries(errorsAPI).map(([key, value]) => (
-                                        <ul key={key} style={{ marginBottom: '10px' }}>
-                                            <li>
-                                                <span>
-                                                    <strong>{key}:</strong> {value}
-                                                </span>
-                                            </li>
-                                        </ul>
-                                    ))}
+                                    {errorAPI}
                                 </div>
                             )}
+
+                            {errorsAPI && (
+                                <ul style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {Object.entries(errorsAPI).map(([field, message]) => (
+                                        <li key={field}>
+                                            <strong>{field}:</strong> {message}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+
                             <Field
                                 as={TextField}
                                 fullWidth
@@ -82,11 +85,11 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({ open, role, onSave, onClo
                                 label={t('role.form.field.name')}
                                 variant="outlined"
                                 margin="dense"
-                                onChange={handleChange}
                                 error={touched.name && Boolean(errors.name)}
                                 helperText={touched.name && errors.name}
                                 required
                             />
+
                             <Field
                                 as={TextField}
                                 fullWidth
@@ -96,16 +99,25 @@ const EditRoleModal: React.FC<EditRoleModalProps> = ({ open, role, onSave, onClo
                                 margin="dense"
                                 multiline
                                 rows={3}
-                                onChange={handleChange}
                                 error={touched.description && Boolean(errors.description)}
                                 helperText={touched.description && errors.description}
                             />
                         </DialogContent>
+
                         <DialogActions>
-                            <Button onClick={onClose} sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }} variant="contained">
+                            <Button
+                                onClick={onClose}
+                                sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}
+                                variant="contained"
+                            >
                                 {t('common.button.cancel')}
                             </Button>
-                            <Button type="submit" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }} variant="contained">
+
+                            <Button
+                                type="submit"
+                                sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}
+                                variant="contained"
+                            >
                                 {t('common.button.save')}
                             </Button>
                         </DialogActions>

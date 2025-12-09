@@ -6,7 +6,7 @@
   "static/chunks/node_modules_@mui_system_esm_03497995._.js",
   "static/chunks/node_modules_@mui_material_esm_6a8777a0._.js",
   "static/chunks/node_modules_b092d663._.js",
-  "static/chunks/app_f60c4aa8._.js"
+  "static/chunks/app_dfd22a8c._.js"
 ],
     source: "dynamic"
 });

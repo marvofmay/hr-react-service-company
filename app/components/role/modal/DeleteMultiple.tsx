@@ -14,6 +14,7 @@ const DeleteMultipleRolesModal: React.FC<DeleteMultipleRolesModalProps> = ({ ope
     const { t } = useTranslation();
 
     const [errorAPI, setErrorAPI] = useState<string>();
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
 
     const handleDeleteMultiple = async () => {
         try {
@@ -27,12 +28,12 @@ const DeleteMultipleRolesModal: React.FC<DeleteMultipleRolesModalProps> = ({ ope
                 typeof error === 'object' &&
                 error !== null &&
                 'response' in error &&
-                typeof (error as { response?: unknown }).response === 'object' &&
-                (error as { response?: { status?: number } }).response?.status !== 200
+                (error as any).response?.data?.message
             ) {
-                setErrorAPI(
-                    (error as { response: { data: { message: string } } }).response.data.message
-                );
+                setErrorAPI((error as any).response.data.message);
+                setErrorsAPI((error as any).response.data.errors);
+            } else {
+                setErrorAPI('Wystąpił nieznany błąd');
             }
         }
     };
@@ -46,6 +47,7 @@ const DeleteMultipleRolesModal: React.FC<DeleteMultipleRolesModalProps> = ({ ope
             title={t('role.modal.delete.title')}
             description={`${t('role.modal.delete.question')}: ${selectedRoles?.length ? selectedRoles.map(role => role.name).join(", ") : ''}`}
             errorAPI={errorAPI}
+            errorsAPI={errorsAPI}
         />
     );
 };

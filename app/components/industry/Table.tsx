@@ -33,8 +33,6 @@ import useDeleteMultipleIndustryMutation from '@/app/hooks/industry/useDeleteMul
 import useImportIndustriesFromXLSXMutation from '@/app/hooks/industry/importIndustriesFromXLSXMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import modules from '@/app/fakeData/Modules';
-import permissions from '@/app/fakeData/Permissions';
 import moment from 'moment';
 import { useUser } from "@/app/context/userContext";
 
@@ -383,14 +381,14 @@ const IndustriesTable = () => {
                 industry={selectedIndustry}
                 onClose={closeModal}
                 onSave={handleUpdate} />}
-            {modalType === 'permission' && <EditPermissionIndustryModal
+            {/* {modalType === 'permission' && <EditPermissionIndustryModal
                 open={true}
                 selectedIndustry={selectedIndustry}
                 onClose={closeModal}
                 onSave={handleUpdate}
                 modules={modules}
                 permissions={permissions}
-            />}
+            />} */}
             {hasPermission("industries.create") && modalType === 'importFromXLSX' && <ImportIndustriesFromXLSXModal
                 open={true}
                 onClose={closeModal}

@@ -378,7 +378,7 @@ const ContractTypesTable = () => {
             />}
             {hasPermission("contract_types.edit") && modalType === 'edit' && <EditContractTypeModal
                 open={true}
-                ContractType={selectedContractType}
+                contractType={selectedContractType}
                 onClose={closeModal}
                 onSave={handleUpdate} />}
             {hasPermission("contract_types.create") && modalType === 'importFromXLSX' && <ImportContractTypesFromXLSXModal

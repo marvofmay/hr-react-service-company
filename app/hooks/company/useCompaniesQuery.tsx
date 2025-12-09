@@ -1,28 +1,91 @@
 import { useQuery } from '@tanstack/react-query';
 import Company from '../../types/Company';
-import fakeCompanies from '../../fakeData/Companies';
+import axios from 'axios';
+import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
-const fetchCompanies = async (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection): Promise<Company[]> => {
-    // ToDo: dodać wywołanie endpointa z API
-    // const response = await axios.get('/api/companies', { params: { pageSize, pageIndex, sortBy, sortDirection } });
-    // return response.data;
+export interface CompaniesResponse {
+    items: Company[];
+    total: number;
+}
 
-    pageSize = 10;
-    pageIndex = 1;
-    sortBy = 'name';
-    sortDirection = 'desc';
-    console.log(pageIndex, pageSize, sortBy, sortDirection);
+const fetchCompanies = async (
+    token: string,
+    pageSize: number,
+    page: number,
+    sortBy: string,
+    sortDirection: SortDirection,
+    phrase?: string,
+    includes?: string,
+): Promise<CompaniesResponse> => {
+    try {
+        const params: any = {
+            pageSize,
+            page,
+            sortBy,
+            sortDirection,
+        };
 
-    // Na razie zwrócimy dane z fakeCompanies
-    return fakeCompanies;
+        if (phrase) params.phrase = phrase;
+        if (includes) params.includes = includes;
+
+        const response = await axios.get(`${SERVICE_COMPANY_URL}/api/companies`, {
+            headers: { Authorization: `Bearer ${token}` },
+            params,
+        });
+
+        return {
+            items: response.data.data.items || [],
+            total: response.data.data.total || 0,
+        };
+    } catch (error) {
+        console.log(error);
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+            window.location.href = '/user/logout';
+        }
+        throw error;
+    }
 };
 
-const useCompaniesQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection) => {
-    return useQuery<Company[]>({
-        queryKey: ['companies', pageSize, pageIndex, sortBy, sortDirection],
-        queryFn: () => fetchCompanies(pageSize, pageIndex, sortBy, sortDirection),
+const useCompaniesQuery = (
+    pageSize: number,
+    page: number,
+    sortBy: string,
+    sortDirection: SortDirection,
+    phrase: string | null,
+    includes: string | null,
+) => {
+    const { t } = useTranslation();
+
+    const normalizedPhrase = phrase ?? undefined;
+    const normalizedIncludes = includes ?? undefined;
+
+    return useQuery<CompaniesResponse>({
+        queryKey: [
+            'companies',
+            pageSize,
+            page,
+            sortBy,
+            sortDirection,
+            normalizedPhrase,
+            normalizedIncludes,
+        ],
+        queryFn: async () => {
+            const token = localStorage.getItem('auth_token');
+            if (!token) throw new Error(t('common.message.tokenIsMissing'));
+
+            return fetchCompanies(
+                token,
+                pageSize,
+                page,
+                sortBy,
+                sortDirection,
+                normalizedPhrase,
+                normalizedIncludes
+            );
+        },
     });
 };
 

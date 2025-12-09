@@ -337,7 +337,7 @@ const RolesTable = () => {
                                         )}
 
                                         {hasPermission("roles.edit") && (
-                                            <Tooltip title={t('common.eidt')} placement="top">
+                                            <Tooltip title={t('common.edit')} placement="top">
                                                 <IconButton onClick={() => openModal('edit', role)}><Edit /></IconButton>
                                             </Tooltip>
                                         )}

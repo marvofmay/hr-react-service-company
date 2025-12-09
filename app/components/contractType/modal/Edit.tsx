@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -7,12 +7,12 @@ import { useTranslation } from 'react-i18next';
 
 interface EditContractTypeModalProps {
     open: boolean;
+    contractType: ContractType | null;
+    onSave: (updatedContractType: ContractType) => Promise<void>;
     onClose: () => void;
-    ContractType: ContractType | null;
-    onSave: (updatedContractType: ContractType) => void;
 }
 
-const EditContractTypeModal: React.FC<EditContractTypeModalProps> = ({ open, onClose, ContractType, onSave }) => {
+const EditContractTypeModal: React.FC<EditContractTypeModalProps> = ({ open, contractType, onSave, onClose }) => {
     const { t } = useTranslation();
 
     const validationSchema = Yup.object({
@@ -20,27 +20,64 @@ const EditContractTypeModal: React.FC<EditContractTypeModalProps> = ({ open, onC
         description: Yup.string(),
     });
 
+    const [errorAPI, setErrorAPI] = useState<string | null>(null);
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
+
+    const handleSubmit = async (values: ContractType) => {
+        setErrorAPI(null);
+        setErrorsAPI(null);
+
+        try {
+            if (contractType) {
+                await onSave({ ...contractType, ...values });
+                onClose();
+            }
+        } catch (error: unknown) {
+            const err = error as any;
+
+            const message = err?.response?.data?.message ?? 'Wystąpił nieznany błąd';
+            const errors = err?.response?.data?.errors ?? null;
+
+            setErrorAPI(message);
+            setErrorsAPI(errors);
+        }
+    };
+
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 {t('contractType.modal.edit.title')}
             </DialogTitle>
+
             <Formik
                 initialValues={{
-                    name: ContractType?.name || '',
-                    description: ContractType?.description || '',
+                    uuid: contractType?.uuid ?? '',
+                    name: contractType?.name ?? '',
+                    description: contractType?.description ?? '',
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values) => {
-                    if (ContractType) {
-                        onSave({ ...ContractType, ...values });
-                        onClose();
-                    }
-                }}
+                onSubmit={handleSubmit}
+                enableReinitialize={true}
             >
-                {({ errors, touched, handleChange }) => (
+                {({ errors, touched }) => (
                     <Form>
                         <DialogContent>
+                            {errorAPI && (
+                                <div style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {errorAPI}
+                                </div>
+                            )}
+
+                            {errorsAPI && (
+                                <ul style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {Object.entries(errorsAPI).map(([field, message]) => (
+                                        <li key={field}>
+                                            <strong>{field}:</strong> {message}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+
                             <Field
                                 as={TextField}
                                 fullWidth
@@ -48,11 +85,11 @@ const EditContractTypeModal: React.FC<EditContractTypeModalProps> = ({ open, onC
                                 label={t('contractType.form.field.name')}
                                 variant="outlined"
                                 margin="dense"
-                                onChange={handleChange}
                                 error={touched.name && Boolean(errors.name)}
                                 helperText={touched.name && errors.name}
                                 required
                             />
+
                             <Field
                                 as={TextField}
                                 fullWidth
@@ -60,16 +97,27 @@ const EditContractTypeModal: React.FC<EditContractTypeModalProps> = ({ open, onC
                                 label={t('contractType.form.field.description')}
                                 variant="outlined"
                                 margin="dense"
-                                onChange={handleChange}
+                                multiline
+                                rows={3}
                                 error={touched.description && Boolean(errors.description)}
                                 helperText={touched.description && errors.description}
                             />
                         </DialogContent>
+
                         <DialogActions>
-                            <Button onClick={onClose} sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }} variant="contained">
+                            <Button
+                                onClick={onClose}
+                                sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}
+                                variant="contained"
+                            >
                                 {t('common.button.cancel')}
                             </Button>
-                            <Button type="submit" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }} variant="contained">
+
+                            <Button
+                                type="submit"
+                                sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}
+                                variant="contained"
+                            >
                                 {t('common.button.save')}
                             </Button>
                         </DialogActions>

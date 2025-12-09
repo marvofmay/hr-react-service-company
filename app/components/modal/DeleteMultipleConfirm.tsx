@@ -10,6 +10,7 @@ interface DeleteMultipleConfirmModalProps<T> {
     title: string;
     description: string;
     errorAPI?: string;
+    errorsAPI?: Record<string, string> | null;
 }
 
 const DeleteMultipleConfirmModal = <T,>({
@@ -19,7 +20,8 @@ const DeleteMultipleConfirmModal = <T,>({
     onDeleteMultipleConfirm,
     title,
     description,
-    errorAPI
+    errorAPI,
+    errorsAPI
 }: DeleteMultipleConfirmModalProps<T>) => {
     const handleDeleteMultiple = () => {
         if (selectedItems) {
@@ -46,6 +48,16 @@ const DeleteMultipleConfirmModal = <T,>({
                     <div style={{ color: 'red', marginBottom: '1rem' }}>
                         <strong> {errorAPI}</strong>
                     </div>
+
+                )}
+                {errorsAPI && (
+                    <ul style={{ color: 'red', marginBottom: '1rem' }}>
+                        {Object.entries(errorsAPI).map(([field, message]) => (
+                            <li key={field}>
+                                <strong>{field}:</strong> {message}
+                            </li>
+                        ))}
+                    </ul>
                 )}
                 <DialogContentText sx={{ marginTop: '1rem' }}>
                     {description}

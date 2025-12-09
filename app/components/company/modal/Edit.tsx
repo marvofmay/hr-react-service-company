@@ -148,11 +148,11 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
     //     return rootDepartments;
     // };
 
-    useEffect(() => {
-        if (company) {
-            setDepartments(company.departments || []);
-        }
-    }, [company]);
+    // useEffect(() => {
+    //     if (company) {
+    //         setDepartments(company.departments || []);
+    //     }
+    // }, [company]);
 
     // useEffect(() => {
     //     if (departments.length > 0) {
@@ -162,10 +162,10 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
     // }, [departments]);
 
     const handleAddPhone = (values: Company, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
-        if (values.phone.length < MAX_PHONE_FIELDS) {
-            const newPhones = [...values.phone, ""];
+        if (values.phones.length < MAX_PHONE_FIELDS) {
+            const newPhones = [...values.phones, ""];
             setPhones(newPhones);
-            setFieldValue("phone", newPhones);
+            setFieldValue("phones", newPhones);
         }
     };
 
@@ -173,14 +173,14 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
         const updatedPhones = [...phones];
         updatedPhones.splice(index, 1);
         setPhones(updatedPhones);
-        setFieldValue("phone", updatedPhones);
+        setFieldValue("phones", updatedPhones);
     };
 
     const handleAddEmail = (values: Company, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
-        if (values.email.length < MAX_EMAIL_FIELDS) {
-            const newEmails = [...values.email, ""];
+        if (values.emails.length < MAX_EMAIL_FIELDS) {
+            const newEmails = [...values.emails, ""];
             setEmails(newEmails);
-            setFieldValue("email", newEmails);
+            setFieldValue("emails", newEmails);
         }
     };
 
@@ -188,14 +188,14 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
         const updatedEmails = [...emails];
         updatedEmails.splice(index, 1);
         setEmails(updatedEmails);
-        setFieldValue("email", updatedEmails);
+        setFieldValue("emails", updatedEmails);
     };
 
     const handleAddWeb = (values: Company, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
-        if (values.web.length < MAX_WEB_FIELDS) {
-            const newWebs = [...values.web, ""];
+        if (values.webs.length < MAX_WEB_FIELDS) {
+            const newWebs = [...values.webs, ""];
             setWebs(newWebs);
-            setFieldValue("web", newWebs);
+            setFieldValue("webs", newWebs);
         }
     };
 
@@ -203,7 +203,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
         const updatedWebs = [...webs];
         updatedWebs.splice(index, 1);
         setWebs(updatedWebs);
-        setFieldValue("web", updatedWebs);
+        setFieldValue("webs", updatedWebs);
     };
 
     const handleAddOrUpdateDepartment = (department: Department) => {
@@ -231,10 +231,16 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
         );
     };
 
+    const getContactsByType = (type: "phone" | "email" | "web"): string[] => {
+        const contacts = company?.contacts?.filter(c => c.type === type).map(c => c.data) || [];
+        return contacts.length > 0 ? contacts : [""];
+    };
+
     const initialValues: Company = {
         uuid: company?.uuid || '',
         fullName: company?.fullName || '',
         shortName: company?.shortName || '',
+        internalCode: company?.internalCode || '',
         nip: company?.nip || '',
         regon: company?.regon || '',
         description: company?.description || '',
@@ -252,15 +258,17 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
             postcode: company?.address?.postcode || '',
             street: company?.address?.street || '',
         },
-        phone: company?.phone || [""],
-        email: company?.email || [""],
-        web: company?.web || [""],
-        departments: company?.departments || [],
-        active: company?.active || true,
+        contacts: company?.contacts || [],
+        phones: getContactsByType("phone"),
+        emails: getContactsByType("email"),
+        webs: getContactsByType("web"),
+        active: company?.active ?? true,
         createdAt: company?.createdAt || '',
         updatedAt: company?.updatedAt || '',
         deletedAt: company?.deletedAt || '',
     };
+    console.log('webs', webs);
+    console.log('emails', emails);
 
     const validationSchema = Yup.object({
         fullName: Yup.string().required(t('validation.fieldIsRequired')),
@@ -334,6 +342,18 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                         />
                                         <Field
                                             as={TextField}
+                                            name="internalCode"
+                                            label={t('company.form.field.internalCode')}
+                                            value={values.internalCode}
+                                            onChange={handleChange}
+                                            fullWidth
+                                            margin="normal"
+                                            error={touched.internalCode && Boolean(errors.internalCode)}
+                                            helperText={touched.internalCode && errors.internalCode}
+                                            required
+                                        />
+                                        <Field
+                                            as={TextField}
                                             name="nip"
                                             label={t('company.form.field.nip')}
                                             value={values.nip}
@@ -360,7 +380,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                             as={TextField}
                                             select
                                             fullWidth
-                                            name="industry.uuid"
+                                            name="industry"
                                             value={values.industry?.uuid}
                                             onChange={handleChange}
                                             label={t('company.form.field.industry')}
@@ -485,7 +505,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                     }}>
                                         <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.additionalData')}</Typography>
                                         <Box>
-                                            {values.phone.map((_, index) => (
+                                            {values.phones.map((_, index) => (
                                                 <Box
                                                     key={index}
                                                     display="flex"
@@ -494,7 +514,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                                 >
                                                     <Field
                                                         as={TextField}
-                                                        name={`phone[${index}]`}
+                                                        name={`phones[${index}]`}
                                                         type="tel"
                                                         label={`${t('company.form.field.phone')} ${index + 1}`}
                                                         fullWidth
@@ -503,10 +523,10 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                                             const updatedPhones = [...phones];
                                                             updatedPhones[index] = target.value;
                                                             setPhones(updatedPhones);
-                                                            setFieldValue("phone", updatedPhones);
+                                                            setFieldValue("phones", updatedPhones);
                                                         }}
-                                                        error={touched.phone && index === 0 && Boolean(errors.phone?.[index])}
-                                                        helperText={touched.phone && index === 0 && errors.phone?.[index]}
+                                                        error={touched.phones && index === 0 && Boolean(errors.phones?.[index])}
+                                                        helperText={touched.phones && index === 0 && errors.phones?.[index]}
                                                         required={index === 0}
                                                     />
                                                     {index > 0 && (
@@ -533,42 +553,43 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                             )}
                                         </Box>
                                         <Box>
-                                            {values.email.map((_, index) => (
-                                                <Box
-                                                    key={index}
-                                                    display="flex"
-                                                    alignItems="center"
-                                                    mb={2}
-                                                >
-                                                    <Field
-                                                        as={TextField}
-                                                        name={`email[${index}]`}
-                                                        type="tel"
-                                                        label={`${t('company.form.field.email')} ${index + 1}`}
-                                                        fullWidth
-                                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                            const target = e.target;
-                                                            const updatedEmails = [...emails];
-                                                            updatedEmails[index] = target.value;
-                                                            setEmails(updatedEmails);
-                                                            setFieldValue("email", updatedEmails);
-                                                        }}
-                                                        error={touched.email && index === 0 && Boolean(errors.email?.[index])}
-                                                        helperText={touched.email && index === 0 && errors.email?.[index]}
-                                                        required={index === 0}
-                                                    />
-                                                    {index > 0 && (
-                                                        <IconButton
-                                                            onClick={() => handleRemoveEmail(index, setFieldValue)}
-                                                            color="error"
-                                                            sx={{ ml: 1 }}
-                                                        >
-                                                            <RemoveCircleOutlineIcon />
-                                                        </IconButton>
-                                                    )}
-                                                </Box>
+                                            {
+                                                values.emails.map((_, index) => (
+                                                    <Box
+                                                        key={index}
+                                                        display="flex"
+                                                        alignItems="center"
+                                                        mb={2}
+                                                    >
+                                                        <Field
+                                                            as={TextField}
+                                                            name={`emails[${index}]`}
+                                                            type="tel"
+                                                            label={`${t('company.form.field.email')} ${index + 1}`}
+                                                            fullWidth
+                                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                                const target = e.target;
+                                                                const updatedEmails = [...emails];
+                                                                updatedEmails[index] = target.value;
+                                                                setEmails(updatedEmails);
+                                                                setFieldValue("emails", updatedEmails);
+                                                            }}
+                                                            error={touched.emails && index === 0 && Boolean(errors.emails?.[index])}
+                                                            helperText={touched.emails && index === 0 && errors.emails?.[index]}
+                                                            required={index === 0}
+                                                        />
+                                                        {index > 0 && (
+                                                            <IconButton
+                                                                onClick={() => handleRemoveEmail(index, setFieldValue)}
+                                                                color="error"
+                                                                sx={{ ml: 1 }}
+                                                            >
+                                                                <RemoveCircleOutlineIcon />
+                                                            </IconButton>
+                                                        )}
+                                                    </Box>
 
-                                            ))}
+                                                ))}
 
                                             {emails.length < MAX_EMAIL_FIELDS && (
                                                 <Box display="flex" alignItems="center">
@@ -582,7 +603,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                             )}
                                         </Box>
                                         <Box>
-                                            {values.web.map((_, index) => (
+                                            {values.webs.map((_, index) => (
                                                 <Box
                                                     key={index}
                                                     display="flex"
@@ -591,7 +612,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                                 >
                                                     <Field
                                                         as={TextField}
-                                                        name={`web[${index}]`}
+                                                        name={`webs[${index}]`}
                                                         type="tel"
                                                         label={`${t('company.form.field.web')} ${index + 1}`}
                                                         fullWidth
@@ -600,10 +621,10 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                                             const updatedWebs = [...webs];
                                                             updatedWebs[index] = target.value;
                                                             setWebs(updatedWebs);
-                                                            setFieldValue("web", updatedWebs);
+                                                            setFieldValue("webs", updatedWebs);
                                                         }}
-                                                        error={touched.web && index === 0 && Boolean(errors.web?.[index])}
-                                                        helperText={touched.web && index === 0 && errors.web?.[index]}
+                                                        error={touched.webs && index === 0 && Boolean(errors.webs?.[index])}
+                                                        helperText={touched.webs && index === 0 && errors.webs?.[index]}
                                                         required={index === 0}
                                                     />
                                                     {index > 0 && (
@@ -631,6 +652,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                             )}
                                         </Box>
                                     </Box>
+
                                     {/* Kolumna 4 */}
                                     <Box sx={{
                                         border: '1px solid #ccc',

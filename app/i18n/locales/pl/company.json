@@ -20,6 +20,7 @@
             "question": "Czy na pewno chcesz usunąć firmę"
         }
     },
+    "title": "Moduł firma",
     "button": {
         "add": "Dodaj firmę"
     },

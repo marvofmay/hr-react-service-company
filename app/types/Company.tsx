@@ -1,7 +1,6 @@
 //import File from './File';
 import Industry from './Industry';
 import Address from './Address';
-import Department from './Department';
 
 export default interface Company {
     uuid: string;
@@ -11,6 +10,7 @@ export default interface Company {
     },
     fullName?: string;
     shortName?: string | null;
+    internalCode: string;
     nip?: string;
     regon?: string;
     description?: string | null;
@@ -18,10 +18,13 @@ export default interface Company {
     // logo: File | null;
     active?: boolean;
     address: Address;
-    phone: string[];
-    email: string[];
-    web: string[];
-    departments: Department[];
+    contacts: {
+        type: string,
+        data: string
+    }[],
+    phones: string[];
+    emails: string[];
+    webs: string[];
     createdAt?: string;
     updatedAt?: string | null;
     deletedAt?: string | null;

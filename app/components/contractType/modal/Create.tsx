@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import ContractType from '../../../types/ContractType';
 import { useTranslation } from 'react-i18next';
-import { FormikHelpers } from 'formik';
 
 interface AddContractTypeModalProps {
     open: boolean;
     onClose: () => void;
-    onAddContractType: (newContractType: ContractType) => void;
+    onAddContractType: (newContractType: ContractType) => Promise<void>;
 }
 
 const AddContractTypeModal: React.FC<AddContractTypeModalProps> = ({ open, onClose, onAddContractType }) => {
@@ -29,10 +28,29 @@ const AddContractTypeModal: React.FC<AddContractTypeModalProps> = ({ open, onClo
         deletedAt: null
     };
 
-    const handleSubmit = (values: ContractType, formikHelpers: FormikHelpers<ContractType>) => {
-        onAddContractType(values);
-        formikHelpers.resetForm();
-        onClose();
+    const [errorAPI, setErrorAPI] = useState<string | null>(null);
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
+
+    const handleSubmit = async (values: ContractType) => {
+        setErrorAPI(null);
+        setErrorsAPI(null);
+        try {
+            await onAddContractType(values);
+            onClose();
+        } catch (error: unknown) {
+            if (
+                typeof error === 'object' &&
+                error !== null &&
+                'response' in error &&
+                (error as any).response?.data?.message
+            ) {
+                setErrorAPI((error as any).response.data.message);
+                setErrorsAPI((error as any).response.data.errors as Record<string, string>);
+            } else {
+                setErrorAPI('Wystąpił nieznany błąd');
+                setErrorsAPI(null);
+            }
+        }
     };
 
     return (
@@ -48,6 +66,20 @@ const AddContractTypeModal: React.FC<AddContractTypeModalProps> = ({ open, onClo
                 {({ errors, touched }) => (
                     <Form noValidate>
                         <DialogContent>
+                            {errorAPI && (
+                                <div style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {errorAPI}.
+                                </div>
+                            )}
+                            {errorsAPI && (
+                                <ul style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {Object.entries(errorsAPI).map(([field, message]) => (
+                                        <li key={field}>
+                                            <strong>{field}:</strong> {message}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                             <Field
                                 as={TextField}
                                 name="name"

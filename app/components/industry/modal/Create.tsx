@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
-import { Formik, Form, Field, FormikHelpers } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Industry from '../../../types/Industry';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 interface AddIndustryModalProps {
     open: boolean;
     onClose: () => void;
-    onAddIndustry: (newIndustry: Industry) => void;
+    onAddIndustry: (newIndustry: Industry) => Promise<void>;
 }
 
 const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAddIndustry }) => {
@@ -25,13 +25,32 @@ const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAd
         description: '',
         createdAt: '',
         updatedAt: '',
-        deletedAt: null
+        deletedAt: null,
     };
 
-    const handleSubmit = (values: Industry, helpers: FormikHelpers<Industry>) => {
-        onAddIndustry(values);
-        helpers.resetForm();
-        onClose();
+    const [errorAPI, setErrorAPI] = useState<string | null>(null);
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
+
+    const handleSubmit = async (values: Industry) => {
+        setErrorAPI(null);
+        setErrorsAPI(null);
+        try {
+            await onAddIndustry(values);
+            onClose();
+        } catch (error: unknown) {
+            if (
+                typeof error === 'object' &&
+                error !== null &&
+                'response' in error &&
+                (error as any).response?.data?.message
+            ) {
+                setErrorAPI((error as any).response.data.message);
+                setErrorsAPI((error as any).response.data.errors as Record<string, string>);
+            } else {
+                setErrorAPI('Wystąpił nieznany błąd');
+                setErrorsAPI(null);
+            }
+        }
     };
 
     return (
@@ -47,6 +66,20 @@ const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAd
                 {({ errors, touched }) => (
                     <Form noValidate>
                         <DialogContent>
+                            {errorAPI && (
+                                <div style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {errorAPI}.
+                                </div>
+                            )}
+                            {errorsAPI && (
+                                <ul style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {Object.entries(errorsAPI).map(([field, message]) => (
+                                        <li key={field}>
+                                            <strong>{field}:</strong> {message}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                             <Field
                                 as={TextField}
                                 name="name"
@@ -70,10 +103,18 @@ const AddIndustryModal: React.FC<AddIndustryModalProps> = ({ open, onClose, onAd
                             />
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={onClose} variant="contained" sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}>
+                            <Button
+                                onClick={onClose}
+                                variant="contained"
+                                sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}
+                            >
                                 {t('common.button.cancel')}
                             </Button>
-                            <Button type="submit" variant="contained" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}
+                            >
                                 {t('common.button.save')}
                             </Button>
                         </DialogActions>

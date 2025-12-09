@@ -18,6 +18,7 @@ import modulePL from './locales/pl/module.json';
 import loginPL from './locales/pl/login.json';
 import notesPL from './locales/pl/notes.json';
 import documentsPL from './locales/pl/documents.json';
+import systemPL from './locales/pl/system.json';
 
 const resources = {
     en: {
@@ -41,7 +42,8 @@ const resources = {
             module: modulePL,
             loginForm: loginPL,
             notes: notesPL,
-            documents: documentsPL
+            documents: documentsPL,
+            system: systemPL,
         }
     },
 };
