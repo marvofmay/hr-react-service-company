@@ -9,6 +9,8 @@
   "/manage/roles/list/page": "app/manage/roles/list/page.js",
   "/messages/page": "app/messages/page.js",
   "/module/company/page": "app/module/company/page.js",
+  "/module/documents/page": "app/module/documents/page.js",
+  "/module/notes/page": "app/module/notes/page.js",
   "/module/system/page": "app/module/system/page.js",
   "/notifications/page": "app/notifications/page.js",
   "/page": "app/page.js",

@@ -7654,3 +7654,84 @@ Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
 [119:34:47.606] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
 [119:34:47.880] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
 Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[119:38:52.090] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[119:38:52.985] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[119:38:52.985] Browser LOG     1 10 name desc
+[119:38:53.171] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[119:38:54.352] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[119:38:54.352] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[119:39:22.191] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[119:39:22.783] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[119:39:22.974] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[119:39:37.846] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[119:39:38.020] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[119:39:40.523] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[119:39:40.686] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[119:39:46.249] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[119:39:46.856] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[119:39:47.033] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[119:42:44.992] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[119:42:45.179] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[119:42:47.224] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[119:42:47.940] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[119:42:48.196] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[119:51:56.852] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[119:54:19.850] Browser ERROR   ./app/components/user/register/theme/themePrimitives.ts:94:59
+Parsing ecmascript source code failed
+  92 |     };
+  93 |
+> 94 |     export const getDesignTokens = (mode: PaletteMode) => {
+     |                                                           ^
+  95 |         customShadows[1] =
+  96 |             mode === 'dark'
+  97 |                 ? 'hsla(220, 30%, 5%, 0.7) 0px 4px 16px 0px, hsla(220, 25%, 10%, 0.8) 0px 8px 16px -5px'
+
+An implementation cannot be declared in ambient contexts
+
+Import traces:
+  Client Component Browser:
+    ./app/components/user/register/theme/themePrimitives.ts [Client Component Browser]
+    ./app/components/user/register/theme/getSignUpTheme.tsx [Client Component Browser]
+    ./app/components/user/login/SignIn.tsx [Client Component Browser]
+    ./app/login/page.tsx [Client Component Browser]
+    ./app/login/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/user/register/theme/themePrimitives.ts [Client Component SSR]
+    ./app/components/user/register/theme/getSignUpTheme.tsx [Client Component SSR]
+    ./app/components/user/login/SignIn.tsx [Client Component SSR]
+    ./app/login/page.tsx [Client Component SSR]
+    ./app/login/page.tsx [Server Component]
+[119:54:19.851] Browser ERROR   ./app/components/user/register/theme/themePrimitives.ts:235:7
+Parsing ecmascript source code failed
+  233 |             shadows: customShadows,
+  234 |         };
+> 235 |     };
+      |       ^
+  236 |
+
+Expected '}', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./app/components/user/register/theme/themePrimitives.ts [Client Component Browser]
+    ./app/components/user/register/theme/getSignUpTheme.tsx [Client Component Browser]
+    ./app/components/user/login/SignIn.tsx [Client Component Browser]
+    ./app/login/page.tsx [Client Component Browser]
+    ./app/login/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/user/register/theme/themePrimitives.ts [Client Component SSR]
+    ./app/components/user/register/theme/getSignUpTheme.tsx [Client Component SSR]
+    ./app/components/user/login/SignIn.tsx [Client Component SSR]
+    ./app/login/page.tsx [Client Component SSR]
+    ./app/login/page.tsx [Server Component]
+[119:54:59.742] Server  LOG      ✓ Compiled in 75ms
+[120:00:10.850] Browser ERROR   Błąd Mercure: {"isTrusted":true}

@@ -68,9 +68,21 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
 
     const validationSchema = Yup.object({
         fullName: Yup.string().required(t('validation.fieldIsRequired')),
-        phones: Yup.array()
-            .of(Yup.string().required())
-            .min(1),
+        description: Yup.string()
+            .required(t('validation.fieldIsRequired'))
+            .min(3, t('validation.minLength', { count: 3 })),
+        nip: Yup.string().required(t('validation.fieldIsRequired')),
+        regon: Yup.string().required(t('validation.fieldIsRequired')),
+        internalCode: Yup.string().required(t('validation.fieldIsRequired')),
+        industry: Yup.object().shape({
+            uuid: Yup.string().required(t('validation.fieldIsRequired')),
+        }),
+        address: Yup.object().shape({
+            country: Yup.string().required(t('validation.fieldIsRequired')),
+            city: Yup.string().required(t('validation.fieldIsRequired')),
+            postcode: Yup.string().required(t('validation.fieldIsRequired')),
+            street: Yup.string().required(t('validation.fieldIsRequired')),
+        }),
     });
 
     const [industries, setIndustries] = useState<{ uuid: string; name: string }[]>([]);
@@ -136,6 +148,9 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
 
         fetchPossibleParentCompanies();
     }, [open]);
+
+    const [errorAPI, setErrorAPI] = useState<string | null>(null);
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
 
     const handleSubmit = async (values: Company) => {
         if (company) {
