@@ -3,7 +3,6 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, C
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Employee from '../../../types/Employee';
-import fakeCompanies from '../../../fakeData/Companies';
 import fakeDepartments from '../../../fakeData/Departments';
 import fakeEmployees from '../../../fakeData/Employees';
 import fakePositions from '../../../fakeData/Positions';
@@ -263,7 +262,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                                     <AddCircleOutlineIcon />
                                                 </IconButton>
                                                 <Typography variant="body2" ml={1}>
-                                                    {t('common.addAnotherPhoneNumber')}
+                                                    {t('common.addAnotherPhone')}
                                                 </Typography>
                                             </Box>
                                         )}
@@ -293,7 +292,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         helperText={touched?.company?.uuid && errors?.company?.uuid}
                                         required
                                     >
-                                        {fakeCompanies.map(company => <MenuItem key={company.uuid} value={company.uuid}>{company.fullName}</MenuItem>)}
+
                                     </Field>
                                     <Field
                                         as={TextField}

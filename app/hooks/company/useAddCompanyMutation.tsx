@@ -14,7 +14,7 @@ const addCompany = async (company: Company, token: string): Promise<string> => {
             nip: company.nip,
             regon: company.regon,
             description: company.description,
-            parentCompanyUUID: company.companySuperior.uuid,
+            parentCompanyUUID: company.parentCompany?.uuid,
             industryUUID: company.industry.uuid,
             active: company.active,
             phones: company.phones.filter(p => p.trim() !== ""),

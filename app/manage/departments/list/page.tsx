@@ -1,6 +1,6 @@
 "use client";
 
-import CompaniesTable from "@/app/components/company/Table";
+import DepartmentsTable from "@/app/components/department/Table";
 import { Box, Typography, CircularProgress } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import { useUser } from "@/app/context/userContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const CompaniesList: React.FC = () => {
+const DepartmentsList: React.FC = () => {
     const queryClient = new QueryClient();
     const { hasAccess, hasPermission, isAuthenticated, loading } = useUser();
     const router = useRouter();
@@ -19,7 +19,7 @@ const CompaniesList: React.FC = () => {
             router.push("/user/logout");
         }
 
-        if (!loading && !hasAccess("companies")) {
+        if (!loading && !hasAccess("departments")) {
             router.push("/forbidden");
         }
     }, [hasAccess, hasPermission, isAuthenticated, loading, router]);
@@ -37,7 +37,7 @@ const CompaniesList: React.FC = () => {
                     <Box width="90%">
                         <Typography variant="h6" gutterBottom>{t('company.list.title')}</Typography>
                         <QueryClientProvider client={queryClient}>
-                            {hasPermission('companies.list') && <CompaniesTable />}
+                            {hasPermission('departments.list') && <DepartmentsTable />}
                         </QueryClientProvider>
                     </Box></Box>
             </main>
@@ -45,4 +45,4 @@ const CompaniesList: React.FC = () => {
     );
 }
 
-export default CompaniesList; 
+export default DepartmentsList; 

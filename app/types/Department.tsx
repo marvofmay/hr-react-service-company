@@ -3,21 +3,25 @@ import Address from './Address';
 export default interface Department {
     uuid: string;
     name: string | null;
-    company?: {
+    internalCode: string;
+    company: {
+        uuid: string | null;
+        fullName: string | null;
+    }
+    parentDepartment?: {
         uuid: string | null;
         name: string | null;
     }
-    departmentSuperior: {
-        uuid: string | null;
-        name: string | null;
-    }
-    index?: number;
     description: string | null;
+    active?: boolean;
     address: Address;
-    phone: string | null;
-    email: string | null;
-    web: string | null;
-    active: boolean;
+    contacts: {
+        type: string,
+        data: string
+    }[],
+    phones: string[];
+    emails: string[];
+    webs: string[];
     createdAt?: string;
     updatedAt?: string | null;
     deletedAt?: string | null;

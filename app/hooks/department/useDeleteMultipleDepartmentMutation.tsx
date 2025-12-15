@@ -1,23 +1,23 @@
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
-import Position from '@/app/types/Position';
+import Department from '@/app/types/Department';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
-const deleteMultiplePosition = async (positionsToDelete: Position[], token: string): Promise<string> => {
+const deleteMultipleDepartment = async (departmentsToDelete: Department[], token: string): Promise<string> => {
     try {
-        const positionsUUIDs = {
-            positionsUUIDs: positionsToDelete.map(item => item.uuid)
+        const departmentsUUIDs = {
+            departmentsUUIDs: departmentsToDelete.map(item => item.uuid)
         };
 
         const response = await axios.delete(
-            `${SERVICE_COMPANY_URL}/api/positions/multiple`,
+            `${SERVICE_COMPANY_URL}/api/departments/multiple`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
-                data: positionsUUIDs
+                data: departmentsUUIDs
             }
         );
 
@@ -31,22 +31,22 @@ const deleteMultiplePosition = async (positionsToDelete: Position[], token: stri
     }
 };
 
-const useDeleteMultiplePositionMutation = () => {
+const useDeleteMultipleDepartmentMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: (positionsToDelete: Position[]) => {
+        mutationFn: (departmentsToDelete: Department[]) => {
             const token = localStorage.getItem("auth_token");
 
             if (!token) {
                 throw new Error(t('common.message.tokenIsMissing'));
             }
 
-            return deleteMultiplePosition(positionsToDelete, token);
+            return deleteMultipleDepartment(departmentsToDelete, token);
         },
         onSuccess: async () => {
         },
     });
 };
 
-export default useDeleteMultiplePositionMutation;
+export default useDeleteMultipleDepartmentMutation;

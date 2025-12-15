@@ -17,6 +17,7 @@
         "settings": "ustawienia",
         "userProfile": "profil użytkownika",
         "companies": "firmy",
+        "departments": "departamenty",
         "employees": "pracownicy",
         "positions": "stanowiska",
         "roles": "role",
@@ -67,7 +68,7 @@
     "footer": {
         "info": "aplikacja do celów edukacyjnych NextJs / React / Symfony"
     },
-    "addAnotherPhoneNumber": "kolejny numer telefonu",
+    "addAnotherPhone": "kolejny numer telefonu",
     "addAnotherEmail": "kolejny email",
     "addAnotherWeb": "kolejna strona www",
     "error401": "błąd 401",
@@ -84,5 +85,7 @@
     "view": "pdogląd",
     "edit": "edycja",
     "assignDepartmentsToPosition": "przypiywanie departamentów",
-    "delete": "usuwanie"
+    "delete": "usuwanie",
+    "loading": "Ładowanie...",
+    "lack": "Brak"
 }

@@ -45,7 +45,7 @@ const DeleteMultipleRolesModal: React.FC<DeleteMultipleRolesModalProps> = ({ ope
             onClose={onClose}
             onDeleteMultipleConfirm={handleDeleteMultiple}
             title={t('role.modal.delete.title')}
-            description={`${t('role.modal.delete.question')}: ${selectedRoles?.length ? selectedRoles.map(role => role.name).join(", ") : ''}`}
+            description={`${t('role.modal.delete.question')}: ${selectedRoles?.length ? selectedRoles.map(role => role.name).join(", ") : ''}?`}
             errorAPI={errorAPI}
             errorsAPI={errorsAPI}
         />

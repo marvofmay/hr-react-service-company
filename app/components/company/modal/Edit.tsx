@@ -1,237 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Checkbox, MenuItem, IconButton, FormControlLabel, Box, Typography } from '@mui/material';
-import { Formik, Form, Field, FormikHelpers } from 'formik';
+import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import Company from '../../../types/Company';
-import fakeCompanies from '../../../fakeData/Companies';
-import fakeIdustries from "@/app/fakeData/Industries";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import EditIcon from '@mui/icons-material/Edit';
-import CreateDepartmentModal from "@/app/components/department/modal/Create";
-import Department from '@/app/types/Department';
-import { TreeViewBaseItem } from '@mui/x-tree-view/models';
-// import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
-// import { TreeItem2, TreeItem2Props } from '@mui/x-tree-view/TreeItem2';
-// import { useTreeItem2Utils } from '@mui/x-tree-view/hooks';
+import axios from "axios";
+import { SERVICE_COMPANY_URL } from "@/app/utility/constans";
 
 interface EditCompanyModalProps {
     open: boolean;
     onClose: () => void;
     company: Company | null;
-    onSave: (updatedCompany: Company) => void;
-}
-
-type TreeItemWithLabel = {
-    id: string;
-    label: string;
-    secondaryLabel?: string;
-    department: Department;
-};
-
-interface CustomLabelProps {
-    children: string;
-    className: string;
-    secondaryLabel: string;
+    onSave: (updatedCompany: Company) => Promise<void>;
 }
 
 const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, company, onSave }) => {
     const { t } = useTranslation();
 
     const MAX_PHONE_FIELDS = 3;
-    const [phones, setPhones] = useState([""]);
-
     const MAX_EMAIL_FIELDS = 3;
-    const [emails, setEmails] = useState([""]);
-
     const MAX_WEB_FIELDS = 3;
-    const [webs, setWebs] = useState([""]);
 
-    const [departments, setDepartments] = useState<Department[]>([]);
-    const [isDepartmentModalOpen, setDepartmentModalOpen] = useState(false);
-    const [editingDepartment, setEditingDepartment] = useState<Department | null>(null);
-
-    const [treeDepartments, setTreeDepartments] = useState<TreeViewBaseItem<TreeItemWithLabel>[]>([]);
-
-    function CustomLabel({ children, className, secondaryLabel }: CustomLabelProps) {
-        return (
-            <div className={className}>
-                <Typography>{children}</Typography>
-                {secondaryLabel && (
-                    <Typography variant="caption" color="secondary">
-                        {secondaryLabel}
-                    </Typography>
-                )}
-            </div>
-        );
-    }
-
-    // const CustomTreeItem = React.forwardRef(function CustomTreeItem(
-    //     props: TreeItem2Props,
-    //     ref: React.Ref<HTMLLIElement>,
-    // ) {
-    //     const { publicAPI } = useTreeItem2Utils({
-    //         itemId: props.itemId,
-    //         children: props.children,
-    //     });
-
-    //     const item = publicAPI.getItem(props.itemId);
-
-    //     return (
-    //         <TreeItem2
-    //             {...props}
-    //             ref={ref}
-    //             label={
-    //                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-    //                     <CustomLabel className="tree-label" secondaryLabel={item?.secondaryLabel || ''}>
-    //                         {item?.label || ''}
-    //                     </CustomLabel>
-    //                     <div>
-    //                         <IconButton onClick={e => {
-    //                             e.stopPropagation();
-    //                             handleEditDepartment(item.department);
-    //                         }} size="small" color="info">
-    //                             <EditIcon />
-    //                         </IconButton>
-    //                         <IconButton onClick={e => {
-    //                             e.stopPropagation();
-    //                             handleRemoveDepartment(item.department);
-    //                         }} size="small" color="error">
-    //                             <RemoveCircleOutlineIcon />
-    //                         </IconButton>
-    //                     </div>
-    //                 </div>
-    //             }
-    //         >
-    //             {item?.children && item.children.map((child: TreeItemWithLabel) => (
-    //                 <CustomTreeItem
-    //                     key={child.id}
-    //                     itemId={child.id}
-    //                     label={child.label}
-    //                 />
-    //             ))}
-    //         </TreeItem2 >
-    //     );
-    // });
-
-    // const transformDepartmentsToTree = (departments: Department[]): TreeViewBaseItem<TreeItemWithLabel>[] => {
-    //     const departmentMap: Record<string, TreeViewBaseItem<TreeItemWithLabel>> = {};
-    //     const rootDepartments: TreeViewBaseItem<TreeItemWithLabel>[] = [];
-
-    //     // Tworzenie mapy departmentMap
-    //     departments.forEach(department => {
-    //         if (department.uuid === '') {
-    //             department.uuid = `new-department-${crypto.randomUUID()}`;
-    //         }
-    //         departmentMap[department.uuid] = {
-    //             id: department.uuid,
-    //             label: department.name || '',
-    //             secondaryLabel: department.description || '',
-    //             department: department,
-    //             children: [],
-    //         };
-    //     });
-
-    //     // Przekształcenie danych w strukturę drzewa
-    //     departments.forEach(department => {
-    //         const parentId = department.departmentSuperior?.uuid || null;
-    //         if (parentId && parentId !== '' && departmentMap[parentId]) {
-    //             // Dodajemy element jako dziecko do rodzica
-    //             departmentMap[parentId].children?.push(departmentMap[department.uuid]);
-    //         } else {
-    //             // Dodajemy element do korzenia, jeśli nie ma rodzica
-    //             rootDepartments.push(departmentMap[department.uuid]);
-    //         }
-    //     });
-
-    //     return rootDepartments;
-    // };
-
-    // useEffect(() => {
-    //     if (company) {
-    //         setDepartments(company.departments || []);
-    //     }
-    // }, [company]);
-
-    // useEffect(() => {
-    //     if (departments.length > 0) {
-    //         const treeData = transformDepartmentsToTree(departments);
-    //         setTreeDepartments(treeData);
-    //     }
-    // }, [departments]);
-
-    const handleAddPhone = (values: Company, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
-        if (values.phones.length < MAX_PHONE_FIELDS) {
-            const newPhones = [...values.phones, ""];
-            setPhones(newPhones);
-            setFieldValue("phones", newPhones);
-        }
-    };
-
-    const handleRemovePhone = (index: number, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
-        const updatedPhones = [...phones];
-        updatedPhones.splice(index, 1);
-        setPhones(updatedPhones);
-        setFieldValue("phones", updatedPhones);
-    };
-
-    const handleAddEmail = (values: Company, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
-        if (values.emails.length < MAX_EMAIL_FIELDS) {
-            const newEmails = [...values.emails, ""];
-            setEmails(newEmails);
-            setFieldValue("emails", newEmails);
-        }
-    };
-
-    const handleRemoveEmail = (index: number, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
-        const updatedEmails = [...emails];
-        updatedEmails.splice(index, 1);
-        setEmails(updatedEmails);
-        setFieldValue("emails", updatedEmails);
-    };
-
-    const handleAddWeb = (values: Company, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
-        if (values.webs.length < MAX_WEB_FIELDS) {
-            const newWebs = [...values.webs, ""];
-            setWebs(newWebs);
-            setFieldValue("webs", newWebs);
-        }
-    };
-
-    const handleRemoveWeb = (index: number, setFieldValue: FormikHelpers<Company>["setFieldValue"]) => {
-        const updatedWebs = [...webs];
-        updatedWebs.splice(index, 1);
-        setWebs(updatedWebs);
-        setFieldValue("webs", updatedWebs);
-    };
-
-    const handleAddOrUpdateDepartment = (department: Department) => {
-        if (editingDepartment) {
-            setDepartments((prev) =>
-                prev.map((dept) =>
-                    dept.uuid === editingDepartment.uuid ? { ...dept, ...department } : dept
-                )
-            );
-        } else {
-            setDepartments((prev) => [...prev, department]);
-        }
-        setEditingDepartment(null);
-        setDepartmentModalOpen(false);
-    };
-
-    const handleEditDepartment = (department: Department) => {
-        setEditingDepartment(department);
-        setDepartmentModalOpen(true);
-    };
-
-    const handleRemoveDepartment = (department: Department) => {
-        setDepartments(prevDepartments =>
-            prevDepartments.filter(dep => dep.uuid !== department.uuid)
-        );
-    };
-
-    const getContactsByType = (type: "phone" | "email" | "web"): string[] => {
+    const getContactsByType = (type: "phone" | "email" | "website"): string[] => {
         const contacts = company?.contacts?.filter(c => c.type === type).map(c => c.data) || [];
         return contacts.length > 0 ? contacts : [""];
     };
@@ -244,44 +36,114 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
         nip: company?.nip || '',
         regon: company?.regon || '',
         description: company?.description || '',
-        industry: {
-            uuid: company?.industry?.uuid || '',
-            name: company?.industry?.name || '',
-        },
-        companySuperior: {
-            uuid: company?.companySuperior?.uuid || '',
-            name: company?.companySuperior?.name || '',
-        },
-        address: {
-            country: company?.address?.country || '',
-            city: company?.address?.city || '',
-            postcode: company?.address?.postcode || '',
-            street: company?.address?.street || '',
-        },
+        industry: company?.industry
+            ? { uuid: company.industry.uuid, name: company.industry.name }
+            : { uuid: '', name: '' },
+        parentCompany: company?.parentCompany
+            ? {
+                uuid: company.parentCompany.uuid,
+                fullName: company.parentCompany.fullName,
+                shortName: company.parentCompany.shortName,
+                nip: company.parentCompany.nip,
+                regon: company.parentCompany.regon,
+            }
+            : null,
+        address: company?.address
+            ? {
+                country: company.address.country,
+                city: company.address.city,
+                postcode: company.address.postcode,
+                street: company.address.street,
+            }
+            : { country: '', city: '', postcode: '', street: '' },
         contacts: company?.contacts || [],
         phones: getContactsByType("phone"),
         emails: getContactsByType("email"),
-        webs: getContactsByType("web"),
+        webs: getContactsByType("website"),
         active: company?.active ?? true,
         createdAt: company?.createdAt || '',
         updatedAt: company?.updatedAt || '',
         deletedAt: company?.deletedAt || '',
     };
-    console.log('webs', webs);
-    console.log('emails', emails);
 
     const validationSchema = Yup.object({
         fullName: Yup.string().required(t('validation.fieldIsRequired')),
+        phones: Yup.array()
+            .of(Yup.string().required())
+            .min(1),
     });
 
-    const handleSubmit = (values: Company) => {
+    const [industries, setIndustries] = useState<{ uuid: string; name: string }[]>([]);
+    const [loadingIndustries, setLoadingIndustries] = useState(true);
+    const [errorIndustries, setErrorIndustries] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!open) return;
+
+        const fetchIndustries = async () => {
+            try {
+                const token = localStorage.getItem('auth_token');
+                setLoadingIndustries(true);
+                const response = await axios.get(`${SERVICE_COMPANY_URL}/api/industries`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                    params: {
+                        sortBy: "name",
+                        sortDirection: "ASC",
+                        pageSize: 1000
+                    }
+                });
+
+                setIndustries(response.data.data.items || []);
+                setErrorIndustries(null);
+            } catch (err: any) {
+                setErrorIndustries("Nie udało się pobrać listy branż");
+            } finally {
+                setLoadingIndustries(false);
+            }
+        };
+
+        fetchIndustries();
+    }, [open]);
+
+    const [possibleParentCompanies, setPossibleParentCompanies] = useState<{ uuid: string; fullName: string }[]>([]);
+    const [loadingPossibleParentCompanies, setLoadingPossibleParentCompanies] = useState(true);
+    const [errorPossibleParentCompanies, setErrorPossibleParentCompanies] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!open) return;
+
+        const fetchPossibleParentCompanies = async () => {
+            try {
+                const token = localStorage.getItem('auth_token');
+                setLoadingPossibleParentCompanies(true);
+                const response = await axios.get(`${SERVICE_COMPANY_URL}/api/companies`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                    params: {
+                        sortBy: "fullName",
+                        sortDirection: "ASC",
+                        pageSize: 1000
+                    }
+                });
+
+                setPossibleParentCompanies(response.data.data.items || []);
+                setErrorPossibleParentCompanies(null);
+            } catch (err: any) {
+                setErrorPossibleParentCompanies("Nie udało się pobrać listy firm");
+            } finally {
+                setLoadingPossibleParentCompanies(false);
+            }
+        };
+
+        fetchPossibleParentCompanies();
+    }, [open]);
+
+    const handleSubmit = async (values: Company) => {
         if (company) {
             const updatedCompany = {
                 ...company,
                 ...values,
-                departments: departments || [],
             }
-            onSave(updatedCompany);
+            await onSave(updatedCompany);
             onClose();
         }
     }
@@ -292,7 +154,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                 <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                     {t('company.modal.edit.title')}
                 </DialogTitle>
-                <Formik
+                <Formik<Company>
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
@@ -302,7 +164,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                             <DialogContent>
                                 <Box
                                     display="grid"
-                                    gridTemplateColumns="repeat(4, 1fr)"
+                                    gridTemplateColumns="repeat(3, 1fr)"
                                     gap={2}
                                 >
                                     {/* Kolumna 1 */}
@@ -380,7 +242,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                             as={TextField}
                                             select
                                             fullWidth
-                                            name="industry"
+                                            name="industry.uuid"
                                             value={values.industry?.uuid}
                                             onChange={handleChange}
                                             label={t('company.form.field.industry')}
@@ -390,7 +252,13 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                             helperText={touched?.industry?.uuid && errors?.industry?.uuid}
                                             required
                                         >
-                                            {fakeIdustries.map(industry => <MenuItem key={industry.uuid} value={industry.uuid}>{industry.name}</MenuItem>)}
+                                            {loadingIndustries && <MenuItem disabled>{t('common.loading')}</MenuItem>}
+                                            {errorIndustries && <MenuItem disabled>{errorIndustries}</MenuItem>}
+                                            {!loadingIndustries && industries.map(ind => (
+                                                <MenuItem key={ind.uuid} value={ind.uuid}>
+                                                    {ind.name}
+                                                </MenuItem>
+                                            ))}
                                         </Field>
                                         <Field
                                             as={TextField}
@@ -408,15 +276,40 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                         <Field
                                             as={TextField}
                                             select
-                                            value={values.companySuperior.uuid}
-                                            onChange={handleChange}
                                             fullWidth
-                                            name="companySuperior.uuid"
-                                            label={t('company.form.field.companySuperior')}
+                                            name="parentCompany.uuid"
+                                            value={values.parentCompany?.uuid ?? ''}
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                const value = e.target.value;
+                                                setFieldValue(
+                                                    'parentCompany',
+                                                    value ? { uuid: value } : null
+                                                );
+                                            }}
+                                            label={t('company.form.field.parentCompany')}
                                             variant="outlined"
                                             margin="normal"
                                         >
-                                            {fakeCompanies.map(company => <MenuItem key={company.uuid} value={company.uuid}>{company.fullName}</MenuItem>)}
+                                            <MenuItem value="">
+                                                — {t('common.lack')} —
+                                            </MenuItem>
+
+                                            {loadingPossibleParentCompanies && (
+                                                <MenuItem disabled>{t('common.loading')}</MenuItem>
+                                            )}
+
+                                            {errorPossibleParentCompanies && (
+                                                <MenuItem disabled>{errorPossibleParentCompanies}</MenuItem>
+                                            )}
+
+                                            {!loadingPossibleParentCompanies &&
+                                                possibleParentCompanies
+                                                    .filter(ppc => ppc.uuid !== company?.uuid)
+                                                    .map(ppc => (
+                                                        <MenuItem key={ppc.uuid} value={ppc.uuid}>
+                                                            {ppc.fullName}
+                                                        </MenuItem>
+                                                    ))}
                                         </Field>
                                     </Box>
 
@@ -503,180 +396,154 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                             borderColor: '#34495e',
                                         },
                                     }}>
-                                        <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.additionalData')}</Typography>
-                                        <Box>
-                                            {values.phones.map((_, index) => (
-                                                <Box
-                                                    key={index}
-                                                    display="flex"
-                                                    alignItems="center"
-                                                    mb={2}
-                                                >
-                                                    <Field
-                                                        as={TextField}
-                                                        name={`phones[${index}]`}
-                                                        type="tel"
-                                                        label={`${t('company.form.field.phone')} ${index + 1}`}
-                                                        fullWidth
-                                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                            const target = e.target;
-                                                            const updatedPhones = [...phones];
-                                                            updatedPhones[index] = target.value;
-                                                            setPhones(updatedPhones);
-                                                            setFieldValue("phones", updatedPhones);
-                                                        }}
-                                                        error={touched.phones && index === 0 && Boolean(errors.phones?.[index])}
-                                                        helperText={touched.phones && index === 0 && errors.phones?.[index]}
-                                                        required={index === 0}
-                                                    />
-                                                    {index > 0 && (
-                                                        <IconButton
-                                                            onClick={() => handleRemovePhone(index, setFieldValue)}
-                                                            color="error"
-                                                            sx={{ ml: 1 }}
-                                                        >
-                                                            <RemoveCircleOutlineIcon />
-                                                        </IconButton>
-                                                    )}
-                                                </Box>
-                                            ))}
+                                        <Typography sx={{ marginBottom: 3 }}>{t('company.form.box.additionalData')}</Typography>
+                                        <Box sx={{ marginBottom: 8 }}>
+                                            <FieldArray name="phones">
+                                                {({ push, remove }) => (
+                                                    <Box>
+                                                        {values.phones.map((_, index) => (
+                                                            <Box key={index} display="flex" alignItems="center" mb={2}>
+                                                                <Field
+                                                                    as={TextField}
+                                                                    name={`phones[${index}]`}
+                                                                    type="tel"
+                                                                    label={`${t('company.form.field.phone')} ${index + 1}`}
+                                                                    fullWidth
+                                                                    error={Boolean(
+                                                                        (touched.phones as boolean[] | undefined)?.[index] &&
+                                                                        (errors.phones as string[] | undefined)?.[index]
+                                                                    )}
+                                                                    helperText={
+                                                                        (touched.phones as boolean[] | undefined)?.[index] &&
+                                                                        (errors.phones as string[] | undefined)?.[index]
+                                                                    }
+                                                                //required={index === 0}
+                                                                />
 
-                                            {phones.length < MAX_PHONE_FIELDS && (
-                                                <Box display="flex" alignItems="center">
-                                                    <IconButton onClick={() => handleAddPhone(values, setFieldValue)} color="primary">
-                                                        <AddCircleOutlineIcon />
-                                                    </IconButton>
-                                                    <Typography variant="body2" ml={1}>
-                                                        {t('common.addAnotherPhoneNumber')}
-                                                    </Typography>
-                                                </Box>
-                                            )}
-                                        </Box>
-                                        <Box>
-                                            {
-                                                values.emails.map((_, index) => (
-                                                    <Box
-                                                        key={index}
-                                                        display="flex"
-                                                        alignItems="center"
-                                                        mb={2}
-                                                    >
-                                                        <Field
-                                                            as={TextField}
-                                                            name={`emails[${index}]`}
-                                                            type="tel"
-                                                            label={`${t('company.form.field.email')} ${index + 1}`}
-                                                            fullWidth
-                                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                                const target = e.target;
-                                                                const updatedEmails = [...emails];
-                                                                updatedEmails[index] = target.value;
-                                                                setEmails(updatedEmails);
-                                                                setFieldValue("emails", updatedEmails);
-                                                            }}
-                                                            error={touched.emails && index === 0 && Boolean(errors.emails?.[index])}
-                                                            helperText={touched.emails && index === 0 && errors.emails?.[index]}
-                                                            required={index === 0}
-                                                        />
-                                                        {index > 0 && (
-                                                            <IconButton
-                                                                onClick={() => handleRemoveEmail(index, setFieldValue)}
-                                                                color="error"
-                                                                sx={{ ml: 1 }}
-                                                            >
-                                                                <RemoveCircleOutlineIcon />
-                                                            </IconButton>
+                                                                {index > 0 && (
+                                                                    <IconButton
+                                                                        onClick={() => remove(index)}
+                                                                        color="error"
+                                                                        sx={{ ml: 1 }}
+                                                                    >
+                                                                        <RemoveCircleOutlineIcon />
+                                                                    </IconButton>
+                                                                )}
+                                                            </Box>
+                                                        ))}
+
+                                                        {values.phones.length < MAX_PHONE_FIELDS && (
+                                                            <Box display="flex" alignItems="center">
+                                                                <IconButton onClick={() => push('')} color="primary">
+                                                                    <AddCircleOutlineIcon />
+                                                                </IconButton>
+                                                                <Typography variant="body2" ml={1}>
+                                                                    {t('common.addAnotherPhone')}
+                                                                </Typography>
+                                                            </Box>
                                                         )}
                                                     </Box>
+                                                )}
+                                            </FieldArray>
+                                        </Box>
+                                        <Box sx={{ marginBottom: 8 }}>
+                                            <FieldArray name="emails">
+                                                {({ push, remove }) => (
+                                                    <Box>
+                                                        {values.emails.map((_, index) => (
+                                                            <Box key={index} display="flex" alignItems="center" mb={2}>
+                                                                <Field
+                                                                    as={TextField}
+                                                                    name={`emails[${index}]`}
+                                                                    type="tel"
+                                                                    label={`${t('company.form.field.email')} ${index + 1}`}
+                                                                    fullWidth
+                                                                    error={Boolean(
+                                                                        (touched.emails as boolean[] | undefined)?.[index] &&
+                                                                        (errors.emails as string[] | undefined)?.[index]
+                                                                    )}
+                                                                    helperText={
+                                                                        (touched.emails as boolean[] | undefined)?.[index] &&
+                                                                        (errors.emails as string[] | undefined)?.[index]
+                                                                    }
+                                                                //required={index === 0}
+                                                                />
 
-                                                ))}
+                                                                {index > 0 && (
+                                                                    <IconButton
+                                                                        onClick={() => remove(index)}
+                                                                        color="error"
+                                                                        sx={{ ml: 1 }}
+                                                                    >
+                                                                        <RemoveCircleOutlineIcon />
+                                                                    </IconButton>
+                                                                )}
+                                                            </Box>
+                                                        ))}
 
-                                            {emails.length < MAX_EMAIL_FIELDS && (
-                                                <Box display="flex" alignItems="center">
-                                                    <IconButton onClick={() => handleAddEmail(values, setFieldValue)} color="primary">
-                                                        <AddCircleOutlineIcon />
-                                                    </IconButton>
-                                                    <Typography variant="body2" ml={1}>
-                                                        {t('common.addAnotherEmail')}
-                                                    </Typography>
-                                                </Box>
-                                            )}
+                                                        {values.emails.length < MAX_EMAIL_FIELDS && (
+                                                            <Box display="flex" alignItems="center">
+                                                                <IconButton onClick={() => push('')} color="primary">
+                                                                    <AddCircleOutlineIcon />
+                                                                </IconButton>
+                                                                <Typography variant="body2" ml={1}>
+                                                                    {t('common.addAnotherEmail')}
+                                                                </Typography>
+                                                            </Box>
+                                                        )}
+                                                    </Box>
+                                                )}
+                                            </FieldArray>
                                         </Box>
                                         <Box>
-                                            {values.webs.map((_, index) => (
-                                                <Box
-                                                    key={index}
-                                                    display="flex"
-                                                    alignItems="center"
-                                                    mb={2}
-                                                >
-                                                    <Field
-                                                        as={TextField}
-                                                        name={`webs[${index}]`}
-                                                        type="tel"
-                                                        label={`${t('company.form.field.web')} ${index + 1}`}
-                                                        fullWidth
-                                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                            const target = e.target;
-                                                            const updatedWebs = [...webs];
-                                                            updatedWebs[index] = target.value;
-                                                            setWebs(updatedWebs);
-                                                            setFieldValue("webs", updatedWebs);
-                                                        }}
-                                                        error={touched.webs && index === 0 && Boolean(errors.webs?.[index])}
-                                                        helperText={touched.webs && index === 0 && errors.webs?.[index]}
-                                                        required={index === 0}
-                                                    />
-                                                    {index > 0 && (
-                                                        <IconButton
-                                                            onClick={() => handleRemoveWeb(index, setFieldValue)}
-                                                            color="error"
-                                                            sx={{ ml: 1 }}
-                                                        >
-                                                            <RemoveCircleOutlineIcon />
-                                                        </IconButton>
-                                                    )}
-                                                </Box>
+                                            <FieldArray name="webs">
+                                                {({ push, remove }) => (
+                                                    <Box>
+                                                        {values.webs.map((_, index) => (
+                                                            <Box key={index} display="flex" alignItems="center" mb={2}>
+                                                                <Field
+                                                                    as={TextField}
+                                                                    name={`webs[${index}]`}
+                                                                    type="tel"
+                                                                    label={`${t('company.form.field.web')} ${index + 1}`}
+                                                                    fullWidth
+                                                                    error={Boolean(
+                                                                        (touched.webs as boolean[] | undefined)?.[index] &&
+                                                                        (errors.webs as string[] | undefined)?.[index]
+                                                                    )}
+                                                                    helperText={
+                                                                        (touched.webs as boolean[] | undefined)?.[index] &&
+                                                                        (errors.webs as string[] | undefined)?.[index]
+                                                                    }
+                                                                //required={index === 0}
+                                                                />
 
-                                            ))}
+                                                                {index > 0 && (
+                                                                    <IconButton
+                                                                        onClick={() => remove(index)}
+                                                                        color="error"
+                                                                        sx={{ ml: 1 }}
+                                                                    >
+                                                                        <RemoveCircleOutlineIcon />
+                                                                    </IconButton>
+                                                                )}
+                                                            </Box>
+                                                        ))}
 
-                                            {webs.length < MAX_WEB_FIELDS && (
-                                                <Box display="flex" alignItems="center">
-                                                    <IconButton onClick={() => handleAddWeb(values, setFieldValue)} color="primary">
-                                                        <AddCircleOutlineIcon />
-                                                    </IconButton>
-                                                    <Typography variant="body2" ml={1}>
-                                                        {t('common.addAnotherWeb')}
-                                                    </Typography>
-                                                </Box>
-                                            )}
+                                                        {values.webs.length < MAX_WEB_FIELDS && (
+                                                            <Box display="flex" alignItems="center">
+                                                                <IconButton onClick={() => push('')} color="primary">
+                                                                    <AddCircleOutlineIcon />
+                                                                </IconButton>
+                                                                <Typography variant="body2" ml={1}>
+                                                                    {t('common.addAnotherWeb')}
+                                                                </Typography>
+                                                            </Box>
+                                                        )}
+                                                    </Box>
+                                                )}
+                                            </FieldArray>
                                         </Box>
-                                    </Box>
-
-                                    {/* Kolumna 4 */}
-                                    <Box sx={{
-                                        border: '1px solid #ccc',
-                                        borderRadius: '4px',
-                                        padding: '8px',
-                                        transition: 'border-color 0.3s ease',
-                                        '&:hover': {
-                                            borderColor: '#34495e',
-                                        },
-                                    }}>
-                                        <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.departmentsData')}</Typography>
-                                        <Button
-                                            type="button"
-                                            variant="outlined"
-                                            onClick={() => setDepartmentModalOpen(true)}
-                                            sx={{ marginTop: "20px", fontSize: "12px" }}
-                                        >
-                                            {t('department.button.add')}
-                                        </Button>
-                                        {/* <RichTreeView
-                                            defaultExpandedItems={['pickers']}
-                                            items={treeDepartments}
-                                            slots={{ item: CustomTreeItem }}
-                                        /> */}
                                     </Box>
                                 </Box>
                                 <Box
@@ -739,19 +606,6 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                                 InputLabelProps={{ shrink: true }}
                                             />
                                         </Box>
-                                        <Box>
-                                            <Field
-                                                as={TextField}
-                                                type="datetime-local"
-                                                name="deletedAt"
-                                                label={t('company.form.field.deletedAt')}
-                                                value={values.deletedAt}
-                                                onChange={handleChange}
-                                                fullWidth
-                                                margin="normal"
-                                                InputLabelProps={{ shrink: true }}
-                                            />
-                                        </Box>
                                     </Box>
                                 </Box>
                             </DialogContent>
@@ -767,13 +621,6 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                     )}
                 </Formik>
             </Dialog >
-            <CreateDepartmentModal
-                open={isDepartmentModalOpen}
-                onClose={() => { setDepartmentModalOpen(false); setEditingDepartment(null); }}
-                onAddDepartment={department => { handleAddOrUpdateDepartment(department); }}
-                initialData={editingDepartment}
-                departments={departments}
-            />
         </>
     );
 };

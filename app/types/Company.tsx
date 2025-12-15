@@ -4,24 +4,27 @@ import Address from './Address';
 
 export default interface Company {
     uuid: string;
-    companySuperior: {
+    parentCompany?: {
         uuid: string | null;
-        name: string | null;
-    },
+        fullName: string | null;
+        shortName: string | null;
+        nip: string;
+        regon: string | null;
+    } | null,
     fullName?: string;
     shortName?: string | null;
     internalCode: string;
-    nip?: string;
-    regon?: string;
+    nip: string;
+    regon: string;
     description?: string | null;
     industry: Industry;
     // logo: File | null;
     active?: boolean;
     address: Address;
     contacts: {
-        type: string,
-        data: string
-    }[],
+        type: 'phone' | 'email' | 'website';
+        data: string;
+    }[];
     phones: string[];
     emails: string[];
     webs: string[];

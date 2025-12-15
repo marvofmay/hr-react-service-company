@@ -44,7 +44,7 @@ const DeleteMultipleCompaniesModal: React.FC<DeleteMultipleCompaniesModalProps> 
             onClose={onClose}
             onDeleteMultipleConfirm={handleDeleteMultiple}
             title={t('company.modal.delete.title')}
-            description={`${t('company.modal.delete.question')}: ${selectedCompanies?.length ? selectedCompanies.map(company => company.name).join(", ") : ''}`}
+            description={`${t('company.modal.delete.question')}: ${selectedCompanies?.length ? selectedCompanies.map(company => company.fullName).join(", ") : ''}?`}
             errorAPI={errorAPI}
         />
     );

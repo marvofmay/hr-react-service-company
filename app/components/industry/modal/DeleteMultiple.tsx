@@ -45,7 +45,7 @@ const DeleteMultipleIndustriesModal: React.FC<DeleteMultipleIndustriesModalProps
             onClose={onClose}
             onDeleteMultipleConfirm={handleDeleteMultiple}
             title={t('industry.modal.delete.title')}
-            description={`${t('industry.modal.delete.question')}: ${selectedIndustries?.length ? selectedIndustries.map(industry => industry.name).join(", ") : ''}`}
+            description={`${t('industry.modal.delete.question')}: ${selectedIndustries?.length ? selectedIndustries.map(industry => industry.name).join(", ") : ''}?`}
             errorAPI={errorAPI}
             errorsAPI={errorsAPI}
         />

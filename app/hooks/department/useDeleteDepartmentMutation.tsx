@@ -1,23 +1,18 @@
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
-import Position from '@/app/types/Position';
+import Department from '@/app/types/Department';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
-const deleteMultiplePosition = async (positionsToDelete: Position[], token: string): Promise<string> => {
+const deleteDepartment = async (departmentToDelete: Department, token: string): Promise<string> => {
     try {
-        const positionsUUIDs = {
-            positionsUUIDs: positionsToDelete.map(item => item.uuid)
-        };
-
         const response = await axios.delete(
-            `${SERVICE_COMPANY_URL}/api/positions/multiple`,
+            `${SERVICE_COMPANY_URL}/api/departments/${departmentToDelete.uuid}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
-                data: positionsUUIDs
             }
         );
 
@@ -31,22 +26,20 @@ const deleteMultiplePosition = async (positionsToDelete: Position[], token: stri
     }
 };
 
-const useDeleteMultiplePositionMutation = () => {
+const useDeleteDepartmentMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: (positionsToDelete: Position[]) => {
+        mutationFn: (departmentToDelete: Department) => {
             const token = localStorage.getItem("auth_token");
 
             if (!token) {
                 throw new Error(t('common.message.tokenIsMissing'));
             }
 
-            return deleteMultiplePosition(positionsToDelete, token);
-        },
-        onSuccess: async () => {
-        },
+            return deleteDepartment(departmentToDelete, token);
+        }
     });
 };
 
-export default useDeleteMultiplePositionMutation;
+export default useDeleteDepartmentMutation;

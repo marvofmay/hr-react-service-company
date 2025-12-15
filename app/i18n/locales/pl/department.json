@@ -18,11 +18,16 @@
         "delete": {
             "title": "Potwierdzenie usunięcia departamentu",
             "question": "Czy na pewno chcesz usunąć departament"
+        },
+        "import": {
+            "title": "Import departamentów"
         }
     },
     "button": {
         "add": "Dodaj departament",
-        "remove": "Usuń departament"
+        "remove": "Usuń departament",
+        "deleteChecked": "Usuń zaznaczone departamenty",
+        "importFromXLSX": "Importuj departamenty z pliku xlsx"
     },
     "add": {
         "success": "Nowy departament została dodana",
@@ -50,8 +55,10 @@
     "form": {
         "field": {
             "name": "nazwa",
+            "internalCode": "wewnętrzny kod departamentu",
+            "company": "firma",
             "description": "opis",
-            "departmentSuperior": "oddział \"matka\"",
+            "parentDepartment": "oddział \"matka\"",
             "active": "aktywny",
             "country": "kraj",
             "city": "miasto",
@@ -63,7 +70,8 @@
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto",
-            "actions": "akcje"
+            "actions": "akcje",
+            "address": "adres"
         },
         "box": {
             "mainData": "podstawowe dane",
@@ -71,5 +79,6 @@
             "additionalData": "dodatkowe dane",
             "systemData": "dane systemowe"
         }
-    }
+    },
+    "failedToLoadTheCompanyList": "Nie udało się pobrać listy firm"
 }

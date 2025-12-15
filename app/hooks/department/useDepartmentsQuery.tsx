@@ -1,17 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
-import Company from '../../types/Company';
+import Department from '../../types/Department';
 import axios from 'axios';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 import { useTranslation } from 'react-i18next';
 
 type SortDirection = 'asc' | 'desc' | undefined;
 
-export interface CompaniesResponse {
-    items: Company[];
+export interface DepartmentsResponse {
+    items: Department[];
     total: number;
 }
 
-const fetchCompanies = async (
+const fetchDepartments = async (
     token: string,
     pageSize: number,
     page: number,
@@ -19,7 +19,7 @@ const fetchCompanies = async (
     sortDirection: SortDirection,
     phrase?: string,
     includes?: string,
-): Promise<CompaniesResponse> => {
+): Promise<DepartmentsResponse> => {
     try {
         const params: any = {
             pageSize,
@@ -31,7 +31,7 @@ const fetchCompanies = async (
         if (phrase) params.phrase = phrase;
         if (includes) params.includes = includes;
 
-        const response = await axios.get(`${SERVICE_COMPANY_URL}/api/companies`, {
+        const response = await axios.get(`${SERVICE_COMPANY_URL}/api/departments`, {
             headers: { Authorization: `Bearer ${token}` },
             params,
         });
@@ -49,7 +49,7 @@ const fetchCompanies = async (
     }
 };
 
-const useCompaniesQuery = (
+const useDepartmentsQuery = (
     pageSize: number,
     page: number,
     sortBy: string,
@@ -62,9 +62,9 @@ const useCompaniesQuery = (
     const normalizedPhrase = phrase ?? undefined;
     const normalizedIncludes = includes ?? undefined;
 
-    return useQuery<CompaniesResponse>({
+    return useQuery<DepartmentsResponse>({
         queryKey: [
-            'companies',
+            'departments',
             pageSize,
             page,
             sortBy,
@@ -75,7 +75,7 @@ const useCompaniesQuery = (
             const token = localStorage.getItem('auth_token');
             if (!token) throw new Error(t('common.message.tokenIsMissing'));
 
-            return fetchCompanies(
+            return fetchDepartments(
                 token,
                 pageSize,
                 page,
@@ -88,4 +88,4 @@ const useCompaniesQuery = (
     });
 };
 
-export default useCompaniesQuery;
+export default useDepartmentsQuery;

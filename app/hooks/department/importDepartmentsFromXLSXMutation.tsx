@@ -1,23 +1,20 @@
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
-import Position from '@/app/types/Position';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
-const deleteMultiplePosition = async (positionsToDelete: Position[], token: string): Promise<string> => {
+const importDepartments = async (file: File, token: string): Promise<string> => {
     try {
-        const positionsUUIDs = {
-            positionsUUIDs: positionsToDelete.map(item => item.uuid)
-        };
-
-        const response = await axios.delete(
-            `${SERVICE_COMPANY_URL}/api/positions/multiple`,
+        const response = await axios.post(
+            `${SERVICE_COMPANY_URL}/api/departments/import`,
+            {
+                file: file,
+            },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'multipart/form-data',
                 },
-                data: positionsUUIDs
             }
         );
 
@@ -31,22 +28,23 @@ const deleteMultiplePosition = async (positionsToDelete: Position[], token: stri
     }
 };
 
-const useDeleteMultiplePositionMutation = () => {
+const useImportDepartmentsFromXLSXMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: (positionsToDelete: Position[]) => {
+        mutationFn: (file: File) => {
             const token = localStorage.getItem("auth_token");
 
             if (!token) {
                 throw new Error(t('common.message.tokenIsMissing'));
             }
 
-            return deleteMultiplePosition(positionsToDelete, token);
+            return importDepartments(file, token);
         },
-        onSuccess: async () => {
+        onError: (error) => {
+            throw error;
         },
     });
 };
 
-export default useDeleteMultiplePositionMutation;
+export default useImportDepartmentsFromXLSXMutation;

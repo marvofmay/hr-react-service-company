@@ -18,11 +18,16 @@
         "delete": {
             "title": "Potwierdzenie usunięcia firmy",
             "question": "Czy na pewno chcesz usunąć firmę"
+        },
+        "import": {
+            "title": "Import firm"
         }
     },
     "title": "Moduł firma",
     "button": {
-        "add": "Dodaj firmę"
+        "add": "Dodaj firmę",
+        "importFromXLSX": "Importuj firmy z pliku xlsx",
+        "deleteChecked": "Usuń zaznaczone firmy"
     },
     "add": {
         "success": "Nowa firma została dodana",
@@ -42,6 +47,7 @@
             "shortName": "nazwa skrócona",
             "nip": "nip",
             "regon": "regon",
+            "internalCode": "wewnętrzny kod firmy",
             "industry": "branża",
             "active": "aktywna",
             "createdAt": "utworzono",
@@ -54,10 +60,11 @@
         "field": {
             "fullName": "nazwa",
             "shortName": "nazwa skrócona",
+            "internalCode": "wewnętrzny kod firmy",
             "nip": "nip",
             "regon": "regon",
             "description": "opis",
-            "companySuperior": "firma \"matka\"",
+            "parentCompany": "firma \"matka\"",
             "industry": "branża",
             "active": "aktywna",
             "country": "kraj",
@@ -69,7 +76,8 @@
             "web": "strona www",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
-            "deletedAt": "usunięto"
+            "deletedAt": "usunięto",
+            "address": "adres"
         },
         "box": {
             "mainData": "podstawowe dane",

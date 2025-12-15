@@ -45,7 +45,7 @@ const DeleteMultipleContractTypesModal: React.FC<DeleteMultipleContractTypesModa
             onClose={onClose}
             onDeleteMultipleConfirm={handleDeleteMultiple}
             title={t('contractType.modal.delete.title')}
-            description={`${t('contractType.modal.delete.question')}: ${selectedContractTypes?.length ? selectedContractTypes.map(contractType => contractType.name).join(", ") : ''}`}
+            description={`${t('contractType.modal.delete.question')}: ${selectedContractTypes?.length ? selectedContractTypes.map(contractType => contractType.name).join(", ") : ''}?`}
             errorAPI={errorAPI}
             errorsAPI={errorsAPI}
         />

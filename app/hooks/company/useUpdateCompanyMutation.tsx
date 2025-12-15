@@ -7,7 +7,7 @@ import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 const updateCompany = async (updatedCompany: Company, token: string): Promise<string> => {
     try {
         const response = await axios.put(
-            `${SERVICE_COMPANY_URL}/api/companys/${updatedCompany.uuid}`,
+            `${SERVICE_COMPANY_URL}/api/companies/${updatedCompany.uuid}`,
             {
                 uuid: updatedCompany.uuid,
                 fullName: updatedCompany.fullName,
@@ -16,7 +16,7 @@ const updateCompany = async (updatedCompany: Company, token: string): Promise<st
                 nip: updatedCompany.nip,
                 regon: updatedCompany.regon,
                 description: updatedCompany.description,
-                parentCompanyUUID: updatedCompany.companySuperior.uuid,
+                parentCompanyUUID: updatedCompany.parentCompany?.uuid,
                 industryUUID: updatedCompany.industry.uuid,
                 active: updatedCompany.active,
                 phones: updatedCompany.phones,

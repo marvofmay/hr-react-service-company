@@ -20,19 +20,19 @@ import { Preview, Edit, Delete, Add, Key, Search } from '@mui/icons-material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import CheckCircleIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import CancelIcon from '@mui/icons-material/CancelOutlined';
-import Company from '@/app/types/Company';
-import CreateCompanyModal from '@/app/components/company/modal/Create';
-import EditCompanyModal from '@/app/components/company/modal/Edit';
-import PreviewCompanyModal from '@/app/components/company/modal/Preview';
-import ImportCompaniesFromXLSXModal from '@/app/components/company/modal/ImportCompaniesFromXLSX';
-import DeleteCompanyModal from '@/app/components/company/modal/Delete';
-import DeleteMultipleCompaniesModal from '@/app/components/company/modal/DeleteMultiple';
-import useCompaniesQuery from '@/app/hooks/company/useCompaniesQuery';
-import useAddCompanyMutation from '@/app/hooks/company/useAddCompanyMutation';
-import useUpdateCompanyMutation from '@/app/hooks/company/useUpdateCompanyMutation';
-import useDeleteCompanyMutation from '@/app/hooks/company/useDeleteCompanyMutation';
-import useDeleteMultipleCompanyMutation from '@/app/hooks/company/useDeleteMultipleCompanyMutation';
-import useImportCompaniesFromXLSXMutation from '@/app/hooks/company/importCompaniesFromXLSXMutation';
+import Department from '@/app/types/Department';
+import CreateDepartmentModal from '@/app/components/department/modal/Create';
+//import EditDepartmentModal from '@/app/components/department/modal/Edit';
+import PreviewDepartmentModal from '@/app/components/department/modal/Preview';
+import ImportDepartmentsFromXLSXModal from '@/app/components/department/modal/ImportDepartmentsFromXLSX';
+import DeleteDepartmentModal from '@/app/components/department/modal/Delete';
+//import DeleteMultipleDepartmentsModal from '@/app/components/department/modal/DeleteMultiple';
+import useDepartmentsQuery from '@/app/hooks/department/useDepartmentsQuery';
+import useAddDepartmentMutation from '@/app/hooks/department/useAddDepartmentMutation';
+//import useUpdateDepartmentMutation from '@/app/hooks/department/useUpdateDepartmentMutation';
+import useDeleteDepartmentMutation from '@/app/hooks/department/useDeleteDepartmentMutation';
+//import useDeleteMultipleDepartmentMutation from '@/app/hooks/department/useDeleteMultipleDepartmentMutation';
+import useImportDepartmentsFromXLSXMutation from '@/app/hooks/department/importDepartmentsFromXLSXMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
@@ -40,7 +40,7 @@ import { useUser } from "@/app/context/userContext";
 
 type SortDirection = 'asc' | 'desc';
 
-const CompaniesTable = () => {
+const DepartmentsTable = () => {
     const [pageSize, setPageSize] = useState(5);
     const [page, setPage] = useState(1);
     const [sortBy, setSortBy] = useState('createdAt');
@@ -48,24 +48,24 @@ const CompaniesTable = () => {
     const [searchPhrase, setSearchPhrase] = useState<string>('');
     const [phrase, setPhrase] = useState<string>('');
     const [modalType, setModalType] = useState<string | null>(null);
-    const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
+    const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null);
     const [selected, setSelected] = useState<string[]>([]);
 
-    const { mutate: addCompanyMutate } = useAddCompanyMutation();
-    const { mutate: updateCompanyMutate } = useUpdateCompanyMutation();
-    const { mutate: deleteCompanyMutate } = useDeleteCompanyMutation();
-    const { mutate: deleteMultipleCompanyMutate } = useDeleteMultipleCompanyMutation();
-    const { mutate: importCompaniesFromXLSXMutate } = useImportCompaniesFromXLSXMutation();
+    const { mutate: addDepartmentMutate } = useAddDepartmentMutation();
+    // const { mutate: updateDepartmentMutate } = useUpdateDepartmentMutation();
+    const { mutate: deleteDepartmentMutate } = useDeleteDepartmentMutation();
+    // const { mutate: deleteMultipleDepartmentMutate } = useDeleteMultipleDepartmentMutation();
+    const { mutate: importDepartmentsFromXLSXMutate } = useImportDepartmentsFromXLSXMutation();
     const { t } = useTranslation();
     const { hasPermission } = useUser();
 
-    const result = useCompaniesQuery(pageSize, page, sortBy, sortDirection, phrase, 'address,industry,parentCompany,contacts');
+    const result = useDepartmentsQuery(pageSize, page, sortBy, sortDirection, phrase, 'address,parentDepartment,contacts,company');
     const { data: rawData, isLoading, error, refetch } = result;
 
-    const companies: Company[] = Array.isArray(rawData) ? rawData : rawData?.items || [];
-    const totalCount: number = Array.isArray(rawData) ? companies.length : rawData?.total || 0;
+    const departments: Department[] = Array.isArray(rawData) ? rawData : rawData?.items || [];
+    const totalCount: number = Array.isArray(rawData) ? departments.length : rawData?.total || 0;
 
-    const allSelected = selected.length === companies.length && companies.length > 0;
+    const allSelected = selected.length === departments.length && departments.length > 0;
 
     const handleSearch = () => {
         setPhrase(searchPhrase);
@@ -78,14 +78,14 @@ const CompaniesTable = () => {
         setSortDirection(direction);
     };
 
-    const openModal = (type: string, company: Company | null = null) => {
+    const openModal = (type: string, department: Department | null = null) => {
         setModalType(type);
-        setSelectedCompany(company);
+        setSelectedDepartment(department);
     };
 
     const closeModal = () => {
         setModalType(null);
-        setSelectedCompany(null);
+        setSelectedDepartment(null);
     };
 
     const handlePageSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,22 +94,22 @@ const CompaniesTable = () => {
         setSelected([]);
     };
 
-    const handleAdd = async (newCompany: Company): Promise<void> => {
+    const handleAdd = async (newDepartment: Department): Promise<void> => {
         return new Promise((resolve, reject) => {
-            addCompanyMutate(newCompany, {
+            addDepartmentMutate(newDepartment, {
                 onSuccess: (message: string) => {
                     toast.success(message);
                     refetch();
                     resolve();
                 },
-                onError: (error: object) => { toast.error(t('company.add.error')); reject(error); },
+                onError: (error: object) => { toast.error(t('department.add.error')); reject(error); },
             });
         });
     };
 
-    const handleDelete = (companyToDelete: Company): Promise<void> => {
+    const handleDelete = (departmentToDelete: Department): Promise<void> => {
         return new Promise((resolve, reject) => {
-            deleteCompanyMutate(companyToDelete, {
+            deleteDepartmentMutate(departmentToDelete, {
                 onSuccess: (message: string) => {
                     toast.success(message);
 
@@ -121,27 +121,27 @@ const CompaniesTable = () => {
 
                     resolve();
                 },
-                onError: (error: object) => { toast.error(t('company.delete.error')); reject(error); },
+                onError: (error: object) => { toast.error(t('department.delete.error')); reject(error); },
             });
         });
     };
 
-    const handleUpdate = async (updatedCompany: Company): Promise<void> => {
-        return new Promise((resolve, reject) => {
-            updateCompanyMutate(updatedCompany, {
-                onSuccess: (message: string) => {
-                    toast.success(message);
-                    refetch();
-                    resolve();
-                },
-                onError: (error: object) => { toast.error(t('company.update.error')); reject(error); },
-            });
-        });
-    };
+    // const handleUpdate = async (updatedDepartment: Department): Promise<void> => {
+    //     return new Promise((resolve, reject) => {
+    //         updateDepartmentMutate(updatedDepartment, {
+    //             onSuccess: (message: string) => {
+    //                 toast.success(message);
+    //                 refetch();
+    //                 resolve();
+    //             },
+    //             onError: (error: object) => { toast.error(t('department.update.error')); reject(error); },
+    //         });
+    //     });
+    // };
 
-    const handleImportCompaniesFromXLSX = async (file: File): Promise<void> => {
+    const handleImportDepartmentsFromXLSX = async (file: File): Promise<void> => {
         return new Promise((resolve, reject) => {
-            importCompaniesFromXLSXMutate(file, {
+            importDepartmentsFromXLSXMutate(file, {
                 onSuccess: (message: string) => {
                     toast.success(message);
                     refetch();
@@ -156,32 +156,32 @@ const CompaniesTable = () => {
     };
 
     const toggleSelectAll = () => {
-        setSelected(allSelected ? [] : companies.map(company => company.uuid));
+        setSelected(allSelected ? [] : departments.map(department => department.uuid));
     };
 
     const toggleSelectRow = (uuid: string) => {
         setSelected(prev => prev.includes(uuid) ? prev.filter(item => item !== uuid) : [...prev, uuid]);
     };
 
-    const handleDeleteMultiple = (companiesToDelete: Company[]): Promise<void> => {
-        return new Promise((resolve, reject) => {
-            deleteMultipleCompanyMutate(companiesToDelete, {
-                onSuccess: (message: string) => {
-                    setSelected([]);
-                    toast.success(message);
+    // const handleDeleteMultiple = (departmentsToDelete: Department[]): Promise<void> => {
+    //     return new Promise((resolve, reject) => {
+    //         deleteMultipleDepartmentMutate(departmentsToDelete, {
+    //             onSuccess: (message: string) => {
+    //                 setSelected([]);
+    //                 toast.success(message);
 
-                    refetch().then((freshData) => {
-                        if (!freshData.data?.items?.length && page > 1) {
-                            setPage(page - 1);
-                        }
-                    });
+    //                 refetch().then((freshData) => {
+    //                     if (!freshData.data?.items?.length && page > 1) {
+    //                         setPage(page - 1);
+    //                     }
+    //                 });
 
-                    resolve();
-                },
-                onError: (error: object) => { toast.error(t('company.delete.error')); reject(error); },
-            });
-        });
-    };
+    //                 resolve();
+    //             },
+    //             onError: (error: object) => { toast.error(t('department.delete.error')); reject(error); },
+    //         });
+    //     });
+    // };
 
     return (
         <div>
@@ -205,7 +205,7 @@ const CompaniesTable = () => {
                 </Box>
 
                 <Box display="flex" alignItems="center" gap={1} ml="auto">
-                    {hasPermission("companies.create") && (
+                    {hasPermission("departments.create") && (
                         <>
                             <Button
                                 variant="contained"
@@ -213,7 +213,7 @@ const CompaniesTable = () => {
                                 startIcon={<Add />}
                                 onClick={() => openModal('create')}
                             >
-                                {t('company.button.add')}
+                                {t('department.button.add')}
                             </Button>
                             <Button
                                 variant="contained"
@@ -221,18 +221,18 @@ const CompaniesTable = () => {
                                 startIcon={<FileUploadOutlinedIcon />}
                                 onClick={() => openModal('importFromXLSX')}
                             >
-                                {t('company.button.importFromXLSX')}
+                                {t('department.button.importFromXLSX')}
                             </Button>
                         </>
                     )}
-                    {hasPermission("companies.delete") && selected.length > 0 && (
+                    {hasPermission("departments.delete") && selected.length > 0 && (
                         <Button
                             variant="contained"
                             color="error"
                             startIcon={<Delete />}
                             onClick={() => openModal('multipleDelete')}
                         >
-                            {t('company.button.deleteChecked')} ({selected.length})
+                            {t('department.button.deleteChecked')} ({selected.length})
                         </Button>
                     )}
                 </Box>
@@ -246,7 +246,7 @@ const CompaniesTable = () => {
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.message.somethingWentWrong')} :(</div>
                 </Box>
-            ) : companies.length === 0 ? (
+            ) : departments.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.noData')}</div>
                 </Box>
@@ -255,7 +255,7 @@ const CompaniesTable = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                {hasPermission("companies.delete") && (
+                                {hasPermission("departments.delete") && (
                                     <TableCell sx={{ width: 50, padding: "4px 8px" }}>
                                         <Checkbox
                                             checked={allSelected}
@@ -273,43 +273,16 @@ const CompaniesTable = () => {
                                     </TableSortLabel>
                                 </TableCell>
                                 <TableCell
-                                    sortDirection={sortBy === 'fullName' ? sortDirection : false}
-                                    onClick={() => handleSort('fullName')}
+                                    sortDirection={sortBy === 'name' ? sortDirection : false}
+                                    onClick={() => handleSort('name')}
                                     sx={{ padding: '4px 8px' }}
                                 >
-                                    <TableSortLabel active={sortBy === 'fullName'} direction={sortBy === 'fullName' ? sortDirection : 'asc'}>
-                                        {t('company.table.column.fullName')}
-                                    </TableSortLabel>
-                                </TableCell>
-                                <TableCell
-                                    sortDirection={sortBy === 'shortName' ? sortDirection : false}
-                                    onClick={() => handleSort('shortName')}
-                                    sx={{ padding: '4px 8px' }}
-                                >
-                                    <TableSortLabel active={sortBy === 'shortName'} direction={sortBy === 'shortName' ? sortDirection : 'asc'}>
-                                        {t('company.table.column.shortName')}
-                                    </TableSortLabel>
-                                </TableCell>
-                                <TableCell
-                                    sortDirection={sortBy === 'nip' ? sortDirection : false}
-                                    onClick={() => handleSort('nip')}
-                                    sx={{ padding: "4px 8px" }}
-                                >
-                                    <TableSortLabel active={sortBy === 'nip'} direction={sortBy === 'nip' ? sortDirection : 'asc'}>
-                                        {t('company.table.column.nip')}
-                                    </TableSortLabel>
-                                </TableCell>
-                                <TableCell
-                                    sortDirection={sortBy === 'regon' ? sortDirection : false}
-                                    onClick={() => handleSort('regon')}
-                                    sx={{ padding: "4px 8px" }}
-                                >
-                                    <TableSortLabel active={sortBy === 'regon'} direction={sortBy === 'regon' ? sortDirection : 'asc'}>
-                                        {t('company.table.column.regon')}
+                                    <TableSortLabel active={sortBy === 'name'} direction={sortBy === 'name' ? sortDirection : 'asc'}>
+                                        {t('department.table.column.name')}
                                     </TableSortLabel>
                                 </TableCell>
                                 <TableCell>
-                                    {t('company.table.column.active')}
+                                    {t('department.table.column.active')}
                                 </TableCell>
                                 <TableCell
                                     sortDirection={sortBy === 'createdAt' ? sortDirection : false}
@@ -317,7 +290,7 @@ const CompaniesTable = () => {
                                     sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'createdAt'} direction={sortBy === 'createdAt' ? sortDirection : 'asc'}>
-                                        {t('company.table.column.createdAt')}
+                                        {t('department.table.column.createdAt')}
                                     </TableSortLabel>
                                 </TableCell>
                                 <TableCell
@@ -326,47 +299,44 @@ const CompaniesTable = () => {
                                     sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'updatedAt'} direction={sortBy === 'updatedAt' ? sortDirection : 'asc'}>
-                                        {t('company.table.column.updatedAt')}
+                                        {t('department.table.column.updatedAt')}
                                     </TableSortLabel>
                                 </TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('company.table.column.actions')}</TableCell>
+                                <TableCell sx={{ padding: '4px 8px' }}>{t('department.table.column.actions')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {companies.map((company, index) => (
-                                <TableRow key={company.uuid}>
-                                    {hasPermission("companies.delete") && (
+                            {departments.map((department, index) => (
+                                <TableRow key={department.uuid}>
+                                    {hasPermission("departments.delete") && (
                                         <TableCell sx={{ width: 50, padding: "4px 8px" }}>
                                             <Checkbox
-                                                checked={selected.includes(company.uuid)}
-                                                onChange={() => toggleSelectRow(company.uuid)}
+                                                checked={selected.includes(department.uuid)}
+                                                onChange={() => toggleSelectRow(department.uuid)}
                                             />
                                         </TableCell>
                                     )}
                                     <TableCell sx={{ padding: '4px 8px' }}>{(page - 1) * pageSize + index + 1}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{company.fullName}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{company.shortName}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{company.nip}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{company.regon}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}> {company.active ? (<CheckCircleIcon color="success" fontSize="small" />) : (<CancelIcon color="error" fontSize="small" />)}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{moment(company.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{company.updatedAt ? moment(company.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{department.name}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}> {department.active ? (<CheckCircleIcon color="success" fontSize="small" />) : (<CancelIcon color="error" fontSize="small" />)}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{moment(department.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{department.updatedAt ? moment(department.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
-                                        {hasPermission("companies.view") && (
+                                        {hasPermission("departments.view") && (
                                             <Tooltip title={t('common.view')} placement="top">
-                                                <IconButton onClick={() => openModal('preview', company)}><Preview /></IconButton>
+                                                <IconButton onClick={() => openModal('preview', department)}><Preview /></IconButton>
                                             </Tooltip>
                                         )}
 
-                                        {hasPermission("companies.edit") && (
+                                        {hasPermission("departments.edit") && (
                                             <Tooltip title={t('common.edit')} placement="top">
-                                                <IconButton onClick={() => openModal('edit', company)}><Edit /></IconButton>
+                                                <IconButton onClick={() => openModal('edit', department)}><Edit /></IconButton>
                                             </Tooltip>
                                         )}
 
-                                        {hasPermission("companies.delete") && (
+                                        {hasPermission("departments.delete") && (
                                             <Tooltip title={t('common.delete')} placement="top">
-                                                <IconButton onClick={() => openModal('delete', company)}><Delete /></IconButton>
+                                                <IconButton onClick={() => openModal('delete', department)}><Delete /></IconButton>
                                             </Tooltip>
                                         )}
                                     </TableCell>
@@ -391,40 +361,47 @@ const CompaniesTable = () => {
                 />
             )}
 
-            {hasPermission("companies.create") && modalType === 'create' && <CreateCompanyModal
+            {hasPermission("departments.create") && modalType === 'create' && <CreateDepartmentModal
                 open={true}
                 onClose={closeModal}
-                onAddCompany={handleAdd}
+                onAddDepartment={handleAdd}
             />}
-            {hasPermission("companies.preview") && modalType === 'preview' && <PreviewCompanyModal
-                open={true}
-                selectedCompany={selectedCompany}
-                onClose={closeModal}
-            />}
-            {hasPermission("companies.edit") && modalType === 'edit' && <EditCompanyModal
-                open={true}
-                company={selectedCompany}
-                onClose={closeModal}
-                onSave={handleUpdate} />}
-            {hasPermission("companies.create") && modalType === 'importFromXLSX' && <ImportCompaniesFromXLSXModal
+
+            {hasPermission("departments.create") && modalType === 'importFromXLSX' && <ImportDepartmentsFromXLSXModal
                 open={true}
                 onClose={closeModal}
-                onImportCompaniesFromXLSX={handleImportCompaniesFromXLSX}
+                onImportDepartmentsFromXLSX={handleImportDepartmentsFromXLSX}
                 allowedTypes={["xlsx"]}
             />}
-            {hasPermission("companies.delete") && modalType === 'delete' && <DeleteCompanyModal
+
+            {hasPermission("departments.preview") && modalType === 'preview' && <PreviewDepartmentModal
                 open={true}
-                selectedCompany={selectedCompany}
+                selectedDepartment={selectedDepartment}
+                onClose={closeModal}
+            />}
+
+            {hasPermission("departments.delete") && modalType === 'delete' && <DeleteDepartmentModal
+                open={true}
+                selectedDepartment={selectedDepartment}
                 onClose={closeModal}
                 onDeleteConfirm={handleDelete} />}
-            {hasPermission("companies.delete") && modalType === 'multipleDelete' && <DeleteMultipleCompaniesModal
+
+            {/* 
+
+            {hasPermission("departments.edit") && modalType === 'edit' && <EditDepartmentModal
                 open={true}
-                selectedCompanies={companies.filter(company => selected.includes(company.uuid))}
+                department={selectedDepartment}
+                onClose={closeModal}
+                onSave={handleUpdate} />}
+
+            {hasPermission("departments.delete") && modalType === 'multipleDelete' && <DeleteMultipleDepartmentsModal
+                open={true}
+                selectedDepartments={departments.filter(department => selected.includes(department.uuid))}
                 onClose={closeModal}
                 onDeleteMultipleConfirm={handleDeleteMultiple}
-            />}
+            />} */}
         </div>
     );
 };
 
-export default CompaniesTable;
+export default DepartmentsTable;

@@ -45,7 +45,7 @@ const DeleteMultiplePositionsModal: React.FC<DeleteMultiplePositionsModalProps> 
             onClose={onClose}
             onDeleteMultipleConfirm={handleDeleteMultiple}
             title={t('position.modal.delete.title')}
-            description={`${t('position.modal.delete.question')}: ${selectedPositions?.length ? selectedPositions.map(position => position.name).join(", ") : ''}`}
+            description={`${t('position.modal.delete.question')}: ${selectedPositions?.length ? selectedPositions.map(position => position.name).join(", ") : ''}?`}
             errorAPI={errorAPI}
             errorsAPI={errorsAPI}
         />
