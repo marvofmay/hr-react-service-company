@@ -7735,3 +7735,430 @@ Import traces:
     ./app/login/page.tsx [Server Component]
 [119:54:59.742] Server  LOG      ✓ Compiled in 75ms
 [120:00:10.850] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[120:10:01.850] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[120:19:49.851] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[120:28:45.850] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[120:37:55.851] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[120:46:14.851] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[120:55:20.851] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[121:05:18.851] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[121:10:58.350] Server  LOG      ✓ Compiled in 75ms
+[121:11:37.060] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[121:11:37.812] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[121:11:37.950] Browser LOG     {"code":"ERR_BAD_REQUEST","config":{"adapter":["xhr","http","fetch"],"allowAbsoluteUrls":true,"env":{},"headers":{"Accept":"application/json, text/plain, */*","Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NjU4MjkyNDksImV4cCI6MTc2NTgzMjg0OSwicm9sZXMiOlsiUHJhY293bmlrIHRlY2huaWN6bnkgc3lzdGVtdSBIUkFwcCAtIG5pZSBwb3dpxIV6YW55IHogcHJhY293bmlraWVtIGZpcm15Il0sInVzZXJuYW1lIjoiYWRtaW4uaHJhcHBAZ21haWwuY29tIiwidXNlciI6eyJ1dWlkIjoiZjhiN2JmMzgtOTRjNC00NDEyLThlNDUtZDE1YjdkYjY3ZDg1IiwiZW1haWwiOiJhZG1pbi5ocmFwcEBnbWFpbC5jb20ifSwiZW1wbG95ZWUiOnsidXVpZCI6bnVsbCwiZmlyc3ROYW1lIjpudWxsLCJsYXN0TmFtZSI6bnVsbH0sIm1vZHVsZXMiOlsiY29tcGFueSIsInN5c3RlbSIsIm5vdGVzIiwiZG9jdW1lbnRzIl0sImFjY2Vzc2VzIjpbImltcG9ydHMiLCJtYW5hZ2UiLCJwZXJtaXNzaW9ucyIsIm5vdGlmaWNhdGlvbl9jaGFubmVscyIsImRvY3VtZW50cyIsImRlcGFydG1lbnRzIiwibm90aWZpY2F0aW9ucyIsImFjY2Vzc2VzIiwiY29tcGFuaWVzIiwiaW5kdXN0cmllcyIsIm5vdGVzIiwibm90aWZpY2F0aW9uX3RlbXBsYXRlcyIsImNvbnRyYWN0X3R5cGVzIiwibWVzc2FnZXMiLCJyb2xlcyIsIm5vdGlmaWNhdGlvbl9ldmVudHMiLCJwb3NpdGlvbnMiLCJlbXBsb3llZXMiLCJzZXR0aW5ncyJdLCJwZXJtaXNzaW9ucyI6WyJpbXBvcnRzLioiLCJtYW5hZ2UuKiIsInBlcm1pc3Npb25zLioiLCJub3RpZmljYXRpb25fY2hhbm5lbHMuKiIsImRvY3VtZW50cy4qIiwiZGVwYXJ0bWVudHMuKiIsIm5vdGlmaWNhdGlvbnMuKiIsImFjY2Vzc2VzLioiLCJjb21wYW5pZXMuKiIsImluZHVzdHJpZXMuKiIsIm5vdGVzLioiLCJub3RpZmljYXRpb25fdGVtcGxhdGVzLioiLCJjb250cmFjdF90eXBlcy4qIiwibWVzc2FnZXMuKiIsInJvbGVzLioiLCJub3RpZmljYXRpb25fZXZlbnRzLioiLCJwb3NpdGlvbnMuKiIsImVtcGxveWVlcy4qIiwic2V0dGluZ3MuKiJdLCJ0b2tlblVVSUQiOiJlY2IxZWI1Yy1kZmIwLTRjYmItYWIyYi1jNjMzYTg1NjMzM2QifQ.hEnl-6EhdVh5WK9JB11GbtNbqBFzLpIfCW3zN0erb1x4Lr-dAKKt1B1YKeyC-OxW-Gi2_z7D_yKNk0gYN9Yy40sg44Hr3JNNeqHhN3i_f-D21qbOyH-9Z7Uva1AKpijZMwVDZEU5C1Q0khtkKO6wkdcHxShfywLCanGTZFnCcn3i_js6wKcVRgdmWeHuAWkzn52IHcQdiCTP97b6-7yVuodp9x7Vk_GeNlL4W8686QZh85OpPuBaBTN2WtOn6KLrBm-rz-O3rBol5gia1A7W3kBDinybH3_EaccSrGD_pBj5_GzrLV6-d8rFWykJgXQgCkonClLRTczBVuJLQifoYxy1qLc6_tGqcPx2cL-RKtDR_MYxdrl6wXGl0wP5pxO3sutJvqqY6oGacUgVkiaQeyKM_AywGGnw6OgFjXdYwvmVvc_f-LZTdJ7iDxiV4ZCTvClT439O6Y46YXXGdOJVFC1Iiv-_G4CqJej64iJrE1iuhtRnLZawxRZeFT-v3WvlSfoJ6FmuMrogVNSIvAwPqhHsXJgZekdTmsQeu54A0lOm6Vc3Rf2Jp0sTf4u0G5MBWB89_jv-shstUCrp7YkL2lYv6sTRR1YqySWDDlFjqBWac5j5Coaa9P-0p5o46oLlFmLLnS6FVXAPB8cA2hNWeDVgDlpJLwqq2yAqZ2RfS1s"},"maxBodyLength":-1,"maxContentLength":-1,"method":"get","params":{"includes":"address,industry,parentCompany,contacts","page":1,"pageSize":5,"sortBy":"createdAt","sortDirection":"desc"},"timeout":0,"transformRequest":[null],"transformResponse":[null],"transitional":{"clarifyTimeoutError":false,"forcedJSONParsing":true,"silentJSONParsing":true},"url":"http://127.0.0.1:81/api/companies","xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN"},"message":"Request failed with status code 401","name":"AxiosError","stack":"AxiosError: Request failed with status code 401\n    at settle (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js:1954:16)\n    at XMLHttpRequest.onloadend (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js:2469:174)\n    at Axios.request (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js:3273:49)\n    at async fetchCompanies (http://localhost:3000/_next/static/chunks/app_688c5bd4._.js:3258:26)","status":401}
+[121:11:38.523] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[121:11:38.679] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[121:11:40.241] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[121:11:51.999] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[121:11:52.424] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[121:11:55.326] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:11:55.327] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:11:55.327] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:11:55.327] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:11:55.327] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:11:55.327] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:11:55.327] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:15.513] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:15.513] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:15.513] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:20.320] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:20.320] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:30.785] Server  LOG      ✓ Compiled in 50ms
+[121:12:30.978] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:35.852] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:35.852] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:47.746] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:47.746] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:50.190] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:50.190] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:50.190] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:50.190] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:50.190] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:51.952] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:51.952] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:12:51.952] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:22.843] Server  LOG      ✓ Compiled in 56ms
+[121:13:23.048] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:25.169] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:25.169] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:25.169] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:27.791] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:27.791] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:27.791] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:27.791] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:27.791] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:30.994] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:13:30.994] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:30.994] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:13:30.994] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:30.994] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:13:30.994] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:30.994] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:30.994] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:33.628] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:33.628] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:33.628] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:37.862] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:37.862] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:47.571] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:47.572] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:13:59.387] Server  LOG      ✓ Compiled in 47ms
+[121:13:59.559] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:02.526] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:02.526] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:02.526] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:02.526] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:02.526] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:05.375] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:14:05.375] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:05.375] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:14:05.375] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:05.375] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:14:05.375] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:05.375] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:08.137] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:08.137] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:09.126] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:09.127] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:09.575] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:09.575] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:11.224] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:11.224] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:13.627] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:13.627] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:32.556] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[121:14:33.357] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[121:14:33.692] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[121:14:35.217] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:14:35.217] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:35.217] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:14:35.217] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:35.217] Browser WARN    MUI: You have provided an out-of-range value `17c9e860-8ea1-40ad-9b20-0e1224ecdda7` for the select (name="industry.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[121:14:35.217] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:35.217] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:37.038] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:37.039] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:38.723] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:38.723] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:14:58.498] Server  LOG      ✓ Compiled in 62ms
+[121:14:58.775] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:01.389] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:01.389] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:01.389] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:01.871] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:01.871] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:01.871] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:03.229] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:03.229] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:05.192] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:05.192] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:05.192] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:05.192] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:05.192] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:05.192] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:26.391] Server  LOG      ✓ Compiled in 63ms
+[121:15:26.608] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:54.002] Server  LOG      ✓ Compiled in 56ms
+[121:15:54.247] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:57.667] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:57.667] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:58.809] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:58.809] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:58.809] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:58.809] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:15:58.809] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:05.914] Server  LOG      ✓ Compiled in 44ms
+[121:16:06.182] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:08.191] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:08.191] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:08.191] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:27.031] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:27.031] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:27.031] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:32.219] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:32.219] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:32.219] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:32.219] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:32.219] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:32.219] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:33.773] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:33.773] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:33.773] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:33.774] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:33.774] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:33.774] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:36.265] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:36.266] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:36.266] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:36.266] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:36.266] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:16:36.266] Browser WARN    MUI: You have provided an out-of-range value `Warszawa` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[121:22:57.850] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[121:32:54.850] Browser ERROR   Błąd Mercure: {"isTrusted":true}

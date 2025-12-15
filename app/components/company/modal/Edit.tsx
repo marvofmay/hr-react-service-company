@@ -153,13 +153,27 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
     const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
 
     const handleSubmit = async (values: Company) => {
-        if (company) {
-            const updatedCompany = {
-                ...company,
-                ...values,
+        setErrorAPI(null);
+        setErrorsAPI(null);
+
+        try {
+            if (company) {
+                const updatedCompany = {
+                    ...company,
+                    ...values,
+                }
+                await onSave(updatedCompany);
+                onClose();
             }
-            await onSave(updatedCompany);
-            onClose();
+
+        } catch (error: unknown) {
+            const err = error as any;
+
+            const message = err?.response?.data?.message ?? 'Wystąpił nieznany błąd';
+            const errors = err?.response?.data?.errors ?? null;
+
+            setErrorAPI(message);
+            setErrorsAPI(errors);
         }
     }
 
@@ -177,6 +191,21 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                     {({ values, errors, touched, setFieldValue, handleChange }) => (
                         <Form noValidate>
                             <DialogContent>
+                                {errorAPI && (
+                                    <div style={{ color: 'red', marginBottom: '1rem' }}>
+                                        {errorAPI}
+                                    </div>
+                                )}
+
+                                {errorsAPI && (
+                                    <ul style={{ color: 'red', marginBottom: '1rem' }}>
+                                        {Object.entries(errorsAPI).map(([field, msg]) => (
+                                            <li key={field}>
+                                                <strong>{field}:</strong> {msg}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
                                 <Box
                                     display="grid"
                                     gridTemplateColumns="repeat(3, 1fr)"
@@ -287,6 +316,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                             margin="normal"
                                             error={touched.description && Boolean(errors.description)}
                                             helperText={touched.description && errors.description}
+                                            required
                                         />
                                         <Field
                                             as={TextField}
