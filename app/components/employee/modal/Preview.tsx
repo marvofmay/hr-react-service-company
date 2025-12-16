@@ -36,7 +36,7 @@ const PreviewEmployeeModal: React.FC<PreviewEmployeeModalProps> = ({ open, selec
 
                 [t('employee.form.field.company')]: selectedEmployee?.company?.uuid || 'N/D',
                 [t('employee.form.field.department')]: selectedEmployee?.department?.uuid || 'N/D',
-                [t('employee.form.field.externalUUID')]: selectedEmployee?.externalUUID || 'N/D',
+                [t('employee.form.field.externalCode')]: selectedEmployee?.externalCode || 'N/D',
                 [t('employee.form.field.employeeSuperior')]: employeeSuperior ? `${employeeSuperior.firstName} ${employeeSuperior.lastName} (${employeeSuperior.uuid})` : 'N/D',
                 [t('employee.form.field.employmentFrom')]: selectedEmployee?.employmentFrom || 'N/D',
                 [t('employee.form.field.employmentTo')]: selectedEmployee?.employmentTo || 'N/D',

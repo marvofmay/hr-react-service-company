@@ -3,7 +3,7 @@ import Employee from '../types/Employee';
 const employees: Employee[] = [
     {
         uuid: '1',
-        externalUUID: '1257-323-12',
+        externalCode: '1257-323-12',
         company: {
             uuid: '1',
             name: 'Company 1'
@@ -49,7 +49,7 @@ const employees: Employee[] = [
     },
     {
         uuid: '2',
-        externalUUID: '1254-333-22',
+        externalCode: '1254-333-22',
         company: {
             uuid: '1',
             name: 'Company 1'

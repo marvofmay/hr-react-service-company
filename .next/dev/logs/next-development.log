@@ -8696,3 +8696,146 @@ Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
 [134:12:08.164] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
 [134:12:08.164] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
 [134:12:08.164] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[134:19:50.269] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[134:20:19.205] Browser LOG     1 10 name desc
+[134:20:19.801] Browser LOG     1 10 name desc
+[134:20:22.915] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[134:20:23.300] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[134:20:23.411] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[134:20:23.412] Browser LOG     {"code":"ERR_BAD_REQUEST","config":{"adapter":["xhr","http","fetch"],"allowAbsoluteUrls":true,"env":{},"headers":{"Accept":"application/json, text/plain, */*","Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NjU4ODA0MzgsImV4cCI6MTc2NTg4NDAzOCwicm9sZXMiOlsiUHJhY293bmlrIHRlY2huaWN6bnkgc3lzdGVtdSBIUkFwcCAtIG5pZSBwb3dpxIV6YW55IHogcHJhY293bmlraWVtIGZpcm15Il0sInVzZXJuYW1lIjoiYWRtaW4uaHJhcHBAZ21haWwuY29tIiwidXNlciI6eyJ1dWlkIjoiZjhiN2JmMzgtOTRjNC00NDEyLThlNDUtZDE1YjdkYjY3ZDg1IiwiZW1haWwiOiJhZG1pbi5ocmFwcEBnbWFpbC5jb20ifSwiZW1wbG95ZWUiOnsidXVpZCI6bnVsbCwiZmlyc3ROYW1lIjpudWxsLCJsYXN0TmFtZSI6bnVsbH0sIm1vZHVsZXMiOlsiY29tcGFueSIsInN5c3RlbSIsIm5vdGVzIiwiZG9jdW1lbnRzIl0sImFjY2Vzc2VzIjpbImltcG9ydHMiLCJtYW5hZ2UiLCJwZXJtaXNzaW9ucyIsIm5vdGlmaWNhdGlvbl9jaGFubmVscyIsImRvY3VtZW50cyIsImRlcGFydG1lbnRzIiwibm90aWZpY2F0aW9ucyIsImFjY2Vzc2VzIiwiY29tcGFuaWVzIiwiaW5kdXN0cmllcyIsIm5vdGVzIiwibm90aWZpY2F0aW9uX3RlbXBsYXRlcyIsImNvbnRyYWN0X3R5cGVzIiwibWVzc2FnZXMiLCJyb2xlcyIsIm5vdGlmaWNhdGlvbl9ldmVudHMiLCJwb3NpdGlvbnMiLCJlbXBsb3llZXMiLCJzZXR0aW5ncyJdLCJwZXJtaXNzaW9ucyI6WyJpbXBvcnRzLioiLCJtYW5hZ2UuKiIsInBlcm1pc3Npb25zLioiLCJub3RpZmljYXRpb25fY2hhbm5lbHMuKiIsImRvY3VtZW50cy4qIiwiZGVwYXJ0bWVudHMuKiIsIm5vdGlmaWNhdGlvbnMuKiIsImFjY2Vzc2VzLioiLCJjb21wYW5pZXMuKiIsImluZHVzdHJpZXMuKiIsIm5vdGVzLioiLCJub3RpZmljYXRpb25fdGVtcGxhdGVzLioiLCJjb250cmFjdF90eXBlcy4qIiwibWVzc2FnZXMuKiIsInJvbGVzLioiLCJub3RpZmljYXRpb25fZXZlbnRzLioiLCJwb3NpdGlvbnMuKiIsImVtcGxveWVlcy4qIiwic2V0dGluZ3MuKiJdLCJ0b2tlblVVSUQiOiI2MzdhZDM0Ni0wN2EzLTQ1ZWItYTY5Yi0zMjVmMzdiMWYyZTcifQ.AYTHMavG5fXQ-57fPwz8n9beCG3eg3XNIcnORzVT4-cQgFYzO73BtIgvcqsEa_bxdCYlZiRJaYEItlTS3wWbCTFf2ZEuEJwRxp1-rYSXsTwsRE8PnklhbK69bPXq1wngFi2s9U_xCnmKr9X2FiTWxVXprxSk5c-aPGergkC_3FuKTMOvN-K7YlmMPU5KN4ZGxXQGUS04AN0tSl_N78lasSJWf8jsCMmKrl72kyKELJ1_BNHyOazTHgfucnb0KnNmasd5nwUYY9Sq89TkKeBJfwULBUJwTfxMNyX1PcOBCQXtU-WAVp96vVeTMbZlsr1LrDkvHMRx1q6FxolDsBqokXzvapZtuev5Ba3YSG9Ob6MpaqvrA5ttNZ9lzU9gka2jbBSugTjNV6PpLXYPc8TL9dHuwtNznP_ZcuGdfRmz_rjl7HERHtP_Xsu-9RkqNEDSmSGBoTRww5mx0BUTOOL1z9Sopne5G7r9xkINN2I4FClh5Z57AyeSq6DnMGQm4CXBM2sODlvJ2C70ifXRortYa2ZDr6WkTy_vi4wVzaEAq4pEf33rrI75Hpq3XEb5HJoltlWqzWDT_glOSehr79XOQ8cwTSyjrMeBSB9LsU62uimfnwgWWiNDIPpxsvVEYtwDLxIcEYX782tm9ua5eabXwBAVyxJHMrbqTrDwk2n-8pw"},"maxBodyLength":-1,"maxContentLength":-1,"method":"get","params":{"includes":"address,industry,parentCompany,contacts","page":1,"pageSize":5,"sortBy":"createdAt","sortDirection":"desc"},"timeout":0,"transformRequest":[null],"transformResponse":[null],"transitional":{"clarifyTimeoutError":false,"forcedJSONParsing":true,"silentJSONParsing":true},"url":"http://127.0.0.1:81/api/companies","xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN"},"message":"Request failed with status code 401","name":"AxiosError","stack":"AxiosError: Request failed with status code 401\n    at settle (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js:1954:16)\n    at XMLHttpRequest.onloadend (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js:2469:174)\n    at Axios.request (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js:3273:49)\n    at async fetchCompanies (http://localhost:3000/_next/static/chunks/app_688c5bd4._.js:3180:26)","status":401}
+[134:20:23.790] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[134:20:23.903] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[135:25:30.329] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[135:25:43.528] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[135:25:43.528] Browser LOG     1 10 name desc
+[135:25:43.631] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[135:29:49.242] Server  LOG      ✓ Compiled in 130ms
+[135:29:49.456] Browser LOG     {"code":"ERR_NETWORK","config":{"adapter":["xhr","http","fetch"],"allowAbsoluteUrls":true,"env":{},"headers":{"Accept":"application/json, text/plain, */*","Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NjU4ODgyNTAsImV4cCI6MTc2NTg5MTg1MCwicm9sZXMiOlsiUHJhY293bmlrIHRlY2huaWN6bnkgc3lzdGVtdSBIUkFwcCAtIG5pZSBwb3dpxIV6YW55IHogcHJhY293bmlraWVtIGZpcm15Il0sInVzZXJuYW1lIjoiYWRtaW4uaHJhcHBAZ21haWwuY29tIiwidXNlciI6eyJ1dWlkIjoiZjhiN2JmMzgtOTRjNC00NDEyLThlNDUtZDE1YjdkYjY3ZDg1IiwiZW1haWwiOiJhZG1pbi5ocmFwcEBnbWFpbC5jb20ifSwiZW1wbG95ZWUiOnsidXVpZCI6bnVsbCwiZmlyc3ROYW1lIjpudWxsLCJsYXN0TmFtZSI6bnVsbH0sIm1vZHVsZXMiOlsiY29tcGFueSIsInN5c3RlbSIsIm5vdGVzIiwiZG9jdW1lbnRzIl0sImFjY2Vzc2VzIjpbImltcG9ydHMiLCJtYW5hZ2UiLCJwZXJtaXNzaW9ucyIsIm5vdGlmaWNhdGlvbl9jaGFubmVscyIsImRvY3VtZW50cyIsImRlcGFydG1lbnRzIiwibm90aWZpY2F0aW9ucyIsImFjY2Vzc2VzIiwiY29tcGFuaWVzIiwiaW5kdXN0cmllcyIsIm5vdGVzIiwibm90aWZpY2F0aW9uX3RlbXBsYXRlcyIsImNvbnRyYWN0X3R5cGVzIiwibWVzc2FnZXMiLCJyb2xlcyIsIm5vdGlmaWNhdGlvbl9ldmVudHMiLCJwb3NpdGlvbnMiLCJlbXBsb3llZXMiLCJzZXR0aW5ncyJdLCJwZXJtaXNzaW9ucyI6WyJpbXBvcnRzLioiLCJtYW5hZ2UuKiIsInBlcm1pc3Npb25zLioiLCJub3RpZmljYXRpb25fY2hhbm5lbHMuKiIsImRvY3VtZW50cy4qIiwiZGVwYXJ0bWVudHMuKiIsIm5vdGlmaWNhdGlvbnMuKiIsImFjY2Vzc2VzLioiLCJjb21wYW5pZXMuKiIsImluZHVzdHJpZXMuKiIsIm5vdGVzLioiLCJub3RpZmljYXRpb25fdGVtcGxhdGVzLioiLCJjb250cmFjdF90eXBlcy4qIiwibWVzc2FnZXMuKiIsInJvbGVzLioiLCJub3RpZmljYXRpb25fZXZlbnRzLioiLCJwb3NpdGlvbnMuKiIsImVtcGxveWVlcy4qIiwic2V0dGluZ3MuKiJdLCJ0b2tlblVVSUQiOiJjYmUxY2JjMi03MzU5LTRjYWUtYTNkMC0yYjQ2MjkwNWM0MmYifQ.lBqej5ex_4Li1ENRuevigVLy0ELPMzSxSeKqMqlKA6j0W5dBqQttDGeaJgx2-gnxxlDUry9xpOVt1ybvwW0Hq_C5qtN7WfIf_wVx3cc5jx84NUv9tyFmvqPaGjZrdrEeQ3FhEQw5C-hc60dS7BlImFjWTarWeb4zHXRmEqGC0MzP9e5KewMwMp5NDTc2_1oUx_g5N6kJGKYRzRAPDHtDGzg9bU7jf1bjbBbpFonhkrH6ofP6TY5QTirxJgxc97YCQ9SzpyZQ4t8Id5rAg21mZS4RyWS4OHzsZwcKzLDQ1cx3waPkcSlWlOkMMZaZdtdHd4jzKT_vdSWlHDWp9YMXY4-vDeJDSkumslAjhptM4kOHidtedHQtsnoryZ81Z8TwxDBSO1J0PsKac4-wZAGQJmhv9lcHs7mpkZlLwIkQ78kk_RuLZ99wJ9LxJtyJ2Rr9iToXdKoUGCNg9Ta2EJtia8-b_N9ZpwPhe3x4PFFhcgjIu8bQij6eNG5RSMFgPcvPB8Lfk_n6mkwK5hRYNiTxJ0egJpdinHTImWg6PSS_c7XGe6qxAwbOrBTHDQahc9sOd6aazPoR2J_HVpKPTSHvLJvlJBMCyf8JFCZ2IfNYDxxgqZTf_2huzJq8NVC0SXIS3BcVbSJbcdluDLod03pH7sdHd5Q6iBDRW2P5xLOZaxw"},"maxBodyLength":-1,"maxContentLength":-1,"method":"get","params":{"page":0,"pageSize":5,"sortBy":"name","sortDirection":"asc"},"timeout":0,"transformRequest":[null],"transformResponse":[null],"transitional":{"clarifyTimeoutError":false,"forcedJSONParsing":true,"silentJSONParsing":true},"url":"http://127.0.0.1:81/api/employees","xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN"},"message":"Network Error","name":"AxiosError","stack":"AxiosError: Network Error\n    at XMLHttpRequest.handleError (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js?id=%255Bproject%255D%252Fnode_modules%252Faxios%252Flib%252Fadapters%252Fxhr.js+%255Bapp-client%255D+%2528ecmascript%2529:109:25)\n    at Axios.request (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js?id=%255Bproject%255D%252Fnode_modules%252Faxios%252Flib%252Fcore%252FAxios.js+%255Bapp-client%255D+%2528ecmascript%2529:53:49)\n    at async fetchEmployees (http://localhost:3000/_next/static/chunks/app_fb355ada._.js?id=%255Bproject%255D%252Fapp%252Fhooks%252Femployee%252FuseEmployeesQuery.tsx+%255Bapp-client%255D+%2528ecmascript%2529:28:26)"}
+[135:29:50.685] Browser LOG     {"code":"ERR_NETWORK","config":{"adapter":["xhr","http","fetch"],"allowAbsoluteUrls":true,"env":{},"headers":{"Accept":"application/json, text/plain, */*","Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NjU4ODgyNTAsImV4cCI6MTc2NTg5MTg1MCwicm9sZXMiOlsiUHJhY293bmlrIHRlY2huaWN6bnkgc3lzdGVtdSBIUkFwcCAtIG5pZSBwb3dpxIV6YW55IHogcHJhY293bmlraWVtIGZpcm15Il0sInVzZXJuYW1lIjoiYWRtaW4uaHJhcHBAZ21haWwuY29tIiwidXNlciI6eyJ1dWlkIjoiZjhiN2JmMzgtOTRjNC00NDEyLThlNDUtZDE1YjdkYjY3ZDg1IiwiZW1haWwiOiJhZG1pbi5ocmFwcEBnbWFpbC5jb20ifSwiZW1wbG95ZWUiOnsidXVpZCI6bnVsbCwiZmlyc3ROYW1lIjpudWxsLCJsYXN0TmFtZSI6bnVsbH0sIm1vZHVsZXMiOlsiY29tcGFueSIsInN5c3RlbSIsIm5vdGVzIiwiZG9jdW1lbnRzIl0sImFjY2Vzc2VzIjpbImltcG9ydHMiLCJtYW5hZ2UiLCJwZXJtaXNzaW9ucyIsIm5vdGlmaWNhdGlvbl9jaGFubmVscyIsImRvY3VtZW50cyIsImRlcGFydG1lbnRzIiwibm90aWZpY2F0aW9ucyIsImFjY2Vzc2VzIiwiY29tcGFuaWVzIiwiaW5kdXN0cmllcyIsIm5vdGVzIiwibm90aWZpY2F0aW9uX3RlbXBsYXRlcyIsImNvbnRyYWN0X3R5cGVzIiwibWVzc2FnZXMiLCJyb2xlcyIsIm5vdGlmaWNhdGlvbl9ldmVudHMiLCJwb3NpdGlvbnMiLCJlbXBsb3llZXMiLCJzZXR0aW5ncyJdLCJwZXJtaXNzaW9ucyI6WyJpbXBvcnRzLioiLCJtYW5hZ2UuKiIsInBlcm1pc3Npb25zLioiLCJub3RpZmljYXRpb25fY2hhbm5lbHMuKiIsImRvY3VtZW50cy4qIiwiZGVwYXJ0bWVudHMuKiIsIm5vdGlmaWNhdGlvbnMuKiIsImFjY2Vzc2VzLioiLCJjb21wYW5pZXMuKiIsImluZHVzdHJpZXMuKiIsIm5vdGVzLioiLCJub3RpZmljYXRpb25fdGVtcGxhdGVzLioiLCJjb250cmFjdF90eXBlcy4qIiwibWVzc2FnZXMuKiIsInJvbGVzLioiLCJub3RpZmljYXRpb25fZXZlbnRzLioiLCJwb3NpdGlvbnMuKiIsImVtcGxveWVlcy4qIiwic2V0dGluZ3MuKiJdLCJ0b2tlblVVSUQiOiJjYmUxY2JjMi03MzU5LTRjYWUtYTNkMC0yYjQ2MjkwNWM0MmYifQ.lBqej5ex_4Li1ENRuevigVLy0ELPMzSxSeKqMqlKA6j0W5dBqQttDGeaJgx2-gnxxlDUry9xpOVt1ybvwW0Hq_C5qtN7WfIf_wVx3cc5jx84NUv9tyFmvqPaGjZrdrEeQ3FhEQw5C-hc60dS7BlImFjWTarWeb4zHXRmEqGC0MzP9e5KewMwMp5NDTc2_1oUx_g5N6kJGKYRzRAPDHtDGzg9bU7jf1bjbBbpFonhkrH6ofP6TY5QTirxJgxc97YCQ9SzpyZQ4t8Id5rAg21mZS4RyWS4OHzsZwcKzLDQ1cx3waPkcSlWlOkMMZaZdtdHd4jzKT_vdSWlHDWp9YMXY4-vDeJDSkumslAjhptM4kOHidtedHQtsnoryZ81Z8TwxDBSO1J0PsKac4-wZAGQJmhv9lcHs7mpkZlLwIkQ78kk_RuLZ99wJ9LxJtyJ2Rr9iToXdKoUGCNg9Ta2EJtia8-b_N9ZpwPhe3x4PFFhcgjIu8bQij6eNG5RSMFgPcvPB8Lfk_n6mkwK5hRYNiTxJ0egJpdinHTImWg6PSS_c7XGe6qxAwbOrBTHDQahc9sOd6aazPoR2J_HVpKPTSHvLJvlJBMCyf8JFCZ2IfNYDxxgqZTf_2huzJq8NVC0SXIS3BcVbSJbcdluDLod03pH7sdHd5Q6iBDRW2P5xLOZaxw"},"maxBodyLength":-1,"maxContentLength":-1,"method":"get","params":{"page":0,"pageSize":5,"sortBy":"name","sortDirection":"asc"},"timeout":0,"transformRequest":[null],"transformResponse":[null],"transitional":{"clarifyTimeoutError":false,"forcedJSONParsing":true,"silentJSONParsing":true},"url":"http://127.0.0.1:81/api/employees","xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN"},"message":"Network Error","name":"AxiosError","stack":"AxiosError: Network Error\n    at XMLHttpRequest.handleError (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js?id=%255Bproject%255D%252Fnode_modules%252Faxios%252Flib%252Fadapters%252Fxhr.js+%255Bapp-client%255D+%2528ecmascript%2529:109:25)\n    at Axios.request (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js?id=%255Bproject%255D%252Fnode_modules%252Faxios%252Flib%252Fcore%252FAxios.js+%255Bapp-client%255D+%2528ecmascript%2529:53:49)\n    at async fetchEmployees (http://localhost:3000/_next/static/chunks/app_fb355ada._.js?id=%255Bproject%255D%252Fapp%252Fhooks%252Femployee%252FuseEmployeesQuery.tsx+%255Bapp-client%255D+%2528ecmascript%2529:28:26)"}
+[135:29:52.844] Browser LOG     {"code":"ERR_NETWORK","config":{"adapter":["xhr","http","fetch"],"allowAbsoluteUrls":true,"env":{},"headers":{"Accept":"application/json, text/plain, */*","Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NjU4ODgyNTAsImV4cCI6MTc2NTg5MTg1MCwicm9sZXMiOlsiUHJhY293bmlrIHRlY2huaWN6bnkgc3lzdGVtdSBIUkFwcCAtIG5pZSBwb3dpxIV6YW55IHogcHJhY293bmlraWVtIGZpcm15Il0sInVzZXJuYW1lIjoiYWRtaW4uaHJhcHBAZ21haWwuY29tIiwidXNlciI6eyJ1dWlkIjoiZjhiN2JmMzgtOTRjNC00NDEyLThlNDUtZDE1YjdkYjY3ZDg1IiwiZW1haWwiOiJhZG1pbi5ocmFwcEBnbWFpbC5jb20ifSwiZW1wbG95ZWUiOnsidXVpZCI6bnVsbCwiZmlyc3ROYW1lIjpudWxsLCJsYXN0TmFtZSI6bnVsbH0sIm1vZHVsZXMiOlsiY29tcGFueSIsInN5c3RlbSIsIm5vdGVzIiwiZG9jdW1lbnRzIl0sImFjY2Vzc2VzIjpbImltcG9ydHMiLCJtYW5hZ2UiLCJwZXJtaXNzaW9ucyIsIm5vdGlmaWNhdGlvbl9jaGFubmVscyIsImRvY3VtZW50cyIsImRlcGFydG1lbnRzIiwibm90aWZpY2F0aW9ucyIsImFjY2Vzc2VzIiwiY29tcGFuaWVzIiwiaW5kdXN0cmllcyIsIm5vdGVzIiwibm90aWZpY2F0aW9uX3RlbXBsYXRlcyIsImNvbnRyYWN0X3R5cGVzIiwibWVzc2FnZXMiLCJyb2xlcyIsIm5vdGlmaWNhdGlvbl9ldmVudHMiLCJwb3NpdGlvbnMiLCJlbXBsb3llZXMiLCJzZXR0aW5ncyJdLCJwZXJtaXNzaW9ucyI6WyJpbXBvcnRzLioiLCJtYW5hZ2UuKiIsInBlcm1pc3Npb25zLioiLCJub3RpZmljYXRpb25fY2hhbm5lbHMuKiIsImRvY3VtZW50cy4qIiwiZGVwYXJ0bWVudHMuKiIsIm5vdGlmaWNhdGlvbnMuKiIsImFjY2Vzc2VzLioiLCJjb21wYW5pZXMuKiIsImluZHVzdHJpZXMuKiIsIm5vdGVzLioiLCJub3RpZmljYXRpb25fdGVtcGxhdGVzLioiLCJjb250cmFjdF90eXBlcy4qIiwibWVzc2FnZXMuKiIsInJvbGVzLioiLCJub3RpZmljYXRpb25fZXZlbnRzLioiLCJwb3NpdGlvbnMuKiIsImVtcGxveWVlcy4qIiwic2V0dGluZ3MuKiJdLCJ0b2tlblVVSUQiOiJjYmUxY2JjMi03MzU5LTRjYWUtYTNkMC0yYjQ2MjkwNWM0MmYifQ.lBqej5ex_4Li1ENRuevigVLy0ELPMzSxSeKqMqlKA6j0W5dBqQttDGeaJgx2-gnxxlDUry9xpOVt1ybvwW0Hq_C5qtN7WfIf_wVx3cc5jx84NUv9tyFmvqPaGjZrdrEeQ3FhEQw5C-hc60dS7BlImFjWTarWeb4zHXRmEqGC0MzP9e5KewMwMp5NDTc2_1oUx_g5N6kJGKYRzRAPDHtDGzg9bU7jf1bjbBbpFonhkrH6ofP6TY5QTirxJgxc97YCQ9SzpyZQ4t8Id5rAg21mZS4RyWS4OHzsZwcKzLDQ1cx3waPkcSlWlOkMMZaZdtdHd4jzKT_vdSWlHDWp9YMXY4-vDeJDSkumslAjhptM4kOHidtedHQtsnoryZ81Z8TwxDBSO1J0PsKac4-wZAGQJmhv9lcHs7mpkZlLwIkQ78kk_RuLZ99wJ9LxJtyJ2Rr9iToXdKoUGCNg9Ta2EJtia8-b_N9ZpwPhe3x4PFFhcgjIu8bQij6eNG5RSMFgPcvPB8Lfk_n6mkwK5hRYNiTxJ0egJpdinHTImWg6PSS_c7XGe6qxAwbOrBTHDQahc9sOd6aazPoR2J_HVpKPTSHvLJvlJBMCyf8JFCZ2IfNYDxxgqZTf_2huzJq8NVC0SXIS3BcVbSJbcdluDLod03pH7sdHd5Q6iBDRW2P5xLOZaxw"},"maxBodyLength":-1,"maxContentLength":-1,"method":"get","params":{"page":0,"pageSize":5,"sortBy":"name","sortDirection":"asc"},"timeout":0,"transformRequest":[null],"transformResponse":[null],"transitional":{"clarifyTimeoutError":false,"forcedJSONParsing":true,"silentJSONParsing":true},"url":"http://127.0.0.1:81/api/employees","xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN"},"message":"Network Error","name":"AxiosError","stack":"AxiosError: Network Error\n    at XMLHttpRequest.handleError (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js?id=%255Bproject%255D%252Fnode_modules%252Faxios%252Flib%252Fadapters%252Fxhr.js+%255Bapp-client%255D+%2528ecmascript%2529:109:25)\n    at Axios.request (http://localhost:3000/_next/static/chunks/node_modules_axios_lib_99e19c7d._.js?id=%255Bproject%255D%252Fnode_modules%252Faxios%252Flib%252Fcore%252FAxios.js+%255Bapp-client%255D+%2528ecmascript%2529:53:49)\n    at async fetchEmployees (http://localhost:3000/_next/static/chunks/app_fb355ada._.js?id=%255Bproject%255D%252Fapp%252Fhooks%252Femployee%252FuseEmployeesQuery.tsx+%255Bapp-client%255D+%2528ecmascript%2529:28:26)"}
+[135:29:55.043] Server  LOG      ✓ Compiled in 191ms
+[135:33:41.707] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[135:33:54.603] Server  LOG      ✓ Compiled in 160ms
+[135:38:20.056] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:20.057] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:23.579] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:23.579] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:23.579] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:23.579] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:24.751] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:24.751] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:24.751] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:24.751] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:53.513] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:53.513] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:53.513] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:38:53.513] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:35.635] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:35.635] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:35.635] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:35.635] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:36.367] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:36.367] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:36.367] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:36.367] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:37.498] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:37.498] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:37.498] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:37.498] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:38.293] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:38.293] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:38.293] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:38.293] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:44.321] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:44.321] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:44.321] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:39:44.321] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:41:08.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:41:08.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:41:08.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:41:08.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:42:15.850] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[135:43:47.353] Server  LOG      ✓ Compiled in 50ms
+[135:43:47.437] Server  LOG      ✓ Compiled in 53ms
+[135:43:47.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:43:47.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:43:47.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:43:47.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:43:47.850] Browser ERROR   A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://react.dev/link/controlled-components
+[135:43:47.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:43:47.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:45:47.226] Server  LOG      ✓ Compiled in 36ms
+[135:45:47.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:45:47.850] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[135:47:49.327] Server  LOG      ✓ Compiled in 72ms
+[135:50:40.800] Server  LOG      ✓ Compiled in 37ms
+[135:50:57.850] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[135:51:54.627] Server  LOG      ✓ Compiled in 58ms
+[135:52:10.841] Server  LOG      ✓ Compiled in 40ms
+[135:59:07.355] Server  LOG      ✓ Compiled in 55ms
+[135:59:19.850] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[136:03:34.392] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[136:03:34.786] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[136:03:34.955] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[136:03:36.723] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[136:03:37.316] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[136:03:47.669] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[136:03:48.028] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[136:03:48.189] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[136:03:49.306] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[136:03:49.306] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[136:11:20.173] Server  LOG      ✓ Compiled in 59ms
+[136:12:10.701] Server  LOG      ✓ Compiled in 54ms
+[136:12:45.135] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[136:12:51.772] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[136:12:52.179] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[136:12:52.352] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[136:14:21.435] Server  LOG      ✓ Compiled in 37ms
+[136:14:21.539] Browser ERROR   ./app/components/employee/modal/Create.tsx:130:12
+Parsing ecmascript source code failed
+  128 |     };
+  129 |
+> 130 |     return (
+      |            ^
+> 131 |
+      | ^
+> 132 |     );
+      | ^^^^^^
+  133 | };
+  134 |
+  135 | export default AddEmployeeModal;
+
+Parenthesized expression cannot be empty
+
+Import traces:
+  Client Component Browser:
+    ./app/components/employee/modal/Create.tsx [Client Component Browser]
+    ./app/components/employee/Table.tsx [Client Component Browser]
+    ./app/manage/employees/list/page.tsx [Client Component Browser]
+    ./app/manage/employees/list/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/employee/modal/Create.tsx [Client Component SSR]
+    ./app/components/employee/Table.tsx [Client Component SSR]
+    ./app/manage/employees/list/page.tsx [Client Component SSR]
+    ./app/manage/employees/list/page.tsx [Server Component]
+[136:14:37.631] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[136:14:37.996] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[136:14:38.183] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[136:15:41.466] Server  LOG      ✓ Compiled in 93ms
+[136:15:51.813] Server  LOG      ✓ Compiled in 39ms
+[136:16:05.449] Server  LOG      ✓ Compiled in 28ms
+[136:16:29.911] Server  LOG      ✓ Compiled in 31ms
+[136:24:07.847] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[136:33:49.632] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[136:43:25.364] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[136:52:12.751] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[137:01:38.796] Browser ERROR   Błąd Mercure: {"isTrusted":true}
+[137:09:49.591] Browser ERROR   Błąd Mercure: {"isTrusted":true}

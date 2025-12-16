@@ -1,74 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination, IconButton, Button, Box, CircularProgress } from '@mui/material';
-import { Preview, Edit, Delete, Add } from '@mui/icons-material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelIcon from '@mui/icons-material/Cancel';
-import Employee from '../../types/Employee';
-import CreateEmployeeModal from './modal/Create';
-import EditEmployeeModal from './modal/Edit';
-import PreviewEmployeeModal from './modal/Preview';
-import DeleteEmployeeModal from './modal/Delete';
-import useEmployeesQuery from '../../hooks/employee/useEmployeesQuery';
+import React, { useState } from 'react';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TableSortLabel,
+    TablePagination,
+    IconButton,
+    Button,
+    Box,
+    CircularProgress,
+    TextField,
+    Checkbox
+} from '@mui/material';
+import Tooltip from "@mui/material/Tooltip";
+import { Preview, Edit, Delete, Add, Key, Search } from '@mui/icons-material';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import CheckCircleIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import CancelIcon from '@mui/icons-material/CancelOutlined';
+import Employee from '@/app/types/Employee';
+import CreateEmployeeModal from '@/app/components/employee/modal/Create';
+import EditEmployeeModal from '@/app/components/employee/modal/Edit';
+import PreviewEmployeeModal from '@/app/components/employee/modal/Preview';
+//import ImportEmployeesFromXLSXModal from '@/app/components/employee/modal/ImportEmployeesFromXLSX';
+import DeleteEmployeeModal from '@/app/components/employee/modal/Delete';
+//import DeleteMultipleEmployeesModal from '@/app/components/employee/modal/DeleteMultiple';
+import useEmployeesQuery from '@/app/hooks/employee/useEmployeesQuery';
 import useAddEmployeeMutation from '@/app/hooks/employee/useAddEmployeeMutation';
-import useUpdateEmployeeMutation from '@/app/hooks/employee/useUpdateEmployeeMutation';
-import useDeleteEmployeeMutation from '@/app/hooks/employee/useDeleteEmployeeMutation';
+//import useUpdateEmployeeMutation from '@/app/hooks/employee/useUpdateEmployeeMutation';
+//import useDeleteEmployeeMutation from '@/app/hooks/employee/useDeleteEmployeeMutation';
+//import useDeleteMultipleEmployeeMutation from '@/app/hooks/employee/useDeleteMultipleEmployeeMutation';
+//import useImportEmployeesFromXLSXMutation from '@/app/hooks/employee/importEmployeesFromXLSXMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment';
+import { useUser } from "@/app/context/userContext";
 
-type SortDirection = 'asc' | 'desc' | undefined;
+type SortDirection = 'asc' | 'desc';
 
 const EmployeesTable = () => {
-    const [localEmployees, setLocalEmployees] = useState<Employee[] | null>([]);
     const [pageSize, setPageSize] = useState(5);
-    const [pageIndex, setPageIndex] = useState(0);
-    const [sortBy, setSortBy] = useState('name');
-    const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
+    const [page, setPage] = useState(1);
+    const [sortBy, setSortBy] = useState('createdAt');
+    const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
+    const [searchPhrase, setSearchPhrase] = useState<string>('');
+    const [phrase, setPhrase] = useState<string>('');
     const [modalType, setModalType] = useState<string | null>(null);
     const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+    const [selected, setSelected] = useState<string[]>([]);
 
-    const { data, isLoading, error } = useEmployeesQuery(pageSize, pageIndex, sortBy, sortDirection);
-    const { mutate: addEmployeeMutate, isSuccess: isAddSuccess, error: isAddError } = useAddEmployeeMutation();
-    const { mutate: updateEmployeeMutate, isSuccess: isUpdateSuccess, error: isUpdateError } = useUpdateEmployeeMutation();
-    const { mutate: deleteEmployeeMutate, isSuccess: isDeleteSuccess, error: isDeleteError } = useDeleteEmployeeMutation();
+    const { mutate: addEmployeeMutate } = useAddEmployeeMutation();
+    // const { mutate: updateEmployeeMutate } = useUpdateEmployeeMutation();
+    // const { mutate: deleteEmployeeMutate } = useDeleteEmployeeMutation();
+    // const { mutate: deleteMultipleEmployeeMutate } = useDeleteMultipleEmployeeMutation();
+    // const { mutate: importEmployeesFromXLSXMutate } = useImportEmployeesFromXLSXMutation();
     const { t } = useTranslation();
+    const { hasPermission } = useUser();
 
-    useEffect(() => {
-        if (data) {
-            setLocalEmployees(data);
-        }
-    }, [data]);
+    const result = useEmployeesQuery(pageSize, page, sortBy, sortDirection, phrase, 'address,parentEmployee,contacts,department,company');
+    const { data: rawData, isLoading, error, refetch } = result;
 
-    useEffect(() => {
-        if (isAddSuccess) {
-            closeModal();
-            toast.success(t('employee.add.success'));
-        }
-        if (isAddError) {
-            closeModal();
-            toast.success('employee.add.error');
-        }
-    }, [isAddSuccess, isAddError, t]);
+    const employees: Employee[] = Array.isArray(rawData) ? rawData : rawData?.items || [];
+    const totalCount: number = Array.isArray(rawData) ? employees.length : rawData?.total || 0;
 
-    useEffect(() => {
-        if (isUpdateSuccess) {
-            closeModal();
-            toast.success(t('employee.update.success'));
-        }
-        if (isUpdateError) {
-            toast.error(t('employee.update.error'));
-        }
-    }, [isUpdateSuccess, isUpdateError, t]);
+    const allSelected = selected.length === employees.length && employees.length > 0;
 
-    useEffect(() => {
-        if (isDeleteSuccess) {
-            closeModal();
-            toast.success(t('employee.delete.success'));
-        }
-        if (isDeleteError) {
-            closeModal();
-            toast.success(t('employee.delete.error'));
-        }
-    }, [isDeleteSuccess, isDeleteError, t]);
+    const handleSearch = () => {
+        setPhrase(searchPhrase);
+        setPage(1);
+    };
 
     const handleSort = (column: string) => {
         const direction = sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc';
@@ -87,36 +89,153 @@ const EmployeesTable = () => {
     };
 
     const handlePageSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPage(1);
         setPageSize(Number(event.target.value));
+        setSelected([]);
     };
 
-    const handleAdd = (employee: Employee) => {
-        console.log(employee);
-        addEmployeeMutate(employee);
-    };
-
-    const handleDelete = (employeeToDelete: Employee) => {
-        deleteEmployeeMutate(employeeToDelete, {
-            onSuccess: (currentEmployees: Employee[]) => {
-                setLocalEmployees(currentEmployees);
-            }
+    const handleAdd = async (newEmployee: Employee): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            addEmployeeMutate(newEmployee, {
+                onSuccess: (message: string) => {
+                    toast.success(message);
+                    refetch();
+                    resolve();
+                },
+                onError: (error: object) => { toast.error(t('employee.add.error')); reject(error); },
+            });
         });
     };
 
-    const handleUpdate = (updatedEmployee: Employee) => {
-        updateEmployeeMutate(updatedEmployee, {
-            onSuccess: (currentEmployees: Employee[]) => {
-                setLocalEmployees(currentEmployees);
-            }
-        });
+    // const handleDelete = (employeeToDelete: Employee): Promise<void> => {
+    //     return new Promise((resolve, reject) => {
+    //         deleteEmployeeMutate(employeeToDelete, {
+    //             onSuccess: (message: string) => {
+    //                 toast.success(message);
+
+    //                 refetch().then((freshData) => {
+    //                     if (!freshData.data?.items?.length && page > 1) {
+    //                         setPage(page - 1);
+    //                     }
+    //                 });
+
+    //                 resolve();
+    //             },
+    //             onError: (error: object) => { toast.error(t('employee.delete.error')); reject(error); },
+    //         });
+    //     });
+    // };
+
+    // const handleUpdate = async (updatedEmployee: Employee): Promise<void> => {
+    //     return new Promise((resolve, reject) => {
+    //         updateEmployeeMutate(updatedEmployee, {
+    //             onSuccess: (message: string) => {
+    //                 toast.success(message);
+    //                 refetch();
+    //                 resolve();
+    //             },
+    //             onError: (error: object) => { toast.error(t('employee.update.error')); reject(error); },
+    //         });
+    //     });
+    // };
+
+    // const handleImportEmployeesFromXLSX = async (file: File): Promise<void> => {
+    //     return new Promise((resolve, reject) => {
+    //         importEmployeesFromXLSXMutate(file, {
+    //             onSuccess: (message: string) => {
+    //                 toast.success(message);
+    //                 refetch();
+    //                 resolve();
+    //             },
+    //             onError: (error: object) => {
+    //                 toast.error(t('common.message.somethingWentWrong'));
+    //                 reject(error);
+    //             },
+    //         });
+    //     });
+    // };
+
+    const toggleSelectAll = () => {
+        setSelected(allSelected ? [] : employees.map(employee => employee.uuid));
     };
+
+    const toggleSelectRow = (uuid: string) => {
+        setSelected(prev => prev.includes(uuid) ? prev.filter(item => item !== uuid) : [...prev, uuid]);
+    };
+
+    // const handleDeleteMultiple = (employeesToDelete: Employee[]): Promise<void> => {
+    //     return new Promise((resolve, reject) => {
+    //         deleteMultipleEmployeeMutate(employeesToDelete, {
+    //             onSuccess: (message: string) => {
+    //                 setSelected([]);
+    //                 toast.success(message);
+
+    //                 refetch().then((freshData) => {
+    //                     if (!freshData.data?.items?.length && page > 1) {
+    //                         setPage(page - 1);
+    //                     }
+    //                 });
+
+    //                 resolve();
+    //             },
+    //             onError: (error: object) => { toast.error(t('employee.delete.error')); reject(error); },
+    //         });
+    //     });
+    // };
 
     return (
         <div>
-            <Box display="flex" justifyContent="flex-end" marginBottom={2}>
-                <Button variant="contained" color="success" startIcon={<Add />} onClick={() => openModal('create')}>
-                    {t('employee.button.add')}
-                </Button>
+            <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom={2}>
+                <Box display="flex" alignItems="center" gap={1}>
+                    <TextField
+                        variant="outlined"
+                        placeholder={t('common.enterPhraseToSearch')}
+                        size="small"
+                        sx={{ width: '500px' }}
+                        onChange={(e) => setSearchPhrase(e.target.value)}
+                    />
+                    <Button
+                        startIcon={<Search />}
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSearch}
+                    >
+                        {t('common.button.search')}
+                    </Button>
+                </Box>
+
+                <Box display="flex" alignItems="center" gap={1} ml="auto">
+                    {hasPermission("employees.create") && (
+                        <>
+                            <Button
+                                variant="contained"
+                                color="success"
+                                startIcon={<Add />}
+                                onClick={() => openModal('create')}
+                            >
+                                {t('employee.button.add')}
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="success"
+                                startIcon={<FileUploadOutlinedIcon />}
+                                onClick={() => openModal('importFromXLSX')}
+                            >
+                                {t('employee.button.importFromXLSX')}
+                            </Button>
+                        </>
+                    )}
+                    {hasPermission("employees.delete") && selected.length > 0 && (
+                        <Button
+                            variant="contained"
+                            color="error"
+                            startIcon={<Delete />}
+                            onClick={() => openModal('multipleDelete')}
+                        >
+                            {t('employee.button.deleteChecked')} ({selected.length})
+                        </Button>
+                    )}
+                </Box>
             </Box>
 
             {isLoading ? (
@@ -127,7 +246,7 @@ const EmployeesTable = () => {
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.message.somethingWentWrong')} :(</div>
                 </Box>
-            ) : localEmployees && localEmployees.length === 0 ? (
+            ) : employees.length === 0 ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height="300px">
                     <div>{t('common.noData')}</div>
                 </Box>
@@ -136,23 +255,21 @@ const EmployeesTable = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
+                                {hasPermission("employees.delete") && (
+                                    <TableCell sx={{ width: 50, padding: "4px 8px" }}>
+                                        <Checkbox
+                                            checked={allSelected}
+                                            onChange={toggleSelectAll}
+                                        />
+                                    </TableCell>
+                                )}
                                 <TableCell
                                     sortDirection={sortBy === 'id' ? sortDirection : false}
                                     onClick={() => handleSort('id')}
-                                    sx={{ padding: '2px 4px' }}
+                                    sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'id'} direction={sortBy === 'id' ? sortDirection : 'asc'}>
                                         #
-                                    </TableSortLabel>
-                                </TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.externalUUID')}</TableCell>
-                                <TableCell
-                                    sortDirection={sortBy === 'firstName' ? sortDirection : false}
-                                    onClick={() => handleSort('firstName')}
-                                    sx={{ padding: '4px 8px' }}
-                                >
-                                    <TableSortLabel active={sortBy === 'firstName'} direction={sortBy === 'firstName' ? sortDirection : 'asc'}>
-                                        {t('employee.table.column.firstName')}
                                     </TableSortLabel>
                                 </TableCell>
                                 <TableCell
@@ -161,43 +278,67 @@ const EmployeesTable = () => {
                                     sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'lastName'} direction={sortBy === 'lastName' ? sortDirection : 'asc'}>
-                                        {t('employee.table.column.lastName')}
+                                        {t('employee.table.column.lastName')}{t('employee.table.column.firstName')}
                                     </TableSortLabel>
                                 </TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.companyFullName')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.departmentFullName')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.employeeSuperior')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.position')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.contractType')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.active')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.role')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.createdAt')}</TableCell>
-                                <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.updatedAt')}</TableCell>
+                                <TableCell>
+                                    {t('employee.table.column.active')}
+                                </TableCell>
+                                <TableCell
+                                    sortDirection={sortBy === 'createdAt' ? sortDirection : false}
+                                    onClick={() => handleSort('createdAt')}
+                                    sx={{ padding: '4px 8px' }}
+                                >
+                                    <TableSortLabel active={sortBy === 'createdAt'} direction={sortBy === 'createdAt' ? sortDirection : 'asc'}>
+                                        {t('employee.table.column.createdAt')}
+                                    </TableSortLabel>
+                                </TableCell>
+                                <TableCell
+                                    sortDirection={sortBy === 'updatedAt' ? sortDirection : false}
+                                    onClick={() => handleSort('updatedAt')}
+                                    sx={{ padding: '4px 8px' }}
+                                >
+                                    <TableSortLabel active={sortBy === 'updatedAt'} direction={sortBy === 'updatedAt' ? sortDirection : 'asc'}>
+                                        {t('employee.table.column.updatedAt')}
+                                    </TableSortLabel>
+                                </TableCell>
                                 <TableCell sx={{ padding: '4px 8px' }}>{t('employee.table.column.actions')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {localEmployees?.map((employee, index) => (
+                            {employees.map((employee, index) => (
                                 <TableRow key={employee.uuid}>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{index + 1}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.externalUUID}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.firstName}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.lastName}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.company.name}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.department.name}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.employeeSuperior.uuid ? `${employee.employeeSuperior.lastName} ${employee.employeeSuperior.firstName} (${employee.employeeSuperior.uuid})` : '---'}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.position.name}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.contractType.name}</TableCell>
+                                    {hasPermission("employees.delete") && (
+                                        <TableCell sx={{ width: 50, padding: "4px 8px" }}>
+                                            <Checkbox
+                                                checked={selected.includes(employee.uuid)}
+                                                onChange={() => toggleSelectRow(employee.uuid)}
+                                            />
+                                        </TableCell>
+                                    )}
+                                    <TableCell sx={{ padding: '4px 8px' }}>{(page - 1) * pageSize + index + 1}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.lastName} {employee.firstName}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}> {employee.active ? (<CheckCircleIcon color="success" fontSize="small" />) : (<CancelIcon color="error" fontSize="small" />)}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{moment(employee.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.updatedAt ? moment(employee.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
-                                        {employee.active ? (<CheckCircleIcon color="success" fontSize="small" />) : (<CancelIcon color="error" fontSize="small" />)}
-                                    </TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.role.name ?? '-'}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.createdAt}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{employee.updatedAt}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>
-                                        <IconButton onClick={() => openModal('preview', employee)}><Preview /></IconButton>
-                                        <IconButton onClick={() => openModal('edit', employee)}><Edit /></IconButton>
-                                        <IconButton onClick={() => openModal('delete', employee)}><Delete /></IconButton>
+                                        {hasPermission("employees.view") && (
+                                            <Tooltip title={t('common.view')} placement="top">
+                                                <IconButton onClick={() => openModal('preview', employee)}><Preview /></IconButton>
+                                            </Tooltip>
+                                        )}
+
+                                        {hasPermission("employees.edit") && (
+                                            <Tooltip title={t('common.edit')} placement="top">
+                                                <IconButton onClick={() => openModal('edit', employee)}><Edit /></IconButton>
+                                            </Tooltip>
+                                        )}
+
+                                        {hasPermission("employees.delete") && (
+                                            <Tooltip title={t('common.delete')} placement="top">
+                                                <IconButton onClick={() => openModal('delete', employee)}><Delete /></IconButton>
+                                            </Tooltip>
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -206,41 +347,57 @@ const EmployeesTable = () => {
                 </TableContainer>
             )}
 
-            {localEmployees && localEmployees.length > 0 && <TablePagination
-                rowsPerPageOptions={[5, 10, 25, 50, 100]}
-                component="div"
-                count={localEmployees.length}
-                rowsPerPage={pageSize}
-                page={pageIndex}
-                onPageChange={(event, newPage) => setPageIndex(newPage)}
-                onRowsPerPageChange={handlePageSizeChange}
+            {totalCount > 0 && (
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                    component="div"
+                    count={totalCount}
+                    rowsPerPage={pageSize}
+                    page={page - 1}
+                    onPageChange={(_, newPage) => { setPage(newPage + 1); setSelected([]); }}
+                    onRowsPerPageChange={handlePageSizeChange}
+                    labelRowsPerPage={t('common.rowPerPage')}
+                    labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${t('common.of')} ${count}`}
+                />
+            )}
+
+            {hasPermission("employees.create") && modalType === 'create' && <CreateEmployeeModal
+                open={true}
+                onClose={closeModal}
+                onAddEmployee={handleAdd}
             />}
 
-            {modalType === 'preview' && <PreviewEmployeeModal
+            {/* {hasPermission("employees.create") && modalType === 'importFromXLSX' && <ImportEmployeesFromXLSXModal
+                open={true}
+                onClose={closeModal}
+                onImportEmployeesFromXLSX={handleImportEmployeesFromXLSX}
+                allowedTypes={["xlsx"]}
+            />} */}
+
+            {hasPermission("employees.preview") && modalType === 'preview' && <PreviewEmployeeModal
                 open={true}
                 selectedEmployee={selectedEmployee}
                 onClose={closeModal}
             />}
 
-            {modalType === 'create' && <CreateEmployeeModal
+            {/* {hasPermission("employees.delete") && modalType === 'delete' && <DeleteEmployeeModal
                 open={true}
+                selectedEmployee={selectedEmployee}
                 onClose={closeModal}
-                onAddEmployee={employee => { handleAdd(employee); }}
-            />}
+                onDeleteConfirm={handleDelete} />} */}
 
-            {modalType === 'edit' && <EditEmployeeModal
+            {/* {hasPermission("employees.edit") && modalType === 'edit' && <EditEmployeeModal
                 open={true}
                 employee={selectedEmployee}
                 onClose={closeModal}
-                onSave={handleUpdate}
-            />}
+                onSave={handleUpdate} />} */}
 
-            {modalType === 'delete' && <DeleteEmployeeModal
+            {/* {hasPermission("employees.delete") && modalType === 'multipleDelete' && <DeleteMultipleEmployeesModal
                 open={true}
-                selectedEmployee={selectedEmployee}
+                selectedEmployees={employees.filter(employee => selected.includes(employee.uuid))}
                 onClose={closeModal}
-                onDeleteConfirm={(employee) => { handleDelete(employee); }}
-            />}
+                onDeleteMultipleConfirm={handleDeleteMultiple}
+            />} */}
         </div>
     );
 };

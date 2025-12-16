@@ -53,7 +53,7 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
 
     const initialValues: Employee = {
         uuid: employee?.uuid || '',
-        externalUUID: employee?.externalUUID || '',
+        externalCode: employee?.externalCode || '',
         company: {
             uuid: employee?.company?.uuid || '',
             name: employee?.company?.name || '',
@@ -325,9 +325,9 @@ const EditEmployeeModal: React.FC<EditEmployeeModalProps> = ({ open, onClose, em
                                     </Field>
                                     <Field
                                         as={TextField}
-                                        name="externalUUID"
-                                        label={t('employee.form.field.externalUUID')}
-                                        value={values.externalUUID}
+                                        name="externalCode"
+                                        label={t('employee.form.field.externalCode')}
+                                        value={values.externalCode}
                                         onChange={handleChange}
                                         fullWidth
                                         margin="normal"

@@ -5,16 +5,17 @@ import Role from "./Role";
 
 export default interface Employee {
     uuid: string;
-    externalUUID?: string | null;
+    externalCode?: string | null;
+    internalCode?: string | null;
     company: {
         uuid: string;
-        name: string;
+        fullName: string;
     };
     department: {
         uuid: string;
         name: string;
     };
-    employeeSuperior: {
+    parentEmployee: {
         uuid: string | null;
         firstName: string | null;
         lastName: string | null;
@@ -23,7 +24,6 @@ export default interface Employee {
     lastName: string;
     pesel: string;
     email: string;
-    phone: string[];
     employmentFrom: string;
     employmentTo: string | null;
     position: Position;
@@ -31,6 +31,12 @@ export default interface Employee {
     role: Role;
     active: boolean;
     address: Address;
+    contacts: {
+        type: 'phone' | 'email' | 'website';
+        data: string;
+    }[];
+    phones: string[];
+    webs: string[];
     createdAt?: string;
     updatedAt?: string;
     deletedAt?: string | null;
