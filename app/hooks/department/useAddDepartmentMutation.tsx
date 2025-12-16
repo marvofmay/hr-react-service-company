@@ -12,7 +12,7 @@ const addDepartment = async (department: Department, token: string): Promise<str
             internalCode: department.internalCode,
             companyUUID: department.company.uuid,
             description: department.description,
-            parentDepartmentUUID: department.parentDepartment?.uuid,
+            parentDepartmentUUID: department.parentDepartment?.uuid !== '' ? department.parentDepartment?.uuid : null,
             active: department.active,
             phones: department.phones.filter(p => p.trim() !== ""),
             emails: department.emails.filter(e => e.trim() !== ""),

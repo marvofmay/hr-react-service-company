@@ -26,12 +26,12 @@ import CreateDepartmentModal from '@/app/components/department/modal/Create';
 import PreviewDepartmentModal from '@/app/components/department/modal/Preview';
 import ImportDepartmentsFromXLSXModal from '@/app/components/department/modal/ImportDepartmentsFromXLSX';
 import DeleteDepartmentModal from '@/app/components/department/modal/Delete';
-//import DeleteMultipleDepartmentsModal from '@/app/components/department/modal/DeleteMultiple';
+import DeleteMultipleDepartmentsModal from '@/app/components/department/modal/DeleteMultiple';
 import useDepartmentsQuery from '@/app/hooks/department/useDepartmentsQuery';
 import useAddDepartmentMutation from '@/app/hooks/department/useAddDepartmentMutation';
 //import useUpdateDepartmentMutation from '@/app/hooks/department/useUpdateDepartmentMutation';
 import useDeleteDepartmentMutation from '@/app/hooks/department/useDeleteDepartmentMutation';
-//import useDeleteMultipleDepartmentMutation from '@/app/hooks/department/useDeleteMultipleDepartmentMutation';
+import useDeleteMultipleDepartmentMutation from '@/app/hooks/department/useDeleteMultipleDepartmentMutation';
 import useImportDepartmentsFromXLSXMutation from '@/app/hooks/department/importDepartmentsFromXLSXMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -54,7 +54,7 @@ const DepartmentsTable = () => {
     const { mutate: addDepartmentMutate } = useAddDepartmentMutation();
     // const { mutate: updateDepartmentMutate } = useUpdateDepartmentMutation();
     const { mutate: deleteDepartmentMutate } = useDeleteDepartmentMutation();
-    // const { mutate: deleteMultipleDepartmentMutate } = useDeleteMultipleDepartmentMutation();
+    const { mutate: deleteMultipleDepartmentMutate } = useDeleteMultipleDepartmentMutation();
     const { mutate: importDepartmentsFromXLSXMutate } = useImportDepartmentsFromXLSXMutation();
     const { t } = useTranslation();
     const { hasPermission } = useUser();
@@ -163,25 +163,25 @@ const DepartmentsTable = () => {
         setSelected(prev => prev.includes(uuid) ? prev.filter(item => item !== uuid) : [...prev, uuid]);
     };
 
-    // const handleDeleteMultiple = (departmentsToDelete: Department[]): Promise<void> => {
-    //     return new Promise((resolve, reject) => {
-    //         deleteMultipleDepartmentMutate(departmentsToDelete, {
-    //             onSuccess: (message: string) => {
-    //                 setSelected([]);
-    //                 toast.success(message);
+    const handleDeleteMultiple = (departmentsToDelete: Department[]): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            deleteMultipleDepartmentMutate(departmentsToDelete, {
+                onSuccess: (message: string) => {
+                    setSelected([]);
+                    toast.success(message);
 
-    //                 refetch().then((freshData) => {
-    //                     if (!freshData.data?.items?.length && page > 1) {
-    //                         setPage(page - 1);
-    //                     }
-    //                 });
+                    refetch().then((freshData) => {
+                        if (!freshData.data?.items?.length && page > 1) {
+                            setPage(page - 1);
+                        }
+                    });
 
-    //                 resolve();
-    //             },
-    //             onError: (error: object) => { toast.error(t('department.delete.error')); reject(error); },
-    //         });
-    //     });
-    // };
+                    resolve();
+                },
+                onError: (error: object) => { toast.error(t('department.delete.error')); reject(error); },
+            });
+        });
+    };
 
     return (
         <div>
@@ -393,13 +393,14 @@ const DepartmentsTable = () => {
                 department={selectedDepartment}
                 onClose={closeModal}
                 onSave={handleUpdate} />}
+ */}
 
             {hasPermission("departments.delete") && modalType === 'multipleDelete' && <DeleteMultipleDepartmentsModal
                 open={true}
                 selectedDepartments={departments.filter(department => selected.includes(department.uuid))}
                 onClose={closeModal}
                 onDeleteMultipleConfirm={handleDeleteMultiple}
-            />} */}
+            />}
         </div>
     );
 };
