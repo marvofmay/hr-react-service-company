@@ -8549,3 +8549,150 @@ The available values are "".
 [133:52:30.511] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
 Consider providing a value that matches one of the available options or ''.
 The available values are "".
+[133:54:11.243] Server  LOG      ✓ Compiled in 52ms
+[133:54:45.360] Server  LOG      ✓ Compiled in 58ms
+[133:57:57.677] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[133:57:58.147] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[133:57:58.460] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[133:58:52.544] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[133:58:52.943] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[133:58:53.182] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[134:00:22.828] Server  LOG      ✓ Compiled in 86ms
+[134:00:48.448] Server  LOG      ✓ Compiled in 74ms
+[134:02:08.370] Server  LOG      ✓ Compiled in 48ms
+[134:02:12.823] Server  LOG      ✓ Compiled in 60ms
+[134:02:23.594] Server  LOG      ✓ Compiled in 67ms
+[134:02:28.264] Server  LOG      ✓ Compiled in 91ms
+[134:03:35.231] Server  LOG      ✓ Compiled in 51ms
+[134:03:45.655] Server  LOG      ✓ Compiled in 38ms
+[134:03:49.348] Server  LOG      ✓ Compiled in 36ms
+[134:03:58.897] Server  LOG      ✓ Compiled in 53ms
+[134:04:30.289] Server  LOG      ✓ Compiled in 54ms
+[134:04:43.803] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[134:04:44.198] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[134:04:44.361] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[134:05:18.357] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:18.357] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:18.357] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:18.357] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:21.244] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:21.244] Browser WARN    MUI: You have provided an out-of-range value `a75fdfcc-b5e7-47e6-a9f1-01bcb635a678` for the select (name="parentDepartment.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are ``.
+[134:05:21.244] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:21.244] Browser WARN    MUI: You have provided an out-of-range value `a75fdfcc-b5e7-47e6-a9f1-01bcb635a678` for the select (name="parentDepartment.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are ``.
+[134:05:21.244] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:21.244] Browser WARN    MUI: You have provided an out-of-range value `a75fdfcc-b5e7-47e6-a9f1-01bcb635a678` for the select (name="parentDepartment.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are ``.
+[134:05:21.244] Browser WARN    MUI: You have provided an out-of-range value `a75fdfcc-b5e7-47e6-a9f1-01bcb635a678` for the select (name="parentDepartment.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are ``.
+[134:05:36.848] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:36.848] Browser WARN    MUI: You have provided an out-of-range value `a75fdfcc-b5e7-47e6-a9f1-01bcb635a678` for the select (name="parentDepartment.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are ``.
+[134:05:36.848] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:36.848] Browser WARN    MUI: You have provided an out-of-range value `a75fdfcc-b5e7-47e6-a9f1-01bcb635a678` for the select (name="parentDepartment.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are ``.
+[134:05:36.848] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:36.848] Browser WARN    MUI: You have provided an out-of-range value `a75fdfcc-b5e7-47e6-a9f1-01bcb635a678` for the select (name="parentDepartment.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are ``.
+[134:05:36.848] Browser WARN    MUI: You have provided an out-of-range value `a75fdfcc-b5e7-47e6-a9f1-01bcb635a678` for the select (name="parentDepartment.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are ``.
+[134:05:43.237] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:43.237] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:43.237] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:05:43.237] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:08:48.733] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:08:48.733] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:08:48.733] Browser WARN    MUI: You have provided an out-of-range value `cd2687b5-2ea7-4d67-b1a1-3f1705323f3c` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:09:28.377] Server  LOG      ✓ Compiled in 60ms
+[134:09:39.037] Server  LOG      ✓ Compiled in 35ms
+[134:09:42.758] Browser WARN    MUI: You have provided an out-of-range value `6bf618cd-5a80-4405-8be8-459a189a0e3f` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:09:42.758] Browser WARN    MUI: You have provided an out-of-range value `Poznań` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[134:09:42.758] Browser WARN    MUI: You have provided an out-of-range value `6bf618cd-5a80-4405-8be8-459a189a0e3f` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:09:42.758] Browser WARN    MUI: You have provided an out-of-range value `Poznań` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[134:09:42.758] Browser WARN    MUI: You have provided an out-of-range value `6bf618cd-5a80-4405-8be8-459a189a0e3f` for the select (name="company.uuid") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "".
+[134:09:42.758] Browser WARN    MUI: You have provided an out-of-range value `Poznań` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[134:09:42.758] Browser WARN    MUI: You have provided an out-of-range value `Poznań` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[134:09:42.758] Browser WARN    MUI: You have provided an out-of-range value `Poznań` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[134:09:42.758] Browser WARN    MUI: You have provided an out-of-range value `Poznań` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[134:09:42.758] Browser WARN    MUI: You have provided an out-of-range value `Poznań` for the select (name="address.city") component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `Gdańsk`, `Sopot`, `Gdynia`.
+[134:10:37.157] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[134:10:37.625] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[134:10:37.625] Browser LOG     1 10 name desc
+[134:10:37.796] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[134:11:02.875] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[134:11:02.875] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[134:11:46.525] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[134:11:46.525] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[134:11:46.525] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[134:11:46.525] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[134:12:08.164] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[134:12:08.164] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[134:12:08.164] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.
+[134:12:08.164] Browser ERROR   MUI: `children` must be passed when using the `TextField` component with `select`.

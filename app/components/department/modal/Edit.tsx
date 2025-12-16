@@ -600,7 +600,7 @@ const EditDepartmentModal: React.FC<EditDepartmentModalProps> = ({ open, onClose
                                                 checked={values.active}
                                             />
                                         </Box>
-                                        <Box>
+                                        {/* <Box>
                                             <Field
                                                 as={TextField}
                                                 type="datetime-local"
@@ -625,7 +625,7 @@ const EditDepartmentModal: React.FC<EditDepartmentModalProps> = ({ open, onClose
                                                 margin="normal"
                                                 InputLabelProps={{ shrink: true }}
                                             />
-                                        </Box>
+                                        </Box> */}
                                     </Box>
                                 </Box>
                             </DialogContent>

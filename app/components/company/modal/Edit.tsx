@@ -621,7 +621,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                                 checked={values.active}
                                             />
                                         </Box>
-                                        <Box>
+                                        {/* <Box>
                                             <Field
                                                 as={TextField}
                                                 type="datetime-local"
@@ -646,7 +646,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                                 margin="normal"
                                                 InputLabelProps={{ shrink: true }}
                                             />
-                                        </Box>
+                                        </Box> */}
                                     </Box>
                                 </Box>
                             </DialogContent>

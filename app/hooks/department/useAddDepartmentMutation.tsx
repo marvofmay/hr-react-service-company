@@ -17,7 +17,8 @@ const addDepartment = async (department: Department, token: string): Promise<str
             phones: department.phones.filter(p => p.trim() !== ""),
             emails: department.emails.filter(e => e.trim() !== ""),
             websites: department.webs.filter(w => w.trim() !== ""),
-            address: department.address
+            address: department.address,
+            createdAt: department.createdAt
         },
         { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }
     );

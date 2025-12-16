@@ -437,7 +437,7 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                                 label={t('department.form.field.active')}
                                             />
                                         </Box>
-                                        <Box>
+                                        {/* <Box>
                                             <Field
                                                 as={TextField}
                                                 type="datetime-local"
@@ -447,7 +447,7 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                                 margin="normal"
                                                 InputLabelProps={{ shrink: true }}
                                             />
-                                        </Box>
+                                        </Box> */}
                                     </Box>
                                 </Box>
                             </DialogContent>

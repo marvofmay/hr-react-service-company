@@ -166,8 +166,8 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
 
     return (
         <div>
-            <Dialog open={open} onClose={onClose} fullWidth maxWidth="xl">
-                <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
+            <Dialog open={open} onClose={onClose} fullWidth maxWidth="xl" >
+                <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.4rem', fontWeight: 'bold' }}>
                     {t('company.modal.add.title')}
                 </DialogTitle>
                 <Formik<Company>
@@ -568,7 +568,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                                 checked={values.active}
                                             />
                                         </Box>
-                                        <Box>
+                                        {/* <Box>
                                             <Field
                                                 as={TextField}
                                                 type="datetime-local"
@@ -578,7 +578,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                                 margin="normal"
                                                 InputLabelProps={{ shrink: true }}
                                             />
-                                        </Box>
+                                        </Box> */}
                                     </Box>
                                 </Box>
                             </DialogContent>

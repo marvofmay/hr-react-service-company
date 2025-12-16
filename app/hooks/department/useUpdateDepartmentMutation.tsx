@@ -19,7 +19,9 @@ const updateDepartment = async (updatedDepartment: Department, token: string): P
                 phones: updatedDepartment.phones,
                 emails: updatedDepartment.emails,
                 websites: updatedDepartment.webs,
-                address: updatedDepartment.address
+                address: updatedDepartment.address,
+                createdAt: updatedDepartment.createdAt,
+                updatedAt: updatedDepartment.createdAt
             },
             {
                 headers: {
