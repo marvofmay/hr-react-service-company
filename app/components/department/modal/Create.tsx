@@ -148,9 +148,6 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
     const validationSchema = Yup.object({
         name: Yup.string().required(t('validation.fieldIsRequired')),
         internalCode: Yup.string().required(t('validation.fieldIsRequired')),
-        description: Yup.string()
-            .required(t('validation.fieldIsRequired'))
-            .min(3, t('validation.minLength', { count: 3 })),
         company: Yup.object().shape({
             uuid: Yup.string().required(t('validation.fieldIsRequired')),
         }),
@@ -326,7 +323,6 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                             margin="normal"
                                             multiline
                                             rows={3}
-                                            required
                                         />
 
                                         <Field

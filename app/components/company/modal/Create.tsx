@@ -124,9 +124,6 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
 
     const validationSchema = Yup.object({
         fullName: Yup.string().required(t('validation.fieldIsRequired')),
-        description: Yup.string()
-            .required(t('validation.fieldIsRequired'))
-            .min(3, t('validation.minLength', { count: 3 })),
         nip: Yup.string().required(t('validation.fieldIsRequired')),
         regon: Yup.string().required(t('validation.fieldIsRequired')),
         internalCode: Yup.string().required(t('validation.fieldIsRequired')),
@@ -292,7 +289,6 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                             margin="normal"
                                             error={touched.description && Boolean(errors.description)}
                                             helperText={touched.description && errors.description}
-                                            required
                                         />
                                         <Field
                                             as={TextField}
