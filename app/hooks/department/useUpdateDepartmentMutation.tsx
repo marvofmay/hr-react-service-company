@@ -13,7 +13,7 @@ const updateDepartment = async (updatedDepartment: Department, token: string): P
                 name: updatedDepartment.name,
                 internalCode: updatedDepartment.internalCode,
                 description: updatedDepartment.description,
-                parentDepartmentUUID: updatedDepartment.parentDepartment?.uuid,
+                parentDepartmentUUID: updatedDepartment.parentDepartment?.uuid !== '' ? updatedDepartment.parentDepartment?.uuid : null,
                 companyUUID: updatedDepartment.company.uuid,
                 active: updatedDepartment.active,
                 phones: updatedDepartment.phones,

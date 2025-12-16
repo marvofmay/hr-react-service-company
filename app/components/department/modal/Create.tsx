@@ -90,6 +90,7 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                 const response = await axios.get(`${SERVICE_COMPANY_URL}/api/companies`, {
                     headers: { Authorization: `Bearer ${token}` },
                     params: {
+                        active: true,
                         sortBy: "fullName",
                         sortDirection: "ASC",
                         pageSize: 1000

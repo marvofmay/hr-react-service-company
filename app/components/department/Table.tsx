@@ -22,14 +22,14 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import CancelIcon from '@mui/icons-material/CancelOutlined';
 import Department from '@/app/types/Department';
 import CreateDepartmentModal from '@/app/components/department/modal/Create';
-//import EditDepartmentModal from '@/app/components/department/modal/Edit';
+import EditDepartmentModal from '@/app/components/department/modal/Edit';
 import PreviewDepartmentModal from '@/app/components/department/modal/Preview';
 import ImportDepartmentsFromXLSXModal from '@/app/components/department/modal/ImportDepartmentsFromXLSX';
 import DeleteDepartmentModal from '@/app/components/department/modal/Delete';
 import DeleteMultipleDepartmentsModal from '@/app/components/department/modal/DeleteMultiple';
 import useDepartmentsQuery from '@/app/hooks/department/useDepartmentsQuery';
 import useAddDepartmentMutation from '@/app/hooks/department/useAddDepartmentMutation';
-//import useUpdateDepartmentMutation from '@/app/hooks/department/useUpdateDepartmentMutation';
+import useUpdateDepartmentMutation from '@/app/hooks/department/useUpdateDepartmentMutation';
 import useDeleteDepartmentMutation from '@/app/hooks/department/useDeleteDepartmentMutation';
 import useDeleteMultipleDepartmentMutation from '@/app/hooks/department/useDeleteMultipleDepartmentMutation';
 import useImportDepartmentsFromXLSXMutation from '@/app/hooks/department/importDepartmentsFromXLSXMutation';
@@ -52,7 +52,7 @@ const DepartmentsTable = () => {
     const [selected, setSelected] = useState<string[]>([]);
 
     const { mutate: addDepartmentMutate } = useAddDepartmentMutation();
-    // const { mutate: updateDepartmentMutate } = useUpdateDepartmentMutation();
+    const { mutate: updateDepartmentMutate } = useUpdateDepartmentMutation();
     const { mutate: deleteDepartmentMutate } = useDeleteDepartmentMutation();
     const { mutate: deleteMultipleDepartmentMutate } = useDeleteMultipleDepartmentMutation();
     const { mutate: importDepartmentsFromXLSXMutate } = useImportDepartmentsFromXLSXMutation();
@@ -126,18 +126,18 @@ const DepartmentsTable = () => {
         });
     };
 
-    // const handleUpdate = async (updatedDepartment: Department): Promise<void> => {
-    //     return new Promise((resolve, reject) => {
-    //         updateDepartmentMutate(updatedDepartment, {
-    //             onSuccess: (message: string) => {
-    //                 toast.success(message);
-    //                 refetch();
-    //                 resolve();
-    //             },
-    //             onError: (error: object) => { toast.error(t('department.update.error')); reject(error); },
-    //         });
-    //     });
-    // };
+    const handleUpdate = async (updatedDepartment: Department): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            updateDepartmentMutate(updatedDepartment, {
+                onSuccess: (message: string) => {
+                    toast.success(message);
+                    refetch();
+                    resolve();
+                },
+                onError: (error: object) => { toast.error(t('department.update.error')); reject(error); },
+            });
+        });
+    };
 
     const handleImportDepartmentsFromXLSX = async (file: File): Promise<void> => {
         return new Promise((resolve, reject) => {
@@ -386,14 +386,11 @@ const DepartmentsTable = () => {
                 onClose={closeModal}
                 onDeleteConfirm={handleDelete} />}
 
-            {/* 
-
             {hasPermission("departments.edit") && modalType === 'edit' && <EditDepartmentModal
                 open={true}
                 department={selectedDepartment}
                 onClose={closeModal}
                 onSave={handleUpdate} />}
- */}
 
             {hasPermission("departments.delete") && modalType === 'multipleDelete' && <DeleteMultipleDepartmentsModal
                 open={true}
