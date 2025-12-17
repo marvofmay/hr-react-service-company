@@ -1,22 +1,10 @@
 {
   "app": {
-    "[project]/app/_not-found/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
-    "[project]/app/info/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
     "[project]/app/login/page": [
       "static/media/GeistVF-s.p.4c3c0b96.woff",
       "static/media/GeistMonoVF-s.p.2cee7d16.woff"
     ],
     "[project]/app/manage/companies/list/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
-    "[project]/app/manage/contractTypes/list/page": [
       "static/media/GeistVF-s.p.4c3c0b96.woff",
       "static/media/GeistMonoVF-s.p.2cee7d16.woff"
     ],
@@ -32,43 +20,7 @@
       "static/media/GeistVF-s.p.4c3c0b96.woff",
       "static/media/GeistMonoVF-s.p.2cee7d16.woff"
     ],
-    "[project]/app/messages/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
-    "[project]/app/module/company/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
-    "[project]/app/module/documents/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
-    "[project]/app/module/notes/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
-    "[project]/app/module/system/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
-    "[project]/app/notifications/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
     "[project]/app/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
-    "[project]/app/settings/companies/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
-    "[project]/app/settings/notifications/page": [
-      "static/media/GeistVF-s.p.4c3c0b96.woff",
-      "static/media/GeistMonoVF-s.p.2cee7d16.woff"
-    ],
-    "[project]/app/user/data/page": [
       "static/media/GeistVF-s.p.4c3c0b96.woff",
       "static/media/GeistMonoVF-s.p.2cee7d16.woff"
     ],

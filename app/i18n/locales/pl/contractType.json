@@ -1,6 +1,9 @@
 {
     "list": {
-        "title": "Lista form zatrudnienia"
+        "title": "Lista form zatrudnienia",
+        "loading": {
+            "failed": "Nie udało się pobrać listy form zatrudnienia"
+        }
     },
     "modal": {
         "add": {

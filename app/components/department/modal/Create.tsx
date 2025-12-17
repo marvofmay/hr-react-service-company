@@ -158,6 +158,12 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
             postcode: Yup.string().required(t('validation.fieldIsRequired')),
             street: Yup.string().required(t('validation.fieldIsRequired')),
         }),
+        emails: Yup.array()
+            .of(
+                Yup.string()
+                    .email(t('validation.invalidEmail'))
+                    .nullable()
+            )
     });
 
     const [errorAPI, setErrorAPI] = useState<string | null>(null);
@@ -374,25 +380,58 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                     {/* ADDRESS */}
                                     <Box sx={boxStyle}>
                                         <Typography>{t('department.form.box.addressData')}</Typography>
-
-                                        {(['country', 'city', 'postcode', 'street'] as const).map(field => (
-                                            <Field
-                                                key={field}
-                                                as={TextField}
-                                                name={`address.${field}`}
-                                                label={t(`department.form.field.${field}`)}
-                                                fullWidth
-                                                margin="normal"
-                                                error={
-                                                    touched.address?.[field] &&
-                                                    Boolean(errors.address?.[field])
-                                                }
-                                                helperText={
-                                                    touched.address?.[field] &&
-                                                    errors.address?.[field]
-                                                }
-                                            />
-                                        ))}
+                                        <Field
+                                            as={TextField}
+                                            select
+                                            fullWidth
+                                            name="address.country"
+                                            label={t('department.form.field.country')}
+                                            variant="outlined"
+                                            margin="normal"
+                                            error={touched?.address?.country && Boolean(errors?.address?.country)}
+                                            helperText={touched?.address?.country && errors?.address?.country}
+                                            required
+                                        >
+                                            <MenuItem value="Polska">Polska</MenuItem>
+                                            <MenuItem value="Anglia">Anglia</MenuItem>
+                                            <MenuItem value="Niemcy">Niemcy</MenuItem>
+                                        </Field>
+                                        <Field
+                                            as={TextField}
+                                            select
+                                            fullWidth
+                                            name="address.city"
+                                            label={t('department.form.field.city')}
+                                            variant="outlined"
+                                            margin="normal"
+                                            error={touched?.address?.city && Boolean(errors?.address?.city)}
+                                            helperText={touched?.address?.city && errors?.address?.city}
+                                            required
+                                        >
+                                            <MenuItem value="Gdańsk">Gdańsk</MenuItem>
+                                            <MenuItem value="Sopot">Sopot</MenuItem>
+                                            <MenuItem value="Gdynia">Gdynia</MenuItem>
+                                        </Field>
+                                        <Field
+                                            as={TextField}
+                                            name="address.postcode"
+                                            label={t('department.form.field.postcode')}
+                                            fullWidth
+                                            margin="normal"
+                                            error={touched?.address?.postcode && Boolean(errors?.address?.postcode)}
+                                            helperText={touched?.address?.postcode && errors?.address?.postcode}
+                                            required
+                                        />
+                                        <Field
+                                            as={TextField}
+                                            name="address.street"
+                                            label={t('department.form.field.street')}
+                                            fullWidth
+                                            margin="normal"
+                                            error={touched?.address?.street && Boolean(errors?.address?.street)}
+                                            helperText={touched?.address?.street && errors?.address?.street}
+                                            required
+                                        />
                                     </Box>
 
                                     {/* CONTACTS */}
@@ -437,17 +476,6 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                                 label={t('department.form.field.active')}
                                             />
                                         </Box>
-                                        {/* <Box>
-                                            <Field
-                                                as={TextField}
-                                                type="datetime-local"
-                                                name="createdAt"
-                                                label={t('department.form.field.createdAt')}
-                                                fullWidth
-                                                margin="normal"
-                                                InputLabelProps={{ shrink: true }}
-                                            />
-                                        </Box> */}
                                     </Box>
                                 </Box>
                             </DialogContent>

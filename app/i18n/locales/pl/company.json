@@ -1,6 +1,9 @@
 {
     "list": {
-        "title": "Lista firm"
+        "title": "Lista firm",
+        "loading": {
+            "failed": "Nie udało się pobrać listy firm"
+        }
     },
     "settings": {
         "title": "Ustawienia firm"

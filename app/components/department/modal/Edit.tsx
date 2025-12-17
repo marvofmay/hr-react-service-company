@@ -86,6 +86,12 @@ const EditDepartmentModal: React.FC<EditDepartmentModalProps> = ({ open, onClose
             postcode: Yup.string().required(t('validation.fieldIsRequired')),
             street: Yup.string().required(t('validation.fieldIsRequired')),
         }),
+        emails: Yup.array()
+            .of(
+                Yup.string()
+                    .email(t('validation.invalidEmail'))
+                    .nullable()
+            )
     });
 
     const [companies, setCompanies] = useState<{ uuid: string; fullName: string }[]>([]);
@@ -475,7 +481,7 @@ const EditDepartmentModal: React.FC<EditDepartmentModalProps> = ({ open, onClose
                                                                 <Field
                                                                     as={TextField}
                                                                     name={`emails[${index}]`}
-                                                                    type="tel"
+                                                                    type="email"
                                                                     label={`${t('department.form.field.email')} ${index + 1}`}
                                                                     fullWidth
                                                                     error={Boolean(
@@ -524,7 +530,6 @@ const EditDepartmentModal: React.FC<EditDepartmentModalProps> = ({ open, onClose
                                                                 <Field
                                                                     as={TextField}
                                                                     name={`webs[${index}]`}
-                                                                    type="tel"
                                                                     label={`${t('department.form.field.web')} ${index + 1}`}
                                                                     fullWidth
                                                                     error={Boolean(

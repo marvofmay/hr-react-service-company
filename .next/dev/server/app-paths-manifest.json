@@ -1,21 +1,9 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/info/page": "app/info/page.js",
   "/login/page": "app/login/page.js",
   "/manage/companies/list/page": "app/manage/companies/list/page.js",
-  "/manage/contractTypes/list/page": "app/manage/contractTypes/list/page.js",
   "/manage/departments/list/page": "app/manage/departments/list/page.js",
   "/manage/employees/list/page": "app/manage/employees/list/page.js",
   "/manage/roles/list/page": "app/manage/roles/list/page.js",
-  "/messages/page": "app/messages/page.js",
-  "/module/company/page": "app/module/company/page.js",
-  "/module/documents/page": "app/module/documents/page.js",
-  "/module/notes/page": "app/module/notes/page.js",
-  "/module/system/page": "app/module/system/page.js",
-  "/notifications/page": "app/notifications/page.js",
   "/page": "app/page.js",
-  "/settings/companies/page": "app/settings/companies/page.js",
-  "/settings/notifications/page": "app/settings/notifications/page.js",
-  "/user/data/page": "app/user/data/page.js",
   "/user/logout/page": "app/user/logout/page.js"
 }

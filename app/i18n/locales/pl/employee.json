@@ -21,7 +21,9 @@
         "title": "Ustawienia pracowników"
     },
     "button": {
-        "add": "Dodaj pracownika"
+        "add": "Dodaj pracownika",
+        "importFromXLSX": "Importuj pracowników z pliku xlsx",
+        "deleteChecked": "Usuń zaznaczonych pracowników"
     },
     "add": {
         "success": "Nowy pracownik został dodany",
@@ -67,7 +69,7 @@
             "internalCode": "wewnętrzny kod pracownika",
             "externalCode": "zewnętrzny kod pracownika",
             "employeeUUID": "UUID przełożonego",
-            "employeeSuperior": "bezpośredni przełożony",
+            "parentEmployee": "bezpośredni przełożony",
             "position": "stanowisko",
             "positionUUID": "UUID stanowiska",
             "contractTypeUUID": "UUID formy zatrudnieinia",
@@ -93,6 +95,7 @@
         "box": {
             "personalData": "dane osobowe",
             "employmentData": "dane zatrudnienia",
+            "contactData": "dane do kontaktu",
             "addressData": "dane adresowe",
             "systemData": "dane systemowe"
         }

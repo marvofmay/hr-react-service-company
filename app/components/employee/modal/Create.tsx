@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, MenuItem, FormControlLabel, Box, IconButton, Typography } from '@mui/material';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import Employee from '../../../types/Employee';
 import { useTranslation } from 'react-i18next';
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { FormikHelpers } from 'formik';
+import useCompaniesQuery from '@/app/hooks/company/useCompaniesQuery';
+import useDepartmentsQuery from '@/app/hooks/department/useDepartmentsQuery';
+import usePositionsQuery from '@/app/hooks/position/usePositionsQuery';
+import useContractTypesQuery from '@/app/hooks/contractType/useContractTypesQuery';
+import useRolesQuery from '@/app/hooks/role/useRolesQuery';
 
 interface AddEmployeeModalProps {
     open: boolean;
     onClose: () => void;
-    onAddEmployee: (newEmployee: Employee) => void;
-}
-
-interface FormValues {
-    phone: string[];
+    onAddEmployee: (newEmployee: Employee) => Promise<void>;
 }
 
 const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAddEmployee }) => {
@@ -59,7 +60,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
         email: '',
         phones: [""],
         webs: [""],
-        employmentFrom: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        employmentFrom: new Date().toISOString().slice(0, 10),
         active: false,
         address: {
             country: '',
@@ -68,7 +69,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
             street: '',
         },
         employmentTo: '',
-        createdAt: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        createdAt: '',
         updatedAt: '',
         deletedAt: ''
     };
@@ -76,13 +77,21 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
     const validationSchema = Yup.object({
         firstName: Yup.string().required(t('validation.fieldIsRequired')),
         lastName: Yup.string().required(t('validation.fieldIsRequired')),
-        pesel: Yup.string().required(t('validation.fieldIsRequired')),
-        email: Yup.string().required(t('validation.fieldIsRequired')),
+        pesel: Yup.string()
+            .required(t('validation.fieldIsRequired'))
+            .matches(/^\d{11}$/, t('validation.peselMustHave11Digits')),
+        email: Yup
+            .string()
+            .email(t('validation.invalidEmail'))
+            .required(t('validation.fieldIsRequired')),
         employmentFrom: Yup.string().required(t('validation.fieldIsRequired')),
         company: Yup.object().shape({
             uuid: Yup.string().required(t('validation.fieldIsRequired')),
         }),
         department: Yup.object().shape({
+            uuid: Yup.string().required(t('validation.fieldIsRequired')),
+        }),
+        contractType: Yup.object().shape({
             uuid: Yup.string().required(t('validation.fieldIsRequired')),
         }),
         position: Yup.object().shape({
@@ -97,33 +106,126 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
             postcode: Yup.string().required(t('validation.fieldIsRequired')),
             street: Yup.string().required(t('validation.fieldIsRequired')),
         }),
-        contractType: Yup.object().shape({
-            uuid: Yup.string().required(t('validation.fieldIsRequired')),
-        }),
-        // phone: Yup.array()
-        //     .min(1, "At least one phone number is required")
-        //     .of(
-        //         Yup.string()
-        //             .test('is-not-empty', t('validation.fieldIsRequired'), (value, context) => {
-        //                 console.log(context.parent[0]);
-        //                 if (context.parent[0] === value || context.parent[0] === undefined || context.parent[0] === '') {
-        //                     return false;
-        //                 }
-        //                 return true;
-        //             })
-        //             .required(t('validation.fieldIsRequired'))
-        //     )
-        //     .required(t('validation.fieldIsRequired')),
+        phones: Yup.array()
+            .of(Yup.string().trim())
+            .compact(v => !v)
+            .min(1, t('validation.atLeastOnePhoneIsRequired')),
     });
 
-    const handleSubmit = (values: Employee, formikHelpers: FormikHelpers<Employee>) => {
-        onAddEmployee(values);
-        formikHelpers.resetForm();
-        onClose();
+    const [errorAPI, setErrorAPI] = useState<string | null>(null);
+    const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
+
+    const handleSubmit = async (values: Employee, formikHelpers: FormikHelpers<Employee>) => {
+        console.log(12345);
+        const employeeData = {
+            ...values,
+        };
+
+        setErrorAPI(null);
+        setErrorsAPI(null);
+
+        try {
+            await onAddEmployee(employeeData);
+            formikHelpers.resetForm();
+            onClose();
+        } catch (error: unknown) {
+            const err = error as any;
+
+            const message = err?.response?.data?.message ?? 'Wystąpił nieznany błąd';
+            const errors = err?.response?.data?.errors ?? null;
+
+            setErrorAPI(message);
+            setErrorsAPI(errors);
+        }
     };
 
+    const {
+        data: dataCompanies,
+        isLoading: loadingCompanies,
+        isError: isErrorCompanies
+    } = useCompaniesQuery(
+        1000,
+        1,
+        'fullName',
+        'asc'
+    );
+
+    const companies = dataCompanies?.items.map(({ uuid, fullName }) => ({
+        uuid,
+        fullName,
+    })) ?? [];
+
+    const {
+        data: dataDepartments,
+        isLoading: loadingDepartments,
+        isError: isErrorDepartments
+    } = useDepartmentsQuery(
+        1000,
+        1,
+        'name',
+        'asc',
+        null,
+        'company'
+    );
+
+    const departments = dataDepartments?.items.map(({ uuid, name, company }) => ({
+        uuid,
+        name,
+        company: {
+            uuid: company.uuid,
+        }
+    })) ?? [];
+
+    const {
+        data: dataPositions,
+        isLoading: loadingPositions,
+        isError: isErrorPositions
+    } = usePositionsQuery(
+        1000,
+        1,
+        'name',
+        'asc'
+    );
+
+    const positions = dataPositions?.items.map(({ uuid, name }) => ({
+        uuid,
+        name,
+    })) ?? [];
+
+    const {
+        data: dataContractTypes,
+        isLoading: loadingContractTypes,
+        isError: isErrorContractTypes
+    } = useContractTypesQuery(
+        1000,
+        1,
+        'name',
+        'asc'
+    );
+
+    const contractTypes = dataContractTypes?.items.map(({ uuid, name }) => ({
+        uuid,
+        name,
+    })) ?? [];
+
+    const {
+        data: dataRoles,
+        isLoading: loadingRoles,
+        isError: isErrorRoles
+    } = useRolesQuery(
+        1000,
+        1,
+        'name',
+        'asc'
+    );
+
+    const roles = dataRoles?.items.map(({ uuid, name }) => ({
+        uuid,
+        name,
+    })) ?? [];
+
     return (
-        <Dialog open={open} onClose={onClose} fullWidth maxWidth="lg">
+        <Dialog open={open} onClose={onClose} fullWidth maxWidth="xl">
             <DialogTitle
                 sx={{
                     backgroundColor: '#34495e',
@@ -134,6 +236,427 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
             >
                 {t('employee.modal.add.title')}
             </DialogTitle>
+            <Formik<Employee>
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+            >
+                {({ values, errors, touched }) => (
+                    <Form noValidate>
+                        <DialogContent>
+                            {errorAPI && (
+                                <div style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {errorAPI}
+                                </div>
+                            )}
+
+                            {errorsAPI && (
+                                <ul style={{ color: 'red', marginBottom: '1rem' }}>
+                                    {Object.entries(errorsAPI).map(([field, msg]) => (
+                                        <li key={field}>
+                                            <strong>{field}:</strong> {msg}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                            <Box
+                                display="grid"
+                                gridTemplateColumns="repeat(4, 1fr)"
+                                gap={2}
+                            >
+                                {/* Kolumna 1 */}
+                                <Box sx={{
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    padding: '8px',
+                                    transition: 'border-color 0.3s ease',
+                                    '&:hover': {
+                                        borderColor: '#34495e',
+                                    },
+                                }}
+                                >
+                                    <Typography sx={{ marginBottom: 1 }}>{t('employee.form.box.personalData')}</Typography>
+                                    <Field
+                                        as={TextField}
+                                        name="firstName"
+                                        label={t('employee.form.field.firstName')}
+                                        fullWidth
+                                        margin="normal"
+                                        error={touched.firstName && Boolean(errors.firstName)}
+                                        helperText={touched.firstName && errors.firstName}
+                                        required
+                                    />
+                                    <Field
+                                        as={TextField}
+                                        name="lastName"
+                                        label={t('employee.form.field.lastName')}
+                                        fullWidth
+                                        margin="normal"
+                                        error={touched.lastName && Boolean(errors.lastName)}
+                                        helperText={touched.lastName && errors.lastName}
+                                        required
+                                    />
+                                    <Field
+                                        as={TextField}
+                                        name="pesel"
+                                        label={t('employee.form.field.pesel')}
+                                        multiline
+                                        fullWidth
+                                        margin="normal"
+                                        error={touched.pesel && Boolean(errors.pesel)}
+                                        helperText={touched.pesel && errors.pesel}
+                                        required
+                                    />
+                                    <Field
+                                        as={TextField}
+                                        name="internalCode"
+                                        label={t('employee.form.field.internalCode')}
+                                        multiline
+                                        fullWidth
+                                        margin="normal"
+                                        error={touched.internalCode && Boolean(errors.internalCode)}
+                                        helperText={touched.internalCode && errors.internalCode}
+                                    />
+                                    <Field
+                                        as={TextField}
+                                        name="externalCode"
+                                        label={t('employee.form.field.externalCode')}
+                                        multiline
+                                        fullWidth
+                                        margin="normal"
+                                        error={touched.externalCode && Boolean(errors.externalCode)}
+                                        helperText={touched.externalCode && errors.externalCode}
+                                    />
+                                </Box>
+
+                                {/* Kolumna 2 */}
+                                <Box sx={{
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    padding: '8px',
+                                    transition: 'border-color 0.3s ease',
+                                    '&:hover': {
+                                        borderColor: '#34495e',
+                                    },
+                                }}>
+                                    <Typography sx={{ marginBottom: 1 }}>{t('employee.form.box.employmentData')}</Typography>
+                                    <Field
+                                        as={TextField}
+                                        type="date"
+                                        name="employmentFrom"
+                                        value={values.employmentFrom}
+                                        label={t('employee.form.field.employmentFrom')}
+                                        fullWidth
+                                        margin="normal"
+                                        InputLabelProps={{ shrink: true }}
+                                        error={touched.employmentFrom && Boolean(errors.employmentFrom)}
+                                        helperText={touched.employmentFrom && errors.employmentFrom}
+                                        required
+                                    />
+                                    <Field
+                                        as={TextField}
+                                        select
+                                        fullWidth
+                                        name="company.uuid"
+                                        label={t('department.form.field.company')}
+                                        margin="normal"
+                                        error={touched?.company?.uuid && Boolean(errors?.company?.uuid)}
+                                        helperText={touched?.company?.uuid && errors?.company?.uuid}
+                                        required
+                                    >
+                                        {loadingCompanies && <MenuItem disabled>{t('common.loading')}</MenuItem>}
+                                        {isErrorCompanies && <MenuItem disabled>{t('company.list.loading.failed')}</MenuItem>}
+                                        {!loadingCompanies && companies.map(company => (
+                                            <MenuItem key={company.uuid} value={company.uuid}>
+                                                {company.fullName}
+                                            </MenuItem>
+                                        ))}
+                                    </Field>
+                                    <Field
+                                        as={TextField}
+                                        select
+                                        fullWidth
+                                        name="department.uuid"
+                                        label={t('employee.form.field.department')}
+                                        margin="normal"
+                                        disabled={!values.company.uuid}
+                                        error={touched?.department?.uuid && Boolean(errors?.department?.uuid)}
+                                        helperText={touched?.department?.uuid && errors?.department?.uuid}
+                                        required
+                                    >
+                                        <MenuItem value="">
+                                            — {t('common.lack')} —
+                                        </MenuItem>
+                                        {loadingDepartments && <MenuItem disabled>{t('common.loading')}</MenuItem>}
+                                        {isErrorDepartments && <MenuItem disabled>{t('department.list.loading.failed')}</MenuItem>}
+                                        {!loadingDepartments &&
+                                            departments
+                                                .filter(d => d.company.uuid === values.company.uuid)
+                                                .map(d => (
+                                                    <MenuItem key={d.uuid} value={d.uuid}>
+                                                        {d.name}
+                                                    </MenuItem>
+                                                ))}
+                                    </Field>
+                                    <Field
+                                        as={TextField}
+                                        select
+                                        fullWidth
+                                        name="position.uuid"
+                                        label={t('employee.form.field.position')}
+                                        margin="normal"
+                                        disabled={!values.department.uuid}
+                                        error={touched?.position?.uuid && Boolean(errors?.position?.uuid)}
+                                        helperText={touched?.position?.uuid && errors?.position?.uuid}
+                                        required
+                                    >
+                                        {loadingPositions && <MenuItem disabled>{t('common.loading')}</MenuItem>}
+                                        {isErrorPositions && <MenuItem disabled>{t('position.list.loading.failed')}</MenuItem>}
+                                        {!loadingPositions &&
+                                            positions
+                                                //.filter(p => p.department.uuid === values.department.uuid)
+                                                .map(p => (
+                                                    <MenuItem key={p.uuid} value={p.uuid}>
+                                                        {p.name}
+                                                    </MenuItem>
+                                                ))}
+                                    </Field>
+                                    <Field
+                                        as={TextField}
+                                        select
+                                        fullWidth
+                                        name="contractType.uuid"
+                                        label={t('employee.form.field.contractType')}
+                                        margin="normal"
+                                        error={touched?.contractType?.uuid && Boolean(errors?.contractType?.uuid)}
+                                        helperText={touched?.contractType?.uuid && errors?.contractType?.uuid}
+                                        required
+                                    >
+                                        {loadingContractTypes && <MenuItem disabled>{t('common.loading')}</MenuItem>}
+                                        {isErrorContractTypes && <MenuItem disabled>{t('contractType.list.loading.failed')}</MenuItem>}
+                                        {!loadingContractTypes && contractTypes.map(contractType => (
+                                            <MenuItem key={contractType.uuid} value={contractType.uuid}>
+                                                {contractType.name}
+                                            </MenuItem>
+                                        ))}
+                                    </Field>
+                                    <Field
+                                        as={TextField}
+                                        type="date"
+                                        name="employmentTo"
+                                        label={t('employee.form.field.employmentTo')}
+                                        fullWidth
+                                        margin="normal"
+                                        InputLabelProps={{ shrink: true }}
+                                        error={touched.employmentTo && Boolean(errors.employmentTo)}
+                                        helperText={touched.employmentTo && errors.employmentTo}
+                                    />
+                                </Box>
+
+                                {/* Kolumna 3 */}
+                                <Box sx={{
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    padding: '8px',
+                                    transition: 'border-color 0.3s ease',
+                                    '&:hover': {
+                                        borderColor: '#34495e',
+                                    },
+                                }}>
+                                    <Typography sx={{ marginBottom: 1 }}>{t('employee.form.box.addressData')}</Typography>
+                                    <Field
+                                        as={TextField}
+                                        select
+                                        fullWidth
+                                        name="address.country"
+                                        label={t('employee.form.field.country')}
+                                        variant="outlined"
+                                        margin="normal"
+                                        error={touched?.address?.country && Boolean(errors?.address?.country)}
+                                        helperText={touched?.address?.country && errors?.address?.country}
+                                        required
+                                    >
+                                        <MenuItem value="Polska">Polska</MenuItem>
+                                        <MenuItem value="Anglia">Anglia</MenuItem>
+                                        <MenuItem value="Niemcy">Niemcy</MenuItem>
+                                    </Field>
+                                    <Field
+                                        as={TextField}
+                                        select
+                                        fullWidth
+                                        name="address.city"
+                                        label={t('employee.form.field.city')}
+                                        variant="outlined"
+                                        margin="normal"
+                                        error={touched?.address?.city && Boolean(errors?.address?.city)}
+                                        helperText={touched?.address?.city && errors?.address?.city}
+                                        required
+                                    >
+                                        <MenuItem value="Gdańsk">Gdańsk</MenuItem>
+                                        <MenuItem value="Sopot">Sopot</MenuItem>
+                                        <MenuItem value="Gdynia">Gdynia</MenuItem>
+                                    </Field>
+                                    <Field
+                                        as={TextField}
+                                        name="address.postcode"
+                                        label={t('employee.form.field.postcode')}
+                                        fullWidth
+                                        margin="normal"
+                                        error={touched?.address?.postcode && Boolean(errors?.address?.postcode)}
+                                        helperText={touched?.address?.postcode && errors?.address?.postcode}
+                                        required
+                                    />
+                                    <Field
+                                        as={TextField}
+                                        name="address.street"
+                                        label={t('employee.form.field.street')}
+                                        fullWidth
+                                        margin="normal"
+                                        error={touched?.address?.street && Boolean(errors?.address?.street)}
+                                        helperText={touched?.address?.street && errors?.address?.street}
+                                        required
+                                    />
+                                </Box>
+
+                                {/* Kolumna 4 */}
+                                <Box sx={{
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    padding: '8px',
+                                    transition: 'border-color 0.3s ease',
+                                    '&:hover': {
+                                        borderColor: '#34495e',
+                                    },
+                                }}>
+                                    <Typography sx={{ marginBottom: 3 }}>{t('employee.form.box.contactData')}</Typography>
+                                    <FieldArray name="phones">
+                                        {({ push, remove }) => {
+                                            const phonesSectionError =
+                                                typeof errors.phones === 'string' && touched.phones;
+
+                                            return (
+                                                <Box>
+                                                    {values.phones.map((_, index) => (
+                                                        <Box key={index} display="flex" alignItems="center" mb={2}>
+                                                            <Field
+                                                                as={TextField}
+                                                                name={`phones[${index}]`}
+                                                                type="tel"
+                                                                label={`${t('company.form.field.phone')} ${index + 1}`}
+                                                                fullWidth
+                                                                error={index === 0 && phonesSectionError}
+                                                                helperText={
+                                                                    index === 0 && phonesSectionError
+                                                                        ? errors.phones
+                                                                        : undefined
+                                                                }
+                                                            />
+
+                                                            {index > 0 && (
+                                                                <IconButton
+                                                                    onClick={() => remove(index)}
+                                                                    color="error"
+                                                                    sx={{ ml: 1 }}
+                                                                >
+                                                                    <RemoveCircleOutlineIcon />
+                                                                </IconButton>
+                                                            )}
+                                                        </Box>
+                                                    ))}
+
+                                                    {values.phones.length < MAX_PHONE_FIELDS && (
+                                                        <IconButton onClick={() => push('')} color="primary">
+                                                            <AddCircleOutlineIcon />
+                                                        </IconButton>
+                                                    )}
+                                                </Box>
+                                            );
+                                        }}
+                                    </FieldArray>
+                                    <Field
+                                        as={TextField}
+                                        type="email"
+                                        name="email"
+                                        label={t('employee.form.field.email')}
+                                        fullWidth
+                                        margin="normal"
+                                        error={touched?.email && Boolean(errors?.email)}
+                                        helperText={touched?.email && errors?.email}
+                                        required
+                                    />
+                                </Box>
+                            </Box>
+                            <Box
+                                display="grid"
+                                gridTemplateColumns="1fr"
+                                gap={2}
+                                sx={{
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    padding: '8px',
+                                    transition: 'border-color 0.3s ease',
+                                    '&:hover': {
+                                        borderColor: '#34495e',
+                                    },
+                                    marginTop: '5px',
+                                }}
+                            >
+                                <Typography sx={{ marginBottom: 1 }}>{t('employee.form.box.systemData')}</Typography>
+                                <Box
+                                    display="grid"
+                                    gridTemplateColumns="repeat(4, 1fr)"
+                                    gap={2}
+                                >
+                                    <Box>
+                                        <FormControlLabel
+                                            control={
+                                                <Field
+                                                    as={Checkbox}
+                                                    name="active"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label={t('employee.form.field.active')}
+                                            checked={values.active}
+                                        />
+                                    </Box>
+                                    <Box>
+                                        <Field
+                                            as={TextField}
+                                            select
+                                            fullWidth
+                                            name="role.uuid"
+                                            label={t('employee.form.field.role')}
+                                            margin="normal"
+                                            error={touched?.role?.uuid && Boolean(errors?.role?.uuid)}
+                                            helperText={touched?.role?.uuid && errors?.role?.uuid}
+                                            required
+                                        >
+                                            {loadingRoles && <MenuItem disabled>{t('common.loading')}</MenuItem>}
+                                            {isErrorRoles && <MenuItem disabled>{t('role.list.loading.failed')}</MenuItem>}
+                                            {!loadingRoles &&
+                                                roles
+                                                    .map(r => (
+                                                        <MenuItem key={r.uuid} value={r.uuid}>
+                                                            {r.name}
+                                                        </MenuItem>
+                                                    ))}
+                                        </Field>
+                                    </Box>
+                                </Box>
+                            </Box>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={onClose} variant="contained" sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}>
+                                {t('common.button.cancel')}
+                            </Button>
+                            <Button type="submit" variant="contained" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}>
+                                {t('common.button.save')}
+                            </Button>
+                        </DialogActions>
+                    </Form>
+                )}
+            </Formik>
         </Dialog>
     );
 };

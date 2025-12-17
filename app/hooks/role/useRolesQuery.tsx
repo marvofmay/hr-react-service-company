@@ -17,7 +17,7 @@ const fetchRoles = async (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase: string
+    phrase?: string | null
 ): Promise<RolesResponse> => {
     try {
         const response = await axios.get(`${SERVICE_COMPANY_URL}/api/roles`, {
@@ -43,7 +43,7 @@ const useRolesQuery = (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase: string
+    phrase?: string | null
 ) => {
     const { t } = useTranslation();
 

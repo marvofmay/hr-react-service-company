@@ -17,7 +17,7 @@ const fetchContractTypes = async (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase: string
+    phrase?: string | null
 ): Promise<ContractTypesResponse> => {
     try {
         const response = await axios.get(`${SERVICE_COMPANY_URL}/api/contract_types`, {
@@ -43,7 +43,7 @@ const useContractTypesQuery = (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase: string
+    phrase?: string | null
 ) => {
     const { t } = useTranslation();
 

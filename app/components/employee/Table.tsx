@@ -95,6 +95,7 @@ const EmployeesTable = () => {
     };
 
     const handleAdd = async (newEmployee: Employee): Promise<void> => {
+        console.log(123);
         return new Promise((resolve, reject) => {
             addEmployeeMutate(newEmployee, {
                 onSuccess: (message: string) => {

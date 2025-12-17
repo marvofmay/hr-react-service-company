@@ -17,8 +17,8 @@ const fetchDepartments = async (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase?: string,
-    includes?: string,
+    phrase?: string | null,
+    includes?: string | null,
 ): Promise<DepartmentsResponse> => {
     try {
         const params: any = {
@@ -54,7 +54,7 @@ const useDepartmentsQuery = (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase: string | null,
+    phrase?: string | null,
     includes?: string | null,
 ) => {
     const { t } = useTranslation();

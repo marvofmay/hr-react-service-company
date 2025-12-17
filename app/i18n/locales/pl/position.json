@@ -1,6 +1,9 @@
 {
     "list": {
-        "title": "Lista stanowisk"
+        "title": "Lista stanowisk",
+        "loading": {
+            "failed": "Nie udało się pobrać listy stanowisk"
+        }
     },
     "modal": {
         "add": {

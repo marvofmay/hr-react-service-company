@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
 
 const addEmployee = async (employee: Employee, token: string): Promise<string> => {
+    console.log('eee');
     const response = await axios.post(
         `${SERVICE_COMPANY_URL}/api/employees`,
         {
@@ -27,16 +28,19 @@ const addEmployee = async (employee: Employee, token: string): Promise<string> =
         },
         { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }
     );
+
     return response.data.message;
 };
 
 const useAddEmployeeMutation = () => {
+    console.log('wwww');
     const { t } = useTranslation();
 
     return useMutation({
         mutationFn: (employee: Employee) => {
             const token = localStorage.getItem("auth_token");
             if (!token) throw new Error(t('common.message.tokenIsMissing'));
+
             return addEmployee(employee, token);
         }
     });

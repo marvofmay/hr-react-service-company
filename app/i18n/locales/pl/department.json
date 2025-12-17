@@ -1,6 +1,9 @@
 {
     "list": {
-        "title": "Lista departamentów"
+        "title": "Lista departamentów",
+        "loading": {
+            "failed": "Nie udało się pobrać listy departamentów"
+        }
     },
     "settings": {
         "title": "Ustawienia departamentów"

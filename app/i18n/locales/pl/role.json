@@ -1,6 +1,9 @@
 {
     "list": {
-        "title": "Lista ról"
+        "title": "Lista ról",
+        "loading": {
+            "failed": "Nie udało się pobrać listy ról"
+        }
     },
     "modal": {
         "add": {

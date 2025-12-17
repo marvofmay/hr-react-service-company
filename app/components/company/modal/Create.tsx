@@ -136,6 +136,12 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
             postcode: Yup.string().required(t('validation.fieldIsRequired')),
             street: Yup.string().required(t('validation.fieldIsRequired')),
         }),
+        emails: Yup.array()
+            .of(
+                Yup.string()
+                    .email(t('validation.invalidEmail'))
+                    .nullable()
+            ),
     });
 
     const [errorAPI, setErrorAPI] = useState<string | null>(null);
@@ -443,7 +449,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                                                 <Field
                                                                     as={TextField}
                                                                     name={`emails[${index}]`}
-                                                                    type="tel"
+                                                                    type="email"
                                                                     label={`${t('company.form.field.email')} ${index + 1}`}
                                                                     fullWidth
                                                                     error={Boolean(
@@ -492,7 +498,6 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                                                                 <Field
                                                                     as={TextField}
                                                                     name={`webs[${index}]`}
-                                                                    type="tel"
                                                                     label={`${t('company.form.field.web')} ${index + 1}`}
                                                                     fullWidth
                                                                     error={Boolean(

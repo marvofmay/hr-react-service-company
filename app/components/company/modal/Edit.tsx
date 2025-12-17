@@ -80,6 +80,12 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
             postcode: Yup.string().required(t('validation.fieldIsRequired')),
             street: Yup.string().required(t('validation.fieldIsRequired')),
         }),
+        emails: Yup.array()
+            .of(
+                Yup.string()
+                    .email(t('validation.invalidEmail'))
+                    .nullable()
+            )
     });
 
     const [industries, setIndustries] = useState<{ uuid: string; name: string }[]>([]);
@@ -496,7 +502,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                                                 <Field
                                                                     as={TextField}
                                                                     name={`emails[${index}]`}
-                                                                    type="tel"
+                                                                    type="email"
                                                                     label={`${t('company.form.field.email')} ${index + 1}`}
                                                                     fullWidth
                                                                     error={Boolean(
@@ -545,7 +551,6 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                                                 <Field
                                                                     as={TextField}
                                                                     name={`webs[${index}]`}
-                                                                    type="tel"
                                                                     label={`${t('company.form.field.web')} ${index + 1}`}
                                                                     fullWidth
                                                                     error={Boolean(
@@ -621,32 +626,6 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
                                                 checked={values.active}
                                             />
                                         </Box>
-                                        {/* <Box>
-                                            <Field
-                                                as={TextField}
-                                                type="datetime-local"
-                                                name="createdAt"
-                                                label={t('company.form.field.createdAt')}
-                                                value={values.createdAt}
-                                                onChange={handleChange}
-                                                fullWidth
-                                                margin="normal"
-                                                InputLabelProps={{ shrink: true }}
-                                            />
-                                        </Box>
-                                        <Box>
-                                            <Field
-                                                as={TextField}
-                                                type="datetime-local"
-                                                name="updatedAt"
-                                                label={t('company.form.field.updatedAt')}
-                                                value={values.updatedAt}
-                                                onChange={handleChange}
-                                                fullWidth
-                                                margin="normal"
-                                                InputLabelProps={{ shrink: true }}
-                                            />
-                                        </Box> */}
                                     </Box>
                                 </Box>
                             </DialogContent>

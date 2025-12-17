@@ -17,8 +17,8 @@ const fetchCompanies = async (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase?: string,
-    includes?: string,
+    phrase?: string | null,
+    includes?: string | null,
 ): Promise<CompaniesResponse> => {
     try {
         const params: any = {
@@ -54,7 +54,7 @@ const useCompaniesQuery = (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase: string | null,
+    phrase?: string | null,
     includes?: string | null,
 ) => {
     const { t } = useTranslation();
