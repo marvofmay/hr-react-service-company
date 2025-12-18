@@ -22942,3 +22942,336 @@ Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
 [30:32:23.784] Browser LOG     [2;38;2;124;124;124m%s[0m undefined
 [30:32:30.725] Browser LOG     undefined
 [30:32:30.725] Browser LOG     [2;38;2;124;124;124m%s[0m undefined
+[30:38:21.386] Browser LOG     undefined
+[30:38:21.386] Browser LOG     [2;38;2;124;124;124m%s[0m undefined
+[30:38:21.603] Browser LOG     undefined
+[30:38:21.603] Browser LOG     [2;38;2;124;124;124m%s[0m undefined
+[30:38:21.603] Browser LOG     undefined
+[30:38:21.603] Browser LOG     [2;38;2;124;124;124m%s[0m undefined
+[30:38:23.491] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[30:38:23.841] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[30:38:25.219] Browser LOG     undefined
+[30:38:25.219] Browser LOG     [2;38;2;124;124;124m%s[0m undefined
+[30:38:25.374] Browser LOG     undefined
+[30:38:25.374] Browser LOG     [2;38;2;124;124;124m%s[0m undefined
+[30:38:32.311] Browser LOG     undefined
+[30:38:32.311] Browser LOG     [2;38;2;124;124;124m%s[0m undefined
+[30:39:33.497] Server  LOG      ✓ Compiled in 58ms
+[30:39:33.926] Browser LOG     descendantUuids undefined
+[30:39:33.926] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:39:33.926] Browser LOG     descendantUuids undefined
+[30:39:33.926] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:39:33.926] Browser LOG     descendantUuids undefined
+[30:39:33.926] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:39:34.029] Browser LOG     descendantUuids undefined
+[30:39:34.029] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:39:40.904] Browser LOG     descendantUuids undefined
+[30:39:40.904] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:39:52.335] Server  LOG      ✓ Compiled in 32ms
+[30:39:52.642] Browser LOG     descendantUuids undefined
+[30:39:52.642] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:39:52.642] Browser LOG     descendantUuids undefined
+[30:39:52.642] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:39:52.642] Browser LOG     descendantUuids undefined
+[30:39:52.642] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:39:52.750] Browser LOG     descendantUuids undefined
+[30:39:52.750] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:39:59.796] Browser LOG     descendantUuids undefined
+[30:39:59.796] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:40:14.483] Server  LOG      ✓ Compiled in 28ms
+[30:40:14.733] Browser LOG     descendantUuids undefined
+[30:40:14.733] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:40:14.733] Browser LOG     descendantUuids undefined
+[30:40:14.733] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:40:14.835] Browser LOG     descendantUuids undefined
+[30:40:14.835] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:40:21.841] Browser LOG     descendantUuids undefined
+[30:40:21.841] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:40:21.841] Browser LOG     descendantUuids undefined
+[30:40:21.841] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:40:21.973] Browser LOG     descendantUuids undefined
+[30:40:21.973] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:40:22.170] Browser LOG     descendantUuids undefined
+[30:40:22.170] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:42:38.322] Server  LOG      ✓ Compiled in 43ms
+[30:42:38.562] Browser LOG     descendantUuids undefined
+[30:42:38.562] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:42:38.562] Browser LOG     descendantUuids undefined
+[30:42:38.562] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:42:38.705] Browser LOG     descendantUuids undefined
+[30:42:38.705] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:42:39.815] Browser ERROR   Query data cannot be undefined. Please make sure to return a value other than undefined from your query function. Affected query key: ["company","ab20a67e-1e16-4441-9be4-b71d172b8edd","descendantUuids"]
+[30:42:39.815] Browser LOG     descendantUuids undefined
+[30:42:39.815] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:42:39.815] Browser ERROR   unhandledRejection: ReferenceError: token is not defined
+[30:43:52.135] Server  LOG      ✓ Compiled in 89ms
+[30:43:52.638] Browser LOG     descendantUuids undefined
+[30:43:52.638] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:43:52.638] Browser ERROR   Query data cannot be undefined. Please make sure to return a value other than undefined from your query function. Affected query key: ["company","ab20a67e-1e16-4441-9be4-b71d172b8edd","descendantUuids"]
+[30:43:52.638] Browser LOG     descendantUuids undefined
+[30:43:52.638] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:43:56.103] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[30:43:56.887] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[30:43:57.275] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[30:44:00.375] Browser LOG     descendantUuids undefined
+[30:44:00.375] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:44:00.375] Browser ERROR   Query data cannot be undefined. Please make sure to return a value other than undefined from your query function. Affected query key: ["company","ab20a67e-1e16-4441-9be4-b71d172b8edd","descendantUuids"]
+[30:44:00.375] Browser LOG     descendantUuids undefined
+[30:44:00.375] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:46:33.160] Browser LOG     descendantUuids undefined
+[30:46:33.160] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:46:33.160] Browser ERROR   Query data cannot be undefined. Please make sure to return a value other than undefined from your query function. Affected query key: ["company","ab20a67e-1e16-4441-9be4-b71d172b8edd","descendantUuids"]
+[30:46:33.160] Browser LOG     descendantUuids undefined
+[30:46:33.160] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:46:34.704] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[30:46:35.069] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[30:46:36.968] Browser LOG     descendantUuids undefined
+[30:46:36.968] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:46:36.968] Browser ERROR   Query data cannot be undefined. Please make sure to return a value other than undefined from your query function. Affected query key: ["company","ab20a67e-1e16-4441-9be4-b71d172b8edd","descendantUuids"]
+[30:46:36.968] Browser LOG     descendantUuids undefined
+[30:46:36.968] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:47:52.866] Browser LOG     descendantUuids undefined
+[30:47:52.866] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:47:52.866] Browser ERROR   Query data cannot be undefined. Please make sure to return a value other than undefined from your query function. Affected query key: ["company","ab20a67e-1e16-4441-9be4-b71d172b8edd","descendantUuids"]
+[30:47:52.866] Browser LOG     descendantUuids undefined
+[30:47:52.866] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:47:52.978] Browser LOG     descendantUuids undefined
+[30:47:52.978] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:47:54.052] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[30:47:54.345] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[30:47:56.243] Browser LOG     descendantUuids undefined
+[30:47:56.243] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:47:56.243] Browser ERROR   Query data cannot be undefined. Please make sure to return a value other than undefined from your query function. Affected query key: ["company","ab20a67e-1e16-4441-9be4-b71d172b8edd","descendantUuids"]
+[30:47:56.243] Browser LOG     descendantUuids undefined
+[30:47:56.243] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:48:46.145] Server  LOG      ✓ Compiled in 28ms
+[30:48:47.087] Browser LOG     descendantUuids undefined
+[30:48:47.087] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:48:47.087] Browser LOG     descendantUuids undefined
+[30:48:47.087] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:48:47.087] Browser ERROR   Query data cannot be undefined. Please make sure to return a value other than undefined from your query function. Affected query key: ["company","ab20a67e-1e16-4441-9be4-b71d172b8edd","descendantUuids"]
+[30:48:47.087] Browser LOG     descendantUuids undefined
+[30:48:47.087] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:48:48.217] Browser LOG     descendantUuids undefined
+[30:48:48.217] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:48:48.341] Browser LOG     descendantUuids []
+[30:48:48.342] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids []
+[30:48:48.836] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[30:48:49.610] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[30:48:49.869] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[30:48:52.389] Browser LOG     descendantUuids undefined
+[30:48:52.389] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:48:52.563] Browser LOG     descendantUuids []
+[30:48:52.563] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids []
+[30:50:23.828] Server  LOG      ✓ Compiled in 44ms
+[30:50:23.934] Browser ERROR   ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx:18:1
+Parsing ecmascript source code failed
+  16 |
+  17 |     return response.data || [],
+> 18 | };
+     | ^
+  19 |
+  20 | export const useCompanyDescendantUuidsQuery = (companyUUID?: string) => {
+  21 |     const { t } = useTranslation();
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx [Client Component Browser]
+    ./app/components/company/modal/Edit.tsx [Client Component Browser]
+    ./app/components/company/Table.tsx [Client Component Browser]
+    ./app/manage/companies/list/page.tsx [Client Component Browser]
+    ./app/manage/companies/list/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx [Client Component SSR]
+    ./app/components/company/modal/Edit.tsx [Client Component SSR]
+    ./app/components/company/Table.tsx [Client Component SSR]
+    ./app/manage/companies/list/page.tsx [Client Component SSR]
+    ./app/manage/companies/list/page.tsx [Server Component]
+[30:50:25.805] Server  ERROR    ⨯ ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx:18:1
+Parsing ecmascript source code failed
+  16 |
+  17 |     return response.data || [],
+> 18 | };
+     | ^
+  19 |
+  20 | export const useCompanyDescendantUuidsQuery = (companyUUID?: string) => {
+  21 |     const { t } = useTranslation();
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx [Client Component Browser]
+    ./app/components/company/modal/Edit.tsx [Client Component Browser]
+    ./app/components/company/Table.tsx [Client Component Browser]
+    ./app/manage/companies/list/page.tsx [Client Component Browser]
+    ./app/manage/companies/list/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx [Client Component SSR]
+    ./app/components/company/modal/Edit.tsx [Client Component SSR]
+    ./app/components/company/Table.tsx [Client Component SSR]
+    ./app/manage/companies/list/page.tsx [Client Component SSR]
+    ./app/manage/companies/list/page.tsx [Server Component]
+
+
+[30:50:26.055] Browser ERROR   uncaughtError: Error: ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx:18:1
+Parsing ecmascript source code failed
+  16 |
+  17 |     return response.data || [],
+> 18 | };
+     | ^
+  19 |
+  20 | export const useCompanyDescendantUuidsQuery = (companyUUID?: string) => {
+  21 |     const { t } = useTranslation();
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx [Client Component Browser]
+    ./app/components/company/modal/Edit.tsx [Client Component Browser]
+    ./app/components/company/Table.tsx [Client Component Browser]
+    ./app/manage/companies/list/page.tsx [Client Component Browser]
+    ./app/manage/companies/list/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx [Client Component SSR]
+    ./app/components/company/modal/Edit.tsx [Client Component SSR]
+    ./app/components/company/Table.tsx [Client Component SSR]
+    ./app/manage/companies/list/page.tsx [Client Component SSR]
+    ./app/manage/companies/list/page.tsx [Server Component]
+
+
+[30:50:26.208] Browser ERROR   ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx:18:1
+Parsing ecmascript source code failed
+  16 |
+  17 |     return response.data || [],
+> 18 | };
+     | ^
+  19 |
+  20 | export const useCompanyDescendantUuidsQuery = (companyUUID?: string) => {
+  21 |     const { t } = useTranslation();
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx [Client Component Browser]
+    ./app/components/company/modal/Edit.tsx [Client Component Browser]
+    ./app/components/company/Table.tsx [Client Component Browser]
+    ./app/manage/companies/list/page.tsx [Client Component Browser]
+    ./app/manage/companies/list/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx [Client Component SSR]
+    ./app/components/company/modal/Edit.tsx [Client Component SSR]
+    ./app/components/company/Table.tsx [Client Component SSR]
+    ./app/manage/companies/list/page.tsx [Client Component SSR]
+    ./app/manage/companies/list/page.tsx [Server Component]
+[30:50:26.208] Browser ERROR   ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx:18:1
+Parsing ecmascript source code failed
+  16 |
+  17 |     return response.data || [],
+> 18 | };
+     | ^
+  19 |
+  20 | export const useCompanyDescendantUuidsQuery = (companyUUID?: string) => {
+  21 |     const { t } = useTranslation();
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx [Client Component Browser]
+    ./app/components/company/modal/Edit.tsx [Client Component Browser]
+    ./app/components/company/Table.tsx [Client Component Browser]
+    ./app/manage/companies/list/page.tsx [Client Component Browser]
+    ./app/manage/companies/list/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/hooks/company/useCompanyDescendantUuidsQuery.tsx [Client Component SSR]
+    ./app/components/company/modal/Edit.tsx [Client Component SSR]
+    ./app/components/company/Table.tsx [Client Component SSR]
+    ./app/manage/companies/list/page.tsx [Client Component SSR]
+    ./app/manage/companies/list/page.tsx [Server Component]
+[30:54:02.005] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[30:54:03.212] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[30:54:06.318] Server  LOG      ✓ Compiled in 23ms
+[30:54:07.334] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[30:54:08.067] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[30:54:08.895] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[30:54:09.200] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[30:54:12.483] Browser LOG     descendantUuids undefined
+[30:54:12.483] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:54:12.645] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:54:12.645] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:54:12.645] Browser ERROR   uncaughtError: TypeError: (descendantUuids ?? []) is not iterable
+[30:55:42.614] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[30:55:42.712] Server  LOG      ✓ Compiled in 42ms
+[30:55:42.958] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[30:55:43.881] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[30:55:44.150] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[30:55:45.962] Browser LOG     descendantUuids undefined
+[30:55:45.962] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:55:46.155] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:55:46.155] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:56:06.235] Server  LOG      ✓ Compiled in 83ms
+[30:56:06.571] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:56:06.571] Browser LOG     excludeCompanyUUIDs ["ab20a67e-1e16-4441-9be4-b71d172b8edd"]
+[30:56:06.572] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:56:06.572] Browser LOG     [2;38;2;124;124;124m%s[0m excludeCompanyUUIDs ["ab20a67e-1e16-4441-9be4-b71d172b8edd"]
+[30:56:06.572] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:56:06.572] Browser LOG     excludeCompanyUUIDs ["ab20a67e-1e16-4441-9be4-b71d172b8edd"]
+[30:56:06.572] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:56:06.572] Browser LOG     [2;38;2;124;124;124m%s[0m excludeCompanyUUIDs ["ab20a67e-1e16-4441-9be4-b71d172b8edd"]
+[30:56:06.688] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:56:06.688] Browser LOG     excludeCompanyUUIDs ["ab20a67e-1e16-4441-9be4-b71d172b8edd"]
+[30:56:06.688] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:56:06.688] Browser LOG     [2;38;2;124;124;124m%s[0m excludeCompanyUUIDs ["ab20a67e-1e16-4441-9be4-b71d172b8edd"]
+[30:57:00.938] Server  LOG      ✓ Compiled in 98ms
+[30:57:01.177] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:57:01.177] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:57:01.357] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:57:01.357] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:59:51.097] Server  LOG      ✓ Compiled in 69ms
+[30:59:52.088] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:59:52.088] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:59:52.088] Browser ERROR   uncaughtError: TypeError: (descendantUuids ?? []) is not iterable
+[30:59:53.927] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[30:59:54.828] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[30:59:55.093] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[30:59:57.122] Browser LOG     descendantUuids undefined
+[30:59:57.122] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[30:59:57.262] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:59:57.262] Browser LOG     descendantUuids {"data":["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]}
+[30:59:57.263] Browser ERROR   uncaughtError: TypeError: (descendantUuids ?? []) is not iterable
+[31:04:11.419] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[31:04:11.503] Server  LOG      ✓ Compiled in 44ms
+[31:04:11.669] Server  WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {}
+[31:04:12.614] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[31:04:13.002] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[31:04:14.154] Browser WARN    react-i18next:: useTranslation: You will need to pass in an i18next instance by using initReactI18next {"code":"NO_I18NEXT_INSTANCE"}
+[31:04:14.519] Browser WARN    Image with src "/icons/hr-app-logo.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[31:04:16.206] Browser LOG     descendantUuids undefined
+[31:04:16.206] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids undefined
+[31:04:16.378] Browser LOG     descendantUuids ["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]
+[31:04:16.378] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids ["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]
+[31:04:24.899] Browser LOG     descendantUuids ["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]
+[31:04:24.900] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids ["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]
+[31:04:25.057] Browser LOG     descendantUuids ["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]
+[31:04:25.057] Browser LOG     [2;38;2;124;124;124m%s[0m descendantUuids ["0cd86699-aeff-4360-91bb-6f5fb43269cb","9ae6962e-36a0-469e-9e99-0f360fe2b4a6"]

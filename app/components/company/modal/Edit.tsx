@@ -113,14 +113,9 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
         isError,
     } = useCompanyDescendantUuidsQuery(currentCompanyUUID);
 
-    console.log(descendantUuids);
+    console.log('descendantUuids', descendantUuids);
 
-    const excludeCompanyUUIDs = useMemo<string[]>(() => {
-        return [
-            currentCompanyUUID,
-            ...(descendantUuids ?? []),
-        ];
-    }, [currentCompanyUUID, descendantUuids]);
+    const excludeCompanyUUIDs = [currentCompanyUUID, ...(descendantUuids ?? [])];
 
     const {
         options: companies,
@@ -131,7 +126,7 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
         page: 1,
         sortBy: 'fullName',
         sortDirection: 'asc',
-        excludeCompanyUUIDs,
+        excludeCompanyUUIDs: excludeCompanyUUIDs,
     });
 
     const [errorAPI, setErrorAPI] = useState<string | null>(null);

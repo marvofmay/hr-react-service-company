@@ -1,23 +1,34 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
+import { useTranslation } from 'react-i18next';
 
 const fetchCompanyDescendantUuids = async (
-    companyUUID: string
+    companyUUID: string,
+    token: string
 ): Promise<string[]> => {
-    const { data } = await axios.get<{ uuids: string[] }>(
-        `${SERVICE_COMPANY_URL}companies/${companyUUID}/descendant-uuids`
+    const response = await axios.get<{ data: string[] }>(
+        `${SERVICE_COMPANY_URL}/api/companies/${companyUUID}/descendant-uuids`,
+        {
+            headers: { Authorization: `Bearer ${token}` },
+        }
     );
 
-    return data.uuids;
+    return response.data.data ?? [];
 };
 
 export const useCompanyDescendantUuidsQuery = (companyUUID?: string) => {
+    const { t } = useTranslation();
+
     return useQuery<string[]>({
         queryKey: ['company', companyUUID, 'descendantUuids'],
-        queryFn: async () => fetchCompanyDescendantUuids(companyUUID!),
+        queryFn: async () => {
+            if (!companyUUID) return [];
+            const token = localStorage.getItem('auth_token');
+            if (!token) throw new Error(t('common.message.tokenIsMissing'));
+
+            return fetchCompanyDescendantUuids(companyUUID, token);
+        },
         enabled: !!companyUUID,
-        staleTime: 1000 * 60 * 5,
-        gcTime: 1000 * 60 * 30,
     });
 };
