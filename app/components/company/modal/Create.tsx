@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, MenuItem, FormControlLabel, Box, IconButton, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Button, Autocomplete, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, MenuItem, FormControlLabel, Box, IconButton, Typography } from '@mui/material';
 import { Formik, Form, Field, FormikHelpers, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import Company from '../../../types/Company';
 import { useTranslation } from 'react-i18next';
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";;
-import axios from "axios";
-import { SERVICE_COMPANY_URL } from "@/app/utility/constans";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";;;
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { getCountries } from '@/app/utils/countries';
+import { useCompanyOptions } from '@/app/hooks/company/useCompanyOptions';
+import { useIndustryOptions } from '@/app/hooks/industry/useIndustryOptions';
 
 interface AddCompanyModalProps {
     open: boolean;
@@ -17,7 +19,7 @@ interface AddCompanyModalProps {
 
 const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddCompany }) => {
     const { t } = useTranslation();
-
+    const countries = getCountries(t);
     const initialValues: Company = {
         uuid: '',
         parentCompany: {
@@ -57,70 +59,26 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
     const MAX_EMAIL_FIELDS = 3;
     const MAX_WEB_FIELDS = 3;
 
-    const [industries, setIndustries] = useState<{ uuid: string; name: string }[]>([]);
-    const [loadingIndustries, setLoadingIndustries] = useState(true);
-    const [errorIndustries, setErrorIndustries] = useState<string | null>(null);
+    const {
+        options: industries,
+        isLoading: loadingIndustries,
+    } = useIndustryOptions({
+        pageSize: 1000,
+        page: 1,
+        sortBy: 'name',
+        sortDirection: 'asc'
+    });
 
-    useEffect(() => {
-        if (!open) return;
-
-        const fetchIndustries = async () => {
-            try {
-                const token = localStorage.getItem('auth_token');
-                setLoadingIndustries(true);
-                const response = await axios.get(`${SERVICE_COMPANY_URL}/api/industries`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                    params: {
-                        active: true,
-                        sortBy: "name",
-                        sortDirection: "ASC",
-                        pageSize: 1000
-                    }
-                });
-
-                setIndustries(response.data.data.items || []);
-                setErrorIndustries(null);
-            } catch (err: any) {
-                setErrorIndustries("Nie udało się pobrać listy branż");
-            } finally {
-                setLoadingIndustries(false);
-            }
-        };
-
-        fetchIndustries();
-    }, [open]);
-
-    const [possibleParentCompanies, setPossibleParentCompanies] = useState<{ uuid: string; fullName: string }[]>([]);
-    const [loadingPossibleParentCompanies, setLoadingPossibleParentCompanies] = useState(true);
-    const [errorPossibleParentCompanies, setErrorPossibleParentCompanies] = useState<string | null>(null);
-
-    useEffect(() => {
-        if (!open) return;
-
-        const fetchPossibleParentCompanies = async () => {
-            try {
-                const token = localStorage.getItem('auth_token');
-                setLoadingPossibleParentCompanies(true);
-                const response = await axios.get(`${SERVICE_COMPANY_URL}/api/companies`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                    params: {
-                        sortBy: "fullName",
-                        sortDirection: "ASC",
-                        pageSize: 1000
-                    }
-                });
-
-                setPossibleParentCompanies(response.data.data.items || []);
-                setErrorPossibleParentCompanies(null);
-            } catch (err: any) {
-                setErrorPossibleParentCompanies("Nie udało się pobrać listy firm");
-            } finally {
-                setLoadingPossibleParentCompanies(false);
-            }
-        };
-
-        fetchPossibleParentCompanies();
-    }, [open]);
+    const {
+        options: companies,
+        isLoading: loadingCompanies,
+        isError: isErrorCompanies
+    } = useCompanyOptions({
+        pageSize: 1000,
+        page: 1,
+        sortBy: 'fullName',
+        sortDirection: 'asc'
+    });
 
     const validationSchema = Yup.object({
         fullName: Yup.string().required(t('validation.fieldIsRequired')),
@@ -172,7 +130,17 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
 
     return (
         <div>
-            <Dialog open={open} onClose={onClose} fullWidth maxWidth="xl" >
+            <Dialog
+                open={open}
+                onClose={(_, reason) => {
+                    if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
+                        return;
+                    }
+                    onClose();
+                }}
+                fullWidth
+                maxWidth="xl"
+            >
                 <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.4rem', fontWeight: 'bold' }}>
                     {t('company.modal.add.title')}
                 </DialogTitle>
@@ -181,422 +149,431 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
-                    {({ values, errors, touched }) => (
-                        <Form noValidate>
-                            <DialogContent>
-                                {errorAPI && (
-                                    <div style={{ color: 'red', marginBottom: '1rem' }}>
-                                        {errorAPI}
-                                    </div>
-                                )}
+                    {({ values, errors, touched, setFieldValue, setFieldTouched }) => {
+                        const industryError = touched.industry?.uuid && Boolean(errors.industry?.uuid);
 
-                                {errorsAPI && (
-                                    <ul style={{ color: 'red', marginBottom: '1rem' }}>
-                                        {Object.entries(errorsAPI).map(([field, msg]) => (
-                                            <li key={field}>
-                                                <strong>{field}:</strong> {msg}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                                <Box
-                                    display="grid"
-                                    gridTemplateColumns="repeat(3, 1fr)"
-                                    gap={2}
-                                >
-                                    {/* Kolumna 1 */}
-                                    <Box sx={{
-                                        border: '1px solid #ccc',
-                                        borderRadius: '4px',
-                                        padding: '8px',
-                                        transition: 'border-color 0.3s ease',
-                                        '&:hover': {
-                                            borderColor: '#34495e',
-                                        },
-                                    }}
-                                    >
-                                        <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.mainData')}</Typography>
-                                        <Field
-                                            as={TextField}
-                                            name="fullName"
-                                            label={t('company.form.field.fullName')}
-                                            fullWidth
-                                            margin="normal"
-                                            error={touched.fullName && Boolean(errors.fullName)}
-                                            helperText={touched.fullName && errors.fullName}
-                                            required
-                                        />
-                                        <Field
-                                            as={TextField}
-                                            name="shortName"
-                                            label={t('company.form.field.shortName')}
-                                            fullWidth
-                                            margin="normal"
-                                            error={touched.shortName && Boolean(errors.shortName)}
-                                            helperText={touched.shortName && errors.shortName}
-                                        />
-                                        <Field
-                                            as={TextField}
-                                            name="internalCode"
-                                            label={t('company.form.field.internalCode')}
-                                            value={values.internalCode}
-                                            fullWidth
-                                            margin="normal"
-                                            error={touched.internalCode && Boolean(errors.internalCode)}
-                                            helperText={touched.internalCode && errors.internalCode}
-                                            required
-                                        />
-                                        <Field
-                                            as={TextField}
-                                            name="nip"
-                                            label={t('company.form.field.nip')}
-                                            fullWidth
-                                            margin="normal"
-                                            error={touched.nip && Boolean(errors.nip)}
-                                            helperText={touched.nip && errors.nip}
-                                            required
-                                        />
-                                        <Field
-                                            as={TextField}
-                                            name="regon"
-                                            label={t('company.form.field.regon')}
-                                            fullWidth
-                                            margin="normal"
-                                            error={touched.regon && Boolean(errors.regon)}
-                                            helperText={touched.regon && errors.regon}
-                                            required
-                                        />
-                                        <Field
-                                            as={TextField}
-                                            select
-                                            fullWidth
-                                            name="industry.uuid"
-                                            label={t('company.form.field.industry')}
-                                            margin="normal"
-                                            error={touched?.industry?.uuid && Boolean(errors?.industry?.uuid)}
-                                            helperText={touched?.industry?.uuid && errors?.industry?.uuid}
-                                            required
-                                        >
-                                            {loadingIndustries && <MenuItem disabled>Ładowanie...</MenuItem>}
-                                            {errorIndustries && <MenuItem disabled>{errorIndustries}</MenuItem>}
-                                            {!loadingIndustries && industries.map(ind => (
-                                                <MenuItem key={ind.uuid} value={ind.uuid}>
-                                                    {ind.name}
-                                                </MenuItem>
+                        return (
+                            <Form noValidate>
+                                <DialogContent>
+                                    {errorAPI && (
+                                        <div style={{ color: 'red', marginBottom: '1rem' }}>
+                                            {errorAPI}
+                                        </div>
+                                    )}
+
+                                    {errorsAPI && (
+                                        <ul style={{ color: 'red', marginBottom: '1rem' }}>
+                                            {Object.entries(errorsAPI).map(([field, msg]) => (
+                                                <li key={field}>
+                                                    <strong>{field}:</strong> {msg}
+                                                </li>
                                             ))}
-                                        </Field>
-                                        <Field
-                                            as={TextField}
-                                            name="description"
-                                            label={t('company.form.field.description')}
-                                            multiline
-                                            rows={5}
-                                            fullWidth
-                                            margin="normal"
-                                            error={touched.description && Boolean(errors.description)}
-                                            helperText={touched.description && errors.description}
-                                        />
-                                        <Field
-                                            as={TextField}
-                                            select
-                                            fullWidth
-                                            name="parentCompany.uuid"
-                                            label={t('company.form.field.parentCompany')}
-                                            margin="normal"
-                                        >
-                                            <MenuItem value="">
-                                                — {t('common.lack')} —
-                                            </MenuItem>
-                                            {loadingPossibleParentCompanies && <MenuItem disabled>{t('common.loading')}</MenuItem>}
-                                            {errorPossibleParentCompanies && <MenuItem disabled>{errorPossibleParentCompanies}</MenuItem>}
-                                            {!loadingPossibleParentCompanies && possibleParentCompanies.map(ppc => (
-                                                <MenuItem key={ppc.uuid} value={ppc.uuid}>
-                                                    {ppc.fullName}
-                                                </MenuItem>
-                                            ))}
-                                        </Field>
-                                    </Box>
-                                    {/* Kolumna 2 */}
-                                    <Box sx={{
-                                        border: '1px solid #ccc',
-                                        borderRadius: '4px',
-                                        padding: '8px',
-                                        transition: 'border-color 0.3s ease',
-                                        '&:hover': {
-                                            borderColor: '#34495e',
-                                        },
-                                    }}>
-                                        <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.addressData')}</Typography>
-                                        <Field
-                                            as={TextField}
-                                            select
-                                            fullWidth
-                                            name="address.country"
-                                            label={t('company.form.field.country')}
-                                            variant="outlined"
-                                            margin="normal"
-                                            error={touched?.address?.country && Boolean(errors?.address?.country)}
-                                            helperText={touched?.address?.country && errors?.address?.country}
-                                            required
-                                        >
-                                            <MenuItem value="Polska">Polska</MenuItem>
-                                            <MenuItem value="Anglia">Anglia</MenuItem>
-                                            <MenuItem value="Niemcy">Niemcy</MenuItem>
-                                        </Field>
-                                        <Field
-                                            as={TextField}
-                                            select
-                                            fullWidth
-                                            name="address.city"
-                                            label={t('company.form.field.city')}
-                                            variant="outlined"
-                                            margin="normal"
-                                            error={touched?.address?.city && Boolean(errors?.address?.city)}
-                                            helperText={touched?.address?.city && errors?.address?.city}
-                                            required
-                                        >
-                                            <MenuItem value="Gdańsk">Gdańsk</MenuItem>
-                                            <MenuItem value="Sopot">Sopot</MenuItem>
-                                            <MenuItem value="Gdynia">Gdynia</MenuItem>
-                                        </Field>
-                                        <Field
-                                            as={TextField}
-                                            name="address.postcode"
-                                            label={t('company.form.field.postcode')}
-                                            fullWidth
-                                            margin="normal"
-                                            error={touched?.address?.postcode && Boolean(errors?.address?.postcode)}
-                                            helperText={touched?.address?.postcode && errors?.address?.postcode}
-                                            required
-                                        />
-                                        <Field
-                                            as={TextField}
-                                            name="address.street"
-                                            label={t('company.form.field.street')}
-                                            fullWidth
-                                            margin="normal"
-                                            error={touched?.address?.street && Boolean(errors?.address?.street)}
-                                            helperText={touched?.address?.street && errors?.address?.street}
-                                            required
-                                        />
-                                    </Box>
-                                    {/* Kolumna 3 */}
-                                    <Box sx={{
-                                        border: '1px solid #ccc',
-                                        borderRadius: '4px',
-                                        padding: '8px',
-                                        transition: 'border-color 0.3s ease',
-                                        '&:hover': {
-                                            borderColor: '#34495e',
-                                        },
-                                    }}>
-                                        <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.additionalData')}</Typography>
-                                        <Box sx={{ marginTop: "23px" }}>
-                                            <FieldArray name="phones">
-                                                {({ push, remove }) => (
-                                                    <Box>
-                                                        {values.phones.map((_, index) => (
-                                                            <Box key={index} display="flex" alignItems="center" mb={2}>
-                                                                <Field
-                                                                    as={TextField}
-                                                                    name={`phones[${index}]`}
-                                                                    type="tel"
-                                                                    label={`${t('company.form.field.phone')} ${index + 1}`}
-                                                                    fullWidth
-                                                                    error={Boolean(
-                                                                        (touched.phones as boolean[] | undefined)?.[index] &&
-                                                                        (errors.phones as string[] | undefined)?.[index]
-                                                                    )}
-                                                                    helperText={
-                                                                        (touched.phones as boolean[] | undefined)?.[index] &&
-                                                                        (errors.phones as string[] | undefined)?.[index]
-                                                                    }
-                                                                //required={index === 0}
-                                                                />
-
-                                                                {index > 0 && (
-                                                                    <IconButton
-                                                                        onClick={() => remove(index)}
-                                                                        color="error"
-                                                                        sx={{ ml: 1 }}
-                                                                    >
-                                                                        <RemoveCircleOutlineIcon />
-                                                                    </IconButton>
-                                                                )}
-                                                            </Box>
-                                                        ))}
-
-                                                        {values.phones.length < MAX_PHONE_FIELDS && (
-                                                            <Box display="flex" alignItems="center">
-                                                                <IconButton onClick={() => push('')} color="primary">
-                                                                    <AddCircleOutlineIcon />
-                                                                </IconButton>
-                                                                <Typography variant="body2" ml={1}>
-                                                                    {t('common.addAnotherPhone')}
-                                                                </Typography>
-                                                            </Box>
-                                                        )}
-                                                    </Box>
-                                                )}
-                                            </FieldArray>
-                                        </Box>
-                                        <Box sx={{ marginTop: "58px" }}>
-                                            <FieldArray name="emails">
-                                                {({ push, remove }) => (
-                                                    <Box>
-                                                        {values.emails.map((_, index) => (
-                                                            <Box key={index} display="flex" alignItems="center" mb={2}>
-                                                                <Field
-                                                                    as={TextField}
-                                                                    name={`emails[${index}]`}
-                                                                    type="email"
-                                                                    label={`${t('company.form.field.email')} ${index + 1}`}
-                                                                    fullWidth
-                                                                    error={Boolean(
-                                                                        (touched.emails as boolean[] | undefined)?.[index] &&
-                                                                        (errors.emails as string[] | undefined)?.[index]
-                                                                    )}
-                                                                    helperText={
-                                                                        (touched.emails as boolean[] | undefined)?.[index] &&
-                                                                        (errors.emails as string[] | undefined)?.[index]
-                                                                    }
-                                                                //required={index === 0}
-                                                                />
-
-                                                                {index > 0 && (
-                                                                    <IconButton
-                                                                        onClick={() => remove(index)}
-                                                                        color="error"
-                                                                        sx={{ ml: 1 }}
-                                                                    >
-                                                                        <RemoveCircleOutlineIcon />
-                                                                    </IconButton>
-                                                                )}
-                                                            </Box>
-                                                        ))}
-
-                                                        {values.emails.length < MAX_EMAIL_FIELDS && (
-                                                            <Box display="flex" alignItems="center">
-                                                                <IconButton onClick={() => push('')} color="primary">
-                                                                    <AddCircleOutlineIcon />
-                                                                </IconButton>
-                                                                <Typography variant="body2" ml={1}>
-                                                                    {t('common.addAnotherEmail')}
-                                                                </Typography>
-                                                            </Box>
-                                                        )}
-                                                    </Box>
-                                                )}
-                                            </FieldArray>
-                                        </Box>
-                                        <Box sx={{ marginTop: "55px" }}>
-                                            <FieldArray name="webs">
-                                                {({ push, remove }) => (
-                                                    <Box>
-                                                        {values.webs.map((_, index) => (
-                                                            <Box key={index} display="flex" alignItems="center" mb={2}>
-                                                                <Field
-                                                                    as={TextField}
-                                                                    name={`webs[${index}]`}
-                                                                    label={`${t('company.form.field.web')} ${index + 1}`}
-                                                                    fullWidth
-                                                                    error={Boolean(
-                                                                        (touched.webs as boolean[] | undefined)?.[index] &&
-                                                                        (errors.webs as string[] | undefined)?.[index]
-                                                                    )}
-                                                                    helperText={
-                                                                        (touched.webs as boolean[] | undefined)?.[index] &&
-                                                                        (errors.webs as string[] | undefined)?.[index]
-                                                                    }
-                                                                //required={index === 0}
-                                                                />
-
-                                                                {index > 0 && (
-                                                                    <IconButton
-                                                                        onClick={() => remove(index)}
-                                                                        color="error"
-                                                                        sx={{ ml: 1 }}
-                                                                    >
-                                                                        <RemoveCircleOutlineIcon />
-                                                                    </IconButton>
-                                                                )}
-                                                            </Box>
-                                                        ))}
-
-                                                        {values.webs.length < MAX_WEB_FIELDS && (
-                                                            <Box display="flex" alignItems="center">
-                                                                <IconButton onClick={() => push('')} color="primary">
-                                                                    <AddCircleOutlineIcon />
-                                                                </IconButton>
-                                                                <Typography variant="body2" ml={1}>
-                                                                    {t('common.addAnotherWeb')}
-                                                                </Typography>
-                                                            </Box>
-                                                        )}
-                                                    </Box>
-                                                )}
-                                            </FieldArray>
-                                        </Box>
-                                    </Box>
-                                </Box>
-                                <Box
-                                    display="grid"
-                                    gridTemplateColumns="1fr"
-                                    gap={2}
-                                    sx={{
-                                        border: '1px solid #ccc',
-                                        borderRadius: '4px',
-                                        padding: '8px',
-                                        transition: 'border-color 0.3s ease',
-                                        '&:hover': {
-                                            borderColor: '#34495e',
-                                        },
-                                        marginTop: '5px',
-                                    }}
-                                >
-                                    <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.systemData')}</Typography>
+                                        </ul>
+                                    )}
                                     <Box
                                         display="grid"
-                                        gridTemplateColumns="repeat(4, 1fr)"
+                                        gridTemplateColumns="repeat(3, 1fr)"
                                         gap={2}
                                     >
-                                        <Box>
-                                            <FormControlLabel
-                                                control={
-                                                    <Field
-                                                        as={Checkbox}
-                                                        name="active"
-                                                        color="primary"
-                                                    />
-                                                }
-                                                label={t('company.form.field.active')}
-                                                checked={values.active}
-                                            />
-                                        </Box>
-                                        {/* <Box>
+                                        {/* Kolumna 1 */}
+                                        <Box sx={{
+                                            border: '1px solid #ccc',
+                                            borderRadius: '4px',
+                                            padding: '8px',
+                                            transition: 'border-color 0.3s ease',
+                                            '&:hover': {
+                                                borderColor: '#34495e',
+                                            },
+                                        }}
+                                        >
+                                            <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.mainData')}</Typography>
                                             <Field
                                                 as={TextField}
-                                                type="datetime-local"
-                                                name="createdAt"
-                                                label={t('company.form.field.createdAt')}
+                                                name="fullName"
+                                                label={t('company.form.field.fullName')}
                                                 fullWidth
-                                                margin="normal"
-                                                InputLabelProps={{ shrink: true }}
+                                                margin="dense"
+                                                error={touched.fullName && Boolean(errors.fullName)}
+                                                helperText={touched.fullName && errors.fullName}
+                                                required
                                             />
-                                        </Box> */}
+                                            <Field
+                                                as={TextField}
+                                                name="shortName"
+                                                label={t('company.form.field.shortName')}
+                                                fullWidth
+                                                margin="dense"
+                                                error={touched.shortName && Boolean(errors.shortName)}
+                                                helperText={touched.shortName && errors.shortName}
+                                            />
+                                            <Field
+                                                as={TextField}
+                                                name="internalCode"
+                                                label={t('company.form.field.internalCode')}
+                                                value={values.internalCode}
+                                                fullWidth
+                                                margin="dense"
+                                                error={touched.internalCode && Boolean(errors.internalCode)}
+                                                helperText={touched.internalCode && errors.internalCode}
+                                                required
+                                            />
+                                            <Field
+                                                as={TextField}
+                                                name="nip"
+                                                label={t('company.form.field.nip')}
+                                                fullWidth
+                                                margin="dense"
+                                                error={touched.nip && Boolean(errors.nip)}
+                                                helperText={touched.nip && errors.nip}
+                                                required
+                                            />
+                                            <Field
+                                                as={TextField}
+                                                name="regon"
+                                                label={t('company.form.field.regon')}
+                                                fullWidth
+                                                margin="dense"
+                                                error={touched.regon && Boolean(errors.regon)}
+                                                helperText={touched.regon && errors.regon}
+                                                required
+                                            />
+                                            <Autocomplete
+                                                options={industries}
+                                                loading={loadingIndustries}
+                                                getOptionLabel={(o) => o.name}
+                                                value={
+                                                    industries.find(i => i.uuid === values.industry?.uuid) || null
+                                                }
+                                                onChange={(_, value) => {
+                                                    setFieldValue('industry.uuid', value ? value.uuid : '');
+                                                }}
+                                                onBlur={() => setFieldTouched('industry.uuid', true)}
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label={t('company.form.field.industry')}
+                                                        margin="dense"
+                                                        required
+                                                        error={industryError}
+                                                        helperText={
+                                                            industryError ? errors.industry?.uuid : undefined
+                                                        }
+                                                    />
+                                                )}
+                                            />
+                                            <Field
+                                                as={TextField}
+                                                name="description"
+                                                label={t('company.form.field.description')}
+                                                multiline
+                                                rows={5}
+                                                fullWidth
+                                                margin="dense"
+                                                error={touched.description && Boolean(errors.description)}
+                                                helperText={touched.description && errors.description}
+                                            />
+                                            <Autocomplete
+                                                options={companies}
+                                                loading={loadingCompanies}
+                                                getOptionLabel={(option) => option.fullName ?? ''}
+                                                isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
+                                                noOptionsText={
+                                                    isErrorCompanies
+                                                        ? t('company.list.loading.failed')
+                                                        : t('common.noOptions')
+                                                }
+                                                loadingText={t('common.loading')}
+                                                popupIcon={<ArrowDropDownIcon />}
+                                                value={
+                                                    companies.find(c => c.uuid === values.parentCompany?.uuid) || null
+                                                }
+                                                onChange={(_, value) => {
+                                                    setFieldValue(
+                                                        'parentCompany.uuid',
+                                                        value ? value.uuid : null
+                                                    );
+                                                }}
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        fullWidth
+                                                        label={t('company.form.field.parentCompany')}
+                                                        margin="dense"
+                                                        error={isErrorCompanies}
+                                                        helperText={isErrorCompanies ? t('company.list.loading.failed') : undefined}
+                                                    />
+                                                )}
+                                            />
+                                        </Box>
+                                        {/* Kolumna 2 */}
+                                        <Box sx={{
+                                            border: '1px solid #ccc',
+                                            borderRadius: '4px',
+                                            padding: '8px',
+                                            transition: 'border-color 0.3s ease',
+                                            '&:hover': {
+                                                borderColor: '#34495e',
+                                            },
+                                        }}>
+                                            <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.addressData')}</Typography>
+                                            <Autocomplete
+                                                options={countries}
+                                                getOptionLabel={(option) => option.label}
+                                                value={countries.find(c => c.label === values.address?.country) || null}
+                                                onChange={(_, value) => {
+                                                    setFieldValue('address.country', value ? value.label : '');
+                                                }}
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label={t('company.form.field.country')}
+                                                        variant="outlined"
+                                                        margin="dense"
+                                                        error={touched?.address?.country && Boolean(errors?.address?.country)}
+                                                        helperText={touched?.address?.country && errors?.address?.country}
+                                                        required
+                                                        fullWidth
+                                                    />
+                                                )}
+                                            />
+                                            <Field
+                                                as={TextField}
+                                                fullWidth
+                                                name="address.city"
+                                                label={t('company.form.field.city')}
+                                                variant="outlined"
+                                                margin="dense"
+                                                error={touched?.address?.city && Boolean(errors?.address?.city)}
+                                                helperText={touched?.address?.city && errors?.address?.city}
+                                                required
+                                            >
+                                            </Field>
+                                            <Field
+                                                as={TextField}
+                                                name="address.postcode"
+                                                label={t('company.form.field.postcode')}
+                                                fullWidth
+                                                margin="dense"
+                                                error={touched?.address?.postcode && Boolean(errors?.address?.postcode)}
+                                                helperText={touched?.address?.postcode && errors?.address?.postcode}
+                                                required
+                                            />
+                                            <Field
+                                                as={TextField}
+                                                name="address.street"
+                                                label={t('company.form.field.street')}
+                                                fullWidth
+                                                margin="dense"
+                                                error={touched?.address?.street && Boolean(errors?.address?.street)}
+                                                helperText={touched?.address?.street && errors?.address?.street}
+                                                required
+                                            />
+                                        </Box>
+                                        {/* Kolumna 3 */}
+                                        <Box sx={{
+                                            border: '1px solid #ccc',
+                                            borderRadius: '4px',
+                                            padding: '8px',
+                                            transition: 'border-color 0.3s ease',
+                                            '&:hover': {
+                                                borderColor: '#34495e',
+                                            },
+                                        }}>
+                                            <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.additionalData')}</Typography>
+                                            <Box sx={{ marginTop: "23px" }}>
+                                                <FieldArray name="phones">
+                                                    {({ push, remove }) => (
+                                                        <Box>
+                                                            {values.phones.map((_, index) => (
+                                                                <Box key={index} display="flex" alignItems="center" mb={2}>
+                                                                    <Field
+                                                                        as={TextField}
+                                                                        name={`phones[${index}]`}
+                                                                        type="tel"
+                                                                        label={`${t('company.form.field.phone')} ${index + 1}`}
+                                                                        fullWidth
+                                                                        error={Boolean(
+                                                                            (touched.phones as boolean[] | undefined)?.[index] &&
+                                                                            (errors.phones as string[] | undefined)?.[index]
+                                                                        )}
+                                                                        helperText={
+                                                                            (touched.phones as boolean[] | undefined)?.[index] &&
+                                                                            (errors.phones as string[] | undefined)?.[index]
+                                                                        }
+                                                                    />
+
+                                                                    {index > 0 && (
+                                                                        <IconButton
+                                                                            onClick={() => remove(index)}
+                                                                            color="error"
+                                                                            sx={{ ml: 1 }}
+                                                                        >
+                                                                            <RemoveCircleOutlineIcon />
+                                                                        </IconButton>
+                                                                    )}
+                                                                </Box>
+                                                            ))}
+
+                                                            {values.phones.length < MAX_PHONE_FIELDS && (
+                                                                <Box display="flex" alignItems="center">
+                                                                    <IconButton onClick={() => push('')} color="primary">
+                                                                        <AddCircleOutlineIcon />
+                                                                    </IconButton>
+                                                                    <Typography variant="body2" ml={1}>
+                                                                        {t('common.addAnotherPhone')}
+                                                                    </Typography>
+                                                                </Box>
+                                                            )}
+                                                        </Box>
+                                                    )}
+                                                </FieldArray>
+                                            </Box>
+                                            <Box sx={{ marginTop: "58px" }}>
+                                                <FieldArray name="emails">
+                                                    {({ push, remove }) => (
+                                                        <Box>
+                                                            {values.emails.map((_, index) => (
+                                                                <Box key={index} display="flex" alignItems="center" mb={2}>
+                                                                    <Field
+                                                                        as={TextField}
+                                                                        name={`emails[${index}]`}
+                                                                        type="email"
+                                                                        label={`${t('company.form.field.email')} ${index + 1}`}
+                                                                        fullWidth
+                                                                        error={Boolean(
+                                                                            (touched.emails as boolean[] | undefined)?.[index] &&
+                                                                            (errors.emails as string[] | undefined)?.[index]
+                                                                        )}
+                                                                        helperText={
+                                                                            (touched.emails as boolean[] | undefined)?.[index] &&
+                                                                            (errors.emails as string[] | undefined)?.[index]
+                                                                        }
+
+                                                                    />
+
+                                                                    {index > 0 && (
+                                                                        <IconButton
+                                                                            onClick={() => remove(index)}
+                                                                            color="error"
+                                                                            sx={{ ml: 1 }}
+                                                                        >
+                                                                            <RemoveCircleOutlineIcon />
+                                                                        </IconButton>
+                                                                    )}
+                                                                </Box>
+                                                            ))}
+
+                                                            {values.emails.length < MAX_EMAIL_FIELDS && (
+                                                                <Box display="flex" alignItems="center">
+                                                                    <IconButton onClick={() => push('')} color="primary">
+                                                                        <AddCircleOutlineIcon />
+                                                                    </IconButton>
+                                                                    <Typography variant="body2" ml={1}>
+                                                                        {t('common.addAnotherEmail')}
+                                                                    </Typography>
+                                                                </Box>
+                                                            )}
+                                                        </Box>
+                                                    )}
+                                                </FieldArray>
+                                            </Box>
+                                            <Box sx={{ marginTop: "55px" }}>
+                                                <FieldArray name="webs">
+                                                    {({ push, remove }) => (
+                                                        <Box>
+                                                            {values.webs.map((_, index) => (
+                                                                <Box key={index} display="flex" alignItems="center" mb={2}>
+                                                                    <Field
+                                                                        as={TextField}
+                                                                        name={`webs[${index}]`}
+                                                                        label={`${t('company.form.field.web')} ${index + 1}`}
+                                                                        fullWidth
+                                                                        error={Boolean(
+                                                                            (touched.webs as boolean[] | undefined)?.[index] &&
+                                                                            (errors.webs as string[] | undefined)?.[index]
+                                                                        )}
+                                                                        helperText={
+                                                                            (touched.webs as boolean[] | undefined)?.[index] &&
+                                                                            (errors.webs as string[] | undefined)?.[index]
+                                                                        }
+                                                                    />
+
+                                                                    {index > 0 && (
+                                                                        <IconButton
+                                                                            onClick={() => remove(index)}
+                                                                            color="error"
+                                                                            sx={{ ml: 1 }}
+                                                                        >
+                                                                            <RemoveCircleOutlineIcon />
+                                                                        </IconButton>
+                                                                    )}
+                                                                </Box>
+                                                            ))}
+
+                                                            {values.webs.length < MAX_WEB_FIELDS && (
+                                                                <Box display="flex" alignItems="center">
+                                                                    <IconButton onClick={() => push('')} color="primary">
+                                                                        <AddCircleOutlineIcon />
+                                                                    </IconButton>
+                                                                    <Typography variant="body2" ml={1}>
+                                                                        {t('common.addAnotherWeb')}
+                                                                    </Typography>
+                                                                </Box>
+                                                            )}
+                                                        </Box>
+                                                    )}
+                                                </FieldArray>
+                                            </Box>
+                                        </Box>
                                     </Box>
-                                </Box>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={onClose} variant="contained" sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}>
-                                    {t('common.button.cancel')}
-                                </Button>
-                                <Button type="submit" variant="contained" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}>
-                                    {t('common.button.save')}
-                                </Button>
-                            </DialogActions>
-                        </Form>
-                    )}
+                                    <Box
+                                        display="grid"
+                                        gridTemplateColumns="1fr"
+                                        gap={2}
+                                        sx={{
+                                            border: '1px solid #ccc',
+                                            borderRadius: '4px',
+                                            padding: '8px',
+                                            transition: 'border-color 0.3s ease',
+                                            '&:hover': {
+                                                borderColor: '#34495e',
+                                            },
+                                            marginTop: '5px',
+                                        }}
+                                    >
+                                        <Typography sx={{ marginBottom: 1 }}>{t('company.form.box.systemData')}</Typography>
+                                        <Box
+                                            display="grid"
+                                            gridTemplateColumns="repeat(4, 1fr)"
+                                            gap={2}
+                                        >
+                                            <Box>
+                                                <FormControlLabel
+                                                    control={
+                                                        <Field
+                                                            as={Checkbox}
+                                                            name="active"
+                                                            color="primary"
+                                                        />
+                                                    }
+                                                    label={t('company.form.field.active')}
+                                                    checked={values.active}
+                                                />
+                                            </Box>
+                                        </Box>
+                                    </Box>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={onClose} variant="contained" sx={{ backgroundColor: '#999a99', color: 'white', fontWeight: 'bold' }}>
+                                        {t('common.button.cancel')}
+                                    </Button>
+                                    <Button type="submit" variant="contained" sx={{ backgroundColor: '#34495e', color: 'white', fontWeight: 'bold' }}>
+                                        {t('common.button.save')}
+                                    </Button>
+                                </DialogActions>
+                            </Form>
+                        )
+                    }}
                 </Formik>
             </Dialog>
         </div>

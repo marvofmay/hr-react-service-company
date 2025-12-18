@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import Role from '@/app/types/Role';
 import { useTranslation } from 'react-i18next';
-import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 
 const deleteMultipleRole = async (rolesToDelete: Role[], token: string): Promise<string> => {
     try {

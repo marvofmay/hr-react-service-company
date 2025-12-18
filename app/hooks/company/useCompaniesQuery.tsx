@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import Company from '../../types/Company';
 import axios from 'axios';
-import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 import { useTranslation } from 'react-i18next';
-
-type SortDirection = 'asc' | 'desc' | undefined;
+import { SortDirection } from '@/app/types/SortDirection';
 
 export interface CompaniesResponse {
     items: Company[];
@@ -19,6 +18,10 @@ const fetchCompanies = async (
     sortDirection: SortDirection,
     phrase?: string | null,
     includes?: string | null,
+    filters?: {
+        active?: boolean | null,
+        parentCompanyUUID?: string | null
+    }
 ): Promise<CompaniesResponse> => {
     try {
         const params: any = {
@@ -30,6 +33,11 @@ const fetchCompanies = async (
 
         if (phrase) params.phrase = phrase;
         if (includes) params.includes = includes;
+
+        if (filters) {
+            if (typeof filters.active !== 'undefined') params.active = filters.active ? 1 : 0;
+            if (filters.parentCompanyUUID) params.parentCompanyUUID = filters.parentCompanyUUID;
+        }
 
         const response = await axios.get(`${SERVICE_COMPANY_URL}/api/companies`, {
             headers: { Authorization: `Bearer ${token}` },
@@ -56,9 +64,12 @@ const useCompaniesQuery = (
     sortDirection: SortDirection,
     phrase?: string | null,
     includes?: string | null,
+    filters?: {
+        active?: boolean,
+        name?: string
+    }
 ) => {
     const { t } = useTranslation();
-
     const normalizedPhrase = phrase ?? undefined;
     const normalizedIncludes = includes ?? undefined;
 
@@ -70,6 +81,7 @@ const useCompaniesQuery = (
             sortBy,
             sortDirection,
             normalizedPhrase,
+            filters
         ],
         queryFn: async () => {
             const token = localStorage.getItem('auth_token');
@@ -82,7 +94,8 @@ const useCompaniesQuery = (
                 sortBy,
                 sortDirection,
                 normalizedPhrase,
-                normalizedIncludes
+                normalizedIncludes,
+                filters
             );
         },
     });

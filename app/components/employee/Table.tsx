@@ -26,12 +26,12 @@ import EditEmployeeModal from '@/app/components/employee/modal/Edit';
 import PreviewEmployeeModal from '@/app/components/employee/modal/Preview';
 //import ImportEmployeesFromXLSXModal from '@/app/components/employee/modal/ImportEmployeesFromXLSX';
 import DeleteEmployeeModal from '@/app/components/employee/modal/Delete';
-//import DeleteMultipleEmployeesModal from '@/app/components/employee/modal/DeleteMultiple';
+import DeleteMultipleEmployeesModal from '@/app/components/employee/modal/DeleteMultiple';
 import useEmployeesQuery from '@/app/hooks/employee/useEmployeesQuery';
 import useAddEmployeeMutation from '@/app/hooks/employee/useAddEmployeeMutation';
 //import useUpdateEmployeeMutation from '@/app/hooks/employee/useUpdateEmployeeMutation';
-//import useDeleteEmployeeMutation from '@/app/hooks/employee/useDeleteEmployeeMutation';
-//import useDeleteMultipleEmployeeMutation from '@/app/hooks/employee/useDeleteMultipleEmployeeMutation';
+import useDeleteEmployeeMutation from '@/app/hooks/employee/useDeleteEmployeeMutation';
+import useDeleteMultipleEmployeeMutation from '@/app/hooks/employee/useDeleteMultipleEmployeeMutation';
 //import useImportEmployeesFromXLSXMutation from '@/app/hooks/employee/importEmployeesFromXLSXMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -53,13 +53,13 @@ const EmployeesTable = () => {
 
     const { mutate: addEmployeeMutate } = useAddEmployeeMutation();
     // const { mutate: updateEmployeeMutate } = useUpdateEmployeeMutation();
-    // const { mutate: deleteEmployeeMutate } = useDeleteEmployeeMutation();
-    // const { mutate: deleteMultipleEmployeeMutate } = useDeleteMultipleEmployeeMutation();
+    const { mutate: deleteEmployeeMutate } = useDeleteEmployeeMutation();
+    const { mutate: deleteMultipleEmployeeMutate } = useDeleteMultipleEmployeeMutation();
     // const { mutate: importEmployeesFromXLSXMutate } = useImportEmployeesFromXLSXMutation();
     const { t } = useTranslation();
     const { hasPermission } = useUser();
 
-    const result = useEmployeesQuery(pageSize, page, sortBy, sortDirection, phrase, 'address,parentEmployee,contacts,department,company');
+    const result = useEmployeesQuery(pageSize, page, sortBy, sortDirection, phrase, 'address,parentEmployee,contacts,department,company,role,position,contractType');
     const { data: rawData, isLoading, error, refetch } = result;
 
     const employees: Employee[] = Array.isArray(rawData) ? rawData : rawData?.items || [];
@@ -108,24 +108,24 @@ const EmployeesTable = () => {
         });
     };
 
-    // const handleDelete = (employeeToDelete: Employee): Promise<void> => {
-    //     return new Promise((resolve, reject) => {
-    //         deleteEmployeeMutate(employeeToDelete, {
-    //             onSuccess: (message: string) => {
-    //                 toast.success(message);
+    const handleDelete = (employeeToDelete: Employee): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            deleteEmployeeMutate(employeeToDelete, {
+                onSuccess: (message: string) => {
+                    toast.success(message);
 
-    //                 refetch().then((freshData) => {
-    //                     if (!freshData.data?.items?.length && page > 1) {
-    //                         setPage(page - 1);
-    //                     }
-    //                 });
+                    refetch().then((freshData) => {
+                        if (!freshData.data?.items?.length && page > 1) {
+                            setPage(page - 1);
+                        }
+                    });
 
-    //                 resolve();
-    //             },
-    //             onError: (error: object) => { toast.error(t('employee.delete.error')); reject(error); },
-    //         });
-    //     });
-    // };
+                    resolve();
+                },
+                onError: (error: object) => { toast.error(t('employee.delete.error')); reject(error); },
+            });
+        });
+    };
 
     // const handleUpdate = async (updatedEmployee: Employee): Promise<void> => {
     //     return new Promise((resolve, reject) => {
@@ -164,25 +164,25 @@ const EmployeesTable = () => {
         setSelected(prev => prev.includes(uuid) ? prev.filter(item => item !== uuid) : [...prev, uuid]);
     };
 
-    // const handleDeleteMultiple = (employeesToDelete: Employee[]): Promise<void> => {
-    //     return new Promise((resolve, reject) => {
-    //         deleteMultipleEmployeeMutate(employeesToDelete, {
-    //             onSuccess: (message: string) => {
-    //                 setSelected([]);
-    //                 toast.success(message);
+    const handleDeleteMultiple = (employeesToDelete: Employee[]): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            deleteMultipleEmployeeMutate(employeesToDelete, {
+                onSuccess: (message: string) => {
+                    setSelected([]);
+                    toast.success(message);
 
-    //                 refetch().then((freshData) => {
-    //                     if (!freshData.data?.items?.length && page > 1) {
-    //                         setPage(page - 1);
-    //                     }
-    //                 });
+                    refetch().then((freshData) => {
+                        if (!freshData.data?.items?.length && page > 1) {
+                            setPage(page - 1);
+                        }
+                    });
 
-    //                 resolve();
-    //             },
-    //             onError: (error: object) => { toast.error(t('employee.delete.error')); reject(error); },
-    //         });
-    //     });
-    // };
+                    resolve();
+                },
+                onError: (error: object) => { toast.error(t('employee.delete.error')); reject(error); },
+            });
+        });
+    };
 
     return (
         <div>
@@ -381,11 +381,11 @@ const EmployeesTable = () => {
                 onClose={closeModal}
             />}
 
-            {/* {hasPermission("employees.delete") && modalType === 'delete' && <DeleteEmployeeModal
+            {hasPermission("employees.delete") && modalType === 'delete' && <DeleteEmployeeModal
                 open={true}
                 selectedEmployee={selectedEmployee}
                 onClose={closeModal}
-                onDeleteConfirm={handleDelete} />} */}
+                onDeleteConfirm={handleDelete} />}
 
             {/* {hasPermission("employees.edit") && modalType === 'edit' && <EditEmployeeModal
                 open={true}
@@ -393,12 +393,12 @@ const EmployeesTable = () => {
                 onClose={closeModal}
                 onSave={handleUpdate} />} */}
 
-            {/* {hasPermission("employees.delete") && modalType === 'multipleDelete' && <DeleteMultipleEmployeesModal
+            {hasPermission("employees.delete") && modalType === 'multipleDelete' && <DeleteMultipleEmployeesModal
                 open={true}
                 selectedEmployees={employees.filter(employee => selected.includes(employee.uuid))}
                 onClose={closeModal}
                 onDeleteMultipleConfirm={handleDeleteMultiple}
-            />} */}
+            />}
         </div>
     );
 };

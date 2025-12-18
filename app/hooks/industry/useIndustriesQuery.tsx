@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import Industry from '../../types/Industry';
 import axios from 'axios';
-import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 import { useTranslation } from 'react-i18next';
-
-type SortDirection = 'asc' | 'desc' | undefined;
+import { SortDirection } from '@/app/types/SortDirection';
 
 export interface IndustriesResponse {
     items: Industry[];
@@ -17,7 +16,7 @@ const fetchIndustries = async (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase: string
+    phrase?: string | null
 ): Promise<IndustriesResponse> => {
     try {
         const response = await axios.get(`${SERVICE_COMPANY_URL}/api/industries`, {
@@ -43,7 +42,7 @@ const useIndustriesQuery = (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase: string
+    phrase?: string | null
 ) => {
     const { t } = useTranslation();
 

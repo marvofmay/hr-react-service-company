@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { capitalizeFirstLetter } from '@/app/utility/stringMethod';
+import { capitalizeFirstLetter } from '@/app/utils/stringMethod';
 
 const baseUrl = 'http://localhost:3000';
 

@@ -1,26 +1,44 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import Employee from '../../types/Employee';
-import fakeEmployees from '../../fakeData/Employees';
+import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
+import Employee from '@/app/types/Employee';
 import { useTranslation } from 'react-i18next';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 
-const deleteEmployee = async (employeeToDelete: Employee): Promise<Employee[] | []> => {
-    const currentEmployees = fakeEmployees.filter(employee => employee.uuid !== employeeToDelete.uuid);
+const deleteEmployee = async (employeeToDelete: Employee, token: string): Promise<string> => {
+    try {
+        const response = await axios.delete(
+            `${SERVICE_COMPANY_URL}/api/employees/${employeeToDelete.uuid}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
 
-    return currentEmployees
+        return response.data.message;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+            window.location.href = '/user/logout';
+        }
+
+        throw error;
+    }
 };
 
 const useDeleteEmployeeMutation = () => {
     const { t } = useTranslation();
-    const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: deleteEmployee,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['employees'] });
-        },
-        onError: (error) => {
-            console.error(t('employee.delete.error'), error);
-        },
+        mutationFn: (employeeToDelete: Employee) => {
+            const token = localStorage.getItem("auth_token");
+
+            if (!token) {
+                throw new Error(t('common.message.tokenIsMissing'));
+            }
+
+            return deleteEmployee(employeeToDelete, token);
+        }
     });
 };
 

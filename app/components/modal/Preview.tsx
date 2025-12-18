@@ -13,7 +13,7 @@ const Preview: React.FC<PreviewProps> = ({ open, title, details, onClose }) => {
     const { t } = useTranslation();
 
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={open} onClose={onClose} fullWidth >
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 {title}
             </DialogTitle>

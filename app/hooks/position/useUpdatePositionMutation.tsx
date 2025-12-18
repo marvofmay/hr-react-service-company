@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import Position from '../../types/Position';
 import { useTranslation } from 'react-i18next';
-import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 
 const updatePosition = async (updatedPosition: Position, token: string): Promise<string> => {
     try {

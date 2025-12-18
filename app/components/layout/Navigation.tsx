@@ -14,7 +14,7 @@ import { useUser } from "@/app/context/userContext";
 import ManageListNavigation from "../manage/navigation/List";
 import SettingsListNavigation from "../settings/navigation/List";
 import UserProfileNavigation from "../user/UserProfileNavigation";
-import { SERVICE_MERCURE_URL } from '@/app/utility/constans';
+import { SERVICE_MERCURE_URL } from '@/app/utils/constans';
 
 
 const navLinks = [

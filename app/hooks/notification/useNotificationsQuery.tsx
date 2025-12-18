@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import Notification from '../../types/Notification';
 import fakeNotifications from '../../fakeData/Notifications';
-
-type SortDirection = 'asc' | 'desc' | undefined;
+import { SortDirection } from '@/app/types/SortDirection';
 
 const fetchNotifications = async (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection): Promise<Notification[]> => {
     // ToDo: dodać wywołanie endpointa z enpoitna API

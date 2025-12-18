@@ -311,6 +311,9 @@ const CompaniesTable = () => {
                                 <TableCell>
                                     {t('company.table.column.active')}
                                 </TableCell>
+                                <TableCell>
+                                    {t('company.table.column.parentCompany')}
+                                </TableCell>
                                 <TableCell
                                     sortDirection={sortBy === 'createdAt' ? sortDirection : false}
                                     onClick={() => handleSort('createdAt')}
@@ -349,6 +352,7 @@ const CompaniesTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{company.nip}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{company.regon}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}> {company.active ? (<CheckCircleIcon color="success" fontSize="small" />) : (<CancelIcon color="error" fontSize="small" />)}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{company.parentCompany?.fullName ?? '---'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{moment(company.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{company.updatedAt ? moment(company.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { SERVICE_COMPANY_URL } from "../utility/constans";
+import { SERVICE_COMPANY_URL } from "../utils/constans";
 import Employee from "../types/Employee";
 import User from "../types/User";
 import { useRouter } from "next/navigation";

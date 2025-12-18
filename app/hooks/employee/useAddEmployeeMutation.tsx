@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import Employee from '@/app/types/Employee';
 import { useTranslation } from 'react-i18next';
-import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 
 const addEmployee = async (employee: Employee, token: string): Promise<string> => {
     console.log('eee');
@@ -13,6 +13,7 @@ const addEmployee = async (employee: Employee, token: string): Promise<string> =
             lastName: employee.lastName,
             pesel: employee.pesel,
             employmentFrom: employee.employmentFrom,
+            companyUUID: employee.company.uuid,
             departmentUUID: employee.department.uuid,
             positionUUID: employee.position.uuid,
             contractTypeUUID: employee.contractType.uuid,

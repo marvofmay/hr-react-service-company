@@ -11,16 +11,19 @@ import {
     MenuItem,
     Checkbox,
     FormControlLabel,
-    IconButton
+    IconButton,
+    Autocomplete
 } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { Formik, Form, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import Department from '@/app/types/Department';
-import axios from "axios";
-import { SERVICE_COMPANY_URL } from "@/app/utility/constans"
+import { useCompanyOptions } from '@/app/hooks/company/useCompanyOptions';
+import { useDepartmentOptions } from '@/app/hooks/department/useDepartmentOptions';
+import { getCountries } from '@/app/utils/countries';
 
 interface AddDepartmentModalProps {
     open: boolean;
@@ -29,26 +32,13 @@ interface AddDepartmentModalProps {
     departments?: Department[];
 }
 
-interface CompanyListItemDTO {
-    uuid: string;
-    fullName: string;
-    shortName: string;
-    internalCode: string;
-    nip: string;
-    regon: string;
-    description: string;
-    active: boolean,
-    createdAt: string;
-    updatedAt: string | null;
-    deletedAt: string | null;
-}
-
 const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
     open,
     onClose,
     onAddDepartment,
 }) => {
     const { t } = useTranslation();
+    const countries = getCountries(t);
 
     const MAX_FIELDS = 3;
 
@@ -75,76 +65,33 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
         deletedAt: '',
     };
 
-    const [companies, setCompanies] = useState<{ uuid: string; fullName: string }[]>([]);
-    const [loadingCompanies, setLoadingCompanies] = useState(true);
-    const [errorCompanies, setErrorCompanies] = useState<string | null>(null);
+    const {
+        options: companies,
+        isLoading: loadingCompanies,
+        isError: isErrorCompanies
+    } = useCompanyOptions({
+        pageSize: 1000,
+        page: 1,
+        sortBy: 'fullName',
+        sortDirection: 'asc'
+    });
 
-    useEffect(() => {
-        if (!open) return;
+    const [selectedCompanyUUID, setSelectedCompanyUUID] = useState<string | null>(null);
 
-        const fetchCompanies = async () => {
-            try {
-                const token = localStorage.getItem('auth_token');
-                setLoadingCompanies(true);
-
-                const response = await axios.get(`${SERVICE_COMPANY_URL}/api/companies`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                    params: {
-                        active: true,
-                        sortBy: "fullName",
-                        sortDirection: "ASC",
-                        pageSize: 1000
-                    }
-                });
-
-                const items: CompanyListItemDTO[] = response.data.data.items ?? [];
-                setCompanies(
-                    items.map(({ uuid, fullName }) => ({ uuid, fullName }))
-                );
-
-                setErrorCompanies(null);
-            } catch (err: any) {
-                setErrorCompanies(t('department.failedToLoadTheCompanyList'));
-            } finally {
-                setLoadingCompanies(false);
-            }
-        };
-
-        fetchCompanies();
-    }, [open]);
-
-    const [possibleParentDepartments, setPossibleParentDepartments] = useState<{ uuid: string; name: string, company: { uuid: string }; }[]>([]);
-    const [loadingPossibleParentDepartments, setLoadingPossibleParentDepartments] = useState(true);
-    const [errorPossibleParentDepartments, setErrorPossibleParentDepartments] = useState<string | null>(null);
-
-    useEffect(() => {
-        if (!open) return;
-
-        const fetchPossibleParentDepartments = async () => {
-            try {
-                const token = localStorage.getItem('auth_token');
-                setLoadingPossibleParentDepartments(true);
-                const response = await axios.get(`${SERVICE_COMPANY_URL}/api/departments?includes=company`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                    params: {
-                        active: true,
-                        sortBy: "name",
-                        sortDirection: "ASC",
-                        pageSize: 1000
-                    }
-                });
-
-                setPossibleParentDepartments(response.data.data.items || []);
-                setErrorPossibleParentDepartments(null);
-            } catch (err: any) {
-                setErrorPossibleParentDepartments("Nie udało się pobrać listy firm");
-            } finally {
-                setLoadingPossibleParentDepartments(false);
-            }
-        };
-
-        fetchPossibleParentDepartments();
-    }, [open]);
+    const {
+        options: departments,
+        isLoading: loadingDepartments,
+        isError: isErrorDepartments
+    } = useDepartmentOptions({
+        pageSize: 1000,
+        page: 1,
+        sortBy: 'name',
+        sortDirection: 'asc',
+        filters: {
+            active: true,
+            companyUUID: selectedCompanyUUID ?? undefined,
+        },
+    });
 
     const validationSchema = Yup.object({
         name: Yup.string().required(t('validation.fieldIsRequired')),
@@ -250,7 +197,17 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
     );
 
     return (
-        <Dialog open={open} onClose={onClose} fullWidth maxWidth="lg">
+        <Dialog
+            open={open}
+            onClose={(_, reason) => {
+                if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
+                    return;
+                }
+                onClose();
+            }}
+            fullWidth
+            maxWidth="lg"
+        >
             <DialogTitle
                 sx={{
                     backgroundColor: '#34495e',
@@ -331,74 +288,102 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                             multiline
                                             rows={3}
                                         />
-
-                                        <Field
-                                            as={TextField}
-                                            select
-                                            fullWidth
-                                            name="company.uuid"
-                                            label={t('department.form.field.company')}
-                                            margin="normal"
-                                            error={touched?.company?.uuid && Boolean(errors?.company?.uuid)}
-                                            helperText={touched?.company?.uuid && errors?.company?.uuid}
-                                            required
-                                        >
-                                            {loadingCompanies && <MenuItem disabled>{t('common.loading')}</MenuItem>}
-                                            {errorCompanies && <MenuItem disabled>{errorCompanies}</MenuItem>}
-                                            {!loadingCompanies && companies.map(company => (
-                                                <MenuItem key={company.uuid} value={company.uuid}>
-                                                    {company.fullName}
-                                                </MenuItem>
-                                            ))}
-                                        </Field>
-
-                                        <Field
-                                            as={TextField}
-                                            select
-                                            fullWidth
-                                            name="parentDepartment.uuid"
-                                            label={t('department.form.field.parentDepartment')}
-                                            margin="normal"
-                                            disabled={!values.company.uuid}
-                                        >
-                                            <MenuItem value="">
-                                                — {t('common.lack')} —
-                                            </MenuItem>
-                                            {loadingPossibleParentDepartments && <MenuItem disabled>{t('common.loading')}</MenuItem>}
-                                            {errorPossibleParentDepartments && <MenuItem disabled>{errorPossibleParentDepartments}</MenuItem>}
-                                            {!loadingPossibleParentDepartments &&
-                                                possibleParentDepartments
-                                                    .filter(ppd => ppd.company.uuid === values.company.uuid)
-                                                    .map(ppd => (
-                                                        <MenuItem key={ppd.uuid} value={ppd.uuid}>
-                                                            {ppd.name}
-                                                        </MenuItem>
-                                                    ))}
-                                        </Field>
+                                        <Autocomplete
+                                            options={companies}
+                                            loading={loadingCompanies}
+                                            getOptionLabel={(option) => option.fullName ?? ''}
+                                            isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
+                                            noOptionsText={
+                                                isErrorCompanies
+                                                    ? t('company.list.loading.failed')
+                                                    : t('common.noOptions')
+                                            }
+                                            loadingText={t('common.loading')}
+                                            popupIcon={<ArrowDropDownIcon />}
+                                            value={companies.find(c => c.uuid === selectedCompanyUUID) || null}
+                                            onChange={(_, value) => {
+                                                const uuid = value ? value.uuid : null;
+                                                setFieldValue('company.uuid', uuid);
+                                                setSelectedCompanyUUID(uuid);
+                                                setFieldValue('parentDepartment.uuid', '');
+                                            }}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    fullWidth
+                                                    label={t('department.form.field.company')}
+                                                    margin="dense"
+                                                    error={isErrorCompanies}
+                                                    helperText={isErrorCompanies ? t('company.list.loading.failed') : undefined}
+                                                />
+                                            )}
+                                        />
+                                        <Autocomplete
+                                            options={departments}
+                                            loading={loadingDepartments}
+                                            getOptionLabel={(option) => option.name ?? ''}
+                                            isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
+                                            noOptionsText={
+                                                isErrorDepartments
+                                                    ? t('department.list.loading.failed')
+                                                    : t('common.noOptions')
+                                            }
+                                            loadingText={t('common.loading')}
+                                            popupIcon={<ArrowDropDownIcon />}
+                                            value={
+                                                departments.find(d => d.uuid === values.parentDepartment?.uuid) || null
+                                            }
+                                            onChange={(_, value) => {
+                                                setFieldValue(
+                                                    'parentDepartment.uuid',
+                                                    value ? value.uuid : null
+                                                );
+                                            }}
+                                            disabled={!selectedCompanyUUID}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    fullWidth
+                                                    label={t('department.form.field.parentDepartment')}
+                                                    margin="dense"
+                                                    error={isErrorDepartments}
+                                                    helperText={
+                                                        !selectedCompanyUUID
+                                                            ? t('department.form.selectCompanyFirst')
+                                                            : isErrorDepartments
+                                                                ? t('department.list.loading.failed')
+                                                                : undefined
+                                                    }
+                                                />
+                                            )}
+                                        />
                                     </Box>
 
                                     {/* ADDRESS */}
                                     <Box sx={boxStyle}>
                                         <Typography>{t('department.form.box.addressData')}</Typography>
+                                        <Autocomplete
+                                            options={countries}
+                                            getOptionLabel={(option) => option.label}
+                                            value={countries.find(c => c.label === values.address?.country) || null}
+                                            onChange={(_, value) => {
+                                                setFieldValue('address.country', value ? value.label : '');
+                                            }}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    label={t('department.form.field.country')}
+                                                    variant="outlined"
+                                                    margin="dense"
+                                                    error={touched?.address?.country && Boolean(errors?.address?.country)}
+                                                    helperText={touched?.address?.country && errors?.address?.country}
+                                                    required
+                                                    fullWidth
+                                                />
+                                            )}
+                                        />
                                         <Field
                                             as={TextField}
-                                            select
-                                            fullWidth
-                                            name="address.country"
-                                            label={t('department.form.field.country')}
-                                            variant="outlined"
-                                            margin="normal"
-                                            error={touched?.address?.country && Boolean(errors?.address?.country)}
-                                            helperText={touched?.address?.country && errors?.address?.country}
-                                            required
-                                        >
-                                            <MenuItem value="Polska">Polska</MenuItem>
-                                            <MenuItem value="Anglia">Anglia</MenuItem>
-                                            <MenuItem value="Niemcy">Niemcy</MenuItem>
-                                        </Field>
-                                        <Field
-                                            as={TextField}
-                                            select
                                             fullWidth
                                             name="address.city"
                                             label={t('department.form.field.city')}
@@ -408,9 +393,6 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                             helperText={touched?.address?.city && errors?.address?.city}
                                             required
                                         >
-                                            <MenuItem value="Gdańsk">Gdańsk</MenuItem>
-                                            <MenuItem value="Sopot">Sopot</MenuItem>
-                                            <MenuItem value="Gdynia">Gdynia</MenuItem>
                                         </Field>
                                         <Field
                                             as={TextField}

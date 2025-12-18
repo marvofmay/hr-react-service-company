@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import '../../../i18n/i18n';
 import { useTranslation } from 'react-i18next';
-import { lowercaseFirstLetter } from '@/app/utility/stringMethod';
+import { lowercaseFirstLetter } from '@/app/utils/stringMethod';
 import { useUser } from "@/app/context/userContext";
 
 const menuItems = [

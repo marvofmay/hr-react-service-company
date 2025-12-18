@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import Company from '../../types/Company';
 import { useTranslation } from 'react-i18next';
-import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 
 const updateCompany = async (updatedCompany: Company, token: string): Promise<string> => {
     try {

@@ -7,7 +7,7 @@ import Department from '../../../types/Department';
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import axios from "axios";
-import { SERVICE_COMPANY_URL } from "@/app/utility/constans";
+import { SERVICE_COMPANY_URL } from "@/app/utils/constans";
 
 interface EditDepartmentModalProps {
     open: boolean;

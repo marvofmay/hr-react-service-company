@@ -3,7 +3,7 @@
 import { Box, Typography } from "@mui/material";
 import '../../i18n/i18n';
 import { useTranslation } from 'react-i18next';
-import { APP_NAME } from '../../utility/constans';
+import { APP_NAME } from '../../utils/constans';
 
 const Footer: React.FC = () => {
     const { t } = useTranslation();

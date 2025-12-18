@@ -19,6 +19,7 @@ import loginPL from './locales/pl/login.json';
 import notesPL from './locales/pl/notes.json';
 import documentsPL from './locales/pl/documents.json';
 import systemPL from './locales/pl/system.json';
+import countryPL from './locales/pl/country.json';
 
 const resources = {
     en: {
@@ -44,6 +45,7 @@ const resources = {
             notes: notesPL,
             documents: documentsPL,
             system: systemPL,
+            country: countryPL,
         }
     },
 };

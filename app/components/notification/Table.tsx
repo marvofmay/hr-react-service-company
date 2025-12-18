@@ -12,8 +12,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-
-type SortDirection = 'asc' | 'desc' | undefined;
+import { SortDirection } from '@/app/types/SortDirection';
 
 const NotificationsTable = () => {
     const [localNotifications, setLocalNotifications] = useState<Notification[] | null>([]);

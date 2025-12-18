@@ -53,6 +53,7 @@
             "internalCode": "wewnętrzny kod firmy",
             "industry": "branża",
             "active": "aktywna",
+            "parentCompany": "firma matka",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto",

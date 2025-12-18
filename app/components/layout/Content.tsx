@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { usePathname } from "next/navigation";
 import { Card, CardContent, Paper, Box } from "@mui/material";
 import { colors } from "@mui/material";
-import { APP_NAME } from '../../utility/constans';
+import { APP_NAME } from '../../utils/constans';
 import { useTranslation } from 'react-i18next';
 
 interface ContentProps {

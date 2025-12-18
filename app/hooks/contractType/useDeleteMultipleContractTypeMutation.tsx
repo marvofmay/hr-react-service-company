@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import ContractType from '@/app/types/ContractType';
 import { useTranslation } from 'react-i18next';
-import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 
 const deleteMultipleContractType = async (contractTypesToDelete: ContractType[], token: string): Promise<string> => {
     try {

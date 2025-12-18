@@ -3,7 +3,7 @@ import Role from '../../../types/Role';
 import Preview from '../../modal/Preview';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 
 interface PreviewRoleModalProps {
     open: boolean;

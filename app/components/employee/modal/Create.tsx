@@ -12,6 +12,7 @@ import useDepartmentsQuery from '@/app/hooks/department/useDepartmentsQuery';
 import usePositionsQuery from '@/app/hooks/position/usePositionsQuery';
 import useContractTypesQuery from '@/app/hooks/contractType/useContractTypesQuery';
 import useRolesQuery from '@/app/hooks/role/useRolesQuery';
+import useEmployeesQuery from '@/app/hooks/employee/useEmployeesQuery';
 
 interface AddEmployeeModalProps {
     open: boolean;
@@ -223,6 +224,30 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
         uuid,
         name,
     })) ?? [];
+
+    const {
+        data: dataEmployees,
+        isLoading: loadingEmployees,
+        isError: isErrorEmployees
+    } = useEmployeesQuery(
+        1000,
+        1,
+        'lastName',
+        'asc',
+        null,
+        'department'
+    );
+
+    const employees = dataEmployees?.items.map(({ uuid, lastName, firstName, department }) => ({
+        uuid,
+        lastName,
+        firstName,
+        department: {
+            uuid: department.uuid,
+        }
+    })) ?? [];
+
+
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth maxWidth="xl">
@@ -439,6 +464,28 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                                 {contractType.name}
                                             </MenuItem>
                                         ))}
+                                    </Field>
+                                    <Field
+                                        as={TextField}
+                                        select
+                                        fullWidth
+                                        name="parentEmployee.uuid"
+                                        label={t('employee.form.field.parentEmployee')}
+                                        margin="normal"
+                                        disabled={!values.department.uuid}
+                                    >
+                                        <MenuItem value="">
+                                            — {t('common.lack')} —
+                                        </MenuItem>
+                                        {loadingEmployees && <MenuItem disabled>{t('common.loading')}</MenuItem>}
+                                        {isErrorEmployees && <MenuItem disabled>{t('employee.list.loading.failed')}</MenuItem>}
+                                        {!loadingEmployees && employees
+                                            .filter(ppe => ppe.department.uuid === values.department.uuid)
+                                            .map(ppe => (
+                                                <MenuItem key={ppe.uuid} value={ppe.uuid}>
+                                                    {ppe.lastName} {ppe.firstName}
+                                                </MenuItem>
+                                            ))}
                                     </Field>
                                     <Field
                                         as={TextField}

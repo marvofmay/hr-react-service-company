@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { APP_NAME } from '../../hr-app/app/utility/constans';
-import { capitalizeFirstLetter } from '@/app/utility/stringMethod';
+import { capitalizeFirstLetter } from '@/app/utils/stringMethod';
 
 const baseUrl = 'http://localhost:3000';
 

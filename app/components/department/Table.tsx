@@ -59,7 +59,7 @@ const DepartmentsTable = () => {
     const { t } = useTranslation();
     const { hasPermission } = useUser();
 
-    const result = useDepartmentsQuery(pageSize, page, sortBy, sortDirection, phrase, 'address,parentDepartment,contacts,company');
+    const result = useDepartmentsQuery(pageSize, page, sortBy, sortDirection, phrase, 'address,parentDepartment,contacts,company', { active: true });
     const { data: rawData, isLoading, error, refetch } = result;
 
     const departments: Department[] = Array.isArray(rawData) ? rawData : rawData?.items || [];

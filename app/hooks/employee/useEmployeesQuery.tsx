@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import Employee from '../../types/Employee';
 import axios from 'axios';
-import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 import { useTranslation } from 'react-i18next';
-
-type SortDirection = 'asc' | 'desc' | undefined;
+import { SortDirection } from '@/app/types/SortDirection';
 
 export interface EmployeesResponse {
     items: Employee[];
@@ -17,8 +16,8 @@ const fetchEmployees = async (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase?: string,
-    includes?: string,
+    phrase?: string | null,
+    includes?: string | null,
 ): Promise<EmployeesResponse> => {
     try {
         const params: any = {
@@ -54,7 +53,7 @@ const useEmployeesQuery = (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase: string | null,
+    phrase?: string | null,
     includes?: string | null,
 ) => {
     const { t } = useTranslation();

@@ -81,7 +81,8 @@
             "addressData": "dane adresowe",
             "additionalData": "dodatkowe dane",
             "systemData": "dane systemowe"
-        }
+        },
+        "selectCompanyFirst": "wybierz najpierw firmę"
     },
     "failedToLoadTheCompanyList": "Nie udało się pobrać listy firm"
 }

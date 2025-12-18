@@ -87,5 +87,6 @@
     "assignDepartmentsToPosition": "przypiywanie departamentów",
     "delete": "usuwanie",
     "loading": "Ładowanie...",
-    "lack": "Brak"
+    "lack": "Brak",
+    "noOptions": "Brak opcji"
 }

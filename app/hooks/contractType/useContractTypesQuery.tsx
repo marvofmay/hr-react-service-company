@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import ContractType from '../../types/ContractType';
 import axios from 'axios';
-import { SERVICE_COMPANY_URL } from '@/app/utility/constans';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 import { useTranslation } from 'react-i18next';
-
-type SortDirection = 'asc' | 'desc' | undefined;
+import { SortDirection } from '@/app/types/SortDirection';
 
 export interface ContractTypesResponse {
     items: ContractType[];
