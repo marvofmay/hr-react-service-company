@@ -1,14 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import Employee from '@/app/types/Employee';
-import fakeUserProfiles from '@/app/fakeData/UserProfiles';
 
 const fetchUserProfileData = async (uuid: string): Promise<Employee> => {
     // ToDo: dodać wywołanie endpointa
-    // const response = await axios.get('/api/user/{uuid}');
+    // const response = await axios.get('/api/me/{uuid}');
     // return response.data;
 
     // Na razie zwrócimy dane z fakeUserProfile
-    const userProfile = fakeUserProfiles.find(userProfile => userProfile.uuid === uuid);
+    const userProfile = null;
 
     if (!userProfile) {
         throw new Error(`User profile with UUID ${uuid} not found.`);

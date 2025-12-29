@@ -1,14 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Employee from '../../types/Employee';
-import fakeEmployees from '../../fakeData/Employees';
 import { useTranslation } from 'react-i18next';
 
-const updateEmployee = async (updatedEmployee: Employee): Promise<Employee[]> => {
-    const updatedEmployees = fakeEmployees.map(employee =>
-        employee.uuid === updatedEmployee.uuid ? updatedEmployee : employee
-    );
+const updateEmployee = async (updatedEmployee: Employee): Promise<[]> => {
 
-    return updatedEmployees;
+    return [];
 };
 
 const useUpdateEmployeeMutation = () => {

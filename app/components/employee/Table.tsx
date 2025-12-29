@@ -22,7 +22,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import CancelIcon from '@mui/icons-material/CancelOutlined';
 import Employee from '@/app/types/Employee';
 import CreateEmployeeModal from '@/app/components/employee/modal/Create';
-import EditEmployeeModal from '@/app/components/employee/modal/Edit';
+//import EditEmployeeModal from '@/app/components/employee/modal/Edit';
 import PreviewEmployeeModal from '@/app/components/employee/modal/Preview';
 //import ImportEmployeesFromXLSXModal from '@/app/components/employee/modal/ImportEmployeesFromXLSX';
 import DeleteEmployeeModal from '@/app/components/employee/modal/Delete';
@@ -333,11 +333,11 @@ const EmployeesTable = () => {
                                             </Tooltip>
                                         )}
 
-                                        {hasPermission("employees.edit") && (
+                                        {/* {hasPermission("employees.edit") && (
                                             <Tooltip title={t('common.edit')} placement="top">
                                                 <IconButton onClick={() => openModal('edit', employee)}><Edit /></IconButton>
                                             </Tooltip>
-                                        )}
+                                        )} */}
 
                                         {hasPermission("employees.delete") && (
                                             <Tooltip title={t('common.delete')} placement="top">

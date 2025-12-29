@@ -24,8 +24,8 @@ const AdditionalData: React.FC<AdditionalDataProps> = ({ data }) => {
                     <p className="text-xs text-gray-500 font-medium">
                         {t('employee.form.field.phone')}
                     </p>
-                    {data?.phone && data.phone.length > 0 ? (
-                        data.phone.map((phone, index) => (
+                    {data?.phones && data.phones.length > 0 ? (
+                        data.phones.map((phone, index) => (
                             <p key={index} className="text-xs text-gray-700 font-medium">
                                 {phone}
                             </p>
