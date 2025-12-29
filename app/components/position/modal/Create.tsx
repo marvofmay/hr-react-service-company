@@ -1,14 +1,31 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
+    Autocomplete,
+    Box,
+    Typography,
+    FormControlLabel,
+    Checkbox
+} from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Position from '../../../types/Position';
 import { useTranslation } from 'react-i18next';
+import useDepartmentsQuery from '@/app/hooks/department/useDepartmentsQuery';
+import Department from '@/app/types/Department';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import DepartmentOption from '@/app/types/DepartmentOption';
+import PositionPayload from '@/app/types/PositionPayload';
 
 interface AddPositionModalProps {
     open: boolean;
     onClose: () => void;
-    onAddPosition: (newPosition: Position) => Promise<void>;
+    onAddPosition: (payload: PositionPayload) => Promise<void>;
 }
 
 const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAddPosition }) => {
@@ -19,29 +36,45 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
         description: Yup.string(),
     });
 
-    const initialValues: Position = {
+    const initialValues: Position & { departmentsUUIDs: string[] } = {
         uuid: '',
         name: '',
         description: '',
         active: true,
+        departmentsUUIDs: [],
         createdAt: '',
         updatedAt: '',
         deletedAt: null
     };
 
+    const result = useDepartmentsQuery(1000, 1, 'name', 'asc');
+    const { data: rawData, isLoading: isLoadingDepartments, error: isErrorDepartments } = result;
+    const departments: Department[] = Array.isArray(rawData) ? rawData : rawData?.items || [];
+
+    const departmentsOptions: DepartmentOption[] = departments.map(d => ({
+        uuid: d.uuid,
+        name: d.name ?? '',
+    }));
+
     const [errorAPI, setErrorAPI] = useState<string | null>(null);
     const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
 
-    const handleSubmit = async (values: Position) => {
+    const handleSubmit = async (values: typeof initialValues) => {
         setErrorAPI(null);
         setErrorsAPI(null);
 
+        const payload: PositionPayload = {
+            name: values.name,
+            description: values.description || undefined,
+            departmentsUUIDs: values.departmentsUUIDs.length ? values.departmentsUUIDs : undefined,
+            active: values.active
+        };
+
         try {
-            await onAddPosition(values);
+            await onAddPosition(payload);
             onClose();
         } catch (error: unknown) {
             const err = error as any;
-
             const message = err?.response?.data?.message ?? 'Wystąpił nieznany błąd';
             const errors = err?.response?.data?.errors ?? null;
 
@@ -51,7 +84,15 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
     };
 
     return (
-        <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+        <Dialog
+            open={open}
+            onClose={(_, reason) => {
+                if (reason === 'backdropClick' || reason === 'escapeKeyDown') return;
+                onClose();
+            }}
+            fullWidth
+            maxWidth="sm"
+        >
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 {t('position.modal.add.title')}
             </DialogTitle>
@@ -61,21 +102,15 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                {({ errors, touched }) => (
+                {({ values, errors, touched, setFieldValue }) => (
                     <Form noValidate>
                         <DialogContent>
-                            {errorAPI && (
-                                <div style={{ color: 'red', marginBottom: '1rem' }}>
-                                    {errorAPI}
-                                </div>
-                            )}
+                            {errorAPI && <div style={{ color: 'red', marginBottom: '1rem' }}>{errorAPI}</div>}
 
                             {errorsAPI && (
                                 <ul style={{ color: 'red', marginBottom: '1rem' }}>
                                     {Object.entries(errorsAPI).map(([field, message]) => (
-                                        <li key={field}>
-                                            <strong>{field}:</strong> {message}
-                                        </li>
+                                        <li key={field}><strong>{field}:</strong> {message}</li>
                                     ))}
                                 </ul>
                             )}
@@ -101,6 +136,61 @@ const AddPositionModal: React.FC<AddPositionModalProps> = ({ open, onClose, onAd
                                 rows={3}
                                 error={touched.description && Boolean(errors.description)}
                                 helperText={touched.description && errors.description}
+                            />
+
+                            {/* Select All / Clear All */}
+                            <Box display="flex" justifyContent="space-between" alignItems="center" mt={2} mb={1}>
+                                <Typography>{t('position.form.field.assignToDepartment')}</Typography>
+                                <Box>
+                                    <Button
+                                        size="small"
+                                        onClick={() => setFieldValue('departmentsUUIDs', departmentsOptions.map(d => d.uuid))}
+                                    >
+                                        {t('common.selectAll')}
+                                    </Button>
+                                    <Button
+                                        size="small"
+                                        onClick={() => setFieldValue('departmentsUUIDs', [])}
+                                    >
+                                        {t('common.clearAll')}
+                                    </Button>
+                                </Box>
+                            </Box>
+
+                            <Autocomplete
+                                multiple
+                                options={departmentsOptions}
+                                loading={isLoadingDepartments}
+                                getOptionLabel={(option) => option.name}
+                                isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
+                                value={departmentsOptions.filter(d => values.departmentsUUIDs.includes(d.uuid))}
+                                onChange={(_, value) => setFieldValue('departmentsUUIDs', value.map(d => d.uuid))}
+                                noOptionsText={
+                                    isErrorDepartments
+                                        ? t('department.list.loading.failed')
+                                        : t('common.noOptions')
+                                }
+                                loadingText={t('common.loading')}
+                                popupIcon={<ArrowDropDownIcon />}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        fullWidth
+                                        margin="dense"
+                                        error={Boolean(isErrorDepartments)}
+                                        helperText={isErrorDepartments ? t('department.list.loading.failed') : undefined}
+                                    />
+                                )}
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={values.active}
+                                        onChange={(e) => setFieldValue('active', e.target.checked)}
+                                        color="primary"
+                                    />
+                                }
+                                label={t('position.form.field.active')}
                             />
                         </DialogContent>
 

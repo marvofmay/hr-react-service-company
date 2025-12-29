@@ -8,7 +8,6 @@ import {
     TextField,
     Box,
     Typography,
-    MenuItem,
     Checkbox,
     FormControlLabel,
     IconButton,
@@ -21,9 +20,9 @@ import { Formik, Form, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import Department from '@/app/types/Department';
-import { useCompanyOptions } from '@/app/hooks/company/useCompanyOptions';
-import { useDepartmentOptions } from '@/app/hooks/department/useDepartmentOptions';
 import { getCountries } from '@/app/utils/countries';
+import useParentCompanyOptionsQuery from '@/app/hooks/company/useParentCompanyOptionsQuery';
+import useParentDepartmentOptionsQuery from '@/app/hooks/department/useParentDepartmentOptionsQuery';
 
 interface AddDepartmentModalProps {
     open: boolean;
@@ -66,32 +65,30 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
     };
 
     const {
-        options: companies,
+        data: dataCompanies,
         isLoading: loadingCompanies,
-        isError: isErrorCompanies
-    } = useCompanyOptions({
-        pageSize: 1000,
-        page: 1,
-        sortBy: 'fullName',
-        sortDirection: 'asc'
-    });
+        isError: isErrorCompanies,
+    } = useParentCompanyOptionsQuery();
+
+    const companies =
+        dataCompanies?.data.map(company => ({
+            uuid: company.uuid,
+            fullName: company.fullName,
+        })) ?? [];
 
     const [selectedCompanyUUID, setSelectedCompanyUUID] = useState<string | null>(null);
 
     const {
-        options: departments,
+        data: dataDepartments,
         isLoading: loadingDepartments,
         isError: isErrorDepartments
-    } = useDepartmentOptions({
-        pageSize: 1000,
-        page: 1,
-        sortBy: 'name',
-        sortDirection: 'asc',
-        filters: {
-            active: true,
-            companyUUID: selectedCompanyUUID ?? undefined,
-        },
-    });
+    } = useParentDepartmentOptionsQuery(selectedCompanyUUID);
+
+    const departments =
+        dataDepartments?.data.map(department => ({
+            uuid: department.uuid,
+            name: department.name,
+        })) ?? [];
 
     const validationSchema = Yup.object({
         name: Yup.string().required(t('validation.fieldIsRequired')),
@@ -293,6 +290,15 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                             loading={loadingCompanies}
                                             getOptionLabel={(option) => option.fullName ?? ''}
                                             isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
+                                            value={
+                                                companies.find(c => c.uuid === values.company?.uuid) ?? null
+                                            }
+                                            onChange={(_, value) => {
+                                                const uuid = value?.uuid ?? null;
+                                                setFieldValue('company.uuid', uuid);
+                                                setSelectedCompanyUUID(uuid);
+                                                setFieldValue('parentDepartment.uuid', null);
+                                            }}
                                             noOptionsText={
                                                 isErrorCompanies
                                                     ? t('company.list.loading.failed')
@@ -300,13 +306,6 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                             }
                                             loadingText={t('common.loading')}
                                             popupIcon={<ArrowDropDownIcon />}
-                                            value={companies.find(c => c.uuid === selectedCompanyUUID) || null}
-                                            onChange={(_, value) => {
-                                                const uuid = value ? value.uuid : null;
-                                                setFieldValue('company.uuid', uuid);
-                                                setSelectedCompanyUUID(uuid);
-                                                setFieldValue('parentDepartment.uuid', '');
-                                            }}
                                             renderInput={(params) => (
                                                 <TextField
                                                     {...params}
@@ -314,7 +313,11 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                                     label={t('department.form.field.company')}
                                                     margin="dense"
                                                     error={isErrorCompanies}
-                                                    helperText={isErrorCompanies ? t('company.list.loading.failed') : undefined}
+                                                    helperText={
+                                                        isErrorCompanies
+                                                            ? t('company.list.loading.failed')
+                                                            : undefined
+                                                    }
                                                 />
                                             )}
                                         />
@@ -323,6 +326,16 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                             loading={loadingDepartments}
                                             getOptionLabel={(option) => option.name ?? ''}
                                             isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
+                                            value={
+                                                departments.find(d => d.uuid === values.parentDepartment?.uuid) ?? null
+                                            }
+                                            onChange={(_, value) => {
+                                                setFieldValue(
+                                                    'parentDepartment.uuid',
+                                                    value?.uuid ?? null
+                                                );
+                                            }}
+                                            disabled={!values.company?.uuid}
                                             noOptionsText={
                                                 isErrorDepartments
                                                     ? t('department.list.loading.failed')
@@ -330,16 +343,6 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                             }
                                             loadingText={t('common.loading')}
                                             popupIcon={<ArrowDropDownIcon />}
-                                            value={
-                                                departments.find(d => d.uuid === values.parentDepartment?.uuid) || null
-                                            }
-                                            onChange={(_, value) => {
-                                                setFieldValue(
-                                                    'parentDepartment.uuid',
-                                                    value ? value.uuid : null
-                                                );
-                                            }}
-                                            disabled={!selectedCompanyUUID}
                                             renderInput={(params) => (
                                                 <TextField
                                                     {...params}
@@ -348,7 +351,7 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                                     margin="dense"
                                                     error={isErrorDepartments}
                                                     helperText={
-                                                        !selectedCompanyUUID
+                                                        !values.company?.uuid
                                                             ? t('department.form.selectCompanyFirst')
                                                             : isErrorDepartments
                                                                 ? t('department.list.loading.failed')
@@ -456,6 +459,7 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
                                                     />
                                                 }
                                                 label={t('department.form.field.active')}
+                                                checked={values.active}
                                             />
                                         </Box>
                                     </Box>

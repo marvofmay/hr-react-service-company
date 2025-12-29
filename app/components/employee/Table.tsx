@@ -37,8 +37,8 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { useUser } from "@/app/context/userContext";
-
-type SortDirection = 'asc' | 'desc';
+import { SortDirection } from '@/app/types/SortDirection';
+import EmployeePayload from '@/app/types/EmployeePayload';
 
 const EmployeesTable = () => {
     const [pageSize, setPageSize] = useState(5);
@@ -94,8 +94,7 @@ const EmployeesTable = () => {
         setSelected([]);
     };
 
-    const handleAdd = async (newEmployee: Employee): Promise<void> => {
-        console.log(123);
+    const handleAdd = async (newEmployee: EmployeePayload): Promise<void> => {
         return new Promise((resolve, reject) => {
             addEmployeeMutate(newEmployee, {
                 onSuccess: (message: string) => {
@@ -252,7 +251,12 @@ const EmployeesTable = () => {
                     <div>{t('common.noData')}</div>
                 </Box>
             ) : (
-                <TableContainer>
+                <TableContainer
+                    sx={{
+                        maxHeight: '65vh',
+                        overflowY: 'auto',
+                    }}
+                >
                     <Table>
                         <TableHead>
                             <TableRow>

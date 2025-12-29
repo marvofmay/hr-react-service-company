@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
             }}
         >
             <Typography variant="body2">
-                {APP_NAME} {new Date().getFullYear()} {t('common.footer.info')}
+                {APP_NAME} {new Date().getFullYear()} - {t('common.footer.info')}
             </Typography>
         </Box>
     );

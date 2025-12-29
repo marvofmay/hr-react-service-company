@@ -48,6 +48,7 @@
         "column": {
             "name": "nazwa",
             "departmentSuperior": "oddział \"matka\"",
+            "companyName": "firma",
             "active": "aktywny",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",

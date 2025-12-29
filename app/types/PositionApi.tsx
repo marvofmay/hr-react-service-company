@@ -1,9 +1,12 @@
-export default interface ContractType {
+import Department from "./Department";
+
+export default interface PositionApi {
     uuid: string;
     name: string;
-    active?: boolean;
     description?: string;
+    active: boolean;
     createdAt?: string;
     updatedAt?: string | null;
     deletedAt?: string | null;
+    positionDepartments: Department[];
 }

@@ -46,7 +46,17 @@ const EditIndustryModal: React.FC<EditIndustryModalProps> = ({ open, onClose, in
     };
 
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog
+            open={open}
+            onClose={(_, reason) => {
+                if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
+                    return;
+                }
+                onClose();
+            }}
+            fullWidth
+            maxWidth="sm"
+        >
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 {t('industry.modal.edit.title')}
             </DialogTitle>

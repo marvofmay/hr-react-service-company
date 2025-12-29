@@ -66,7 +66,7 @@
     "list": "lista",
     "noData": "brak dostępnych danych",
     "footer": {
-        "info": "aplikacja do celów edukacyjnych NextJs / React / Symfony"
+        "info": "NextJs / React / Symfony"
     },
     "addAnotherPhone": "kolejny numer telefonu",
     "addAnotherEmail": "kolejny email",
@@ -88,5 +88,7 @@
     "delete": "usuwanie",
     "loading": "Ładowanie...",
     "lack": "Brak",
-    "noOptions": "Brak opcji"
+    "noOptions": "Brak opcji",
+    "clearAll": "usuń wszystkie",
+    "selectAll": "zaznacz wszystkie"
 }

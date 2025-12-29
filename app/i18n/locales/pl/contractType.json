@@ -17,6 +17,9 @@
         },
         "delete": {
             "title": "Potwierdzenie usunięcia formy zatrudnienia"
+        },
+        "import": {
+            "title": "Import form zatrudnienia z pliku XLSX"
         }
     },
     "button": {
@@ -40,6 +43,7 @@
         "column": {
             "name": "nazwa",
             "description": "opis",
+            "active": "aktywna",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto",
@@ -50,6 +54,7 @@
         "field": {
             "name": "nazwa",
             "description": "opis",
+            "active": "aktywna",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto"

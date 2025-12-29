@@ -37,8 +37,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { useUser } from "@/app/context/userContext";
-
-type SortDirection = 'asc' | 'desc';
+import { SortDirection } from '@/app/types/SortDirection';
 
 const DepartmentsTable = () => {
     const [pageSize, setPageSize] = useState(5);
@@ -251,7 +250,12 @@ const DepartmentsTable = () => {
                     <div>{t('common.noData')}</div>
                 </Box>
             ) : (
-                <TableContainer>
+                <TableContainer
+                    sx={{
+                        maxHeight: '65vh',
+                        overflowY: 'auto',
+                    }}
+                >
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -280,6 +284,11 @@ const DepartmentsTable = () => {
                                     <TableSortLabel active={sortBy === 'name'} direction={sortBy === 'name' ? sortDirection : 'asc'}>
                                         {t('department.table.column.name')}
                                     </TableSortLabel>
+                                </TableCell>
+                                <TableCell
+                                    sx={{ padding: '4px 8px' }}
+                                >
+                                    {t('department.table.column.companyName')}
                                 </TableCell>
                                 <TableCell>
                                     {t('department.table.column.active')}
@@ -318,6 +327,7 @@ const DepartmentsTable = () => {
                                     )}
                                     <TableCell sx={{ padding: '4px 8px' }}>{(page - 1) * pageSize + index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{department.name}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}>{department.company.fullName}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}> {department.active ? (<CheckCircleIcon color="success" fontSize="small" />) : (<CancelIcon color="error" fontSize="small" />)}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{moment(department.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{department.updatedAt ? moment(department.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>

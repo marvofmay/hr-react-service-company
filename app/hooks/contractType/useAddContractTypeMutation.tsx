@@ -7,7 +7,7 @@ import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 const addContractType = async (contractType: ContractType, token: string): Promise<string> => {
     const response = await axios.post(
         `${SERVICE_COMPANY_URL}/api/contract_types`,
-        { name: contractType.name, description: contractType.description },
+        { name: contractType.name, description: contractType.description, active: contractType.active },
         { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }
     );
     return response.data.message;

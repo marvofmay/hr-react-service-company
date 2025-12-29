@@ -12,6 +12,7 @@ const updateContractType = async (updatedContractType: ContractType, token: stri
                 uuid: updatedContractType.uuid,
                 name: updatedContractType.name,
                 description: updatedContractType.description,
+                active: updatedContractType.active
             },
             {
                 headers: {

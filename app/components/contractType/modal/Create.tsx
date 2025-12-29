@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, TextField } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import ContractType from '../../../types/ContractType';
@@ -22,6 +22,7 @@ const AddContractTypeModal: React.FC<AddContractTypeModalProps> = ({ open, onClo
     const initialValues: ContractType = {
         uuid: '',
         name: '',
+        active: true,
         description: '',
         createdAt: '',
         updatedAt: '',
@@ -54,7 +55,17 @@ const AddContractTypeModal: React.FC<AddContractTypeModalProps> = ({ open, onClo
     };
 
     return (
-        <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+        <Dialog
+            open={open}
+            onClose={(_, reason) => {
+                if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
+                    return;
+                }
+                onClose();
+            }}
+            fullWidth
+            maxWidth="sm"
+        >
             <DialogTitle sx={{ backgroundColor: '#34495e', color: 'white', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 {t('contractType.modal.add.title')}
             </DialogTitle>
@@ -63,7 +74,7 @@ const AddContractTypeModal: React.FC<AddContractTypeModalProps> = ({ open, onClo
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                {({ errors, touched }) => (
+                {({ values, errors, touched, setFieldValue }) => (
                     <Form noValidate>
                         <DialogContent>
                             {errorAPI && (
@@ -100,6 +111,16 @@ const AddContractTypeModal: React.FC<AddContractTypeModalProps> = ({ open, onClo
                                 rows={3}
                                 error={touched.description && Boolean(errors.description)}
                                 helperText={touched.description && errors.description}
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={values.active}
+                                        onChange={(e) => setFieldValue('active', e.target.checked)}
+                                        color="primary"
+                                    />
+                                }
+                                label={t('contractType.form.field.active')}
                             />
                         </DialogContent>
                         <DialogActions>

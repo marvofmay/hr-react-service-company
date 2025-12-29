@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
-import Employee from '@/app/types/Employee';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
+import EmployeePayload from '@/app/types/EmployeePayload';
 
-const addEmployee = async (employee: Employee, token: string): Promise<string> => {
-    console.log('eee');
+const addEmployee = async (employee: EmployeePayload, token: string): Promise<string> => {
     const response = await axios.post(
         `${SERVICE_COMPANY_URL}/api/employees`,
         {
@@ -13,18 +12,18 @@ const addEmployee = async (employee: Employee, token: string): Promise<string> =
             lastName: employee.lastName,
             pesel: employee.pesel,
             employmentFrom: employee.employmentFrom,
-            companyUUID: employee.company.uuid,
-            departmentUUID: employee.department.uuid,
-            positionUUID: employee.position.uuid,
-            contractTypeUUID: employee.contractType.uuid,
-            roleUUID: employee.role.uuid,
+            companyUUID: employee.companyUUID,
+            departmentUUID: employee.departmentUUID,
+            positionUUID: employee.positionUUID,
+            contractTypeUUID: employee.contractTypeUUID,
+            roleUUID: employee.roleUUID,
             email: employee.email,
             address: employee.address,
             externalCode: employee.externalCode,
             internalCode: employee.internalCode,
             active: employee.active,
             phones: employee.phones.filter(p => p.trim() !== ""),
-            parentEmployeeUUID: employee.parentEmployee?.uuid !== '' ? employee.parentEmployee?.uuid : null,
+            parentEmployeeUUID: employee.parentEmployeeUUID !== '' ? employee.parentEmployeeUUID : null,
             employmentTo: employee.employmentTo
         },
         { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }
@@ -34,11 +33,10 @@ const addEmployee = async (employee: Employee, token: string): Promise<string> =
 };
 
 const useAddEmployeeMutation = () => {
-    console.log('wwww');
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: (employee: Employee) => {
+        mutationFn: (employee: EmployeePayload) => {
             const token = localStorage.getItem("auth_token");
             if (!token) throw new Error(t('common.message.tokenIsMissing'));
 

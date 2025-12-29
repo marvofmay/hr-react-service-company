@@ -1,5 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Checkbox, MenuItem, FormControlLabel, Box, IconButton, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
+    Box,
+    Typography,
+    Checkbox,
+    FormControlLabel,
+    IconButton,
+    Autocomplete,
+    MenuItem
+} from '@mui/material';
 import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import Employee from '../../../types/Employee';
@@ -7,17 +21,21 @@ import { useTranslation } from 'react-i18next';
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { FormikHelpers } from 'formik';
-import useCompaniesQuery from '@/app/hooks/company/useCompaniesQuery';
-import useDepartmentsQuery from '@/app/hooks/department/useDepartmentsQuery';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import usePositionsQuery from '@/app/hooks/position/usePositionsQuery';
 import useContractTypesQuery from '@/app/hooks/contractType/useContractTypesQuery';
 import useRolesQuery from '@/app/hooks/role/useRolesQuery';
 import useEmployeesQuery from '@/app/hooks/employee/useEmployeesQuery';
+import useParentCompanyOptionsQuery from '@/app/hooks/company/useParentCompanyOptionsQuery';
+import useParentDepartmentOptionsQuery from '@/app/hooks/department/useParentDepartmentOptionsQuery';
+import useCompaniesQuery from '@/app/hooks/company/useCompaniesQuery';
+import useDepartmentsQuery from '@/app/hooks/department/useDepartmentsQuery';
+import EmployeePayload from '@/app/types/EmployeePayload';
 
 interface AddEmployeeModalProps {
     open: boolean;
     onClose: () => void;
-    onAddEmployee: (newEmployee: Employee) => Promise<void>;
+    onAddEmployee: (newEmployee: EmployeePayload) => Promise<void>;
 }
 
 const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAddEmployee }) => {
@@ -25,44 +43,24 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
 
     const MAX_PHONE_FIELDS = 3;
 
-    const initialValues: Employee = {
-        uuid: '',
+    const initialValues: EmployeePayload = {
         firstName: '',
         lastName: '',
         pesel: '',
         internalCode: '',
         externalCode: '',
-        company: {
-            uuid: '',
-            fullName: '',
-        },
-        department: {
-            uuid: '',
-            name: '',
-        },
-        parentEmployee: {
-            uuid: '',
-            firstName: '',
-            lastName: '',
-        },
-        position: {
-            uuid: '',
-            name: '',
-        },
-        contractType: {
-            uuid: '',
-            name: '',
-        },
-        role: {
-            uuid: '',
-            name: '',
-        },
+        companyUUID: '',
+        departmentUUID: '',
+        parentEmployeeUUID: '',
+        positionUUID: '',
+        contractTypeUUID: '',
+        roleUUID: '',
         contacts: [],
         email: '',
         phones: [""],
         webs: [""],
         employmentFrom: new Date().toISOString().slice(0, 10),
-        active: false,
+        active: true,
         address: {
             country: '',
             city: '',
@@ -116,8 +114,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
     const [errorAPI, setErrorAPI] = useState<string | null>(null);
     const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
 
-    const handleSubmit = async (values: Employee, formikHelpers: FormikHelpers<Employee>) => {
-        console.log(12345);
+    const handleSubmit = async (values: EmployeePayload, formikHelpers: FormikHelpers<EmployeePayload>) => {
         const employeeData = {
             ...values,
         };
@@ -164,18 +161,16 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
         1000,
         1,
         'name',
-        'asc',
-        null,
-        'company'
+        'asc'
     );
 
-    const departments = dataDepartments?.items.map(({ uuid, name, company }) => ({
+    const [selectedCompanyUUID, setSelectedCompanyUUID] = useState<string | null>(null);
+
+    const departments = dataDepartments?.items.map(({ uuid, name }) => ({
         uuid,
         name,
-        company: {
-            uuid: company.uuid,
-        }
     })) ?? [];
+
 
     const {
         data: dataPositions,
@@ -248,9 +243,18 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
     })) ?? [];
 
 
-
     return (
-        <Dialog open={open} onClose={onClose} fullWidth maxWidth="xl">
+        <Dialog
+            open={open}
+            onClose={(_, reason) => {
+                if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
+                    return;
+                }
+                onClose();
+            }}
+            fullWidth
+            maxWidth="xl"
+        >
             <DialogTitle
                 sx={{
                     backgroundColor: '#34495e',
@@ -261,12 +265,12 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
             >
                 {t('employee.modal.add.title')}
             </DialogTitle>
-            <Formik<Employee>
+            <Formik<EmployeePayload>
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                {({ values, errors, touched }) => (
+                {({ values, errors, touched, setFieldValue }) => (
                     <Form noValidate>
                         <DialogContent>
                             {errorAPI && (
@@ -378,51 +382,81 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         helperText={touched.employmentFrom && errors.employmentFrom}
                                         required
                                     />
-                                    <Field
-                                        as={TextField}
-                                        select
-                                        fullWidth
-                                        name="company.uuid"
-                                        label={t('department.form.field.company')}
-                                        margin="normal"
-                                        error={touched?.company?.uuid && Boolean(errors?.company?.uuid)}
-                                        helperText={touched?.company?.uuid && errors?.company?.uuid}
-                                        required
-                                    >
-                                        {loadingCompanies && <MenuItem disabled>{t('common.loading')}</MenuItem>}
-                                        {isErrorCompanies && <MenuItem disabled>{t('company.list.loading.failed')}</MenuItem>}
-                                        {!loadingCompanies && companies.map(company => (
-                                            <MenuItem key={company.uuid} value={company.uuid}>
-                                                {company.fullName}
-                                            </MenuItem>
-                                        ))}
-                                    </Field>
-                                    <Field
-                                        as={TextField}
-                                        select
-                                        fullWidth
-                                        name="department.uuid"
-                                        label={t('employee.form.field.department')}
-                                        margin="normal"
-                                        disabled={!values.company.uuid}
-                                        error={touched?.department?.uuid && Boolean(errors?.department?.uuid)}
-                                        helperText={touched?.department?.uuid && errors?.department?.uuid}
-                                        required
-                                    >
-                                        <MenuItem value="">
-                                            — {t('common.lack')} —
-                                        </MenuItem>
-                                        {loadingDepartments && <MenuItem disabled>{t('common.loading')}</MenuItem>}
-                                        {isErrorDepartments && <MenuItem disabled>{t('department.list.loading.failed')}</MenuItem>}
-                                        {!loadingDepartments &&
-                                            departments
-                                                .filter(d => d.company.uuid === values.company.uuid)
-                                                .map(d => (
-                                                    <MenuItem key={d.uuid} value={d.uuid}>
-                                                        {d.name}
-                                                    </MenuItem>
-                                                ))}
-                                    </Field>
+                                    <Autocomplete
+                                        options={companies}
+                                        loading={loadingCompanies}
+                                        getOptionLabel={(option) => option.fullName ?? ''}
+                                        isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
+                                        value={
+                                            companies.find(c => c.uuid === values.companyUUID) ?? null
+                                        }
+                                        onChange={(_, value) => {
+                                            const uuid = value?.uuid ?? null;
+                                            setFieldValue('companyUUID', uuid);
+                                            setSelectedCompanyUUID(uuid);
+                                            setFieldValue('departmentUUID', null);
+                                        }}
+                                        noOptionsText={
+                                            isErrorCompanies
+                                                ? t('company.list.loading.failed')
+                                                : t('common.noOptions')
+                                        }
+                                        loadingText={t('common.loading')}
+                                        popupIcon={<ArrowDropDownIcon />}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                fullWidth
+                                                label={t('employee.form.field.company')}
+                                                margin="dense"
+                                                error={isErrorCompanies}
+                                                helperText={
+                                                    isErrorCompanies
+                                                        ? t('company.list.loading.failed')
+                                                        : undefined
+                                                }
+                                            />
+                                        )}
+                                    />
+                                    <Autocomplete
+                                        options={departments}
+                                        loading={loadingDepartments}
+                                        getOptionLabel={(option) => option.name ?? ''}
+                                        isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
+                                        value={
+                                            departments.find(d => d.uuid === values.departmentUUID) ?? null
+                                        }
+                                        onChange={(_, value) => {
+                                            setFieldValue(
+                                                'departmentUUID',
+                                                value?.uuid ?? null
+                                            );
+                                        }}
+                                        disabled={!values.companyUUID}
+                                        noOptionsText={
+                                            isErrorDepartments
+                                                ? t('department.list.loading.failed')
+                                                : t('common.noOptions')
+                                        }
+                                        loadingText={t('common.loading')}
+                                        popupIcon={<ArrowDropDownIcon />}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                fullWidth
+                                                label={t('employee.form.field.department')}
+                                                margin="dense"
+                                                error={isErrorDepartments}
+                                                helperText={
+                                                    !values.companyUUID
+                                                        ? t('department.form.selectCompanyFirst')
+                                                        : isErrorDepartments
+                                                            ? t('department.list.loading.failed')
+                                                            : undefined
+                                                }
+                                            />
+                                        )}
+                                    />
                                     <Field
                                         as={TextField}
                                         select
@@ -430,9 +464,15 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                         name="position.uuid"
                                         label={t('employee.form.field.position')}
                                         margin="normal"
-                                        disabled={!values.department.uuid}
-                                        error={touched?.position?.uuid && Boolean(errors?.position?.uuid)}
-                                        helperText={touched?.position?.uuid && errors?.position?.uuid}
+                                        disabled={!values.departmentUUID}
+                                        error={touched?.positionUUID && Boolean(errors?.positionUUID)}
+                                        helperText={
+                                            !values.departmentUUID
+                                                ? t('position.form.selectDepartmentFirst')
+                                                : isErrorPositions
+                                                    ? t('position.list.loading.failed')
+                                                    : undefined
+                                        }
                                         required
                                     >
                                         {loadingPositions && <MenuItem disabled>{t('common.loading')}</MenuItem>}
@@ -446,6 +486,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                                     </MenuItem>
                                                 ))}
                                     </Field>
+                                    {/* 
                                     <Field
                                         as={TextField}
                                         select
@@ -486,7 +527,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                                     {ppe.lastName} {ppe.firstName}
                                                 </MenuItem>
                                             ))}
-                                    </Field>
+                                    </Field> */}
                                     <Field
                                         as={TextField}
                                         type="date"
@@ -672,11 +713,11 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
                                             as={TextField}
                                             select
                                             fullWidth
-                                            name="role.uuid"
+                                            name="roleUUID"
                                             label={t('employee.form.field.role')}
                                             margin="normal"
-                                            error={touched?.role?.uuid && Boolean(errors?.role?.uuid)}
-                                            helperText={touched?.role?.uuid && errors?.role?.uuid}
+                                            error={touched?.roleUUID && Boolean(errors?.roleUUID)}
+                                            helperText={touched?.roleUUID && errors?.roleUUID}
                                             required
                                         >
                                             {loadingRoles && <MenuItem disabled>{t('common.loading')}</MenuItem>}

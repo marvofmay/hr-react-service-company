@@ -22,9 +22,9 @@ const Preview: React.FC<PreviewProps> = ({ open, title, details, onClose }) => {
                 {Object.keys(details).length > 0 ? (
                     <div>
                         {Object.entries(details).map(([key, value]) => (
-                            <p key={key}>
+                            <div key={key}>
                                 <strong>{key}:</strong> {value || 'N/D'}
-                            </p>
+                            </div>
                         ))}
                     </div>
                 ) : (

@@ -85,10 +85,12 @@ const useDepartmentsQuery = (
             sortBy,
             sortDirection,
             normalizedPhrase,
+            normalizedIncludes,
             filters,
         ],
         queryFn: async () => {
             const token = localStorage.getItem('auth_token');
+
             if (!token) throw new Error(t('common.message.tokenIsMissing'));
 
             return fetchDepartments(

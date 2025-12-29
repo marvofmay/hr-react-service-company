@@ -41,6 +41,7 @@
         "column": {
             "name": "nazwa",
             "description": "opis",
+            "active": "aktywne",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto",
@@ -51,9 +52,13 @@
         "field": {
             "name": "nazwa",
             "description": "opis",
+            "active": "aktywne",
+            "assignToDepartment": "przypisz do oddziału",
+            "departments": "oddziały",
             "createdAt": "utworzono",
             "updatedAt": "zaktualizowano",
             "deletedAt": "usunięto"
-        }
+        },
+        "selectDepartmentFirst": "wybierz najpierw departament"
     }
 }

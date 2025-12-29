@@ -38,8 +38,7 @@ import modules from '@/app/fakeData/Modules';
 import permissions from '@/app/fakeData/Permissions';
 import moment from 'moment';
 import { useUser } from "@/app/context/userContext";
-
-type SortDirection = 'asc' | 'desc';
+import { SortDirection } from '@/app/types/SortDirection';
 
 const RolesTable = () => {
     const [pageSize, setPageSize] = useState(5);
@@ -253,7 +252,12 @@ const RolesTable = () => {
                     <div>{t('common.noData')}</div>
                 </Box>
             ) : (
-                <TableContainer>
+                <TableContainer
+                    sx={{
+                        maxHeight: '65vh',
+                        overflowY: 'auto',
+                    }}
+                >
                     <Table>
                         <TableHead>
                             <TableRow>

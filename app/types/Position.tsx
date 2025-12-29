@@ -2,7 +2,8 @@ export default interface Position {
     uuid: string;
     name: string;
     description?: string;
-    active?: boolean;
+    active: boolean;
+    departmentsUUIDs: string[];
     createdAt?: string;
     updatedAt?: string;
     deletedAt?: string | null;

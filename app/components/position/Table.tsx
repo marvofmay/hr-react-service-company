@@ -18,7 +18,6 @@ import {
 import Tooltip from "@mui/material/Tooltip";
 import { Preview, Edit, Delete, Add, Key, Search } from '@mui/icons-material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import ApartmentIcon from '@mui/icons-material/Apartment';
 import Position from '@/app/types/Position';
 import CreatePositionModal from '@/app/components/position/modal/Create';
 import EditPositionModal from '@/app/components/position/modal/Edit';
@@ -36,8 +35,14 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { useUser } from "@/app/context/userContext";
-
-type SortDirection = 'asc' | 'desc';
+import PositionPayload from '@/app/types/PositionPayload';
+import CheckCircleIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import CancelIcon from '@mui/icons-material/CancelOutlined';
+import { SortDirection } from '@/app/types/SortDirection';
+import PositionApi from "@/app/types/PositionApi";
+import useDepartmentsQuery from '@/app/hooks/department/useDepartmentsQuery';
+import mapPositionToPreview from '@/app/mappers/mapPositionToPreview';
+import { PositionPreview } from '@/app/types/PositionPreview';
 
 const PositionsTable = () => {
     const [pageSize, setPageSize] = useState(5);
@@ -58,10 +63,41 @@ const PositionsTable = () => {
     const { t } = useTranslation();
     const { hasPermission } = useUser();
 
-    const result = usePositionsQuery(pageSize, page, sortBy, sortDirection, phrase);
+    const mapPositionApiToPosition = (api: PositionApi): Position => ({
+        uuid: api.uuid,
+        name: api.name,
+        description: api.description,
+        active: api.active,
+        createdAt: api.createdAt,
+        updatedAt: api.updatedAt || '',
+        deletedAt: api.deletedAt || '',
+        departmentsUUIDs: api.positionDepartments?.map(d => d.uuid),
+    });
+
+    const { data: departments } = useDepartmentsQuery(1000, 1, 'name', 'desc');
+
+    const departmentsDict = React.useMemo(() => {
+        if (!departments?.items) return {};
+
+        return Object.fromEntries(
+            departments.items.map(d => [
+                d.uuid,
+                {
+                    uuid: d.uuid,
+                    name: d.name ?? '',
+                    active: d.active
+                }
+            ])
+        ) as Record<string, { uuid: string; name: string; active?: boolean }>;
+    }, [departments]);
+
+    const result = usePositionsQuery(pageSize, page, sortBy, sortDirection, phrase, 'positionDepartments');
     const { data: rawData, isLoading, error, refetch } = result;
 
-    const positions: Position[] = Array.isArray(rawData) ? rawData : rawData?.items || [];
+    const positions: Position[] = (
+        Array.isArray(rawData) ? rawData : rawData?.items || []
+    ).map((p: PositionApi) => mapPositionApiToPosition(p));
+
     const totalCount: number = Array.isArray(rawData) ? positions.length : rawData?.total || 0;
 
     const allSelected = selected.length === positions.length && positions.length > 0;
@@ -77,9 +113,18 @@ const PositionsTable = () => {
         setSortDirection(direction);
     };
 
+    const [previewPosition, setPreviewPosition] = useState<PositionPreview | null>(null);
+
     const openModal = (type: string, position: Position | null = null) => {
         setModalType(type);
         setSelectedPosition(position);
+
+        if (type === 'preview' && position) {
+            const mapped = mapPositionToPreview(position, departmentsDict);
+            setPreviewPosition(mapped);
+        } else {
+            setSelectedPosition(position);
+        }
     };
 
     const closeModal = () => {
@@ -93,7 +138,7 @@ const PositionsTable = () => {
         setSelected([]);
     };
 
-    const handleAdd = async (newPosition: Position): Promise<void> => {
+    const handleAdd = async (newPosition: PositionPayload): Promise<void> => {
         return new Promise((resolve, reject) => {
             addPositionMutate(newPosition, {
                 onSuccess: (message: string) => {
@@ -125,7 +170,7 @@ const PositionsTable = () => {
         });
     };
 
-    const handleUpdate = async (updatedPosition: Position): Promise<void> => {
+    const handleUpdate = async (updatedPosition: PositionPayload): Promise<void> => {
         return new Promise((resolve, reject) => {
             updatePositionMutate(updatedPosition, {
                 onSuccess: (message: string) => {
@@ -251,7 +296,12 @@ const PositionsTable = () => {
                     <div>{t('common.noData')}</div>
                 </Box>
             ) : (
-                <TableContainer>
+                <TableContainer
+                    sx={{
+                        maxHeight: '65vh',
+                        overflowY: 'auto',
+                    }}
+                >
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -291,6 +341,15 @@ const PositionsTable = () => {
                                     </TableSortLabel>
                                 </TableCell>
                                 <TableCell
+                                    sortDirection={sortBy === 'active' ? sortDirection : false}
+                                    onClick={() => handleSort('active')}
+                                    sx={{ padding: '4px 8px' }}
+                                >
+                                    <TableSortLabel active={sortBy === 'active'} direction={sortBy === 'active' ? sortDirection : 'asc'}>
+                                        {t('position.table.column.active')}
+                                    </TableSortLabel>
+                                </TableCell>
+                                <TableCell
                                     sortDirection={sortBy === 'createdAt' ? sortDirection : false}
                                     onClick={() => handleSort('createdAt')}
                                     sx={{ padding: '4px 8px' }}
@@ -325,6 +384,7 @@ const PositionsTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{(page - 1) * pageSize + index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{position.name}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{position.description || '-'}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}> {position.active ? (<CheckCircleIcon color="success" fontSize="small" />) : (<CancelIcon color="error" fontSize="small" />)}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{moment(position.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{position.updatedAt ? moment(position.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
@@ -340,11 +400,6 @@ const PositionsTable = () => {
                                             </Tooltip>
                                         )}
 
-                                        {hasPermission("positions.assign_departments_to_position") && (
-                                            <Tooltip title={t('common.assignDepartmentsToPosition')} placement="top">
-                                                <IconButton onClick={() => openModal('permission', position)}>< ApartmentIcon /> </IconButton>
-                                            </Tooltip>
-                                        )}
                                         {hasPermission("positions.delete") && (
                                             <Tooltip title={t('common.delete')} placement="top">
                                                 <IconButton onClick={() => openModal('delete', position)}><Delete /></IconButton>
@@ -374,7 +429,7 @@ const PositionsTable = () => {
 
             {hasPermission("positions.preview") && modalType === 'preview' && <PreviewPositionModal
                 open={true}
-                selectedPosition={selectedPosition}
+                selectedPosition={previewPosition}
                 onClose={closeModal}
             />}
 
@@ -390,16 +445,6 @@ const PositionsTable = () => {
                 onClose={closeModal}
                 onSave={handleUpdate} />}
 
-            {/* 
-            {modalType === 'permission' && <EditPermissionPositionModal
-                open={true}
-                selectedPosition={selectedPosition}
-                onClose={closeModal}
-                onSave={handleUpdate}
-                modules={modules}
-                permissions={permissions}
-            />}
-            */}
 
             {hasPermission("positions.create") && modalType === 'importFromXLSX' && <ImportPositionsFromXLSXModal
                 open={true}

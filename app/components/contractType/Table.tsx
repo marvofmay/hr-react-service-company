@@ -15,6 +15,8 @@ import {
     TextField,
     Checkbox
 } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import CancelIcon from '@mui/icons-material/CancelOutlined';
 import Tooltip from "@mui/material/Tooltip";
 import { Preview, Edit, Delete, Add, Key, Search } from '@mui/icons-material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
@@ -36,7 +38,7 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { useUser } from "@/app/context/userContext";
 
-type SortDirection = 'asc' | 'desc';
+import { SortDirection } from '@/app/types/SortDirection';
 
 const ContractTypesTable = () => {
     const [pageSize, setPageSize] = useState(5);
@@ -250,7 +252,12 @@ const ContractTypesTable = () => {
                     <div>{t('common.noData')}</div>
                 </Box>
             ) : (
-                <TableContainer>
+                <TableContainer
+                    sx={{
+                        maxHeight: '65vh',
+                        overflowY: 'auto',
+                    }}
+                >
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -290,12 +297,30 @@ const ContractTypesTable = () => {
                                     </TableSortLabel>
                                 </TableCell>
                                 <TableCell
+                                    sortDirection={sortBy === 'active' ? sortDirection : false}
+                                    onClick={() => handleSort('active')}
+                                    sx={{ padding: '4px 8px' }}
+                                >
+                                    <TableSortLabel active={sortBy === 'active'} direction={sortBy === 'active' ? sortDirection : 'asc'}>
+                                        {t('contractType.table.column.active')}
+                                    </TableSortLabel>
+                                </TableCell>
+                                <TableCell
                                     sortDirection={sortBy === 'createdAt' ? sortDirection : false}
                                     onClick={() => handleSort('createdAt')}
                                     sx={{ padding: '4px 8px' }}
                                 >
                                     <TableSortLabel active={sortBy === 'createdAt'} direction={sortBy === 'createdAt' ? sortDirection : 'asc'}>
                                         {t('contractType.table.column.createdAt')}
+                                    </TableSortLabel>
+                                </TableCell>
+                                <TableCell
+                                    sortDirection={sortBy === 'updatedAt' ? sortDirection : false}
+                                    onClick={() => handleSort('updatedAt')}
+                                    sx={{ padding: '4px 8px' }}
+                                >
+                                    <TableSortLabel active={sortBy === 'updatedAt'} direction={sortBy === 'updatedAt' ? sortDirection : 'asc'}>
+                                        {t('contractType.table.column.updatedAt')}
                                     </TableSortLabel>
                                 </TableCell>
                                 <TableCell
@@ -324,6 +349,7 @@ const ContractTypesTable = () => {
                                     <TableCell sx={{ padding: '4px 8px' }}>{(page - 1) * pageSize + index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{contractType.name}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{contractType.description || '-'}</TableCell>
+                                    <TableCell sx={{ padding: '4px 8px' }}> {contractType.active ? (<CheckCircleIcon color="success" fontSize="small" />) : (<CancelIcon color="error" fontSize="small" />)}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{moment(contractType.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{contractType.updatedAt ? moment(contractType.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>

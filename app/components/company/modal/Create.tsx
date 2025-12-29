@@ -8,7 +8,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";;;
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { getCountries } from '@/app/utils/countries';
-import { useCompanyOptions } from '@/app/hooks/company/useCompanyOptions';
+import useParentCompanyOptionsQuery from '@/app/hooks/company/useParentCompanyOptionsQuery';
 import { useIndustryOptions } from '@/app/hooks/industry/useIndustryOptions';
 
 interface AddCompanyModalProps {
@@ -70,15 +70,16 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ open, onClose, onAddC
     });
 
     const {
-        options: companies,
+        data,
         isLoading: loadingCompanies,
-        isError: isErrorCompanies
-    } = useCompanyOptions({
-        pageSize: 1000,
-        page: 1,
-        sortBy: 'fullName',
-        sortDirection: 'asc'
-    });
+        isError: isErrorCompanies,
+    } = useParentCompanyOptionsQuery();
+
+    const companies =
+        data?.data.map(company => ({
+            uuid: company.uuid,
+            fullName: company.fullName,
+        })) ?? [];
 
     const validationSchema = Yup.object({
         fullName: Yup.string().required(t('validation.fieldIsRequired')),

@@ -13,7 +13,7 @@ import {
     Box,
     CircularProgress,
     TextField,
-    Checkbox
+    Checkbox,
 } from '@mui/material';
 import Tooltip from "@mui/material/Tooltip";
 import { Preview, Edit, Delete, Add, Key, Search } from '@mui/icons-material';
@@ -37,8 +37,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { useUser } from "@/app/context/userContext";
-
-type SortDirection = 'asc' | 'desc';
+import { SortDirection } from '@/app/types/SortDirection';
 
 const CompaniesTable = () => {
     const [pageSize, setPageSize] = useState(5);
@@ -251,7 +250,12 @@ const CompaniesTable = () => {
                     <div>{t('common.noData')}</div>
                 </Box>
             ) : (
-                <TableContainer>
+                <TableContainer
+                    sx={{
+                        maxHeight: '65vh',
+                        overflowY: 'auto',
+                    }}
+                >
                     <Table>
                         <TableHead>
                             <TableRow>

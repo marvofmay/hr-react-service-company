@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import Position from '../../types/Position';
 import axios from 'axios';
 import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 import { useTranslation } from 'react-i18next';
 import { SortDirection } from '@/app/types/SortDirection';
+import PositionApi from '@/app/types/PositionApi';
 
 export interface PositionsResponse {
-    items: Position[];
+    items: PositionApi[];
     total: number;
 }
 
@@ -16,12 +16,13 @@ const fetchPositions = async (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase?: string | null
+    phrase?: string | null,
+    includes?: string | null,
 ): Promise<PositionsResponse> => {
     try {
         const response = await axios.get(`${SERVICE_COMPANY_URL}/api/positions`, {
             headers: { Authorization: `Bearer ${token}` },
-            params: { pageSize, page, sortBy, sortDirection, phrase },
+            params: { pageSize, page, sortBy, sortDirection, phrase, includes },
         });
 
         return {
@@ -42,17 +43,21 @@ const usePositionsQuery = (
     page: number,
     sortBy: string,
     sortDirection: SortDirection,
-    phrase?: string | null
+    phrase?: string | null,
+    includes?: string | null
 ) => {
     const { t } = useTranslation();
 
+    const normalizedPhrase = phrase ?? undefined;
+    const normalizedIncludes = includes ?? undefined;
+
     return useQuery<PositionsResponse>({
-        queryKey: ['positions', pageSize, page, sortBy, sortDirection, phrase],
+        queryKey: ['positions', pageSize, page, sortBy, sortDirection, normalizedPhrase, normalizedIncludes],
         queryFn: async () => {
             const token = localStorage.getItem('auth_token');
             if (!token) throw new Error(t('common.message.tokenIsMissing'));
 
-            return fetchPositions(token, pageSize, page, sortBy, sortDirection, phrase);
+            return fetchPositions(token, pageSize, page, sortBy, sortDirection, normalizedPhrase, normalizedIncludes);
         },
     });
 };

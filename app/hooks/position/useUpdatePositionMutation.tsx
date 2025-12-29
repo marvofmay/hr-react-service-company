@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
-import Position from '../../types/Position';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
+import PositionPayload from '@/app/types/PositionPayload';
 
-const updatePosition = async (updatedPosition: Position, token: string): Promise<string> => {
+const updatePosition = async (updatedPosition: PositionPayload, token: string): Promise<string> => {
     try {
         const response = await axios.put(
             `${SERVICE_COMPANY_URL}/api/positions/${updatedPosition.uuid}`,
@@ -12,6 +12,8 @@ const updatePosition = async (updatedPosition: Position, token: string): Promise
                 uuid: updatedPosition.uuid,
                 name: updatedPosition.name,
                 description: updatedPosition.description,
+                departmentsUUIDs: updatedPosition.departmentsUUIDs,
+                active: updatedPosition.active
             },
             {
                 headers: {
@@ -35,7 +37,7 @@ const useUpdatePositionMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: (updatedPosition: Position) => {
+        mutationFn: (updatedPosition: PositionPayload) => {
             const token = localStorage.getItem("auth_token");
 
             if (!token) {

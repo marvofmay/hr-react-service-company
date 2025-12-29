@@ -9,9 +9,8 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { getCountries } from '@/app/utils/countries';
 import CompanyOption from '@/app/types/CompanyOption';
-import { useCompanyOptions } from '@/app/hooks/company/useCompanyOptions';
 import { useIndustryOptions } from '@/app/hooks/industry/useIndustryOptions';
-import { useCompanyDescendantUuidsQuery } from '@/app/hooks/company/useCompanyDescendantUuidsQuery';
+import useParentCompanyOptionsQuery from '@/app/hooks/company/useParentCompanyOptionsQuery';
 
 interface EditCompanyModalProps {
     open: boolean;
@@ -108,26 +107,16 @@ const EditCompanyModal: React.FC<EditCompanyModalProps> = ({ open, onClose, comp
     });
 
     const {
-        data: descendantUuids,
-        isLoading,
-        isError,
-    } = useCompanyDescendantUuidsQuery(currentCompanyUUID);
-
-    console.log('descendantUuids', descendantUuids);
-
-    const excludeCompanyUUIDs = [currentCompanyUUID, ...(descendantUuids ?? [])];
-
-    const {
-        options: companies,
+        data,
         isLoading: loadingCompanies,
-        isError: isErrorCompanies
-    } = useCompanyOptions({
-        pageSize: 100,
-        page: 1,
-        sortBy: 'fullName',
-        sortDirection: 'asc',
-        excludeCompanyUUIDs: excludeCompanyUUIDs,
-    });
+        isError: isErrorCompanies,
+    } = useParentCompanyOptionsQuery(currentCompanyUUID);
+
+    const companies =
+        data?.data.map(company => ({
+            uuid: company.uuid,
+            fullName: company.fullName,
+        })) ?? [];
 
     const [errorAPI, setErrorAPI] = useState<string | null>(null);
     const [errorsAPI, setErrorsAPI] = useState<Record<string, string> | null>(null);
