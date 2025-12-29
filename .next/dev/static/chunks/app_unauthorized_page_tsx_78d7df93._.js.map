@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///usr/src/app/app/unauthorized/page.tsx"],"sourcesContent":["\"use client\";\n\nimport { useTranslation } from 'react-i18next';\n\nconst Unauthorized: React.FC = () => {\n    const { t } = useTranslation();\n\n    return (\n        <div className=\"grid grid-rows-[10px_1fr_10px] min-h-[50vh] p-4 sm:p-6 font-[family-name:var(--font-geist-sans)] bg-gray-100\">\n            <main className=\"flex flex-col gap-4 row-start-2 items-center justify-center text-center\">\n                <h1 className=\"text-6xl font-bold text-[#34495e]\">{t('common.error401')}</h1>\n                <h2 className=\"text-3xl text-[#34495e] italic\">{t('common.path.unauthorized')}</h2>\n            </main>\n        </div>\n    );\n};\n\nexport default Unauthorized;\n"],"names":[],"mappings":";;;;;AAEA;AAAA;;;AAFA;;AAIA,MAAM,eAAyB;;IAC3B,MAAM,EAAE,CAAC,EAAE,GAAG,IAAA,qLAAc;IAE5B,qBACI,6LAAC;QAAI,WAAU;kBACX,cAAA,6LAAC;YAAK,WAAU;;8BACZ,6LAAC;oBAAG,WAAU;8BAAqC,EAAE;;;;;;8BACrD,6LAAC;oBAAG,WAAU;8BAAkC,EAAE;;;;;;;;;;;;;;;;;AAIlE;GAXM;;QACY,qLAAc;;;KAD1B;uCAaS"}}]
-}
