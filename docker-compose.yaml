@@ -1,9 +1,30 @@
-version: '3'
 services:
-  node:
+  frontend:
     build: .
+    container_name: frontend
+    env_file:
+      - .env.docker
     ports:
       - "3000:3000"
+    networks:
+      - hr-network
+
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.57.0-jammy
+    container_name: playwright
+    working_dir: /usr/src/app
     volumes:
-      - .:/usr/src/app      
-    tty: true
+      - .:/usr/src/app
+    env_file:
+      - .env.docker
+    environment:
+      BASE_URL: http://frontend:3000
+    networks:
+      - hr-network
+    depends_on:
+      - frontend
+    command: ["npx", "playwright", "test", "--reporter=list"]
+
+
+networks:
+  hr-network:

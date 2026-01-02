@@ -21,8 +21,8 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { getCountries } from '@/app/utils/countries';
-import useParentCompanyOptionsQuery from '@/app/hooks/company/useParentCompanyOptionsQuery';
 import useParentDepartmentOptionsQuery from '@/app/hooks/department/useParentDepartmentOptionsQuery';
+import useCompanySelectOptionsQuery from '@/app/hooks/company/useCompanySelectOptionsQuery';
 
 interface EditDepartmentModalProps {
     open: boolean;
@@ -101,7 +101,7 @@ const EditDepartmentModal: React.FC<EditDepartmentModalProps> = ({ open, onClose
         data: dataCompanies,
         isLoading: loadingCompanies,
         isError: isErrorCompanies,
-    } = useParentCompanyOptionsQuery();
+    } = useCompanySelectOptionsQuery();
 
     const companies =
         dataCompanies?.data.map(company => ({

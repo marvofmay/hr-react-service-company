@@ -21,8 +21,8 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import Department from '@/app/types/Department';
 import { getCountries } from '@/app/utils/countries';
-import useParentCompanyOptionsQuery from '@/app/hooks/company/useParentCompanyOptionsQuery';
 import useParentDepartmentOptionsQuery from '@/app/hooks/department/useParentDepartmentOptionsQuery';
+import useCompanySelectOptionsQuery from '@/app/hooks/company/useCompanySelectOptionsQuery';
 
 interface AddDepartmentModalProps {
     open: boolean;
@@ -68,7 +68,7 @@ const AddDepartmentModal: React.FC<AddDepartmentModalProps> = ({
         data: dataCompanies,
         isLoading: loadingCompanies,
         isError: isErrorCompanies,
-    } = useParentCompanyOptionsQuery();
+    } = useCompanySelectOptionsQuery();
 
     const companies =
         dataCompanies?.data.map(company => ({
