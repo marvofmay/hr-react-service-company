@@ -1,17 +1,20 @@
 import { chromium, FullConfig } from '@playwright/test';
 
-const baseUrl = 'http://localhost:3000';
-const backendUrl = 'http://service-company:80';
+const baseUrl = process.env.BASE_URL || 'http://frontend:3000';
+const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://service-company:80';
 
 async function globalSetup(config: FullConfig) {
     const browser = await chromium.launch();
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    await page.route('**/api/login', async route => {
+    await page.route('**/api/**', async route => {
         const request = route.request();
-        route.continue({
-            url: `${backendUrl}/api/login`,
+        const url = new URL(request.url());
+        const newUrl = backendUrl.replace(/\/$/, '') + url.pathname;
+
+        await route.continue({
+            url: newUrl,
             method: request.method(),
             headers: request.headers(),
             postData: request.postData(),
@@ -27,7 +30,6 @@ async function globalSetup(config: FullConfig) {
     await page.waitForURL(`${baseUrl}/`);
 
     await context.storageState({ path: 'storage/auth.json' });
-
     await browser.close();
 }
 

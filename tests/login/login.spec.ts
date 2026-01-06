@@ -3,8 +3,8 @@ import { test, expect } from '@playwright/test';
 const baseUrl = 'http://localhost:3000';
 
 test.describe('After login', () => {
-
     test('debug', async ({ page }) => {
+
         await page.goto(baseUrl);
 
         const storage = await page.evaluate(() => ({
@@ -15,7 +15,7 @@ test.describe('After login', () => {
         //console.log('STORAGE:', storage);
 
         const links = await page.getByRole('link').all();
-        //console.log(`links: ${links.length}`);
+        console.log(`links: ${links.length}`);
 
         for (const link of links) {
             // console.log({
