@@ -2,6 +2,7 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Instalacja zależności systemowych
 RUN apt-get update && apt-get install -y \
     curl \
     gnupg2 \
@@ -38,14 +39,29 @@ RUN apt-get update && apt-get install -y \
     libhyphen0 \
     libflite1 \
     libgles2-mesa-dev \
-    libx264-dev \    
+    libx264-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# Node 20
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs
+    apt-get install -y nodejs && \
+    npm install -g npm@11.7.0
 
+# Katalog roboczy
 WORKDIR /usr/src/app
 
+# Kopiowanie zależności i instalacja Node
+COPY package*.json ./
+RUN npm ci
+
+# Instalacja Playwright i przeglądarek raz przy buildzie
+RUN npx playwright install --with-deps
+
+# Kopiowanie całej aplikacji
+COPY . .
+
+# Port frontend
 EXPOSE 3000
 
-CMD ["sh"]
+# Domyślna komenda
+CMD ["npm", "run", "dev"]

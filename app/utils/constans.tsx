@@ -1,6 +1,9 @@
 const APP_NAME = "HR APP";
 
-const SERVICE_COMPANY_URL = "http://127.0.0.1:81";
+const SERVICE_COMPANY_URL =
+    typeof window !== "undefined" && window.location.hostname === "localhost"
+        ? process.env.NEXT_PUBLIC_API_URL_HOST! // browser
+        : process.env.NEXT_PUBLIC_API_URL_DOCKER!; // doceker/playwright
 
 const SERVICE_MERCURE_URL = "http://localhost:3001/.well-known/mercure";
 

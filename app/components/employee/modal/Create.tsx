@@ -137,6 +137,7 @@ const AddEmployeeModal: React.FC<AddEmployeeModalProps> = ({ open, onClose, onAd
         }
     };
 
+    // ToDo:: change to useCompaniesSelectOptionsQuery()
     const {
         data: dataCompanies,
         isLoading: loadingCompanies,
