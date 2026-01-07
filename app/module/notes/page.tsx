@@ -1,15 +1,18 @@
 "use client";
 
-import { useUser } from '../../context/userContext';
+import NotesTable from "@/app/components/note/Table";
+import { Box, Typography, CircularProgress } from '@mui/material';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from "react";
+import { useUser } from "@/app/context/userContext";
 import { useRouter } from "next/navigation";
-import CenteredMessage from '@/app/components/shared/CenterdeMessage';
+import { useEffect } from "react";
 
-const Note: React.FC = () => {
-    const { t } = useTranslation();
-    const { isAuthenticated, hasAccess, loading } = useUser();
+const NotesList: React.FC = () => {
+    const queryClient = new QueryClient();
+    const { hasAccess, hasPermission, isAuthenticated, loading } = useUser();
     const router = useRouter();
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (!loading && !isAuthenticated) {
@@ -19,21 +22,27 @@ const Note: React.FC = () => {
         if (!loading && !hasAccess("notes")) {
             router.push("/forbidden");
         }
-    }, [hasAccess, loading, router]);
+    }, [hasAccess, hasPermission, isAuthenticated, loading, router]);
+
+    if (loading) {
+        return (<Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <CircularProgress />
+        </Box>);
+    }
 
     return (
         <div className="grid grid-rows-[10px_1fr_10px] min-h-screen p-1 pb-1 sm:p-1 font-[family-name:var(--font-geist-sans)]">
             <main>
-                {!loading && !isAuthenticated ? (
-                    <CenteredMessage message={t('common.message.youAreNotLogged')} />
-                ) : (
-                    <>
-                        <p>{t('notes.title')}</p>
-                    </>
-                )}
+                <Box display="flex" justifyContent="center" alignItems="center" >
+                    <Box width="90%">
+                        <Typography variant="h6" gutterBottom>{t('note.list.title')}</Typography>
+                        <QueryClientProvider client={queryClient}>
+                            {hasPermission('notes.list') && <NotesTable />}
+                        </QueryClientProvider>
+                    </Box></Box>
             </main>
         </div>
     );
 }
 
-export default Note;
+export default NotesList; 

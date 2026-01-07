@@ -1,0 +1,68 @@
+{
+    "list": {
+        "title": "Lista notatek",
+        "loading": {
+            "failed": "Nie udało się pobrać listy notatek"
+        }
+    },
+    "settings": {
+        "title": "Ustawienia notatek"
+    },
+    "modal": {
+        "add": {
+            "title": "Dodaj notatkę"
+        },
+        "preview": {
+            "title": "Podgląd notatki"
+        },
+        "edit": {
+            "title": "Edycja notatki"
+        },
+        "delete": {
+            "title": "Potwierdzenie usunięcia notatki",
+            "question": "Czy na pewno chcesz usunąć notatkę"
+        }
+    },
+    "button": {
+        "add": "Dodaj notatkę",
+        "deleteChecked": "Usuń zaznaczone notatki"
+    },
+    "add": {
+        "success": "Notatka została dodana",
+        "error": "Błąd podczas dodawania notatki"
+    },
+    "update": {
+        "success": "Notatka została zaktualizowana",
+        "error": "Nioczekiwany błąd podczas aktualizacji notatki"
+    },
+    "delete": {
+        "success": "Notatka została usunięta",
+        "error": "Nioczekiwany błąd podczas usuwania notatki"
+    },
+    "table": {
+        "column": {
+            "title": "tytuł",
+            "content": "zawartość",
+            "priority": "priorytet",
+            "createdAt": "utworzono",
+            "updatedAt": "zaktualizowano",
+            "deletedAt": "usunięto",
+            "actions": "akcje"
+        }
+    },
+    "form": {
+        "field": {
+            "title": "tytuł",
+            "content": "zawartość",
+            "priority": "priorytet",
+            "createdAt": "utworzono",
+            "updatedAt": "zaktualizowano",
+            "deletedAt": "usunięto"
+        }
+    },
+    "priority": {
+        "high": "wysoki",
+        "medium": "średni",
+        "low": "niski"
+    }
+}

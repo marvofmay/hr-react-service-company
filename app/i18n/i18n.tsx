@@ -16,7 +16,7 @@ import userProfilePL from './locales/pl/userProfile.json';
 import permissionPL from './locales/pl/permission.json';
 import modulePL from './locales/pl/module.json';
 import loginPL from './locales/pl/login.json';
-import notesPL from './locales/pl/notes.json';
+import notePL from './locales/pl/note.json';
 import documentsPL from './locales/pl/documents.json';
 import systemPL from './locales/pl/system.json';
 import countryPL from './locales/pl/country.json';
@@ -42,7 +42,7 @@ const resources = {
             permission: permissionPL,
             module: modulePL,
             loginForm: loginPL,
-            notes: notesPL,
+            note: notePL,
             documents: documentsPL,
             system: systemPL,
             country: countryPL,
