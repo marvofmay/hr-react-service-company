@@ -17,28 +17,24 @@ import {
 } from '@mui/material';
 import Tooltip from "@mui/material/Tooltip";
 import { Preview, Edit, Delete, Add, Key, Search } from '@mui/icons-material';
-import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import CheckCircleIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
-import CancelIcon from '@mui/icons-material/CancelOutlined';
 import Note from '@/app/types/Note';
 import CreateNoteModal from '@/app/components/note/modal/Create';
 import EditNoteModal from '@/app/components/note/modal/Edit';
-// import PreviewNoteModal from '@/app/components/note/modal/Preview';
-// import ImportNotesFromXLSXModal from '@/app/components/note/modal/ImportNotesFromXLSX';
-// import DeleteNoteModal from '@/app/components/note/modal/Delete';
-// import DeleteMultipleNotesModal from '@/app/components/note/modal/DeleteMultiple';
+import PreviewNoteModal from '@/app/components/note/modal/Preview';
+import DeleteNoteModal from '@/app/components/note/modal/Delete';
+import DeleteMultipleNotesModal from '@/app/components/note/modal/DeleteMultiple';
 import useNotesQuery from '@/app/hooks/note/useNotesQuery';
 import useAddNoteMutation from '@/app/hooks/note/useAddNoteMutation';
 import useUpdateNoteMutation from '@/app/hooks/note/useUpdateNoteMutation';
-// import useDeleteNoteMutation from '@/app/hooks/note/useDeleteNoteMutation';
-// import useDeleteMultipleNoteMutation from '@/app/hooks/note/useDeleteMultipleNoteMutation';
-// import useImportNotesFromXLSXMutation from '@/app/hooks/note/importNotesFromXLSXMutation';
+import useDeleteNoteMutation from '@/app/hooks/note/useDeleteNoteMutation';
+import useDeleteMultipleNoteMutation from '@/app/hooks/note/useDeleteMultipleNoteMutation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { useUser } from "@/app/context/userContext";
 import { SortDirection } from '@/app/types/SortDirection';
 import NotePayload from '@/app/types/NotePayload';
+import { renderNotePriority } from '@/app/components/note/renderNotePriority';
 
 const NotesTable = () => {
     const [pageSize, setPageSize] = useState(5);
@@ -53,12 +49,12 @@ const NotesTable = () => {
 
     const { mutate: addNoteMutate } = useAddNoteMutation();
     const { mutate: updateNoteMutate } = useUpdateNoteMutation();
-    // const { mutate: deleteNoteMutate } = useDeleteNoteMutation();
-    // const { mutate: deleteMultipleNoteMutate } = useDeleteMultipleNoteMutation();
-    // const { mutate: importNotesFromXLSXMutate } = useImportNotesFromXLSXMutation();
+    const { mutate: deleteNoteMutate } = useDeleteNoteMutation();
+    const { mutate: deleteMultipleNoteMutate } = useDeleteMultipleNoteMutation();
     const { t } = useTranslation();
     const { hasPermission } = useUser();
 
+    // ToDo:: get userUUID
     const result = useNotesQuery(pageSize, page, sortBy, sortDirection, phrase, '', { 'userUUID': '11dfe07b-f707-4426-9ede-b2a348b9fdca' });
     const { data: rawData, isLoading, error, refetch } = result;
 
@@ -107,24 +103,24 @@ const NotesTable = () => {
         });
     };
 
-    // const handleDelete = (noteToDelete: Note): Promise<void> => {
-    //     return new Promise((resolve, reject) => {
-    //         deleteNoteMutate(noteToDelete, {
-    //             onSuccess: (message: string) => {
-    //                 toast.success(message);
+    const handleDelete = (noteToDelete: Note): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            deleteNoteMutate(noteToDelete, {
+                onSuccess: (message: string) => {
+                    toast.success(message);
 
-    //                 refetch().then((freshData) => {
-    //                     if (!freshData.data?.items?.length && page > 1) {
-    //                         setPage(page - 1);
-    //                     }
-    //                 });
+                    refetch().then((freshData) => {
+                        if (!freshData.data?.items?.length && page > 1) {
+                            setPage(page - 1);
+                        }
+                    });
 
-    //                 resolve();
-    //             },
-    //             onError: (error: object) => { toast.error(t('note.delete.error')); reject(error); },
-    //         });
-    //     });
-    // };
+                    resolve();
+                },
+                onError: (error: object) => { toast.error(t('note.delete.error')); reject(error); },
+            });
+        });
+    };
 
     const handleUpdate = async (updatedNote: NotePayload): Promise<void> => {
         return new Promise((resolve, reject) => {
@@ -139,21 +135,6 @@ const NotesTable = () => {
         });
     };
 
-    // const handleImportNotesFromXLSX = async (file: File): Promise<void> => {
-    //     return new Promise((resolve, reject) => {
-    //         importNotesFromXLSXMutate(file, {
-    //             onSuccess: (message: string) => {
-    //                 toast.success(message);
-    //                 refetch();
-    //                 resolve();
-    //             },
-    //             onError: (error: object) => {
-    //                 toast.error(t('common.message.somethingWentWrong'));
-    //                 reject(error);
-    //             },
-    //         });
-    //     });
-    // };
 
     const toggleSelectAll = () => {
         setSelected(allSelected ? [] : notes.map(note => note.uuid));
@@ -163,25 +144,25 @@ const NotesTable = () => {
         setSelected(prev => prev.includes(uuid) ? prev.filter(item => item !== uuid) : [...prev, uuid]);
     };
 
-    // const handleDeleteMultiple = (notesToDelete: Note[]): Promise<void> => {
-    //     return new Promise((resolve, reject) => {
-    //         deleteMultipleNoteMutate(notesToDelete, {
-    //             onSuccess: (message: string) => {
-    //                 setSelected([]);
-    //                 toast.success(message);
+    const handleDeleteMultiple = (notesToDelete: Note[]): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            deleteMultipleNoteMutate(notesToDelete, {
+                onSuccess: (message: string) => {
+                    setSelected([]);
+                    toast.success(message);
 
-    //                 refetch().then((freshData) => {
-    //                     if (!freshData.data?.items?.length && page > 1) {
-    //                         setPage(page - 1);
-    //                     }
-    //                 });
+                    refetch().then((freshData) => {
+                        if (!freshData.data?.items?.length && page > 1) {
+                            setPage(page - 1);
+                        }
+                    });
 
-    //                 resolve();
-    //             },
-    //             onError: (error: object) => { toast.error(t('note.delete.error')); reject(error); },
-    //         });
-    //     });
-    // };
+                    resolve();
+                },
+                onError: (error: object) => { toast.error(t('note.delete.error')); reject(error); },
+            });
+        });
+    };
 
     return (
         <div>
@@ -321,7 +302,13 @@ const NotesTable = () => {
                                     )}
                                     <TableCell sx={{ padding: '4px 8px' }}>{(page - 1) * pageSize + index + 1}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{note.title}</TableCell>
-                                    <TableCell sx={{ padding: '4px 8px' }}>{t(`note.priority.${note.priority}`)}</TableCell>
+
+                                    <TableCell sx={{ padding: '4px 8px' }}>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                            {renderNotePriority(t, note?.priority, 'N/D')}
+                                        </Box>
+                                    </TableCell>
+
                                     <TableCell sx={{ padding: '4px 8px' }}>{moment(note.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>{note.updatedAt ? moment(note.updatedAt).format('YYYY-MM-DD HH:mm:ss') : '-'}</TableCell>
                                     <TableCell sx={{ padding: '4px 8px' }}>
@@ -370,11 +357,11 @@ const NotesTable = () => {
                 onAddNote={handleAdd}
             />}
 
-            {/* {hasPermission("notes.preview") && modalType === 'preview' && <PreviewNoteModal
+            {hasPermission("notes.preview") && modalType === 'preview' && <PreviewNoteModal
                 open={true}
                 selectedNote={selectedNote}
                 onClose={closeModal}
-            />} */}
+            />}
 
             {hasPermission("notes.edit") && modalType === 'edit' && <EditNoteModal
                 open={true}
@@ -382,25 +369,18 @@ const NotesTable = () => {
                 onClose={closeModal}
                 onSave={handleUpdate} />}
 
-            {/* {hasPermission("notes.create") && modalType === 'importFromXLSX' && <ImportNotesFromXLSXModal
-                open={true}
-                onClose={closeModal}
-                onImportNotesFromXLSX={handleImportNotesFromXLSX}
-                allowedTypes={["xlsx"]}
-            />} */}
-
-            {/* {hasPermission("notes.delete") && modalType === 'delete' && <DeleteNoteModal
+            {hasPermission("notes.delete") && modalType === 'delete' && <DeleteNoteModal
                 open={true}
                 selectedNote={selectedNote}
                 onClose={closeModal}
-                onDeleteConfirm={handleDelete} />} */}
+                onDeleteConfirm={handleDelete} />}
 
-            {/* {hasPermission("notes.delete") && modalType === 'multipleDelete' && <DeleteMultipleNotesModal
+            {hasPermission("notes.delete") && modalType === 'multipleDelete' && <DeleteMultipleNotesModal
                 open={true}
                 selectedNotes={notes.filter(note => selected.includes(note.uuid))}
                 onClose={closeModal}
                 onDeleteMultipleConfirm={handleDeleteMultiple}
-            />} */}
+            />}
         </div>
     );
 };
