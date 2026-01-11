@@ -37,7 +37,7 @@ const fetchNotes = async (
             if (filters.userUUID) params.userUUID = filters.userUUID;
         }
 
-        const response = await axios.get(`${SERVICE_COMPANY_URL}/api/employees/notes`, {
+        const response = await axios.get(`${SERVICE_COMPANY_URL}/api/users/notes`, {
             headers: { Authorization: `Bearer ${token}` },
             params,
         });

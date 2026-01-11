@@ -1,0 +1,1 @@
+export type NotePriority = 'low' | 'medium' | 'high';

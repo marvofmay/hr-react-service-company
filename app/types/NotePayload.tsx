@@ -1,13 +1,8 @@
 import { NotePriority } from "./NotePriority";
-import User from "./User";
 
 export default interface Note {
-    uuid: string;
+    uuid?: string | null;
     title?: string;
     content: string,
     priority: NotePriority;
-    user: User,
-    createdAt: string;
-    updatedAt?: string | null;
-    deletedAt?: string | null;
 }

@@ -21,15 +21,15 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import CheckCircleIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import CancelIcon from '@mui/icons-material/CancelOutlined';
 import Note from '@/app/types/Note';
-// import CreateNoteModal from '@/app/components/note/modal/Create';
-// import EditNoteModal from '@/app/components/note/modal/Edit';
+import CreateNoteModal from '@/app/components/note/modal/Create';
+import EditNoteModal from '@/app/components/note/modal/Edit';
 // import PreviewNoteModal from '@/app/components/note/modal/Preview';
 // import ImportNotesFromXLSXModal from '@/app/components/note/modal/ImportNotesFromXLSX';
 // import DeleteNoteModal from '@/app/components/note/modal/Delete';
 // import DeleteMultipleNotesModal from '@/app/components/note/modal/DeleteMultiple';
 import useNotesQuery from '@/app/hooks/note/useNotesQuery';
-// import useAddNoteMutation from '@/app/hooks/note/useAddNoteMutation';
-// import useUpdateNoteMutation from '@/app/hooks/note/useUpdateNoteMutation';
+import useAddNoteMutation from '@/app/hooks/note/useAddNoteMutation';
+import useUpdateNoteMutation from '@/app/hooks/note/useUpdateNoteMutation';
 // import useDeleteNoteMutation from '@/app/hooks/note/useDeleteNoteMutation';
 // import useDeleteMultipleNoteMutation from '@/app/hooks/note/useDeleteMultipleNoteMutation';
 // import useImportNotesFromXLSXMutation from '@/app/hooks/note/importNotesFromXLSXMutation';
@@ -38,6 +38,7 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { useUser } from "@/app/context/userContext";
 import { SortDirection } from '@/app/types/SortDirection';
+import NotePayload from '@/app/types/NotePayload';
 
 const NotesTable = () => {
     const [pageSize, setPageSize] = useState(5);
@@ -50,8 +51,8 @@ const NotesTable = () => {
     const [selectedNote, setSelectedNote] = useState<Note | null>(null);
     const [selected, setSelected] = useState<string[]>([]);
 
-    // const { mutate: addNoteMutate } = useAddNoteMutation();
-    // const { mutate: updateNoteMutate } = useUpdateNoteMutation();
+    const { mutate: addNoteMutate } = useAddNoteMutation();
+    const { mutate: updateNoteMutate } = useUpdateNoteMutation();
     // const { mutate: deleteNoteMutate } = useDeleteNoteMutation();
     // const { mutate: deleteMultipleNoteMutate } = useDeleteMultipleNoteMutation();
     // const { mutate: importNotesFromXLSXMutate } = useImportNotesFromXLSXMutation();
@@ -93,18 +94,18 @@ const NotesTable = () => {
         setSelected([]);
     };
 
-    // const handleAdd = async (newNote: Note): Promise<void> => {
-    //     return new Promise((resolve, reject) => {
-    //         addNoteMutate(newNote, {
-    //             onSuccess: (message: string) => {
-    //                 toast.success(message);
-    //                 refetch();
-    //                 resolve();
-    //             },
-    //             onError: (error: object) => { toast.error(t('note.add.error')); reject(error); },
-    //         });
-    //     });
-    // };
+    const handleAdd = async (newNote: NotePayload): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            addNoteMutate(newNote, {
+                onSuccess: (message: string) => {
+                    toast.success(message);
+                    refetch();
+                    resolve();
+                },
+                onError: (error: object) => { toast.error(t('note.add.error')); reject(error); },
+            });
+        });
+    };
 
     // const handleDelete = (noteToDelete: Note): Promise<void> => {
     //     return new Promise((resolve, reject) => {
@@ -125,18 +126,18 @@ const NotesTable = () => {
     //     });
     // };
 
-    // const handleUpdate = async (updatedNote: Note): Promise<void> => {
-    //     return new Promise((resolve, reject) => {
-    //         updateNoteMutate(updatedNote, {
-    //             onSuccess: (message: string) => {
-    //                 toast.success(message);
-    //                 refetch();
-    //                 resolve();
-    //             },
-    //             onError: (error: object) => { toast.error(t('note.update.error')); reject(error); },
-    //         });
-    //     });
-    // };
+    const handleUpdate = async (updatedNote: NotePayload): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            updateNoteMutate(updatedNote, {
+                onSuccess: (message: string) => {
+                    toast.success(message);
+                    refetch();
+                    resolve();
+                },
+                onError: (error: object) => { toast.error(t('note.update.error')); reject(error); },
+            });
+        });
+    };
 
     // const handleImportNotesFromXLSX = async (file: File): Promise<void> => {
     //     return new Promise((resolve, reject) => {
@@ -363,11 +364,11 @@ const NotesTable = () => {
                 />
             )}
 
-            {/* {hasPermission("notes.create") && modalType === 'create' && <CreateNoteModal
+            {hasPermission("notes.create") && modalType === 'create' && <CreateNoteModal
                 open={true}
                 onClose={closeModal}
                 onAddNote={handleAdd}
-            />} */}
+            />}
 
             {/* {hasPermission("notes.preview") && modalType === 'preview' && <PreviewNoteModal
                 open={true}
@@ -375,11 +376,11 @@ const NotesTable = () => {
                 onClose={closeModal}
             />} */}
 
-            {/* {hasPermission("notes.edit") && modalType === 'edit' && <EditNoteModal
+            {hasPermission("notes.edit") && modalType === 'edit' && <EditNoteModal
                 open={true}
                 note={selectedNote}
                 onClose={closeModal}
-                onSave={handleUpdate} />} */}
+                onSave={handleUpdate} />}
 
             {/* {hasPermission("notes.create") && modalType === 'importFromXLSX' && <ImportNotesFromXLSXModal
                 open={true}
