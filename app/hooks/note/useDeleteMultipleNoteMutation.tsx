@@ -11,7 +11,7 @@ const deleteMultipleNote = async (notesToDelete: Note[], token: string): Promise
         };
 
         const response = await axios.delete(
-            `${SERVICE_COMPANY_URL}/api/notes/multiple`,
+            `${SERVICE_COMPANY_URL}/api/users/notes/multiple`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
