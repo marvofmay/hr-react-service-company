@@ -1,14 +1,15 @@
 export default interface Notification {
     uuid: string;
-    moduleName: string;
-    moduleRecordUUID: string;
-    type: string;
-    title: string;
-    message: string;
-    source: string;
-    active: boolean;
-    status: string;
-    readedAt?: string | null;
+    receivedAt: string | null;
+    readAt?: string | null;
     createdAt?: string;
     deletedAt?: string | null;
+    message: {
+        uuid: string;
+        title: string;
+        content: string;
+        channelCode: 'intenal' | 'email' | 'sms';
+        createdAt?: string;
+        deletedAt?: string | null;
+    }
 }

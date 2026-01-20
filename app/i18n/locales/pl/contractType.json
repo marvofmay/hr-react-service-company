@@ -5,6 +5,9 @@
             "failed": "Nie udało się pobrać listy form zatrudnienia"
         }
     },
+    "settings": {
+        "title": "Ustawienia form zatrudnienia"
+    },
     "modal": {
         "add": {
             "title": "Dodaj formę zatrudnienia"

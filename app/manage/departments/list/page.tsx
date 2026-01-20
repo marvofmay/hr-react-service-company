@@ -35,7 +35,7 @@ const DepartmentsList: React.FC = () => {
             <main>
                 <Box display="flex" justifyContent="center" alignItems="center" >
                     <Box width="90%">
-                        <Typography variant="h6" gutterBottom>{t('company.list.title')}</Typography>
+                        <Typography variant="h6" gutterBottom>{t('department.list.title')}</Typography>
                         <QueryClientProvider client={queryClient}>
                             {hasPermission('departments.list') && <DepartmentsTable />}
                         </QueryClientProvider>

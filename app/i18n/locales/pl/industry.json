@@ -2,6 +2,9 @@
     "list": {
         "title": "Lista branż"
     },
+    "settings": {
+        "title": "Ustawienia branż"
+    },
     "modal": {
         "add": {
             "title": "Dodaj branżę"

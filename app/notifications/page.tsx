@@ -1,24 +1,24 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useUser } from "@/app/context/userContext";
-import { useTranslation } from "react-i18next";
-import { Box, CircularProgress } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import NotificationsTable from "@/app/components/notification/Table";
+import { Box, Typography, CircularProgress } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { useUser } from "@/app/context/userContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-const Notifications: React.FC = () => {
-    const { t } = useTranslation();
-    const { loading, isAuthenticated } = useUser();
-    const router = useRouter();
+const NotificationsList: React.FC = () => {
     const queryClient = new QueryClient();
+    const { hasAccess, hasPermission, isAuthenticated, loading } = useUser();
+    const router = useRouter();
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (!loading && !isAuthenticated) {
-            router.replace("/unauthorized");
+            router.push("/user/logout");
         }
-    }, [loading, isAuthenticated, router]);
+    }, [hasAccess, hasPermission, isAuthenticated, loading, router]);
 
     if (loading) {
         return (<Box display="flex" justifyContent="center" alignItems="center" height="300px">
@@ -31,16 +31,15 @@ const Notifications: React.FC = () => {
             <main>
                 <Box display="flex" justifyContent="center" alignItems="center" >
                     <Box width="90%">
-                        <p>{t("common.path.notifications")}</p>
+                        <Typography variant="h6" gutterBottom>{t('notification.list.title')}</Typography>
                         <QueryClientProvider client={queryClient}>
                             <NotificationsTable />
                         </QueryClientProvider>
-                    </Box>
-                </Box>
+                    </Box></Box>
             </main>
         </div>
     );
-};
+}
 
-export default Notifications;
+export default NotificationsList;
 

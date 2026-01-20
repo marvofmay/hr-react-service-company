@@ -1,4 +1,10 @@
 {
+    "list": {
+        "title": "Lista powiadomień",
+        "loading": {
+            "failed": "Nie udało się pobrać listy powadomień"
+        }
+    },
     "settings": {
         "title": "Ustawienia powiadomień",
         "channel": "Kanał",
@@ -17,7 +23,8 @@
             "title": "tytuł",
             "message": "wiadomosć",
             "source": "źródło",
-            "readedAt": "przeczytano",
+            "receivedAt": "otrzymano",
+            "readAt": "przeczytano",
             "createdAt": "utworzono",
             "deletedAt": "usunięto",
             "actions": "akcje"
@@ -27,7 +34,8 @@
         "field": {
             "title": "tytuł",
             "message": "wiadomosć",
-            "readeddAt": "przeczytano",
+            "receivedAt": "otrzymano",
+            "readAt": "przeczytano",
             "createdAt": "utworzono",
             "deletedAt": "usunięto",
             "actions": "akcje"

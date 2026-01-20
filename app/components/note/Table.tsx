@@ -52,10 +52,9 @@ const NotesTable = () => {
     const { mutate: deleteNoteMutate } = useDeleteNoteMutation();
     const { mutate: deleteMultipleNoteMutate } = useDeleteMultipleNoteMutation();
     const { t } = useTranslation();
-    const { hasPermission } = useUser();
+    const { hasPermission, user } = useUser();
 
-    // ToDo:: get userUUID
-    const result = useNotesQuery(pageSize, page, sortBy, sortDirection, phrase, '', { 'userUUID': '11dfe07b-f707-4426-9ede-b2a348b9fdca' });
+    const result = useNotesQuery(pageSize, page, sortBy, sortDirection, phrase, '', { 'userUUID': user?.uuid });
     const { data: rawData, isLoading, error, refetch } = result;
 
     const notes: Note[] = Array.isArray(rawData) ? rawData : rawData?.items || [];

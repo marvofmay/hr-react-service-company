@@ -4,15 +4,20 @@ import Notification from '@/app/types/Notification';
 import { useTranslation } from 'react-i18next';
 import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
 
-const deleteNotification = async (notificationToDelete: Notification, token: string): Promise<string> => {
+const deleteMultipleNotification = async (notificationsToDelete: Notification[], token: string): Promise<string> => {
     try {
+        const notificationsUUIDs = {
+            notificationsUUIDs: notificationsToDelete.map(item => item.uuid)
+        };
+
         const response = await axios.delete(
-            `${SERVICE_COMPANY_URL}/api/notification-messages/${notificationToDelete.uuid}`,
+            `${SERVICE_COMPANY_URL}/api/notifications/multiple`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
+                data: notificationsUUIDs
             }
         );
 
@@ -26,20 +31,22 @@ const deleteNotification = async (notificationToDelete: Notification, token: str
     }
 };
 
-const useDeleteNotificationMutation = () => {
+const useDeleteMultipleNotificationMutation = () => {
     const { t } = useTranslation();
 
     return useMutation({
-        mutationFn: (notificationToDelete: Notification) => {
+        mutationFn: (notificationsToDelete: Notification[]) => {
             const token = localStorage.getItem("auth_token");
 
             if (!token) {
                 throw new Error(t('common.message.tokenIsMissing'));
             }
 
-            return deleteNotification(notificationToDelete, token);
-        }
+            return deleteMultipleNotification(notificationsToDelete, token);
+        },
+        onSuccess: async () => {
+        },
     });
 };
 
-export default useDeleteNotificationMutation;
+export default useDeleteMultipleNotificationMutation;

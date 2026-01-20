@@ -1,27 +1,59 @@
 import { useQuery } from '@tanstack/react-query';
 import Notification from '../../types/Notification';
-import fakeNotifications from '../../fakeData/Notifications';
+import axios from 'axios';
+import { SERVICE_COMPANY_URL } from '@/app/utils/constans';
+import { useTranslation } from 'react-i18next';
 import { SortDirection } from '@/app/types/SortDirection';
 
-const fetchNotifications = async (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection): Promise<Notification[]> => {
-    // ToDo: dodać wywołanie endpointa z enpoitna API
-    // const response = await axios.get('/api/notifications', { params: { pageSize, pageIndex, sortBy, sortDirection } });
-    // return response.data;
+export interface NotificationsResponse {
+    items: Notification[];
+    total: number;
+}
 
-    pageSize = 10;
-    pageIndex = 1;
-    sortBy = 'name';
-    sortDirection = 'desc';
-    console.log(pageIndex, pageSize, sortBy, sortDirection);
+const fetchNotifications = async (
+    token: string,
+    pageSize: number,
+    page: number,
+    sortBy: string,
+    sortDirection: SortDirection,
+    phrase?: string | null
+): Promise<NotificationsResponse> => {
+    try {
+        const response = await axios.get(`${SERVICE_COMPANY_URL}/api/notification-messages`, {
+            headers: { Authorization: `Bearer ${token}` },
+            params: { pageSize, page, sortBy, sortDirection, phrase },
+        });
 
-    // Na razie zwrócimy dane z fakeNotifications
-    return fakeNotifications;
+        return {
+            items: response.data.data.items || [],
+            total: response.data.data.total || 0,
+        };
+    } catch (error) {
+        console.log(error);
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+            window.location.href = '/user/logout';
+        }
+        throw error;
+    }
 };
 
-const useNotificationsQuery = (pageSize: number, pageIndex: number, sortBy: string, sortDirection: SortDirection) => {
-    return useQuery<Notification[]>({
-        queryKey: ['notifications', pageSize, pageIndex, sortBy, sortDirection],
-        queryFn: () => fetchNotifications(pageSize, pageIndex, sortBy, sortDirection),
+const useNotificationsQuery = (
+    pageSize: number,
+    page: number,
+    sortBy: string,
+    sortDirection: SortDirection,
+    phrase?: string | null
+) => {
+    const { t } = useTranslation();
+
+    return useQuery<NotificationsResponse>({
+        queryKey: ['roles', pageSize, page, sortBy, sortDirection, phrase],
+        queryFn: async () => {
+            const token = localStorage.getItem('auth_token');
+            if (!token) throw new Error(t('common.message.tokenIsMissing'));
+
+            return fetchNotifications(token, pageSize, page, sortBy, sortDirection, phrase);
+        },
     });
 };
 

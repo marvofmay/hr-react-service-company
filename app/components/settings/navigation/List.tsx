@@ -6,10 +6,14 @@ import '../../../i18n/i18n';
 import { useTranslation } from 'react-i18next';
 
 const menuItems = [
-    { label: "Companies", href: "/settings/companies", key: "companies" },
-    { label: "Employees", href: "/settings/employees", key: "employees" },
-    { label: "Roles", href: "/settings/roles", key: "roles" },
-    { label: "Notifications", href: "/settings/notifications", key: "notifications" },
+    { label: "companies", href: "/settings/companies", key: "companies" },
+    { label: "departments", href: "/settings/departments", key: "departments" },
+    { label: "employees", href: "/settings/employees", key: "employees" },
+    { label: "positions", href: "/settings/positions", key: "positions" },
+    { label: "roles", href: "/settings/roles", key: "roles" },
+    { label: "contractTypes", href: "/settings/contractTypes", key: "contract-types" },
+    { label: "industries", href: "/settings/industries", key: "industiries" },
+    { label: "notifications", href: "/settings/notifications", key: "notifications" },
 ];
 
 const SettingsListNavigation: React.FC = () => {
@@ -73,7 +77,7 @@ const SettingsListNavigation: React.FC = () => {
                             backgroundColor: selectedMenuItem === item.key ? "rgba(0, 0, 0, 0.1)" : "transparent",
                         }}
                     >
-                        {t(`navigation.${item.label.toLowerCase()}`)}
+                        {t(`navigation.${item.label}`)}
                     </MenuItem>
                 ))}
             </Menu>
