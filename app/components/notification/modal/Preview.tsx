@@ -18,9 +18,9 @@ const PreviewNotificationModal: React.FC<PreviewNotificationModalProps> = ({ ope
             title={t('notification.modal.preview.title')}
             details={{
                 UUID: selectedNotification?.uuid || 'N/D',
-                [t('notification.form.field.name')]: selectedNotification?.title || 'N/D',
-                [t('notification.form.field.message')]: selectedNotification?.message || 'N/D',
-                [t('notification.form.field.createdAt')]: selectedNotification?.readedAt || 'N/D',
+                [t('notification.form.field.name')]: selectedNotification?.message.title || 'N/D',
+                [t('notification.form.field.message')]: selectedNotification?.message.content || 'N/D',
+                [t('notification.form.field.createdAt')]: selectedNotification?.readAt || 'N/D',
                 [t('notification.form.field.createdAt')]: selectedNotification?.createdAt || 'N/D',
             }}
             onClose={onClose}

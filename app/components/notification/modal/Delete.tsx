@@ -27,7 +27,7 @@ const DeleteNotificationModal: React.FC<DeleteNotificationModalProps> = ({ open,
             onClose={onClose}
             onDeleteConfirm={handleDelete}
             title={t('notification.modal.delete.title')}
-            description={`${t('notification.modal.delete.question')}: ${selectedNotification?.title} (${selectedNotification?.source})?`}
+            description={`${t('notification.modal.delete.question')}: ${selectedNotification?.message.title} ?`}
         />
     );
 };
